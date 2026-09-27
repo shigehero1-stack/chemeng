@@ -69,7 +69,9 @@ def load_articles():
 
 
 def ad_slot(label):
-    # 審査前は枠だけ表示する。審査後は ADSENSE_CLIENT を設定し、ここに広告ユニットのコードを入れる
+    # 審査前は何も表示しない。審査後は ADSENSE_CLIENT を設定し、ここに広告ユニットのコードを入れる
+    if not ADSENSE_CLIENT:
+        return ""
     return f'<aside class="ad-slot" aria-label="広告">{html.escape(label)}</aside>'
 
 
