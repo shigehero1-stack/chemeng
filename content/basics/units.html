@@ -1,0 +1,59 @@
+title: 単位と単位換算の基本｜SI単位とよく使う換算
+description: 化学工学の計算で必ず使うSI単位と、圧力・エネルギー・粘度などの換算をまとめます。ゲージ圧と絶対圧の違いも例題で確認します。
+order: 1
+---
+<h2>なぜ単位が大事なのか</h2>
+<p>化学工学の計算ミスで一番多いのは、式の間違いではなく<strong>単位の取り違え</strong>です。kPaとPa、時間あたりと秒あたり、gとkgが混ざると、答えは簡単に1000倍や3600倍ずれます。計算のときは数値と一緒に必ず単位を書き、最後に単位がそろっているかを確かめる習慣をつけましょう。</p>
+
+<h2>SI基本単位</h2>
+<table>
+<tr><th>量</th><th>単位</th><th>記号</th></tr>
+<tr><td>長さ</td><td>メートル</td><td>m</td></tr>
+<tr><td>質量</td><td>キログラム</td><td>kg</td></tr>
+<tr><td>時間</td><td>秒</td><td>s</td></tr>
+<tr><td>温度</td><td>ケルビン</td><td>K</td></tr>
+<tr><td>物質量</td><td>モル</td><td>mol</td></tr>
+<tr><td>電流</td><td>アンペア</td><td>A</td></tr>
+<tr><td>光度</td><td>カンデラ</td><td>cd</td></tr>
+</table>
+
+<h2>化学工学でよく使う組立単位</h2>
+<table>
+<tr><th>量</th><th>単位</th><th>基本単位での表し方</th></tr>
+<tr><td>力</td><td>N（ニュートン）</td><td>kg·m/s²</td></tr>
+<tr><td>圧力</td><td>Pa（パスカル）</td><td>N/m² = kg/(m·s²)</td></tr>
+<tr><td>エネルギー・熱量</td><td>J（ジュール）</td><td>N·m = kg·m²/s²</td></tr>
+<tr><td>仕事率・動力</td><td>W（ワット）</td><td>J/s</td></tr>
+<tr><td>粘度</td><td>Pa·s</td><td>kg/(m·s)</td></tr>
+</table>
+
+<h2>よく使う換算</h2>
+<table>
+<tr><th>量</th><th>換算</th></tr>
+<tr><td>圧力</td><td>1 atm = 101 325 Pa = 101.325 kPa<br>1 bar = 10⁵ Pa<br>1 mmHg ≒ 133.3 Pa<br>1 kgf/cm² = 98 066.5 Pa</td></tr>
+<tr><td>エネルギー</td><td>1 cal = 4.184 J（熱化学カロリー）<br>1 kWh = 3.6 × 10⁶ J</td></tr>
+<tr><td>粘度</td><td>1 cP（センチポアズ） = 1 mPa·s = 10⁻³ Pa·s</td></tr>
+<tr><td>温度</td><td>T [K] = t [°C] + 273.15</td></tr>
+<tr><td>気体定数</td><td>R = 8.314 J/(mol·K) ≒ 0.08206 L·atm/(mol·K)</td></tr>
+</table>
+<div class="note">温度「差」を扱うときは、1 °Cの差と1 Kの差は同じ大きさです。比熱 J/(kg·K) に温度差 °C をそのまま掛けてかまいません。</div>
+
+<h2>ゲージ圧と絶対圧</h2>
+<p>圧力計の多くは、大気圧を0として表示します。これを<strong>ゲージ圧</strong>といい、真空を0とした<strong>絶対圧</strong>とは大気圧の分だけ違います。</p>
+<div class="formula">$$p_{\text{絶対}} = p_{\text{ゲージ}} + p_{\text{大気}}$$</div>
+<p>気体の状態方程式や蒸気圧の計算には、必ず絶対圧を使います。</p>
+
+<div class="example">
+<strong>例題：古い単位の圧力をkPa（絶対圧）に直す</strong>
+<p>古い設備の圧力計に「3 kgf/cm²（ゲージ圧）」と書かれています。大気圧を101.3 kPaとして、絶対圧をkPaで求めてください。</p>
+<div class="answer">
+<p>ゲージ圧をPaに直すと $3 \times 98\,066.5 = 294\,200\ \text{Pa} = 294.2\ \text{kPa}$。</p>
+<p>大気圧を足して、絶対圧は $294.2 + 101.3 = 395.5\ \text{kPa}$ です。</p>
+</div>
+</div>
+
+<div class="example">
+<strong>例題：粘度の換算</strong>
+<p>ある油の粘度が 25 cP と書かれています。SI単位 Pa·s で表してください。</p>
+<div class="answer"><p>1 cP = 10⁻³ Pa·s なので、$25\ \text{cP} = 0.025\ \text{Pa·s}$ です。</p></div>
+</div>
