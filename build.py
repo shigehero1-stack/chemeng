@@ -24,6 +24,8 @@ SITE_URL = "https://shigehero1-stack.github.io/chemeng"
 BASE_PATH = "/chemeng"
 # AdSense の審査に通ったら、発行されたクライアントID（ca-pub-...）を入れる
 ADSENSE_CLIENT = ""
+# Google アナリティクス（GA4）の測定ID（G-...）。空ならアクセス解析のタグを入れない
+GA_MEASUREMENT_ID = ""
 
 # カテゴリの表示順と名前
 SECTIONS = [
@@ -101,6 +103,13 @@ def layout(title, description, path, main, sections, breadcrumbs=None, article=F
         if ADSENSE_CLIENT
         else ""
     )
+    analytics = ""
+    if GA_MEASUREMENT_ID:
+        analytics = (
+            f'<script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>'
+            "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
+            f"gtag('js',new Date());gtag('config','{GA_MEASUREMENT_ID}');</script>"
+        )
     katex = ""
     if article:
         katex = (
@@ -124,6 +133,7 @@ def layout(title, description, path, main, sections, breadcrumbs=None, article=F
 <link rel="stylesheet" href="/assets/style.css">
 {katex}
 {adsense}
+{analytics}
 </head>
 <body>
 <header class="site-header">
