@@ -87,10 +87,9 @@ def load_articles():
 
 
 def ad_slot(label):
-    # 審査前は何も表示しない。審査後は ADSENSE_CLIENT を設定し、ここに広告ユニットのコードを入れる
-    if not ADSENSE_CLIENT:
-        return ""
-    return f'<aside class="ad-slot" aria-label="広告">{html.escape(label)}</aside>'
+    # いまは自動広告（ADSENSE_CLIENT を設定すると head にコードが入る）に任せ、固定の広告枠は出さない。
+    # 審査後に広告ユニットを置くときは、ここで <ins class="adsbygoogle"> のコードを返す
+    return ""
 
 
 def layout(title, description, path, main, sections, breadcrumbs=None, article=False):
@@ -276,6 +275,9 @@ def main():
     domain = SITE_URL.split("://", 1)[1].split("/", 1)[0]
     if not domain.endswith("github.io"):
         (OUT / "CNAME").write_text(domain + "\n", encoding="utf-8")
+    if ADSENSE_CLIENT:
+        pub = ADSENSE_CLIENT.replace("ca-", "", 1)
+        (OUT / "ads.txt").write_text(f"google.com, {pub}, DIRECT, f08c47fec0942fa0\n", encoding="utf-8")
     ai_rules = "".join(f"User-agent: {bot}\nDisallow: /\n\n" for bot in AI_CRAWLERS)
     (OUT / "robots.txt").write_text(
         f"{ai_rules}User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8"
