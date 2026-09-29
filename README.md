@@ -9,7 +9,7 @@ python3 build.py                                   # content/ から public/ を
 python3 -m http.server 8123 --directory public     # http://localhost:8123 で確認
 ```
 
-公開（更新）は `./deploy.sh` を実行します。生成した `public/` を gh-pages ブランチに送り、GitHub Pages（https://shigehero1-stack.github.io/chemeng/）に反映されます。
+公開（更新）は `./deploy.sh` を実行します。生成した `public/` を gh-pages ブランチに送り、GitHub Pages（https://chemeng-nyumon.com/）に反映されます。
 
 ## 記事の追加
 

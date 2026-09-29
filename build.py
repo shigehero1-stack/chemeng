@@ -19,9 +19,9 @@ OUT = ROOT / "public"
 SITE_NAME = "はじめての化学工学"
 SITE_TAGLINE = "初学者から中級者のための化学工学入門"
 # 公開するドメインが決まったらここを書き換える（sitemap.xml と canonical に使う）
-SITE_URL = "https://shigehero1-stack.github.io/chemeng"
+SITE_URL = "https://chemeng-nyumon.com"
 # サブフォルダで公開する場合（例: https://ユーザー名.github.io/chemeng/ なら "/chemeng"）。独自ドメイン直下なら ""
-BASE_PATH = "/chemeng"
+BASE_PATH = ""
 # AdSense の審査に通ったら、発行されたクライアントID（ca-pub-...）を入れる
 ADSENSE_CLIENT = ""
 # Google アナリティクス（GA4）の測定ID（G-...）。空ならアクセス解析のタグを入れない
@@ -264,6 +264,10 @@ def main():
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>\n',
         encoding="utf-8",
     )
+    # GitHub Pages の独自ドメイン設定（deploy.sh で gh-pages を上書きしても消えないように毎回出力する）
+    domain = SITE_URL.split("://", 1)[1].split("/", 1)[0]
+    if not domain.endswith("github.io"):
+        (OUT / "CNAME").write_text(domain + "\n", encoding="utf-8")
     ai_rules = "".join(f"User-agent: {bot}\nDisallow: /\n\n" for bot in AI_CRAWLERS)
     (OUT / "robots.txt").write_text(
         f"{ai_rules}User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8"

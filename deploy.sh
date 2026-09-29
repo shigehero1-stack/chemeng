@@ -13,4 +13,4 @@ git -c user.name="$(git -C "$OLDPWD" config user.name)" -c user.email="$(git -C 
 git push -q -f "$(git -C "$OLDPWD" remote get-url origin)" gh-pages
 cd - >/dev/null
 rm -rf "$TMP"
-echo "公開しました: https://shigehero1-stack.github.io/chemeng/"
+echo "公開しました: https://chemeng-nyumon.com/"
