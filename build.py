@@ -25,7 +25,7 @@ BASE_PATH = "/chemeng"
 # AdSense の審査に通ったら、発行されたクライアントID（ca-pub-...）を入れる
 ADSENSE_CLIENT = ""
 # Google アナリティクス（GA4）の測定ID（G-...）。空ならアクセス解析のタグを入れない
-GA_MEASUREMENT_ID = ""
+GA_MEASUREMENT_ID = "G-LV3DKQM30Z"
 
 # カテゴリの表示順と名前
 SECTIONS = [
