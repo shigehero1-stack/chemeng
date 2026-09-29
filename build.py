@@ -23,7 +23,7 @@ SITE_URL = "https://chemeng-nyumon.com"
 # サブフォルダで公開する場合（例: https://ユーザー名.github.io/chemeng/ なら "/chemeng"）。独自ドメイン直下なら ""
 BASE_PATH = ""
 # AdSense の審査に通ったら、発行されたクライアントID（ca-pub-...）を入れる
-ADSENSE_CLIENT = ""
+ADSENSE_CLIENT = "ca-pub-1188139720121435"
 # Google アナリティクス（GA4）の測定ID（G-...）。空ならアクセス解析のタグを入れない
 GA_MEASUREMENT_ID = "G-LV3DKQM30Z"
 
