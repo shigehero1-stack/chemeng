@@ -43,18 +43,18 @@ a { color: var(--accent); }
 .article h3 { font-size: 1.1rem; margin-top: 1.8em; }
 .lead { color: var(--muted); }
 
-.formula { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 16px; overflow-x: auto; margin: 1.2em 0; }
+.formula { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 16px; overflow-x: auto; margin: 1.2em 0; }
 .note { background: var(--note); border-left: 4px solid var(--note-line); padding: 10px 16px; border-radius: 4px; margin: 1.2em 0; }
 .example { background: var(--accent-soft); border-radius: 8px; padding: 12px 18px; margin: 1.5em 0; }
 .example > strong:first-child { display: block; margin-bottom: 4px; }
 .answer { border-top: 1px dashed var(--line); margin-top: 10px; padding-top: 6px; }
 
-table { border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: 0.95rem; display: block; overflow-x: auto; }
+table { position: relative; border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: 0.95rem; display: block; overflow-x: auto; }
 th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
 th { background: var(--code); white-space: nowrap; }
 td:first-child { min-width: 7em; }
 code { background: var(--code); padding: 1px 5px; border-radius: 4px; }
-.katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+.katex-display { position: relative; overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
 
 .ad-slot {
   display: flex; align-items: center; justify-content: center;
