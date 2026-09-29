@@ -32,6 +32,14 @@ SECTIONS = [
     ("basics", "基礎", "単位、収支、無次元数など、化学工学の計算の土台になる考え方です。"),
     ("fluid", "流体", "配管の中の流れ、圧力損失、ポンプの選び方など、流体の扱い方を学びます。"),
 ]
+# 学習データ収集用のAIクローラー（robots.txt で拒否する）。
+# 検索エンジン（Googlebot など）と AdSense のクローラー（Mediapartners-Google）は拒否しないこと
+AI_CRAWLERS = [
+    "GPTBot", "ClaudeBot", "anthropic-ai", "CCBot", "Google-Extended", "Applebot-Extended",
+    "Bytespider", "meta-externalagent", "FacebookBot", "Amazonbot", "cohere-ai",
+    "cohere-training-data-crawler", "Diffbot", "Omgilibot", "ImagesiftBot", "PetalBot",
+    "Timpibot", "AI2Bot", "img2dataset",
+]
 # サイト全体の固定ページ（content/pages/ に置く）
 FIXED_PAGES = ["about", "privacy", "contact"]
 
@@ -130,6 +138,7 @@ def layout(title, description, path, main, sections, breadcrumbs=None, article=F
 <meta property="og:description" content="{html.escape(description)}">
 <meta property="og:type" content="{"article" if article else "website"}">
 <meta property="og:site_name" content="{SITE_NAME}">
+<meta name="robots" content="noai, noimageai">
 <link rel="stylesheet" href="/assets/style.css">
 {katex}
 {adsense}
@@ -255,7 +264,10 @@ def main():
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>\n',
         encoding="utf-8",
     )
-    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
+    ai_rules = "".join(f"User-agent: {bot}\nDisallow: /\n\n" for bot in AI_CRAWLERS)
+    (OUT / "robots.txt").write_text(
+        f"{ai_rules}User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8"
+    )
     n = sum(len(s["items"]) for s in sections)
     print(f"built {n} articles, {len(urls)} pages -> {OUT}")
 
