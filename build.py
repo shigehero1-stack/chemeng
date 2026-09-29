@@ -30,7 +30,9 @@ GA_MEASUREMENT_ID = "G-LV3DKQM30Z"
 # カテゴリの表示順と名前
 SECTIONS = [
     ("basics", "基礎", "単位、収支、無次元数など、化学工学の計算の土台になる考え方です。"),
+    ("thermo", "物性と熱力学", "気体の状態方程式、蒸気圧、気液平衡など、分離や反応の計算に欠かせない物性の考え方です。"),
     ("fluid", "流体", "配管の中の流れ、圧力損失、ポンプの選び方など、流体の扱い方を学びます。"),
+    ("heat", "伝熱", "熱伝導、対流、放射の三つの伝わり方と、熱交換器の設計の基本を学びます。"),
 ]
 # 学習データ収集用のAIクローラー（robots.txt で拒否する）。
 # 検索エンジン（Googlebot など）と AdSense のクローラー（Mediapartners-Google）は拒否しないこと
@@ -176,11 +178,11 @@ def article_page(m, sec, sections):
     items = sec["items"]
     i = items.index(m)
     prev_link = (
-        f'<a class="prev" href="{items[i-1]["url"]}">← {html.escape(items[i-1]["title"])}</a>'
+        f'<a class="prev" href="{items[i-1]["url"]}">← {html.escape(items[i-1]["title"].split("｜")[0])}</a>'
         if i > 0 else "<span></span>"
     )
     next_link = (
-        f'<a class="next" href="{items[i+1]["url"]}">{html.escape(items[i+1]["title"])} →</a>'
+        f'<a class="next" href="{items[i+1]["url"]}">{html.escape(items[i+1]["title"].split("｜")[0])} →</a>'
         if i < len(items) - 1 else "<span></span>"
     )
     main = f"""<article class="article">
