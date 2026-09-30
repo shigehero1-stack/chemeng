@@ -24,27 +24,4 @@ order: 4
 <h2>4.5 瞬間反応の上限</h2>
 <p>反応がきわめて速いと、A と B が液膜の中の1つの面で出会った瞬間に反応し、吸収速度は B が液本体から拡散してくる速さで制限されます。境膜説では、このときの反応係数は</p>
 <div class="formula">$$E_\infty = 1 + \frac{D_B\,C_{BL}}{\nu\,D_A\,C_{Ai}}$$</div>
-<p>となります（$\nu$ は A 1 mol と反応する B の mol 数）。擬1次反応として扱えるのは、$Ha$ が $E_\infty$ より十分小さいとき（目安として $Ha &lt; E_\infty / 2$ 程度）です。$Ha$ が $E_\infty$ に近づくと、液膜の中で B が減って擬1次の仮定が崩れるので、B の拡散も考えた扱いが必要になります。</p>
-<h2>4.6 例題：水酸化ナトリウム水溶液による二酸化炭素の吸収</h2>
-<p>1 mol/L の水酸化ナトリウム水溶液で、二酸化炭素を吸収します。次の値を使って、反応係数と吸収速度を求めてください。</p>
-<ul><li>CO₂ と OH⁻ の反応の2次速度定数 $k_2$ = 8000 L/(mol·s)（とする）</li><li>CO₂ の液中の拡散係数 $D_A$ = 1.9 × 10⁻⁹ m²/s、OH⁻ の拡散係数 $D_B$ = 5.3 × 10⁻⁹ m²/s</li><li>液側の物質移動係数 $k_L$ = 1.0 × 10⁻⁴ m/s</li><li>界面の CO₂ 濃度 $C_{Ai}$ = 3 mol/m³、量論係数 $\nu$ = 2（CO₂ + 2OH⁻ → CO₃²⁻ + H₂O）</li></ul>
-<p><strong>解答</strong></p>
-<p>擬1次の速度定数：$k_1 = k_2\,C_B = 8.0\ \text{m}^3/(\text{mol·s}) \times 1000\ \text{mol/m}^3 = 8000\ \text{s}^{-1}$</p>
-<div class="formula">$$Ha = \frac{\sqrt{8000 \times 1.9 \times 10^{-9}}}{1.0 \times 10^{-4}} \approx 39$$</div>
-<p>$Ha &gt; 3$ なので速い反応の領域で、$E \approx 39$ です。</p>
-<p>瞬間反応の上限を確かめると</p>
-<div class="formula">$$E_\infty = 1 + \frac{5.3 \times 10^{-9} \times 1000}{2 \times 1.9 \times 10^{-9} \times 3} \approx 466$$</div>
-<p>で、$Ha$ は $E_\infty$ より十分小さく、擬1次の扱いが妥当です。</p>
-<p>吸収速度は</p>
-<ul><li>物理吸収（水と同じ）：$k_L C_{Ai} = 3.0 \times 10^{-4}$ mol/(m²·s)</li><li>化学吸収：$E\,k_L C_{Ai} \approx 1.17 \times 10^{-2}$ mol/(m²·s)</li></ul>
-<p>となり、化学吸収では約 39 倍速く吸収できます。速い反応の領域なので、この速度は $C_{Ai}\sqrt{k_1 D_A}$ でも同じ値になり、$k_L$ を変えても変わりません。</p>
-<div class="note"><strong>注意</strong>　例題の速度定数は、考え方を示すために与えた値です。実際の設計では、温度・イオン強度・吸収液の組成に応じた速度定数や、液中の CO₂ の溶解度（塩析効果で水より小さくなる）を文献データから求めて使います。吸収が進んで OH⁻ が減ると $k_1$ も小さくなるので、塔の高さ方向に条件が変わることにも注意が必要です。</div>
-<h2>4.7 装置選びへの応用</h2>
-<p>八田数の大きさは、吸収装置の選び方にもつながります。</p>
-<ul><li><strong>八田数が大きい（速い反応）</strong>：気液の界面積が大きい装置が有利（充填塔、スプレー塔など）</li><li><strong>八田数が小さい（遅い反応）</strong>：液の量（反応に使える体積）が大きい装置が有利（気泡塔、撹拌槽など）</li></ul>
-<h2>4.8 検算について</h2>
-<p>本章の数値は、検算用プログラム（<a href="/files/advanced/check_ch04.py" download>check_ch04.py</a>）で計算しています。液膜内の拡散と反応の式を 4000 分割の差分法で数値的に解き、界面での流束から求めた反応係数が、$Ha$ = 0.1〜39 の範囲で $E = Ha / \tanh Ha$ と一致すること（例：$Ha$ = 1 で 1.3130、$Ha$ = 3 で 3.0149）を確かめています。</p>
-<h2>参考文献</h2>
-<ul><li>P. V. Danckwerts, <em>Gas-Liquid Reactions</em>, McGraw-Hill</li><li>S. Hatta, <em>Technology Reports of the Tohoku Imperial University</em>, 10, 119 (1932)</li><li>K. R. Westerterp, W. P. M. van Swaaij, A. A. C. M. Beenackers, <em>Chemical Reactor Design and Operation</em>, Wiley</li></ul>
-<hr>
-<p>※ この記事は学習を目的としたものです。実際の装置の設計や運転には、最新の規格、信頼できる物性データ、専門家の判断にもとづいてください。</p>
+<p>となります（$\nu$ は A 1 mol と反応する B の mol 数）。擬1次反応として扱えるのは、$Ha$ が $E_\infty$ より十分小さいとき（目安として $Ha &lt; E_\infty / 2$ 程度）です。$Ha$ が $E_\infty$ に近づくと、液膜の中で B が減って擬1次の仮定が崩れるので、B の拡散も考えた扱いが必要になります。</p><aside class="cta"><p class="cta-title">この章の続き（有料版）</p><p>ここまでは試し読みです。続きでは、次の内容を例題つきで解説しています。</p><ul><li>4.6 例題：水酸化ナトリウム水溶液による二酸化炭素の吸収</li><li>4.7 装置選びへの応用</li><li>4.8 検算について</li></ul><p>例題の数値は、別の計算方法でも解いて一致を確かめています。有料版では、例題の検算用プログラム（Python）もダウンロードできます。</p><p class="cta-soon">有料版（note）は現在準備中です。公開までしばらくお待ちください。</p></aside>
