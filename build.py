@@ -5,6 +5,7 @@
 各記事は content/<カテゴリ>/<スラッグ>.html に置き、先頭に「キー: 値」のヘッダーと
 「---」の区切り行を書く。キーは title / description / order。
 """
+import hashlib
 import html
 import re
 import shutil
@@ -15,6 +16,9 @@ ROOT = Path(__file__).resolve().parent
 CONTENT = ROOT / "content"
 STATIC = ROOT / "static"
 OUT = ROOT / "public"
+
+# CSS・JS を更新したときにブラウザやCDNの古いキャッシュが使われないよう、中身から版番号を作る
+ASSET_VER = hashlib.md5((STATIC / "style.css").read_bytes() + (STATIC / "main.js").read_bytes()).hexdigest()[:8]
 
 SITE_NAME = "はじめての化学工学"
 SITE_TAGLINE = "初学者から中級者のための化学工学入門"
@@ -132,7 +136,7 @@ def layout(title, description, path, main, sections, breadcrumbs=None, article=F
             '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">'
             '<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>'
             '<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>'
-            '<script defer src="/assets/main.js"></script>'
+            f'<script defer src="/assets/main.js?v={ASSET_VER}"></script>'
         )
     return f"""<!DOCTYPE html>
 <html lang="ja">
@@ -147,7 +151,7 @@ def layout(title, description, path, main, sections, breadcrumbs=None, article=F
 <meta property="og:type" content="{"article" if article else "website"}">
 <meta property="og:site_name" content="{SITE_NAME}">
 <meta name="robots" content="noai, noimageai">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v={ASSET_VER}">
 {katex}
 {adsense}
 {analytics}
