@@ -1,0 +1,60 @@
+title: 数値積分の方法｜台形則とシンプソン則で反応器の大きさを求める
+description: 式で積分できない場合や、データが表で与えられた場合に使う数値積分の台形則とシンプソン則を、管型反応器の空間時間を求める例題と Python のプログラムで解説します。
+order: 4
+---
+<h2>化学工学に出てくる積分</h2>
+<p>化学工学の設計式には、積分がよく出てきます。</p>
+<ul>
+<li>管型反応器の空間時間：$\tau = C_{A0}\displaystyle\int_0^{X} \frac{dX}{-r_A}$（<a href="/reaction/cstr-vs-pfr.html">CSTR と PFR</a>）</li>
+<li>吸収塔の移動単位数：$N_{OG} = \displaystyle\int \frac{dy}{y - y^*}$（<a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a>）</li>
+<li>単蒸留のレイリーの式（<a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a>）</li>
+</ul>
+<p>反応速度が実験データの表で与えられている場合や、式が複雑な場合は、<strong>数値積分</strong>で計算します。</p>
+
+<h2>台形則</h2>
+<p>積分区間を $n$ 等分し、各区間を台形で近似して面積を足し合わせます。刻み幅を $h$ とすると</p>
+<div class="formula">$$\int_a^b f(x)\,dx \approx h\left[\frac{f_0}{2} + f_1 + f_2 + \cdots + f_{n-1} + \frac{f_n}{2}\right]$$</div>
+<p>誤差は $h^2$ に比例します。</p>
+
+<h2>シンプソン則</h2>
+<p>隣り合う2区間ごとに、3点を通る2次曲線（放物線）で近似します。分割数 $n$ は偶数にします。</p>
+<div class="formula">$$\int_a^b f(x)\,dx \approx \frac{h}{3}\left[f_0 + 4f_1 + 2f_2 + 4f_3 + \cdots + 4f_{n-1} + f_n\right]$$</div>
+<p>誤差は $h^4$ に比例し、同じ分割数でも台形則よりずっと正確です。</p>
+
+<div class="example">
+<strong>例題：管型反応器の空間時間</strong>
+<p>2次反応 $-r_A = k C_A^2$（$k$ = 0.5 L/(mol·min)、$C_{A0}$ = 1 mol/L）を管型反応器で行い、反応率 90% を得るための空間時間を数値積分で求め、厳密解（18 分）と比べてください。</p>
+<div class="answer">
+<p>$C_A = C_{A0}(1 - X)$ なので、被積分関数は $\dfrac{C_{A0}}{-r_A} = \dfrac{1}{k\,C_{A0}(1 - X)^2}$ です。</p>
+<pre><code>k, X = 0.5, 0.9                          # 速度定数 [L/(mol·min)]、目標の反応率（CA0 = 1 mol/L）
+f = lambda x: 1 / (k * (1 - x) ** 2)     # 被積分関数 CA0/(-rA)
+
+def trapezoid(f, a, b, n):
+    h = (b - a) / n
+    return h * (f(a) / 2 + sum(f(a + i * h) for i in range(1, n)) + f(b) / 2)
+
+def simpson(f, a, b, n):                 # n は偶数
+    h = (b - a) / n
+    s = f(a) + f(b)
+    s += 4 * sum(f(a + i * h) for i in range(1, n, 2))
+    s += 2 * sum(f(a + i * h) for i in range(2, n, 2))
+    return h / 3 * s
+
+exact = X / (k * (1 - X))
+for n in [4, 10, 50]:
+    print(f&quot;分割数 {n}: 台形則 {trapezoid(f, 0, X, n):.3f}, シンプソン則 {simpson(f, 0, X, n):.3f}, 厳密解 {exact:.3f}&quot;)</code></pre>
+<p>実行結果：</p>
+<pre class="output"><code>分割数 4: 台形則 29.222, シンプソン則 22.821, 厳密解 18.000
+分割数 10: 台形則 20.395, シンプソン則 18.564, 厳密解 18.000
+分割数 50: 台形則 18.107, シンプソン則 18.003, 厳密解 18.000</code></pre>
+<p>反応率が高くなると被積分関数が急に大きくなる（反応が遅くなる）ため、分割が粗いと誤差が大きくなります。同じ10分割でも、台形則は 13% 大きく、シンプソン則は 3% 大きい値になりました。</p>
+</div>
+</div>
+
+<h2>データが表で与えられた場合</h2>
+<p>実験で、反応率ごとの反応速度を測った表がある場合も、同じ考え方で積分できます。</p>
+<ul>
+<li>データの間隔が等しくなければ、台形則を区間ごとに計算して足し合わせる</li>
+<li>被積分関数が急に変わる部分（反応率が高い部分など）では、データの点を多めにとる</li>
+<li>$1/(-r_A)$ を反応率に対してグラフに描き（レベンシュピール・プロット）、面積を目で見て確かめると、計算の間違いに気づきやすい</li>
+</ul>

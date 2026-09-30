@@ -1,0 +1,63 @@
+title: 連立一次方程式で物質収支を解く｜ガウスの消去法と Python
+description: 成分がいくつもある物質収支を連立一次方程式として立て、ガウスの消去法で解く方法を、3種類の原料を混ぜて製品を作る配合計算の例題と Python のプログラムで解説します。
+order: 5
+---
+<h2>物質収支は連立一次方程式</h2>
+<p>反応のない<a href="/basics/material-balance.html">物質収支</a>は、成分ごとに「入量＝出量」の式が立ち、未知数（流量）について一次式になります。成分や流れが増えると、未知数と式の数が増え、手で解くのは大変になります。そこで、連立一次方程式を行列の形</p>
+<div class="formula">$$A\,\mathbf{x} = \mathbf{b}$$</div>
+<p>に整理して、計算で解きます。$A$ は係数の行列、$\mathbf{x}$ は未知数、$\mathbf{b}$ は右辺の値です。</p>
+
+<h2>ガウスの消去法</h2>
+<p>中学校で習った「加減法」を、決まった手順で機械的に行う方法です。</p>
+<ol>
+<li><strong>前進消去</strong>：1番目の式を使って2番目以降の式から1番目の未知数を消し、2番目の式を使って3番目以降の式から2番目の未知数を消し……と繰り返して、三角形の形にする</li>
+<li><strong>後退代入</strong>：最後の式から未知数を1つずつ求め、上の式に代入していく</li>
+</ol>
+<p>割り算に使う係数（ピボット）が0や非常に小さい値だと計算が不安定になるので、各段階で絶対値が最大の行を選んで入れ替える<strong>部分ピボット選択</strong>を組み合わせるのが普通です。</p>
+
+<div class="example">
+<strong>例題：3種類の原料を混ぜて製品を作る</strong>
+<p>3つの成分からなる原料 a、b、c を混ぜて、成分1：30%、成分2：35%、成分3：35% の製品を 1000 kg/h 作ります。各原料の組成は次のとおりです（質量分率）。それぞれの原料を何 kg/h 使えばよいですか。</p>
+<table>
+<tr><th></th><th>成分1</th><th>成分2</th><th>成分3</th></tr>
+<tr><td>原料 a</td><td>0.6</td><td>0.3</td><td>0.1</td></tr>
+<tr><td>原料 b</td><td>0.2</td><td>0.5</td><td>0.3</td></tr>
+<tr><td>原料 c</td><td>0.1</td><td>0.2</td><td>0.7</td></tr>
+</table>
+<div class="answer">
+<p>成分ごとの収支は次の3つの式になります。</p>
+<div class="formula">$$\begin{aligned} 0.6a + 0.2b + 0.1c &= 300 \\ 0.3a + 0.5b + 0.2c &= 350 \\ 0.1a + 0.3b + 0.7c &= 350 \end{aligned}$$</div>
+<pre><code>def solve(A, b):
+    &quot;&quot;&quot;ガウスの消去法（部分ピボット選択つき）で A x = b を解く&quot;&quot;&quot;
+    n = len(b)
+    M = [row[:] + [bi] for row, bi in zip(A, b)]
+    for i in range(n):
+        p = max(range(i, n), key=lambda r: abs(M[r][i]))   # 絶対値が最大の行を選ぶ
+        M[i], M[p] = M[p], M[i]
+        for r in range(i + 1, n):
+            m = M[r][i] / M[i][i]
+            M[r] = [M[r][c] - m * M[i][c] for c in range(n + 1)]
+    x = [0.0] * n
+    for i in range(n - 1, -1, -1):
+        x[i] = (M[i][n] - sum(M[i][c] * x[c] for c in range(i + 1, n))) / M[i][i]
+    return x
+
+# 行：成分1, 2, 3 の収支　列：原料 a, b, c の組成
+A = [[0.6, 0.2, 0.1],
+     [0.3, 0.5, 0.2],
+     [0.1, 0.3, 0.7]]
+b = [300, 350, 350]            # 製品 1000 kg/h 中の各成分の量 [kg/h]
+a_, b_, c_ = solve(A, b)
+print(f&quot;原料a {a_:.1f}, 原料b {b_:.1f}, 原料c {c_:.1f} kg/h（合計 {a_+b_+c_:.1f}）&quot;)</code></pre>
+<p>実行結果：</p>
+<pre class="output"><code>原料a 321.4, 原料b 392.9, 原料c 285.7 kg/h（合計 1000.0）</code></pre>
+<p>各成分の収支を足し合わせると全体の収支になるので、合計が 1000 kg/h になることが検算になります。</p>
+</div>
+</div>
+
+<h2>解けないとき、おかしな答えが出るとき</h2>
+<ul>
+<li><strong>式が独立していない</strong>：成分ごとの収支をすべて立てたうえに全体の収支も加えると、式が1つ余分になります（全体の式は他の式の和）。独立した式の数と未知数の数をそろえましょう</li>
+<li><strong>負の流量が出る</strong>：数学的には解けても、原料の組成の組み合わせでは目標の製品が作れないことを意味します。この場合は、<a href="/numerical/linear-programming.html">線形計画法</a>のように、条件つきで最も近い配合を探す問題として扱います</li>
+<li><strong>ライブラリの利用</strong>：Python では NumPy の linalg.solve、表計算ソフトでは MINVERSE 関数と MMULT 関数で、同じ計算ができます</li>
+</ul>
