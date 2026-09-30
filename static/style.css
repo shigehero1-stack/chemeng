@@ -27,8 +27,11 @@ a { color: var(--accent); }
 .site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
 .site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding-top: 12px; padding-bottom: 12px; }
 .logo { font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
-.global-nav { display: flex; gap: 16px; }
-.global-nav a { color: var(--muted); text-decoration: none; }
+.global-nav { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.global-nav a { color: var(--muted); text-decoration: none; white-space: nowrap; }
+@media (max-width: 600px) {
+  .global-nav { gap: 2px 12px; font-size: 0.85rem; }
+}
 .global-nav a:hover { color: var(--accent); }
 
 .page { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 40px; padding-top: 24px; padding-bottom: 48px; }
