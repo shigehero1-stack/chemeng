@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第6章 多管式熱交換器の設計手順｜温度差補正、管側・胴側の熱伝達、圧力損失｜はじめての化学工学</title>
+<meta name="description" content="多管式熱交換器を、温度差補正係数、管側・胴側（カーン法）の熱伝達係数、圧力損失まで含めて設計する繰り返し計算の手順を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/advanced/shell-and-tube-design.html">
+<meta property="og:title" content="第6章 多管式熱交換器の設計手順｜温度差補正、管側・胴側の熱伝達、圧力損失｜はじめての化学工学">
+<meta property="og:description" content="多管式熱交換器を、温度差補正係数、管側・胴側（カーン法）の熱伝達係数、圧力損失まで含めて設計する繰り返し計算の手順を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/advanced/">発展編</a> › <span>第6章 多管式熱交換器の設計手順｜温度差補正、管側・胴側の熱伝達、圧力損失</span></nav>
+    <article class="article">
+<h1>第6章 多管式熱交換器の設計手順</h1>
+<p class="lead">多管式熱交換器を、温度差補正係数、管側・胴側（カーン法）の熱伝達係数、圧力損失まで含めて設計する繰り返し計算の手順を例題で解説します。</p>
+
+<h2>6.1 この章で学ぶこと</h2>
+<p>化学工場で最も多く使われている熱交換器は、太い円筒（胴、シェル）の中に多数の細い管（チューブ）を通した<strong>多管式熱交換器</strong>（シェル＆チューブ）です。このサイトの記事と<a href="/advanced/epsilon-ntu.html">第5章</a>では、総括伝熱係数 $U$ を与えられた値として扱いました。本章では、管の本数や胴の大きさを決めながら、$U$ そのものを計算で求める、設計の一連の手順を追います。</p>
+<h2>6.2 設計の流れ</h2>
+<p>多管式熱交換器の設計は、次のような繰り返し計算になります。</p>
+<p>1. 熱収支から交換熱量と未知の温度を決める 2. どちらの流体を管側・胴側に流すかを決める 3. $U$ を仮定し、温度差補正係数 $F$ を使って必要な伝熱面積を求める 4. 管の寸法・本数・パス数、胴の大きさ、バッフルの間隔を決める 5. 管側・胴側の熱伝達係数を計算し、$U$ を求め直す 6. 仮定した $U$ と計算した $U$ が合うまで 3〜5 を繰り返す 7. 圧力損失が許容範囲に入っているかを確かめる</p>
+<h2>6.3 どちらを管側に流すか</h2>
+<p>一般的な目安は次のとおりです。</p>
+<ul><li><strong>管側</strong>：汚れやすい流体（管の中は掃除しやすい）、腐食性の流体（高価な材料を管だけに使える）、高圧の流体（細い管のほうが圧力に強い）、冷却水</li><li><strong>胴側</strong>：粘度の高い流体（胴側はバッフルで流れが乱れ、低い流速でも熱伝達がよい）、流量の少ない流体、凝縮する蒸気</li></ul>
+<p>本章の例題では、冷却水を管側、油を胴側に流します。</p>
+<h2>6.4 温度差補正係数 F</h2>
+<p>胴側1パス・管側2パス（またはその倍数）の熱交換器では、流れが純粋な向流にならないため、向流の対数平均温度差に補正係数 $F$ を掛けます。2つの温度比</p>
+<div class="formula">$$R = \frac{T_{h,\text{入}} - T_{h,\text{出}}}{T_{c,\text{出}} - T_{c,\text{入}}}, \qquad P = \frac{T_{c,\text{出}} - T_{c,\text{入}}}{T_{h,\text{入}} - T_{c,\text{入}}}$$</div>
+<p>を使って、$F$ は次の式で計算できます（$R \ne 1$）。</p>
+<div class="formula">$$F = \frac{\dfrac{\sqrt{R^2 + 1}}{R - 1}\,\ln\dfrac{1 - P}{1 - PR}}{\ln\dfrac{2 - P\left(R + 1 - \sqrt{R^2 + 1}\right)}{2 - P\left(R + 1 + \sqrt{R^2 + 1}\right)}}$$</div>
+<p>$F$ が小さくなると伝熱面積の効率が悪くなり、わずかな条件の変化で性能が大きく落ちるようになります。<strong>$F$ が 0.8 を下回る場合は、胴側のパス数を増やすか、熱交換器を直列につなぐ</strong>のが設計の目安です。</p>
+<p>この式は、<a href="/advanced/epsilon-ntu.html">第5章</a>の ε-NTU 法の多管式の式と同じ関係から導かれたもので、どちらを使っても同じ答えになります。</p>
+<h2>6.5 管側の熱伝達係数と圧力損失</h2>
+<p>管側は円管内の流れなので、乱流ならディッタス・ベルターの式が使えます（このサイトの「対流伝熱と熱伝達係数」を参照）。</p>
+<div class="formula">$$h_i = 0.023\,\frac{k}{d_i}\,Re^{0.8}\,Pr^{0.4}$$</div>
+<p>管側の流速は、水の場合 1〜2 m/s 程度が目安です。遅すぎると熱伝達が悪く汚れやすくなり、速すぎると圧力損失と管の摩耗が大きくなります。</p>
+<p>管側の圧力損失は、直管の摩擦損失に、パスの折り返しの損失（1パスあたり速度ヘッドの数倍程度）を加えて見積もります。</p>
+<h2>6.6 胴側の熱伝達係数：カーン法</h2>
+<p>胴側の流れは、管の束を横切ったり、バッフルの切り欠きを通り抜けたりと複雑です。最も簡単な方法として、<strong>カーン（Kern）法</strong>があります。</p>
+<div class="formula">$$h_o = 0.36\,\frac{k}{D_e}\,Re_s^{0.55}\,Pr^{1/3}\left(\frac{\mu}{\mu_w}\right)^{0.14}$$</div>
+<ul><li>相当直径（正三角配列）：$D_e = \dfrac{1.10}{d_o}\left(P_t^2 - 0.917\,d_o^2\right)$</li><li>胴側の流路断面積：$A_s = \dfrac{(P_t - d_o)\,D_s\,B}{P_t}$、$Re_s = \dfrac{(m/A_s)\,D_e}{\mu}$</li></ul>
+<p>$P_t$ は管の配列ピッチ、$d_o$ は管の外径、$D_s$ は胴の内径、$B$ はバッフルの間隔です。カーン法は簡単ですが、胴と管束のすき間やバッフルのすき間を通る漏れの流れを考えないため、精度は高くありません。詳細設計では、漏れの流れも考えたベル・デラウェア法などが使われます。</p>
+<h2>6.7 総括伝熱係数（外表面基準）</h2>
+<div class="formula">$$\frac{1}{U_o} = \frac{1}{h_o} + R_{fo} + \frac{d_o \ln(d_o/d_i)}{2 k_w} + \frac{d_o}{d_i} R_{fi} + \frac{d_o}{d_i}\cdot\frac{1}{h_i}$$</div>
+<p>$R_{fo}$、$R_{fi}$ は胴側・管側の汚れ係数です。管の内側の値には、内外の面積比 $d_o/d_i$ を掛けて外表面基準にそろえます。</p><aside class="cta"><p class="cta-title">この章の続き（有料版）</p><p>ここまでは試し読みです。続きでは、次の内容を例題つきで解説しています。</p><ul><li>6.8 例題：油の冷却器の設計</li><li>6.9 設計で確かめること</li><li>6.10 検算について</li></ul><p>例題の数値は、別の計算方法でも解いて一致を確かめています。有料版では、例題の検算用プログラム（Python）もダウンロードできます。</p><p class="cta-soon">有料版（note）は現在準備中です。公開までしばらくお待ちください。</p></aside>
+
+
+<nav class="pager"><a class="prev" href="/advanced/epsilon-ntu.html">← 第5章 熱交換器の ε-NTU 法</a><a class="next" href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html" aria-current="page">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

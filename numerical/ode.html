@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常微分方程式の数値解法｜オイラー法とルンゲ・クッタ法の比較｜はじめての化学工学</title>
+<meta name="description" content="反応器の濃度変化などを表す常微分方程式を数値的に解くオイラー法と4次のルンゲ・クッタ法を、逐次反応の例題と Python のプログラムで比較します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/numerical/ode.html">
+<meta property="og:title" content="常微分方程式の数値解法｜オイラー法とルンゲ・クッタ法の比較｜はじめての化学工学">
+<meta property="og:description" content="反応器の濃度変化などを表す常微分方程式を数値的に解くオイラー法と4次のルンゲ・クッタ法を、逐次反応の例題と Python のプログラムで比較します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/numerical/">数値計算</a> › <span>常微分方程式の数値解法｜オイラー法とルンゲ・クッタ法の比較</span></nav>
+    <article class="article">
+<h1>常微分方程式の数値解法</h1>
+<p class="lead">反応器の濃度変化などを表す常微分方程式を数値的に解くオイラー法と4次のルンゲ・クッタ法を、逐次反応の例題と Python のプログラムで比較します。</p>
+
+<h2>化学工学と常微分方程式</h2>
+<p><a href="/reaction/batch-reactor.html">回分反応器</a>の濃度変化、<a href="/control/first-order-system.html">槽の温度の時間変化</a>、管型反応器の中の温度分布など、化学工学の多くの問題は常微分方程式で表されます。簡単な場合は式で解けますが、反応が複数あったり、温度で速度が変わったりすると、式では解けなくなります。そこで使うのが<strong>数値解法</strong>です。</p>
+
+<h2>オイラー法</h2>
+<p>$\dfrac{dy}{dt} = f(t, y)$ を解くとき、今の傾きがしばらく続くとみなして、刻み幅 $h$ だけ先の値を求めます。</p>
+<div class="formula">$$y_{n+1} = y_n + h\,f(t_n, y_n)$$</div>
+<p>最も簡単ですが、誤差は刻み幅に比例して（1次の精度）しか小さくならないため、正確な答えを得るにはとても細かい刻みが必要です。</p>
+
+<h2>4次のルンゲ・クッタ法</h2>
+<p>1つの刻みの中で4か所の傾きを計算し、重みをつけて平均します。</p>
+<div class="formula">$$y_{n+1} = y_n + \frac{h}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right)$$</div>
+<p>$k_1$ は区間の始め、$k_2$ と $k_3$ は区間の中央、$k_4$ は区間の終わりでの傾きです。誤差は刻み幅の4乗に比例して小さくなり、同じ刻み幅でもオイラー法よりはるかに正確です。実用的な計算の標準的な方法です。</p>
+
+<div class="example">
+<strong>例題：逐次反応の濃度変化</strong>
+<p>逐次反応 A → B → C（速度定数 $k_1$ = 0.2 1/min、$k_2$ = 0.1 1/min、最初は A だけで濃度1）で、B の濃度が最大になる時刻（約 6.93 分）の B の濃度を、オイラー法とルンゲ・クッタ法で計算し、厳密解（0.5）と比べてください。</p>
+<div class="answer">
+<p>成分 A と B の収支は次のとおりです。</p>
+<div class="formula">$$\frac{dC_A}{dt} = -k_1 C_A, \qquad \frac{dC_B}{dt} = k_1 C_A - k_2 C_B$$</div>
+<pre><code>import math
+
+k1, k2 = 0.2, 0.1                    # A -&gt; B -&gt; C の速度定数 [1/min]
+
+def f(y):
+    A, B = y
+    return [-k1 * A, k1 * A - k2 * B]
+
+def euler(y, h, n):
+    for _ in range(n):
+        d = f(y)
+        y = [y[i] + h * d[i] for i in range(2)]
+    return y
+
+def rk4(y, h, n):
+    for _ in range(n):
+        a = f(y)
+        b = f([y[i] + h / 2 * a[i] for i in range(2)])
+        c = f([y[i] + h / 2 * b[i] for i in range(2)])
+        d = f([y[i] + h * c[i] for i in range(2)])
+        y = [y[i] + h / 6 * (a[i] + 2 * b[i] + 2 * c[i] + d[i]) for i in range(2)]
+    return y
+
+t_end = math.log(k2 / k1) / (k2 - k1)            # 解析解で B が最大になる時間
+exact = k1 / (k2 - k1) * (math.exp(-k1 * t_end) - math.exp(-k2 * t_end))
+for n in [7, 14, 70]:
+    h = t_end / n
+    print(f&quot;刻み {h:.2f} min: オイラー {euler([1.0, 0.0], h, n)[1]:.5f}, &quot;
+          f&quot;ルンゲ・クッタ {rk4([1.0, 0.0], h, n)[1]:.5f}, 厳密解 {exact:.5f}&quot;)</code></pre>
+<p>実行結果：</p>
+<pre class="output"><code>刻み 0.99 min: オイラー 0.53723, ルンゲ・クッタ 0.49999, 厳密解 0.50000
+刻み 0.50 min: オイラー 0.51786, ルンゲ・クッタ 0.50000, 厳密解 0.50000
+刻み 0.10 min: オイラー 0.50346, ルンゲ・クッタ 0.50000, 厳密解 0.50000</code></pre>
+<p>刻みが約 1 分のとき、オイラー法の誤差は 7% もありますが、ルンゲ・クッタ法はすでに小数第4位まで正確です。オイラー法の誤差は、刻みを半分にするとほぼ半分にしかなりません。</p>
+</div>
+</div>
+
+<h2>数値解法を使うときの注意</h2>
+<ul>
+<li><strong>刻み幅を変えて結果を比べる</strong>：刻み幅を半分にしても答えがほとんど変わらなければ、十分に細かいと判断できます</li>
+<li><strong>硬い（stiff）問題</strong>：非常に速い反応と遅い反応が混ざった系では、普通の方法だと極端に細かい刻みが必要になります。その場合は、硬い問題向けの解法（陰解法）を使います</li>
+<li><strong>ライブラリの利用</strong>：実務では、刻み幅を自動で調整してくれる数値計算ライブラリ（Python なら SciPy の solve_ivp など）を使うのが一般的です。ただし、しくみを知っておくと、結果がおかしいときに原因を見つけやすくなります</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/numerical/nonlinear-equations.html">← 非線形方程式の解き方</a><a class="next" href="/numerical/integration.html">数値積分の方法 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html" aria-current="page">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

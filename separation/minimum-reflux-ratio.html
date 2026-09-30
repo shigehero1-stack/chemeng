@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>最小還流比と最小理論段数｜フェンスケの式と還流比の決め方｜はじめての化学工学</title>
+<meta name="description" content="蒸留塔の設計で使う最小還流比の求め方、全還流での最小理論段数を求めるフェンスケの式、実際の還流比の決め方と段効率を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/minimum-reflux-ratio.html">
+<meta property="og:title" content="最小還流比と最小理論段数｜フェンスケの式と還流比の決め方｜はじめての化学工学">
+<meta property="og:description" content="蒸留塔の設計で使う最小還流比の求め方、全還流での最小理論段数を求めるフェンスケの式、実際の還流比の決め方と段効率を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>最小還流比と最小理論段数｜フェンスケの式と還流比の決め方</span></nav>
+    <article class="article">
+<h1>最小還流比と最小理論段数</h1>
+<p class="lead">蒸留塔の設計で使う最小還流比の求め方、全還流での最小理論段数を求めるフェンスケの式、実際の還流比の決め方と段効率を例題で解説します。</p>
+
+<h2>還流比の2つの限界</h2>
+<p><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法</a>の記事で見たように、還流比を大きくするほど必要な段数は減り、小さくするほど増えます。この関係には両端に限界があります。</p>
+<ul>
+<li><strong>全還流</strong>（還流比が無限大）：製品を取り出さず、凝縮した液をすべて戻す。段数は最小になる</li>
+<li><strong>最小還流比</strong>：これ以下の還流比では、段をいくら増やしても目標の分離ができない</li>
+</ul>
+<p>実際の還流比は、この2つの間から選びます。</p>
+
+<h2>最小還流比</h2>
+<p>還流比を下げていくと、濃縮部の操作線とq線の交点が平衡線に近づきます。交点が平衡線に乗ったとき、その付近では階段が無限に細かくなり、無限の段数が必要になります。このときの還流比が<strong>最小還流比</strong> $R_{\min}$ です。</p>
+<p>q線と平衡線の交点を $(x', y')$ とすると、濃縮部の操作線がこの点を通ることから</p>
+<div class="formula">$$R_{\min} = \frac{x_D - y'}{y' - x'}$$</div>
+<p>となります。原料が飽和液（$q = 1$）なら $x' = z_F$ で、$y'$ はそれと平衡な気相組成です。</p>
+<div class="note">平衡線が大きくへこんでいる系（非理想性の強い系）では、q線との交点より先に、操作線が途中で平衡線に接してしまうことがあります。その場合は接する点から最小還流比を求めます。</div>
+
+<h2>最小理論段数：フェンスケの式</h2>
+<p>全還流では操作線が対角線と一致します。比揮発度 $\alpha$ が一定なら、作図しなくても最小理論段数 $N_{\min}$ を次の<strong>フェンスケの式</strong>で計算できます。</p>
+<div class="formula">$$N_{\min} = \frac{\ln \left[ \dfrac{x_D}{1 - x_D} \cdot \dfrac{1 - x_W}{x_W} \right]}{\ln \alpha}$$</div>
+<p>この段数にはリボイラー（1段分として数える）も含まれます。</p>
+
+<div class="example">
+<strong>例題：最小還流比と最小理論段数</strong>
+<p><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の例題</a>と同じ条件（$z_F = 0.50$ の飽和液、$x_D = 0.95$、$x_W = 0.05$、$\alpha = 2.4$）で、最小還流比と最小理論段数を求めてください。</p>
+<div class="answer">
+<p>$x' = 0.50$ と平衡な気相組成：$y' = \dfrac{2.4 \times 0.50}{1 + 1.4 \times 0.50} \approx 0.706$</p>
+<p>$R_{\min} = \dfrac{0.95 - 0.706}{0.706 - 0.50} \approx 1.19$</p>
+<p>$N_{\min} = \dfrac{\ln (19 \times 19)}{\ln 2.4} = \dfrac{5.889}{0.875} \approx 6.7$ 段（リボイラーを含む）</p>
+<p>還流比2.0のとき必要な12段は、最小理論段数の約1.8倍に当たります。</p>
+</div>
+</div>
+
+<h2>実際の還流比の決め方</h2>
+<p>還流比を大きくすると段数が減って塔は低く安くなりますが、凝縮器とリボイラーの熱量（毎年の燃料費）が増えます。逆に最小還流比に近づけると熱量は減りますが、段数が急に増えます。この設備費と運転費の合計が最も小さくなる還流比を<strong>最適還流比</strong>といい、多くの場合、最小還流比の1.2〜1.5倍程度になるといわれています。</p>
+<p>還流比と段数の関係をおおまかに見積もる経験的な方法として、ギリランドの相関もよく使われます。</p>
+
+<h2>理論段から実段へ：段効率</h2>
+<p>実際のトレイでは、気液の接触時間が限られるため、完全な平衡には達しません。理論段数を実際に必要な段数に換算するのが<strong>総括段効率</strong> $E_o$ です。</p>
+<div class="formula">$$\text{実段数} = \frac{\text{理論段数}}{E_o}$$</div>
+<p>リボイラーは理論段1段として扱い、塔の実段数を計算するときは除きます。段効率は系や装置によって違いますが、炭化水素の蒸留ではおよそ0.5〜0.8程度が目安です。充填塔の場合は、理論段1段に相当する充填高さ（HETP）を使って塔の高さを求めます。</p>
+
+
+<nav class="pager"><a class="prev" href="/separation/mccabe-thiele.html">← マッケーブ・シーレ法の手順</a><a class="next" href="/separation/gas-absorption-column.html">ガス吸収塔の設計 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html" aria-current="page">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

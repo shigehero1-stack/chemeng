@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>物質収支の基本と解き方｜例題で覚える手順｜はじめての化学工学</title>
+<meta name="description" content="物質収支は「入った量＝出た量＋たまった量」という考え方です。一般式、定常状態での簡単化、混合と濃縮の例題で解き方の手順を身につけます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/basics/material-balance.html">
+<meta property="og:title" content="物質収支の基本と解き方｜例題で覚える手順｜はじめての化学工学">
+<meta property="og:description" content="物質収支は「入った量＝出た量＋たまった量」という考え方です。一般式、定常状態での簡単化、混合と濃縮の例題で解き方の手順を身につけます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/basics/">基礎</a> › <span>物質収支の基本と解き方｜例題で覚える手順</span></nav>
+    <article class="article">
+<h1>物質収支の基本と解き方</h1>
+<p class="lead">物質収支は「入った量＝出た量＋たまった量」という考え方です。一般式、定常状態での簡単化、混合と濃縮の例題で解き方の手順を身につけます。</p>
+
+<h2>物質収支とは</h2>
+<p><strong>物質収支（マテリアルバランス）</strong>は、ある範囲に出入りする物質の量を帳簿のように突き合わせる計算です。質量は勝手に増えたり消えたりしないので、次の関係がいつも成り立ちます。</p>
+<div class="formula">$$\text{入量} - \text{出量} + \text{生成量} - \text{消費量} = \text{蓄積量}$$</div>
+<p>「生成量」「消費量」は化学反応でその成分が作られたり使われたりする量です。反応がなければ0になります。</p>
+
+<h2>定常状態ならさらに簡単</h2>
+<p>連続運転している装置で、時間がたっても中身の量や濃度が変わらない状態を<strong>定常状態</strong>といいます。このとき蓄積量は0なので、反応がなければ</p>
+<div class="formula">$$\text{入量} = \text{出量}$$</div>
+<p>という単純な式になります。これを全体の量と、成分ごとの量のそれぞれについて立てるのが基本です。</p>
+
+<h2>解き方の手順</h2>
+<ol>
+<li>流れ図（フローシート）を描き、すべての流れに記号をつける</li>
+<li>収支をとる範囲（系）を線で囲む</li>
+<li>計算の基準を決める（例：1時間あたり、原料100 kgあたり）</li>
+<li>全体の収支と成分ごとの収支の式を立てる</li>
+<li>未知数と式の数が合っているか確認して解く</li>
+</ol>
+<div class="note">基準を「原料100 kg」のように切りのよい量にすると、途中の計算がぐっと楽になります。答えは最後に実際の流量の比率で掛け直せば大丈夫です。</div>
+
+<div class="example">
+<strong>例題1：二つの流れを混ぜる</strong>
+<p>エタノール40 wt%の水溶液を100 kg/h、エタノール10 wt%の水溶液を50 kg/hで混ぜます。混ざった液の流量とエタノール濃度を求めてください。</p>
+<div class="answer">
+<p>全体の収支：出口流量は $100 + 50 = 150\ \text{kg/h}$。</p>
+<p>エタノールの収支：$100 \times 0.40 + 50 \times 0.10 = 40 + 5 = 45\ \text{kg/h}$。</p>
+<p>出口の濃度は $45 / 150 = 0.30$、つまり30 wt%です。</p>
+</div>
+</div>
+
+<div class="example">
+<strong>例題2：蒸発で濃縮する</strong>
+<p>食塩5 wt%の水溶液1000 kg/hを蒸発缶に送り、水だけを蒸発させて20 wt%まで濃縮します。濃縮液の流量と、蒸発させる水の量を求めてください。</p>
+<div class="answer">
+<p>食塩は蒸発しないので、食塩の量は入口も出口も同じです：$1000 \times 0.05 = 50\ \text{kg/h}$。</p>
+<p>濃縮液は20 wt%なので、濃縮液の流量は $50 / 0.20 = 250\ \text{kg/h}$。</p>
+<p>全体の収支から、蒸発する水は $1000 - 250 = 750\ \text{kg/h}$ です。</p>
+</div>
+</div>
+<p>例題2のように、<strong>系を素通りする成分（ここでは食塩）</strong>を見つけると、それを手がかりに一気に解けることがよくあります。このような成分を「タイ成分（つなぎの成分）」と呼ぶこともあります。</p>
+
+<h2>反応がある場合</h2>
+<p>反応があるときは、質量全体では収支が合いますが、成分ごとには生成と消費の項が入ります。成分ごとの計算はモル単位で行い、反応式の係数（量論係数）で生成量と消費量を結びつけるのが基本です。反応を含む収支は、反応工学の記事で詳しく扱います。</p>
+
+
+<nav class="pager"><a class="prev" href="/basics/units.html">← 単位と単位換算の基本</a><a class="next" href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html" aria-current="page">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

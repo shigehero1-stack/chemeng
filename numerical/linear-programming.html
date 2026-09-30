@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>線形計画法の基本｜生産計画の利益を最大にする図解法｜はじめての化学工学</title>
+<meta name="description" content="限られた原料や設備で利益を最大にする生産量を求める線形計画法の考え方を、2種類の製品の生産計画の例題で、図解法と Python のプログラムを使って解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/numerical/linear-programming.html">
+<meta property="og:title" content="線形計画法の基本｜生産計画の利益を最大にする図解法｜はじめての化学工学">
+<meta property="og:description" content="限られた原料や設備で利益を最大にする生産量を求める線形計画法の考え方を、2種類の製品の生産計画の例題で、図解法と Python のプログラムを使って解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/numerical/">数値計算</a> › <span>線形計画法の基本｜生産計画の利益を最大にする図解法</span></nav>
+    <article class="article">
+<h1>線形計画法の基本</h1>
+<p class="lead">限られた原料や設備で利益を最大にする生産量を求める線形計画法の考え方を、2種類の製品の生産計画の例題で、図解法と Python のプログラムを使って解説します。</p>
+
+<h2>線形計画法とは</h2>
+<p>工場では、原料の量、装置の稼働時間、倉庫の容量など、さまざまな制約の中で、利益が最も大きくなる（または費用が最も小さくなる）ように生産量を決める必要があります。目的とする量と制約がすべて一次式で表せる場合、この問題を<strong>線形計画問題</strong>といい、その解き方を<strong>線形計画法</strong>（LP）といいます。</p>
+<p>化学工業では、製油所の原油の配合と製品の生産計画、原料の配合、プラントの運転計画などに広く使われています。</p>
+
+<h2>問題の形</h2>
+<ul>
+<li><strong>決定変数</strong>：決めたい量（各製品の生産量など）</li>
+<li><strong>目的関数</strong>：最大化（または最小化）したい量。決定変数の一次式</li>
+<li><strong>制約条件</strong>：決定変数が満たすべき一次の不等式・等式。生産量は負にならない、という条件も含む</li>
+</ul>
+
+<div class="example">
+<strong>例題：2種類の製品の生産計画</strong>
+<p>ある工場で製品 A と製品 B を作っています。1 kg あたりの利益は A が 3 千円、B が 5 千円です。1 kg 作るのに必要な原料と装置の稼働時間、1日に使える量は次のとおりです。利益を最大にするには、それぞれ何 kg 作ればよいでしょうか。</p>
+<table>
+<tr><th></th><th>製品 A</th><th>製品 B</th><th>1日に使える量</th></tr>
+<tr><td>原料 [kg]</td><td>2</td><td>3</td><td>120</td></tr>
+<tr><td>装置の稼働時間 [h]</td><td>1</td><td>2</td><td>70</td></tr>
+<tr><td>利益 [千円/kg]</td><td>3</td><td>5</td><td></td></tr>
+</table>
+<div class="answer">
+<p>生産量を A：$x$ kg、B：$y$ kg とすると、問題は次のようになります。</p>
+<div class="formula">$$\text{最大化}\quad 3x + 5y$$</div>
+<div class="formula">$$\text{制約}\quad 2x + 3y \le 120,\quad x + 2y \le 70,\quad x \ge 0,\quad y \ge 0$$</div>
+<p><strong>図解法</strong>：$x$-$y$ 平面に制約の境界線を描くと、すべての制約を満たす領域（実行可能領域）は多角形になります。目的関数の値が一定の線（$3x + 5y$ = 一定）を平行に動かしていくと、最適解は必ずこの多角形の<strong>頂点</strong>のどれかになります。そこで、頂点での利益を比べます。</p>
+<pre><code>from itertools import combinations
+
+# 制約を a1*x + a2*y &lt;= c の形で並べる（x &gt;= 0, y &gt;= 0 も含める）
+cons = [(2, 3, 120),     # 原料
+        (1, 2, 70),      # 装置の稼働時間
+        (-1, 0, 0),      # x &gt;= 0
+        (0, -1, 0)]      # y &gt;= 0
+profit = lambda x, y: 3 * x + 5 * y
+
+best = None
+for (a1, b1, c1), (a2, b2, c2) in combinations(cons, 2):
+    det = a1 * b2 - a2 * b1
+    if det == 0:
+        continue
+    x = (c1 * b2 - c2 * b1) / det            # 2本の境界線の交点
+    y = (a1 * c2 - a2 * c1) / det
+    if all(p * x + q * y &lt;= c + 1e-9 for p, q, c in cons):   # 実行可能な頂点だけ
+        print(f&quot;頂点 ({x + 0.0:.0f}, {y + 0.0:.0f}): 利益 {profit(x, y):.0f}&quot;)
+        if best is None or profit(x, y) &gt; profit(*best):
+            best = (x, y)
+print(f&quot;最適解: 製品A {best[0]:.0f} kg, 製品B {best[1]:.0f} kg, 利益 {profit(*best):.0f}&quot;)</code></pre>
+<p>実行結果：</p>
+<pre class="output"><code>頂点 (30, 20): 利益 190
+頂点 (60, 0): 利益 180
+頂点 (0, 35): 利益 175
+頂点 (0, 0): 利益 0
+最適解: 製品A 30 kg, 製品B 20 kg, 利益 190</code></pre>
+<p>製品 A を 30 kg、製品 B を 20 kg 作ると、利益が最大の 19 万円になります。このとき原料も装置の稼働時間も使い切っています。利益の高い B だけを作る（35 kg で 17.5 万円）より、A と組み合わせたほうが得になるのは、B が装置の時間を多く使うためです。</p>
+</div>
+</div>
+
+<h2>変数が多い問題では</h2>
+<p>変数が2つなら図で解けますが、実際の問題では変数が数十〜数千になります。その場合は、頂点を効率よくたどって最適解を探す<strong>シンプレックス法</strong>などの方法を使います。表計算ソフトのソルバー機能や、Python の最適化ライブラリ（SciPy の linprog など）で解くことができます。</p>
+
+<h2>結果の読み方：どの制約が効いているか</h2>
+<p>最適解で使い切っている制約（この例では原料と装置の稼働時間の両方）を<strong>有効な制約</strong>といいます。有効な制約の量を少し増やすと、利益がどれだけ増えるかを表す値（シャドープライス、双対価格）を調べれば、「原料を買い足すべきか、装置を増強すべきか」を判断する材料になります。線形計画法は、答えを出すだけでなく、こうした経営判断にも役立ちます。</p>
+
+
+<nav class="pager"><a class="prev" href="/numerical/linear-equations.html">← 連立一次方程式で物質収支を解く</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html" aria-current="page">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第5章 冷却塔の設計と運転｜メルケル法と外気条件の影響｜はじめての化学工学</title>
+<meta name="description" content="冷却塔の性能をメルケル法で計算し、液ガス比や外気の湿球温度が冷却水の温度にどう影響するか、運転の注意点とあわせて解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/applied/cooling-tower.html">
+<meta property="og:title" content="第5章 冷却塔の設計と運転｜メルケル法と外気条件の影響｜はじめての化学工学">
+<meta property="og:description" content="冷却塔の性能をメルケル法で計算し、液ガス比や外気の湿球温度が冷却水の温度にどう影響するか、運転の注意点とあわせて解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/applied/">応用編</a> › <span>第5章 冷却塔の設計と運転｜メルケル法と外気条件の影響</span></nav>
+    <article class="article">
+<h1>第5章 冷却塔の設計と運転</h1>
+<p class="lead">冷却塔の性能をメルケル法で計算し、液ガス比や外気の湿球温度が冷却水の温度にどう影響するか、運転の注意点とあわせて解説します。</p>
+
+<h2>5.1 現場の課題</h2>
+<p>工場の冷却水の多くは、<strong>冷却塔</strong>（クーリングタワー）で冷やされて循環しています。夏になると「冷却水の温度が上がって、コンデンサーの能力が足りない」「真空度が保てない」といったトラブルが起きやすくなります。その原因の多くは、外気の<strong>湿球温度</strong>が上がることにあります。</p>
+<p>本章では、冷却塔の性能を表すメルケル法の考え方を学び、液ガス比や外気条件が冷却水の温度にどう影響するかを計算します。</p>
+<h2>5.2 冷却塔のしくみ</h2>
+<p>冷却塔では、上から散布した温水と、下から送り込んだ外気を充填材の表面で接触させます。水の一部が蒸発し、その蒸発潜熱で残りの水が冷やされます。熱の移動には、空気との温度差による<strong>顕熱</strong>と、蒸発による<strong>潜熱</strong>の両方が関わりますが、冷却塔では潜熱が大部分を占めます。</p>
+<p>そのため、冷却塔で冷やせる限界の温度は、外気の乾球温度ではなく<strong>湿球温度</strong>です（このサイトの「絶対湿度・相対湿度・露点」の記事を参照）。</p>
+<p>冷却塔の性能は、次の2つの温度差で表します。</p>
+<ul><li><strong>冷却幅（レンジ）</strong>：入口水温 − 出口水温。冷やす熱量に比例する</li><li><strong>アプローチ</strong>：出口水温 − 外気の湿球温度。冷却塔の大きさ（性能）で決まり、0 には近づけられない</li></ul>
+<h2>5.3 メルケル法</h2>
+<p>メルケルは、顕熱と潜熱の移動をまとめて、<strong>空気のエンタルピーの差</strong>を推進力とする1つの式で表しました。水が微小な温度 $dT$ だけ冷える部分での熱収支と移動速度から、</p>
+<div class="formula">$$\frac{K a V}{L} = \int_{T_{\text{出}}}^{T_{\text{入}}} \frac{c_w\,dT}{h_s(T) - h_a}$$</div>
+<p>となります。</p>
+<ul><li>$h_s(T)$：水温 $T$ で飽和した空気のエンタルピー（水の表面の空気の状態）</li><li>$h_a$：その位置での空気のエンタルピー</li><li>$c_w$：水の比熱、$L$：水の流量、$K a V$：物質移動係数 × 単位体積あたりの接触面積 × 充填材の体積</li></ul>
+<p>左辺を<strong>冷却塔の NTU</strong>（メルケル数）といいます。必要な NTU は冷却条件で決まり、充填材の種類と量で実現できる NTU が決まります。</p>
+<p><strong>空気の操作線</strong>：向流の冷却塔では、水が失った熱を空気が受け取るので、空気のエンタルピーは水温に対して直線的に変わります。</p>
+<div class="formula">$$h_a = h_{a,\text{入}} + \frac{L}{G}\,c_w\,(T - T_{\text{出}})$$</div>
+<p>$G$ は乾き空気の流量です。入口の空気のエンタルピーは、ほぼ湿球温度での飽和空気のエンタルピーに等しいとみなせます。</p>
+<h2>5.4 飽和空気のエンタルピー</h2>
+<p>$h_s(T)$ は湿り空気の性質から計算できます。飽和蒸気圧 $p_s$ から絶対湿度 $H_s = 0.622\,p_s/(P - p_s)$ を求め、</p>
+<div class="formula">$$h_s = 1.006\,T + H_s\,(2501 + 1.86\,T)\quad[\text{kJ/kg-乾き空気、0 °C 基準}]$$</div>
+<p>とします。温度が上がると飽和蒸気圧が急に大きくなるため、$h_s$ は温度に対して上に反った曲線になります（25 °C で約 76、30 °C で約 100、40 °C で約 166 kJ/kg）。この曲がりが、冷却塔の計算を数値積分にしている理由です。</p><aside class="cta"><p class="cta-title">この章の続き（有料版）</p><p>ここまでは試し読みです。続きでは、次の内容を例題つきで解説しています。</p><ul><li>5.5 例題1：必要な NTU を求める</li><li>5.6 例題2：夏に湿球温度が上がったら</li><li>5.7 運転で気をつけること</li><li>5.8 検算について</li></ul><p>例題の数値は、別の計算方法でも解いて一致を確かめています。有料版では、例題の検算用プログラム（Python）もダウンロードできます。</p><p class="cta-soon">有料版（note）は現在準備中です。公開までしばらくお待ちください。</p></aside>
+
+
+<nav class="pager"><a class="prev" href="/applied/pinch-analysis.html">← 第4章 ピンチ解析による熱回収</a><a class="next" href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html" aria-current="page">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>集じん装置の種類とサイクロンの分離限界粒子径｜はじめての化学工学</title>
+<meta name="description" content="ガス中の粉じんを取り除く集じん装置の種類と特徴、遠心力を使うサイクロンの仕組みと、分離限界粒子径（50%分離径）の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/cyclone.html">
+<meta property="og:title" content="集じん装置の種類とサイクロンの分離限界粒子径｜はじめての化学工学">
+<meta property="og:description" content="ガス中の粉じんを取り除く集じん装置の種類と特徴、遠心力を使うサイクロンの仕組みと、分離限界粒子径（50%分離径）の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>集じん装置の種類とサイクロンの分離限界粒子径</span></nav>
+    <article class="article">
+<h1>集じん装置の種類とサイクロンの分離限界粒子径</h1>
+<p class="lead">ガス中の粉じんを取り除く集じん装置の種類と特徴、遠心力を使うサイクロンの仕組みと、分離限界粒子径（50%分離径）の計算を例題で解説します。</p>
+
+<h2>集じんとは</h2>
+<p>ボイラーや焼却炉の排ガス、粉体を扱う工程の空気には、細かい粒子（粉じん）が含まれています。これをガスから取り除く操作を<strong>集じん</strong>といい、大気汚染の防止や、製品の粉体の回収に欠かせません。</p>
+
+<h2>集じん装置の種類</h2>
+<table>
+<tr><th>方式</th><th>原理</th><th>取れる粒子の目安</th><th>特徴</th></tr>
+<tr><td>重力沈降室</td><td>重力で沈める</td><td>数十 µm 以上</td><td>構造が簡単だが大きい</td></tr>
+<tr><td>サイクロン</td><td>遠心力で壁に飛ばす</td><td>数 µm 以上</td><td>安価で丈夫。前処理に多用</td></tr>
+<tr><td>バグフィルター</td><td>ろ布でこし取る</td><td>1 µm 以下も可</td><td>効率が高い。高温や湿ったガスは苦手</td></tr>
+<tr><td>電気集じん機</td><td>帯電させて電極に引き寄せる</td><td>1 µm 以下も可</td><td>大量のガスを低い圧力損失で処理できる</td></tr>
+<tr><td>スクラバー</td><td>液滴で捕らえる</td><td>数 µm 以上</td><td>有害ガスも同時に吸収できる。排水が出る</td></tr>
+</table>
+
+<h2>サイクロンの仕組み</h2>
+<p><strong>サイクロン</strong>は、円筒の上部にガスを接線方向から勢いよく吹き込み、中でらせん状に回転させる装置です。粒子は遠心力で外側の壁に飛ばされ、壁を伝って下の円すい部から落ちて回収されます。きれいになったガスは中心の管から上へ抜けていきます。</p>
+<p>可動部がなく、高温のガスにも使えて安価なため、広く使われています。遠心力は重力の数百倍にもなるので、<a href="/particle/stokes-settling.html">重力で沈める</a>よりずっと細かい粒子まで取れます。</p>
+
+<h2>分離限界粒子径（50%分離径）</h2>
+<p>サイクロンの性能は、ちょうど半分が捕集される粒子径 $d_{50}$（<strong>50%分離径</strong>、カットサイズ）で表すことが多く、よく知られたラップルの式では次のように見積もります。</p>
+<div class="formula">$$d_{50} = \sqrt{\frac{9\,\mu\,B}{2\pi\,N_e\,v_i\,(\rho_p - \rho_g)}}$$</div>
+<ul>
+<li>$\mu$：ガスの粘度 [Pa·s]、$\rho_g$：ガスの密度</li>
+<li>$B$：ガス入口の幅 [m]</li>
+<li>$N_e$：ガスがサイクロン内で回る実効的な回転数（一般的な形状で5〜6程度）</li>
+<li>$v_i$：入口のガス速度 [m/s]、$\rho_p$：粒子の密度</li>
+</ul>
+<p>入口の幅を狭く、入口速度を速くすると、より細かい粒子まで取れます。ただし速度を上げすぎると圧力損失が大きくなり、一度壁に集まった粒子が再び舞い上がることもあるため、入口速度は15〜25 m/s程度にするのが一般的です。</p>
+
+<div class="example">
+<strong>例題：サイクロンの50%分離径</strong>
+<p>入口の幅 $B$ = 0.05 m、実効回転数 $N_e$ = 6 のサイクロンに、常温の空気（粘度 1.8 × 10⁻⁵ Pa·s）を入口速度 15 m/s で流します。粒子の密度を 2000 kg/m³ として、50%分離径を求めてください。空気の密度は粒子に比べて無視します。</p>
+<div class="answer">
+<p>$d_{50} = \sqrt{\dfrac{9 \times 1.8 \times 10^{-5} \times 0.05}{2\pi \times 6 \times 15 \times 2000}} = \sqrt{\dfrac{8.1 \times 10^{-6}}{1.13 \times 10^{6}}} \approx 2.7 \times 10^{-6}\ \text{m}$</p>
+<p>約 2.7 µm です。これより大きい粒子は半分以上捕集され、10 µm を超える粒子はほとんど捕集されますが、1 µm 程度の細かい粒子はあまり取れません。細かい粒子まで取る必要がある場合は、サイクロンの後にバグフィルターや電気集じん機を組み合わせます。</p>
+</div>
+</div>
+
+
+<nav class="pager"><a class="prev" href="/particle/filtration.html">← ろ過の基礎</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html" aria-current="page">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

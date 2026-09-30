@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粒子径と粒度分布の表し方｜平均粒子径（ザウター径）の計算｜はじめての化学工学</title>
+<meta name="description" content="粉体の粒子の大きさを表す粒子径の種類、粒度分布の個数基準と質量基準の違い、ザウター平均径などの平均粒子径の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/particle-size.html">
+<meta property="og:title" content="粒子径と粒度分布の表し方｜平均粒子径（ザウター径）の計算｜はじめての化学工学">
+<meta property="og:description" content="粉体の粒子の大きさを表す粒子径の種類、粒度分布の個数基準と質量基準の違い、ザウター平均径などの平均粒子径の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>粒子径と粒度分布の表し方｜平均粒子径（ザウター径）の計算</span></nav>
+    <article class="article">
+<h1>粒子径と粒度分布の表し方</h1>
+<p class="lead">粉体の粒子の大きさを表す粒子径の種類、粒度分布の個数基準と質量基準の違い、ザウター平均径などの平均粒子径の計算を例題で解説します。</p>
+
+<h2>粉体を扱うときの第一歩</h2>
+<p>医薬品の錠剤、セメント、トナー、食品の粉末、触媒など、化学工業では粉体（粒子の集まり）を扱う場面がとても多くあります。粉体の流れやすさ、溶けやすさ、反応のしやすさ、ろ過や集じんのしやすさは、どれも<strong>粒子の大きさ</strong>に大きく左右されます。</p>
+
+<h2>粒子径の定義はいろいろ</h2>
+<p>実際の粒子は球ではないので、「直径」をどう決めるかによっていくつもの定義があります。</p>
+<table>
+<tr><th>名前</th><th>定義</th><th>主な測定方法</th></tr>
+<tr><td>ふるい径</td><td>通り抜けられるふるいの目開き</td><td>ふるい分け</td></tr>
+<tr><td>体積相当径</td><td>同じ体積の球の直径</td><td>電気的検知帯法など</td></tr>
+<tr><td>ストークス径</td><td>同じ密度・同じ沈降速度の球の直径</td><td>沈降法</td></tr>
+<tr><td>光散乱相当径</td><td>同じ散乱パターンを示す球の直径</td><td>レーザー回折・散乱法</td></tr>
+</table>
+<p>同じ粉でも、測定方法が違えば結果の数値は少しずつ違います。粒子径のデータを比べるときは、測定方法をそろえることが大切です。</p>
+
+<h2>粒度分布：個数基準と質量基準</h2>
+<p>粉体の粒子は大きさがばらばらなので、大きさごとの割合を表す<strong>粒度分布</strong>で表します。割合を粒子の数で数えるか、質量（体積）で数えるかで、分布の形は大きく変わります。</p>
+<p>体積は直径の3乗に比例するため、少数の大きな粒子が質量の大部分を占めることがよくあります。レーザー回折式の装置は体積基準、顕微鏡で数える方法は個数基準の分布を出すのが一般的です。</p>
+<p>分布の中央の値を<strong>メディアン径</strong>（50%径、$D_{50}$）といい、粉体の代表的な大きさとしてよく使われます。</p>
+
+<h2>平均粒子径</h2>
+<p>用途によって、どの量を平均するかが変わります。個数 $n_i$ の粒子が直径 $d_i$ をもつとして、代表的なものを挙げます。</p>
+<div class="formula">$$\text{個数平均径}\ d_{10} = \frac{\sum n_i d_i}{\sum n_i}, \qquad \text{ザウター平均径}\ d_{32} = \frac{\sum n_i d_i^3}{\sum n_i d_i^2}$$</div>
+<p><strong>ザウター平均径</strong>は「粉体全体の体積と表面積の比が同じになる球の直径」で、比表面積と直接結びつきます。表面で起こる反応、溶解、物質移動、噴霧された液滴の蒸発などを扱うときに使われます。</p>
+
+<div class="example">
+<strong>例題：平均粒子径の比較</strong>
+<p>ある粉体を顕微鏡で数えたところ、直径 10 µm が 100 個、20 µm が 50 個、40 µm が 10 個でした。個数平均径とザウター平均径を求め、40 µm の粒子が質量の何%を占めるかを計算してください（密度は同じとします）。</p>
+<div class="answer">
+<p>個数平均径：$d_{10} = \dfrac{100 \times 10 + 50 \times 20 + 10 \times 40}{160} = \dfrac{2400}{160} = 15\ \mu\text{m}$</p>
+<p>$\sum n d^3 = 100 \times 10^3 + 50 \times 20^3 + 10 \times 40^3 = 1\,140\,000$、$\sum n d^2 = 46\,000$</p>
+<p>ザウター平均径：$d_{32} = 1\,140\,000 / 46\,000 \approx 24.8\ \mu\text{m}$</p>
+<p>40 µm の粒子の質量割合：$\dfrac{640\,000}{1\,140\,000} \approx 56\%$</p>
+<p>個数では全体の6%しかない40 µmの粒子が、質量では半分以上を占めています。平均の取り方で答えが大きく変わることがわかります。</p>
+</div>
+</div>
+
+<h2>比表面積</h2>
+<p>粉体1 gあたりの表面積を<strong>比表面積</strong> [m²/g] といいます。密度 $\rho_p$ の球形粒子なら、ザウター平均径を使って</p>
+<div class="formula">$$S_w = \frac{6}{\rho_p\, d_{32}}$$</div>
+<p>と表せます。粒子を細かくするほど比表面積は大きくなり、触媒や吸着剤の性能、溶ける速さが上がります。実際の比表面積は、気体の吸着量から求めるBET法で測定するのが一般的です。</p>
+
+
+<nav class="pager"><span></span><a class="next" href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html" aria-current="page">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>フィードバック制御とPID制御の基本をわかりやすく｜はじめての化学工学</title>
+<meta name="description" content="プロセス制御の基本であるフィードバック制御の仕組みと、比例（P）・積分（I）・微分（D）の3つの動作の役割、オフセットが生じる理由を解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/control/feedback-pid.html">
+<meta property="og:title" content="フィードバック制御とPID制御の基本をわかりやすく｜はじめての化学工学">
+<meta property="og:description" content="プロセス制御の基本であるフィードバック制御の仕組みと、比例（P）・積分（I）・微分（D）の3つの動作の役割、オフセットが生じる理由を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/control/">プロセス制御</a> › <span>フィードバック制御とPID制御の基本をわかりやすく</span></nav>
+    <article class="article">
+<h1>フィードバック制御とPID制御の基本をわかりやすく</h1>
+<p class="lead">プロセス制御の基本であるフィードバック制御の仕組みと、比例（P）・積分（I）・微分（D）の3つの動作の役割、オフセットが生じる理由を解説します。</p>
+
+<h2>プロセス制御とは</h2>
+<p>化学工場では、反応器の温度、タンクの液面、配管の流量、塔の圧力などを、決められた値に保ち続ける必要があります。原料の組成や外気温が変わっても、自動的に操作を調整して目標の状態を保つ仕組みが<strong>プロセス制御</strong>です。</p>
+
+<h2>制御の用語</h2>
+<table>
+<tr><th>用語</th><th>意味</th><th>例（加熱槽の温度制御）</th></tr>
+<tr><td>制御量</td><td>目標どおりに保ちたい量</td><td>槽の出口温度</td></tr>
+<tr><td>目標値（設定値）</td><td>制御量をそろえたい値</td><td>60 °C</td></tr>
+<tr><td>操作量</td><td>制御量を動かすために調整する量</td><td>加熱蒸気の弁の開度</td></tr>
+<tr><td>外乱</td><td>制御量を乱す外からの変化</td><td>入ってくる液の温度や流量の変化</td></tr>
+<tr><td>偏差</td><td>目標値 − 制御量</td><td>60 °C − 現在の温度</td></tr>
+</table>
+
+<h2>フィードバック制御</h2>
+<p><strong>フィードバック制御</strong>は、制御量を測り、目標値とのずれ（偏差）を見て操作量を調整する方法です。温度が低ければ蒸気を増やし、高ければ減らす、という人間が手でやる操作を自動化したものです。</p>
+<p>どんな外乱が原因でも、結果として現れたずれを見て修正するので、原因がわからない外乱にも対応できるのが長所です。一方で、ずれが出てからでないと動けないため、遅れの大きいプロセスでは対応が後手に回ります。</p>
+
+<h2>PID制御</h2>
+<p>フィードバック制御で最も広く使われているのが<strong>PID制御</strong>です。偏差 $e(t)$ から操作量 $u(t)$ を次のように決めます。</p>
+<div class="formula">$$u(t) = K_p\left[e(t) + \frac{1}{T_i}\int_0^t e\,dt + T_d\,\frac{de}{dt}\right] + u_0$$</div>
+<p>$K_p$ を比例ゲイン、$T_i$ を積分時間、$T_d$ を微分時間といいます。3つの動作にはそれぞれ役割があります。</p>
+<table>
+<tr><th>動作</th><th>何に反応するか</th><th>効果</th><th>強すぎると</th></tr>
+<tr><td>比例（P）</td><td>今のずれの大きさ</td><td>ずれが大きいほど強く操作する</td><td>振動しやすくなる</td></tr>
+<tr><td>積分（I）</td><td>これまでのずれの累積</td><td>ずれが残っている限り操作を続け、オフセットを消す</td><td>行き過ぎ（オーバーシュート）や振動が増える</td></tr>
+<tr><td>微分（D）</td><td>ずれの変化の速さ</td><td>変化を先読みして早めに操作し、行き過ぎを抑える</td><td>測定値のノイズに過敏に反応する</td></tr>
+</table>
+
+<h2>比例動作だけではオフセットが残る</h2>
+<p>比例動作だけの制御（P制御）では、操作量は偏差に比例します。外乱で必要な操作量が変わった場合、それを生み出すには偏差がゼロでない値のまま残っている必要があります。この残ったずれを<strong>オフセット</strong>（定常偏差）といいます。</p>
+<p>比例ゲインを大きくすればオフセットは小さくなりますが、大きくしすぎると制御が振動的になり、不安定になります。そこで積分動作を加え、ずれが残っている限り操作量を少しずつ変え続けて、オフセットをゼロにします。</p>
+
+<h2>現場での使い分け</h2>
+<ul>
+<li><strong>流量制御</strong>：応答が速く測定値がばらつきやすいので、PI制御が一般的（D動作はノイズを拾うため使わないことが多い）</li>
+<li><strong>液面制御</strong>：多少のずれを許して流量の変動を抑えたい場合は、P制御やゲインの小さいPI制御を使う</li>
+<li><strong>温度制御</strong>：遅れが大きいので、D動作を加えたPID制御が効果的なことが多い</li>
+</ul>
+<p>PIDの各パラメータの決め方は<a href="/control/pid-tuning.html">PID制御のパラメータ調整</a>の記事で解説します。</p>
+
+
+<nav class="pager"><span></span><a class="next" href="/control/first-order-system.html">一次遅れ系と時定数 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html" aria-current="page">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

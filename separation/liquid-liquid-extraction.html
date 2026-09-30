@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>液液抽出の基礎｜分配係数と抽出率、多回抽出と向流多段抽出｜はじめての化学工学</title>
+<meta name="description" content="液液抽出の原理と分配係数、1回抽出での抽出率の求め方、同じ溶剤量で複数回に分けると有利になる理由、向流多段抽出の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/liquid-liquid-extraction.html">
+<meta property="og:title" content="液液抽出の基礎｜分配係数と抽出率、多回抽出と向流多段抽出｜はじめての化学工学">
+<meta property="og:description" content="液液抽出の原理と分配係数、1回抽出での抽出率の求め方、同じ溶剤量で複数回に分けると有利になる理由、向流多段抽出の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=0119e4fd">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=0119e4fd"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/advanced/">発展編</a><a href="/applied/">応用編</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>液液抽出の基礎｜分配係数と抽出率、多回抽出と向流多段抽出</span></nav>
+    <article class="article">
+<h1>液液抽出の基礎</h1>
+<p class="lead">液液抽出の原理と分配係数、1回抽出での抽出率の求め方、同じ溶剤量で複数回に分けると有利になる理由、向流多段抽出の計算を例題で解説します。</p>
+
+<h2>液液抽出とは</h2>
+<p><strong>液液抽出</strong>は、混ざり合わない2つの液体を接触させ、一方の液に溶けている成分をもう一方の液（抽出溶剤）に移して分ける操作です。水に溶けている有機物を有機溶剤に移したり、金属イオンを回収したりするのに使われます。</p>
+<p>沸点が近い成分や、熱に弱い成分など、<a href="/separation/flash-and-simple-distillation.html">蒸留</a>では分けにくいものを分けられるのが強みです。抽出後の溶剤からは、蒸留などで成分を取り出し、溶剤を再利用します。</p>
+<ul>
+<li>抽出される成分を<strong>溶質</strong>、元の液を<strong>原料</strong>（原溶媒）、加える液を<strong>抽剤</strong>（抽出溶剤）という</li>
+<li>抽出後、溶質を多く含む抽剤側の液を<strong>抽出液</strong>、溶質が減った原料側の液を<strong>抽残液</strong>という</li>
+</ul>
+
+<h2>分配係数</h2>
+<p>十分に混ぜて平衡になったとき、溶質が2つの液にどのように分かれるかを表すのが<strong>分配係数</strong>です。</p>
+<div class="formula">$$K = \frac{y}{x}$$</div>
+<p>$y$ は抽出液中、$x$ は抽残液中の溶質の濃度です（質量比などで表す）。$K$ が大きいほど、溶質は抽剤側に移りやすくなります。抽剤は、$K$ が大きく、原溶媒とよく分離し、回収しやすいものを選びます。</p>
+
+<h2>1回抽出の計算</h2>
+<p>原溶媒と抽剤がまったく混ざらず、希薄で $K$ が一定とみなせる場合を考えます。原溶媒の量を $F$、抽剤の量を $S$ とすると、<strong>抽出因子</strong> $E = K S / F$ を使って、抽残液に残る溶質の割合は</p>
+<div class="formula">$$\frac{x_1}{x_0} = \frac{1}{1 + E}$$</div>
+<p>となります。溶質の<a href="/basics/material-balance.html">物質収支</a> $F x_0 = F x_1 + S y_1$ に $y_1 = K x_1$ を代入すると導けます。</p>
+
+<h2>多回抽出：分けて使うと有利</h2>
+<p>同じ量の抽剤を何回かに分けて、新しい抽剤で繰り返し抽出する（並流多回抽出）と、1回で全部使うより多くの溶質を取り出せます。$n$ 回に等分した場合の残る割合は</p>
+<div class="formula">$$\frac{x_n}{x_0} = \left(\frac{1}{1 + E/n}\right)^n$$</div>
+
+<h2>向流多段抽出</h2>
+<p>工業的には、原料と抽剤を逆向きに流して段ごとに接触させる<strong>向流多段抽出</strong>がよく使われます。少ない抽剤で高い抽出率が得られます。$N$ 段の向流抽出で抽残液に残る割合は、次のクレムサーの式で表されます（$E \neq 1$ のとき）。</p>
+<div class="formula">$$\frac{x_N}{x_0} = \frac{E - 1}{E^{N+1} - 1}$$</div>
+
+<div class="example">
+<strong>例題：抽出のしかたによる違い</strong>
+<p>溶質を含む水 100 kg から、抽剤 100 kg を使って溶質を抽出します。分配係数（質量比基準）は $K = 2$ です。次の方法で、水に残る溶質の割合を比べてください。</p>
+<div class="answer">
+<p>抽出因子は $E = 2 \times 100 / 100 = 2$</p>
+<p>(1) 100 kg で1回抽出：$\dfrac{1}{1 + 2} \approx 33\%$ が残る</p>
+<p>(2) 50 kg ずつ2回：$\left(\dfrac{1}{1 + 1}\right)^2 = 25\%$ が残る</p>
+<p>(3) 25 kg ずつ4回：$\left(\dfrac{1}{1 + 0.5}\right)^4 \approx 20\%$ が残る</p>
+<p>(4) 100 kg で2段の向流抽出：$\dfrac{2 - 1}{2^3 - 1} = \dfrac{1}{7} \approx 14\%$ が残る</p>
+<p>(5) 100 kg で3段の向流抽出：$\dfrac{2 - 1}{2^4 - 1} = \dfrac{1}{15} \approx 7\%$ が残る</p>
+<p>同じ量の抽剤でも、使い方しだいで結果が大きく変わります。向流多段抽出が特に効率的なことがわかります。</p>
+</div>
+</div>
+
+<h2>抽出装置</h2>
+<p>実験室では分液ろうとを振って抽出しますが、工業的には、撹拌槽で混ぜて静置槽で分ける<strong>ミキサーセトラー</strong>や、塔の中で2つの液を向流に接触させる<strong>抽出塔</strong>（多孔板塔、回転円板塔など）、遠心力で素早く分ける遠心抽出機などが使われます。</p>
+
+
+<nav class="pager"><a class="prev" href="/separation/gas-absorption-column.html">← ガス吸収塔の設計</a><a class="next" href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html" aria-current="page">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/advanced/">発展編</a></h2><ul><li><a href="/advanced/multicomponent-vle.html">第1章 多成分系の気液平衡</a></li><li><a href="/advanced/shortcut-distillation.html">第2章 多成分蒸留の近道法</a></li><li><a href="/advanced/packed-column.html">第3章 充填塔の設計</a></li><li><a href="/advanced/chemical-absorption.html">第4章 反応を伴うガス吸収</a></li><li><a href="/advanced/epsilon-ntu.html">第5章 熱交換器の ε-NTU 法</a></li><li><a href="/advanced/shell-and-tube-design.html">第6章 多管式熱交換器の設計手順</a></li><li><a href="/advanced/boiling-condensation.html">第7章 沸騰と凝縮の伝熱</a></li><li><a href="/advanced/complex-reactions.html">第8章 複合反応と選択率</a></li><li><a href="/advanced/reactor-heat-balance.html">第9章 反応器の熱収支</a></li><li><a href="/advanced/thermal-runaway.html">第10章 熱暴走と安全設計</a></li><li><a href="/advanced/residence-time-distribution.html">第11章 滞留時間分布と非理想流れ</a></li><li><a href="/advanced/transfer-functions.html">第12章 伝達関数とブロック線図</a></li><li><a href="/advanced/pid-design.html">第13章 PID 制御の設計</a></li><li><a href="/advanced/process-economics.html">第14章 プロセスの経済性</a></li></ul><h2><a href="/applied/">応用編</a></h2><ul><li><a href="/applied/recycle-purge.html">第1章 リサイクルとパージを含む物質収支</a></li><li><a href="/applied/pump-operating-point.html">第2章 ポンプの運転点と省エネ</a></li><li><a href="/applied/economic-pipe-diameter.html">第3章 経済的な配管径の選び方</a></li><li><a href="/applied/pinch-analysis.html">第4章 ピンチ解析による熱回収</a></li><li><a href="/applied/cooling-tower.html">第5章 冷却塔の設計と運転</a></li><li><a href="/applied/stirred-tank-scale-up.html">第6章 撹拌槽のスケールアップ</a></li><li><a href="/applied/crystallization-msmpr.html">第7章 晶析の設計</a></li><li><a href="/applied/batch-scheduling.html">第8章 回分プロセスの生産計画</a></li><li><a href="/applied/activated-sludge.html">第9章 活性汚泥法の設計</a></li><li><a href="/applied/lopa.html">第10章 プロセス安全の定量評価</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>
