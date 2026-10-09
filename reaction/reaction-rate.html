@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>反応速度と反応次数、アレニウスの式をわかりやすく｜はじめての化学工学</title>
+<meta name="description" content="反応工学の出発点となる反応速度の定義、反応速度式と反応次数、温度によって速度定数が変わることを表すアレニウスの式と活性化エネルギーを例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/reaction/reaction-rate.html">
+<meta property="og:title" content="反応速度と反応次数、アレニウスの式をわかりやすく｜はじめての化学工学">
+<meta property="og:description" content="反応工学の出発点となる反応速度の定義、反応速度式と反応次数、温度によって速度定数が変わることを表すアレニウスの式と活性化エネルギーを例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=bf45c21c">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=bf45c21c"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/reaction/">反応工学</a> › <span>反応速度と反応次数、アレニウスの式をわかりやすく</span></nav>
+    <article class="article">
+<h1>反応速度と反応次数、アレニウスの式をわかりやすく</h1>
+<p class="lead">反応工学の出発点となる反応速度の定義、反応速度式と反応次数、温度によって速度定数が変わることを表すアレニウスの式と活性化エネルギーを例題で解説します。</p>
+
+<h2>反応工学とは</h2>
+<p><strong>反応工学</strong>は、化学反応を工業的に行う装置（反応器）を設計・運転するための学問です。どのくらいの大きさの反応器で、どのくらいの時間や温度で反応させれば、目的の量の製品が得られるかを計算します。その出発点になるのが「反応がどのくらいの速さで進むか」、つまり<strong>反応速度</strong>です。</p>
+
+<h2>反応速度の定義</h2>
+<p>成分Aが反応して消えていく速さを、単位体積・単位時間あたりに消える物質量で表します。</p>
+<div class="formula">$$-r_A = -\frac{1}{V}\frac{dn_A}{dt}\quad [\text{mol/(m}^3\text{s)}]$$</div>
+<p>体積が一定の場合は $-r_A = -dC_A/dt$ と、濃度の減る速さになります。$r_A$ は「生成する速さ」の意味で使うので、消える場合は負になり、マイナスをつけて正の値として扱います。</p>
+
+<h2>反応速度式と反応次数</h2>
+<p>反応速度は多くの場合、反応する成分の濃度のべき乗で表せます。</p>
+<div class="formula">$$-r_A = k\,C_A^{\,a}\,C_B^{\,b}$$</div>
+<p>$k$ を<strong>速度定数</strong>、指数 $a$、$b$ をそれぞれの成分についての<strong>反応次数</strong>、その合計 $n = a + b$ を反応全体の次数といいます。</p>
+<table>
+<tr><th>次数</th><th>速度式の例</th><th>速度定数の単位</th><th>特徴</th></tr>
+<tr><td>0次</td><td>$-r_A = k$</td><td>mol/(m³·s)</td><td>濃度によらず一定の速さ</td></tr>
+<tr><td>1次</td><td>$-r_A = k\,C_A$</td><td>1/s</td><td>放射性崩壊、多くの分解反応</td></tr>
+<tr><td>2次</td><td>$-r_A = k\,C_A^2$ または $k\,C_A C_B$</td><td>m³/(mol·s)</td><td>2つの分子の衝突で進む反応</td></tr>
+</table>
+<div class="note">反応次数は、反応式の係数と一致するとは限りません。反応式は最初と最後の物質の関係を表すだけで、実際の反応はいくつもの段階を経て進むことが多いためです。次数は実験で求めるのが基本です。</div>
+
+<h2>1次反応と半減期</h2>
+<p>1次反応では、濃度が半分になるまでの時間（<strong>半減期</strong>）が、最初の濃度によらず一定になります。</p>
+<div class="formula">$$t_{1/2} = \frac{\ln 2}{k}$$</div>
+<p>たとえば $k = 0.1$ 1/min なら、半減期は $0.693 / 0.1 \approx 6.9$ 分です。7分ごとに半分、14分で4分の1、と減っていきます。</p>
+<figure class="fig"><a href="/fig/first-order-decay.svg" target="_blank" rel="noopener"><img src="/fig/first-order-decay.svg" alt="図1　1次反応の濃度の減り方。半減期ごとに濃度が半分になる" width="560" height="300" loading="lazy"></a><figcaption>図1　1次反応の濃度の減り方。半減期ごとに濃度が半分になる</figcaption></figure>
+
+<h2>温度の影響：アレニウスの式</h2>
+<p>反応速度は温度が上がると大きく速くなります。速度定数と温度の関係は、次の<strong>アレニウスの式</strong>で表されます。</p>
+<div class="formula">$$k = A \exp\!\left(-\frac{E}{R\,T}\right)$$</div>
+<p>$E$ は<strong>活性化エネルギー</strong> [J/mol]、$A$ は頻度因子、$T$ は絶対温度です。活性化エネルギーは、反応が進むために越えなければならないエネルギーの山の高さに当たり、大きいほど温度による速度の変化が大きくなります。</p>
+<figure class="fig"><a href="/fig/activation-energy-diagram.svg" target="_blank" rel="noopener"><img src="/fig/activation-energy-diagram.svg" alt="図2　活性化エネルギーのイメージ" width="560" height="280" loading="lazy"></a><figcaption>図2　活性化エネルギーのイメージ</figcaption></figure>
+<p>2つの温度 $T_1$、$T_2$ での速度定数の比は、頻度因子が打ち消しあって</p>
+<div class="formula">$$\frac{k_2}{k_1} = \exp\!\left[\frac{E}{R}\left(\frac{1}{T_1} - \frac{1}{T_2}\right)\right]$$</div>
+<p>となります。</p>
+
+<div class="example">
+<strong>例題：温度を10 °C上げると反応は何倍速くなるか</strong>
+<p>活性化エネルギーが 80 kJ/mol の反応で、温度を 25 °C から 35 °C に上げると、速度定数は何倍になりますか。</p>
+<div class="answer">
+<p>$T_1 = 298.15\ \text{K}$、$T_2 = 308.15\ \text{K}$</p>
+<p>$\dfrac{k_2}{k_1} = \exp\left[\dfrac{80\,000}{8.314}\left(\dfrac{1}{298.15} - \dfrac{1}{308.15}\right)\right] = \exp(1.047) \approx 2.9$</p>
+<p>約3倍になります。「温度が10 °C上がると反応速度は2〜3倍になる」という経験則は、活性化エネルギーが50〜80 kJ/mol程度の反応に当てはまるものです。</p>
+</div>
+</div>
+
+<h2>アレニウスプロットで活性化エネルギーを求める</h2>
+<p>アレニウスの式の両辺の対数をとると $\ln k = \ln A - \dfrac{E}{R}\cdot\dfrac{1}{T}$ となり、$\ln k$ を $1/T$ に対してプロットすると直線になります。いくつかの温度で速度定数を測り、この直線の傾き $-E/R$ から活性化エネルギーを求められます。これを<strong>アレニウスプロット</strong>といいます。</p>
+<figure class="fig"><a href="/fig/arrhenius-plot.svg" target="_blank" rel="noopener"><img src="/fig/arrhenius-plot.svg" alt="図3　アレニウスプロットの例（E = 80 kJ/mol）。例題の25 °C と35 °C の速度定数の比を示す" width="560" height="310" loading="lazy"></a><figcaption>図3　アレニウスプロットの例（E = 80 kJ/mol）。例題の25 °C と35 °C の速度定数の比を示す</figcaption></figure>
+
+
+<nav class="pager"><span></span><a class="next" href="/reaction/batch-reactor.html">回分反応器の設計式 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html" aria-current="page">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

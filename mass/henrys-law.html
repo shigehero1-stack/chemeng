@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ヘンリーの法則とは？気体の溶解度の計算｜はじめての化学工学</title>
+<meta name="description" content="気体が液体に溶ける量を表すヘンリーの法則の式、ヘンリー定数の単位の違い、水に溶ける二酸化炭素と酸素の量の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/mass/henrys-law.html">
+<meta property="og:title" content="ヘンリーの法則とは？気体の溶解度の計算｜はじめての化学工学">
+<meta property="og:description" content="気体が液体に溶ける量を表すヘンリーの法則の式、ヘンリー定数の単位の違い、水に溶ける二酸化炭素と酸素の量の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=bf45c21c">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=bf45c21c"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/mass/">物質移動</a> › <span>ヘンリーの法則とは？気体の溶解度の計算</span></nav>
+    <article class="article">
+<h1>ヘンリーの法則とは？気体の溶解度の計算</h1>
+<p class="lead">気体が液体に溶ける量を表すヘンリーの法則の式、ヘンリー定数の単位の違い、水に溶ける二酸化炭素と酸素の量の計算を例題で解説します。</p>
+
+<h2>ヘンリーの法則</h2>
+<p>気体が液体に溶ける量は、その気体の分圧に比例します。これを<strong>ヘンリーの法則</strong>といいます。炭酸飲料の栓を開けると泡が出るのは、容器の中の二酸化炭素の圧力が下がり、溶けていられる量が減るためです。</p>
+<div class="formula">$$p_A = H\,x_A$$</div>
+<p>$p_A$ は気相中の成分Aの分圧、$x_A$ は液中のAのモル分率、$H$ が<strong>ヘンリー定数</strong>です。溶けた量が少ない（希薄な）範囲でよく成り立ちます。</p>
+<figure class="fig"><a href="/fig/henry-pressure-solubility.svg" target="_blank" rel="noopener"><img src="/fig/henry-pressure-solubility.svg" alt="図1　ヘンリーの法則のイメージ。気体の分圧が高いほど多く溶ける" width="600" height="260" loading="lazy"></a><figcaption>図1　ヘンリーの法則のイメージ。気体の分圧が高いほど多く溶ける</figcaption></figure>
+
+<h2>ヘンリー定数の表し方に注意</h2>
+<p>ヘンリーの法則は、資料によって次のようにさまざまな形で書かれています。</p>
+<table>
+<tr><th>式の形</th><th>定数の単位の例</th><th>定数が大きいと</th></tr>
+<tr><td>$p = H\,x$</td><td>atm、Pa</td><td>溶けにくい</td></tr>
+<tr><td>$p = H'\,C$</td><td>atm·L/mol、Pa·m³/mol</td><td>溶けにくい</td></tr>
+<tr><td>$C = H^{cp}\,p$</td><td>mol/(L·atm)、mol/(m³·Pa)</td><td>溶けやすい</td></tr>
+<tr><td>$y = m\,x$</td><td>無次元（$m = H/P$）</td><td>溶けにくい</td></tr>
+</table>
+<p>形によって大小の意味が逆になるので、数値を使うときは必ず式の形と単位を確認してください。希薄な水溶液では、水のモル濃度（約55.5 mol/L）を掛けたり割ったりして換算できます。</p>
+<p>最後の $y = m x$ の形は、ガス吸収塔の設計でよく使います。全圧 $P$ が高いほど $m$ が小さくなり、気体を吸収しやすくなることがわかります。</p>
+
+<h2>ヘンリー定数の目安（水、25 °C）</h2>
+<table>
+<tr><th>気体</th><th>$H$（$p = Hx$ の形）[atm]</th></tr>
+<tr><td>二酸化炭素</td><td>約 1.6 × 10³</td></tr>
+<tr><td>酸素</td><td>約 4.4 × 10⁴</td></tr>
+<tr><td>窒素</td><td>約 8.6 × 10⁴</td></tr>
+</table>
+<p>二酸化炭素は酸素や窒素に比べて、水に数十倍溶けやすいことがわかります。多くの気体は温度が上がるとヘンリー定数が大きくなり、溶けにくくなります。</p>
+<figure class="fig"><a href="/fig/henry-gas-solubility-compare.svg" target="_blank" rel="noopener"><img src="/fig/henry-gas-solubility-compare.svg" alt="図2　表のヘンリー定数から計算した、1 atm の気体が水に溶ける量（25 °C）" width="600" height="210" loading="lazy"></a><figcaption>図2　表のヘンリー定数から計算した、1 atm の気体が水に溶ける量（25 °C）</figcaption></figure>
+
+<div class="example">
+<strong>例題1：炭酸水に溶けている二酸化炭素</strong>
+<p>25 °C で、二酸化炭素の分圧 1 atm と平衡にある水には、二酸化炭素が何 g/L 溶けていますか。$H = 1.63 \times 10^3$ atm とします。</p>
+<div class="answer">
+<p>$x = \dfrac{p}{H} = \dfrac{1}{1630} \approx 6.1 \times 10^{-4}$</p>
+<p>希薄なので、モル濃度は $6.1 \times 10^{-4} \times 55.5 \approx 0.034\ \text{mol/L}$</p>
+<p>質量に直すと $0.034 \times 44.0 \approx 1.5\ \text{g/L}$ です。市販の炭酸飲料は、これより高い圧力をかけてさらに多く溶かしています。</p>
+</div>
+</div>
+
+<div class="example">
+<strong>例題2：空気と接した水の溶存酸素</strong>
+<p>25 °C、1気圧の空気（酸素 21%）と平衡にある水の、溶存酸素の濃度を mg/L で求めてください。$H = 4.4 \times 10^4$ atm とします。</p>
+<div class="answer">
+<p>酸素の分圧は $0.21\ \text{atm}$ なので $x = 0.21 / (4.4 \times 10^4) \approx 4.8 \times 10^{-6}$</p>
+<p>モル濃度は $4.8 \times 10^{-6} \times 55.5 \approx 2.6 \times 10^{-4}\ \text{mol/L}$、質量では $2.6 \times 10^{-4} \times 32.0 \times 1000 \approx 8.5\ \text{mg/L}$</p>
+<p>実際に測定される25 °Cの飽和溶存酸素は約8 mg/Lで、ほぼ一致します。排水処理で微生物に酸素を送る曝気（ばっき）では、この小さな溶解度が設計の制約になります。</p>
+</div>
+</div>
+
+
+<nav class="pager"><a class="prev" href="/mass/mass-transfer-coefficient.html">← 物質移動係数と境膜説</a><a class="next" href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html" aria-current="page">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

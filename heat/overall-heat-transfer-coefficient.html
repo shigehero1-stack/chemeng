@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>総括伝熱係数の求め方｜汚れ係数と律速の考え方｜はじめての化学工学</title>
+<meta name="description" content="管の内側の流体から外側の流体へ熱が伝わるときの総括伝熱係数Uの計算式、汚れ係数の意味、どこが伝熱の妨げになっているかの見分け方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/heat/overall-heat-transfer-coefficient.html">
+<meta property="og:title" content="総括伝熱係数の求め方｜汚れ係数と律速の考え方｜はじめての化学工学">
+<meta property="og:description" content="管の内側の流体から外側の流体へ熱が伝わるときの総括伝熱係数Uの計算式、汚れ係数の意味、どこが伝熱の妨げになっているかの見分け方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=bf45c21c">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=bf45c21c"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/heat/">伝熱</a> › <span>総括伝熱係数の求め方｜汚れ係数と律速の考え方</span></nav>
+    <article class="article">
+<h1>総括伝熱係数の求め方</h1>
+<p class="lead">管の内側の流体から外側の流体へ熱が伝わるときの総括伝熱係数Uの計算式、汚れ係数の意味、どこが伝熱の妨げになっているかの見分け方を例題で解説します。</p>
+
+<h2>総括伝熱係数とは</h2>
+<p>熱交換器では、熱は「高温の流体 → 管壁 → 低温の流体」と、いくつかの段階を順番に通って伝わります。この全体をまとめて一つの係数で表したものが<strong>総括伝熱係数</strong> $U$ [W/(m²·K)] です。</p>
+<div class="formula">$$Q = U\,A\,\Delta T$$</div>
+<p>$\Delta T$ は高温流体と低温流体の温度差です。熱交換器の中では温度差が場所によって変わるので、実際の設計では<a href="/heat/heat-exchanger-lmtd.html">対数平均温度差</a>を使います。</p>
+
+<h2>熱抵抗の直列として考える</h2>
+<p><a href="/heat/conduction.html">熱伝導の記事</a>で紹介した熱抵抗の考え方を使うと、各段階の抵抗を足し合わせたものが全体の抵抗になります。管壁が薄く、内外の面積の差を無視できる場合は</p>
+<div class="formula">$$\frac{1}{U} = \frac{1}{h_i} + \frac{L_w}{k_w} + \frac{1}{h_o}$$</div>
+<ul>
+<li>$h_i$、$h_o$：管の内側・外側の<a href="/heat/convection.html">熱伝達係数</a></li>
+<li>$L_w$、$k_w$：管壁の厚さと熱伝導率</li>
+</ul>
+<p>管壁が厚い場合は、面積の違いを考えて外表面積基準などにそろえて計算します。</p>
+<figure class="fig"><a href="/fig/overall-u-wall-profile.svg" target="_blank" rel="noopener"><img src="/fig/overall-u-wall-profile.svg" alt="図1　管壁をはさんだ温度分布のイメージ。抵抗の大きい油側の境膜で温度が大きく下がる" width="620" height="330" loading="lazy"></a><figcaption>図1　管壁をはさんだ温度分布のイメージ。抵抗の大きい油側の境膜で温度が大きく下がる</figcaption></figure>
+
+<h2>一番小さい h が全体を決める</h2>
+<p>抵抗の直列では、一番大きい抵抗（一番小さい $h$）が全体をほぼ決めてしまいます。これを<strong>律速</strong>といいます。</p>
+
+<div class="example">
+<strong>例題：水と油の熱交換</strong>
+<p>管の内側を水（$h_i$ = 5000 W/(m²·K)）、外側を油（$h_o$ = 1000 W/(m²·K)）が流れています。管壁は厚さ 2 mm の炭素鋼（$k_w$ = 50 W/(m·K)）です。汚れは無視して総括伝熱係数を求めてください。</p>
+<div class="answer">
+<p>$\dfrac{1}{U} = \dfrac{1}{5000} + \dfrac{0.002}{50} + \dfrac{1}{1000} = 0.00020 + 0.00004 + 0.00100 = 0.00124$</p>
+<p>$U \approx 806\ \text{W/(m}^2\text{K)}$</p>
+<p>全体の抵抗のうち約8割を油側が占めています。水側の $h$ を2倍にしても $U$ は約880にしか上がりませんが、油側の $h$ を2倍にすると約1350まで上がります。改善するなら油側（フィンをつける、流速を上げるなど）が効果的です。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/overall-u-resistance-share.svg" target="_blank" rel="noopener"><img src="/fig/overall-u-resistance-share.svg" alt="図2　例題の総括伝熱抵抗の内訳" width="600" height="200" loading="lazy"></a><figcaption>図2　例題の総括伝熱抵抗の内訳</figcaption></figure>
+
+<h2>汚れ係数</h2>
+<p>長く運転すると、管の表面にスケールや錆、生物の付着などの汚れがたまり、熱が伝わりにくくなります。この影響を熱抵抗として足し込んだものを<strong>汚れ係数</strong>（ファウリング係数）$R_f$ [m²·K/W] といいます。</p>
+<div class="formula">$$\frac{1}{U} = \frac{1}{h_i} + R_{f,i} + \frac{L_w}{k_w} + R_{f,o} + \frac{1}{h_o}$$</div>
+<p>設計では、汚れがたまった状態でも必要な熱量を交換できるよう、汚れ係数を見込んで伝熱面積に余裕をもたせます。値は流体の種類や水質によって変わるので、TEMA規格などの資料や過去の運転実績を参考にします。</p>
+
+<h2>総括伝熱係数の目安</h2>
+<table>
+<tr><th>流体の組み合わせ</th><th>U の目安 [W/(m²·K)]</th></tr>
+<tr><td>水 － 水</td><td>800〜2 500</td></tr>
+<tr><td>水 － 油</td><td>100〜400</td></tr>
+<tr><td>水蒸気の凝縮 － 水</td><td>1 000〜4 000</td></tr>
+<tr><td>気体 － 気体</td><td>10〜50</td></tr>
+</table>
+<p>概算の段階ではこうした目安の値を使い、詳細設計で各 $h$ を計算して確かめるのが一般的な進め方です。</p>
+
+
+<nav class="pager"><a class="prev" href="/heat/convection.html">← 対流伝熱と熱伝達係数</a><a class="next" href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html" aria-current="page">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

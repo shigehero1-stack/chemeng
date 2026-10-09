@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>最小二乗法とパラメータ推定｜アレニウスプロットで活性化エネルギーを求める｜はじめての化学工学</title>
+<meta name="description" content="実験データから式のパラメータを決める最小二乗法の考え方と計算式を、速度定数のデータから活性化エネルギーを求める例題と Python のプログラムで解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/numerical/least-squares.html">
+<meta property="og:title" content="最小二乗法とパラメータ推定｜アレニウスプロットで活性化エネルギーを求める｜はじめての化学工学">
+<meta property="og:description" content="実験データから式のパラメータを決める最小二乗法の考え方と計算式を、速度定数のデータから活性化エネルギーを求める例題と Python のプログラムで解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=bf45c21c">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=bf45c21c"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/numerical/">数値計算</a> › <span>最小二乗法とパラメータ推定｜アレニウスプロットで活性化エネルギーを求める</span></nav>
+    <article class="article">
+<h1>最小二乗法とパラメータ推定</h1>
+<p class="lead">実験データから式のパラメータを決める最小二乗法の考え方と計算式を、速度定数のデータから活性化エネルギーを求める例題と Python のプログラムで解説します。</p>
+
+<h2>パラメータ推定とは</h2>
+<p>化学工学では、反応速度式の速度定数や活性化エネルギー、物性の相関式の係数など、式に含まれる定数（パラメータ）を実験データから決める場面がよくあります。これを<strong>パラメータ推定</strong>といい、その最も基本的な方法が<strong>最小二乗法</strong>です。</p>
+
+<h2>最小二乗法の考え方</h2>
+<p>測定データ $(x_i, y_i)$ に直線 $y = a + bx$ を当てはめるとき、各点での「測定値と直線の差（残差）」の2乗の合計</p>
+<div class="formula">$$S = \sum_{i=1}^{n} \left( y_i - a - b x_i \right)^2$$</div>
+<p>が最も小さくなるように $a$ と $b$ を決めます。2乗するのは、プラスとマイナスの誤差が打ち消し合わないようにするためです。$S$ を $a$、$b$ で微分して0とおくと、次の式が得られます。</p>
+<div class="formula">$$b = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}, \qquad a = \bar{y} - b\,\bar{x}$$</div>
+<p>$\bar{x}$、$\bar{y}$ はそれぞれの平均値です。</p>
+<figure class="fig"><a href="/fig/least-squares-residuals.svg" target="_blank" rel="noopener"><img src="/fig/least-squares-residuals.svg" alt="図1　最小二乗法の考え方。残差（縦の線）の2乗の合計が最小になる直線を選ぶ" width="560" height="300" loading="lazy"></a><figcaption>図1　最小二乗法の考え方。残差（縦の線）の2乗の合計が最小になる直線を選ぶ</figcaption></figure>
+
+<h2>当てはまりの良さ：決定係数</h2>
+<p>直線がデータにどれだけよく合っているかは、<strong>決定係数</strong> $R^2$ で表します。</p>
+<div class="formula">$$R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}$$</div>
+<p>$\hat{y}_i$ は直線による計算値です。1に近いほどよく当てはまっています。ただし、$R^2$ が大きくても、式の形そのものが正しいとは限りません。残差を $x$ に対してプロットし、系統的な傾向（曲がりなど）がないかも確かめましょう。</p>
+
+<h2>曲線の式は変形して直線にする</h2>
+<p><a href="/reaction/reaction-rate.html">アレニウスの式</a> $k = A \exp(-E/RT)$ のように直線でない式も、両辺の対数をとると</p>
+<div class="formula">$$\ln k = \ln A - \frac{E}{R}\cdot\frac{1}{T}$$</div>
+<p>となり、$x = 1/T$、$y = \ln k$ とすれば直線の当てはめで扱えます。傾き $b$ から $E = -bR$、切片 $a$ から $A = e^a$ が求まります。</p>
+
+<div class="example">
+<strong>例題：速度定数のデータから活性化エネルギーを求める</strong>
+<p>ある反応の速度定数を、5つの温度で測定しました。</p>
+<table>
+<tr><th>温度 [K]</th><td>300</td><td>310</td><td>320</td><td>330</td><td>340</td></tr>
+<tr><th>速度定数 [1/s]</th><td>3.15 × 10⁻⁴</td><td>6.92 × 10⁻⁴</td><td>1.46 × 10⁻³</td><td>2.96 × 10⁻³</td><td>5.77 × 10⁻³</td></tr>
+</table>
+<p>活性化エネルギーと頻度因子を求めてください。</p>
+<div class="answer">
+<p>$1/T$ と $\ln k$ を計算して最小二乗法で直線を当てはめます。次の Python のプログラムは、標準の機能だけで動きます。</p>
+<pre><code>import math
+
+T = [300, 310, 320, 330, 340]                 # 温度 [K]
+k = [3.15e-4, 6.92e-4, 1.46e-3, 2.96e-3, 5.77e-3]   # 速度定数 [1/s]
+
+x = [1 / t for t in T]                        # 横軸 1/T
+y = [math.log(v) for v in k]                  # 縦軸 ln k
+n = len(x)
+xm, ym = sum(x) / n, sum(y) / n
+b = sum((xi - xm) * (yi - ym) for xi, yi in zip(x, y)) / sum((xi - xm) ** 2 for xi in x)
+a = ym - b * xm
+
+R = 8.314
+E = -b * R                                    # 傾き = -E/R
+A = math.exp(a)                               # 切片 = ln A
+r2 = 1 - sum((yi - (a + b * xi)) ** 2 for xi, yi in zip(x, y)) / sum((yi - ym) ** 2 for yi in y)
+print(f&quot;E = {E/1000:.1f} kJ/mol, A = {A:.2e} 1/s, R^2 = {r2:.5f}&quot;)</code></pre>
+<p>実行結果：</p>
+<pre class="output"><code>E = 61.7 kJ/mol, A = 1.71e+07 1/s, R^2 = 0.99998</code></pre>
+<p>活性化エネルギーは約 62 kJ/mol です。決定係数が 1 にとても近く、アレニウスの式でよく表せていることがわかります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/least-squares-arrhenius-fit.svg" target="_blank" rel="noopener"><img src="/fig/least-squares-arrhenius-fit.svg" alt="図2　例題のデータのアレニウスプロットと最小二乗法で求めた直線" width="560" height="310" loading="lazy"></a><figcaption>図2　例題のデータのアレニウスプロットと最小二乗法で求めた直線</figcaption></figure>
+
+<h2>使うときの注意</h2>
+<ul>
+<li><strong>変形すると誤差の重みが変わる</strong>：$\ln k$ で当てはめると、小さい $k$ の相対誤差が強調されます。精度が重要な場合は、元の式のまま残差を最小にする非線形最小二乗法を使います</li>
+<li><strong>データの範囲の外に使わない</strong>：求めた式は、測定した温度範囲の中でだけ信頼できます</li>
+<li><strong>パラメータどうしの相関</strong>：$A$ と $E$ は強く相関していて、測定範囲が狭いと個々の値の誤差は大きくなります。温度範囲をなるべく広くとるのが有効です</li>
+</ul>
+<p>表計算ソフトでは、SLOPE 関数と INTERCEPT 関数、またはグラフの近似曲線の機能で同じ計算ができます。</p>
+
+
+<nav class="pager"><span></span><a class="next" href="/numerical/nonlinear-equations.html">非線形方程式の解き方 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html" aria-current="page">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>拡散とフィックの法則｜拡散係数と蒸発速度の計算｜はじめての化学工学</title>
+<meta name="description" content="物質移動の基本である分子拡散とフィックの法則、気体と液体の拡散係数の目安、静止した空気中を水蒸気が拡散する場合の蒸発速度の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/mass/diffusion.html">
+<meta property="og:title" content="拡散とフィックの法則｜拡散係数と蒸発速度の計算｜はじめての化学工学">
+<meta property="og:description" content="物質移動の基本である分子拡散とフィックの法則、気体と液体の拡散係数の目安、静止した空気中を水蒸気が拡散する場合の蒸発速度の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=bf45c21c">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=bf45c21c"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/reaction/">反応工学</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/mass/">物質移動</a> › <span>拡散とフィックの法則｜拡散係数と蒸発速度の計算</span></nav>
+    <article class="article">
+<h1>拡散とフィックの法則</h1>
+<p class="lead">物質移動の基本である分子拡散とフィックの法則、気体と液体の拡散係数の目安、静止した空気中を水蒸気が拡散する場合の蒸発速度の計算を例題で解説します。</p>
+
+<h2>物質移動とは</h2>
+<p>濃度に差があると、成分は濃いほうから薄いほうへ移動します。部屋の隅で開けた香水の香りが広がるのも、コーヒーに入れた砂糖がかき混ぜなくても少しずつ広がるのも、この現象です。化学工学では、成分が移動する速さを扱う分野を<strong>物質移動</strong>といいます。</p>
+<p>蒸留、ガス吸収、抽出、乾燥などの分離操作や、触媒反応の速さは、物質移動の速さに大きく左右されます。</p>
+
+<h2>分子拡散とフィックの法則</h2>
+<p>流れがなくても、分子の熱運動によって成分は濃度の低いほうへ広がります。これを<strong>分子拡散</strong>といい、その速さは濃度の傾きに比例します。</p>
+<div class="formula">$$J_A = -D_{AB}\,\frac{dC_A}{dx}$$</div>
+<p>$J_A$ は成分Aの拡散流束 [mol/(m²·s)]、$C_A$ はモル濃度 [mol/m³]、$D_{AB}$ は成分Aが成分Bの中を拡散するときの<strong>拡散係数</strong> [m²/s] です。この式は<a href="/heat/conduction.html">熱伝導のフーリエの法則</a>とまったく同じ形をしています。</p>
+
+<h2>拡散係数の目安</h2>
+<table>
+<tr><th>状態</th><th>拡散係数の目安 [m²/s]</th><th>例</th></tr>
+<tr><td>気体中</td><td>10⁻⁵ 程度</td><td>空気中の水蒸気：約 2.6 × 10⁻⁵（25 °C）</td></tr>
+<tr><td>液体中</td><td>10⁻⁹ 程度</td><td>水中の小さな分子：約 1〜2 × 10⁻⁹</td></tr>
+<tr><td>固体中</td><td>10⁻¹⁰ 以下</td><td>金属中の原子など（温度で大きく変わる）</td></tr>
+</table>
+<p>液体中の拡散は気体中より約1万倍も遅いことがわかります。液体を扱う装置で撹拌や流れが重要になるのはこのためです。気体の拡散係数は、温度が上がると大きくなり、圧力が上がると小さくなります（圧力にほぼ反比例）。</p>
+<figure class="fig"><a href="/fig/diffusivity-scale.svg" target="_blank" rel="noopener"><img src="/fig/diffusivity-scale.svg" alt="図1　気体・液体・固体中の拡散係数のおおよその範囲（対数目盛）" width="600" height="190" loading="lazy"></a><figcaption>図1　気体・液体・固体中の拡散係数のおおよその範囲（対数目盛）</figcaption></figure>
+
+<h2>2つの典型的な場合</h2>
+<h3>等モル相互拡散</h3>
+<p>AとBが同じ量ずつ逆向きに移動する場合です（蒸留塔の気液界面など）。厚さ $L$ の層を通る流束は</p>
+<div class="formula">$$N_A = \frac{D_{AB}}{L}\,(C_{A1} - C_{A2})$$</div>
+<h3>静止した成分の中を拡散する場合（一方拡散）</h3>
+<p>Aだけが移動し、Bは動かない場合です。水面から空気中へ水蒸気が蒸発する場合や、気体の一成分だけが液体に吸収される場合がこれに当たります。理想気体では</p>
+<div class="formula">$$N_A = \frac{D_{AB}\,P}{R\,T\,L}\,\ln \frac{P - p_{A2}}{P - p_{A1}}$$</div>
+<p>となります。$P$ は全圧、$p_{A1}$、$p_{A2}$ は両端でのAの分圧です。Aの分圧が全圧に比べて小さいときは、等モル相互拡散の式とほとんど同じ値になります。</p>
+
+<div class="example">
+<strong>例題：細い管の底からの水の蒸発</strong>
+<p>25 °C、1気圧の部屋に、底に水を入れた細い管があります。水面から管の口までの距離は 10 cm で、管の口では水蒸気の分圧はほぼ0とします。25 °C の水の蒸気圧を 3.17 kPa、空気中の水蒸気の拡散係数を 2.6 × 10⁻⁵ m²/s として、水面 1 m² あたりの蒸発速度を求めてください。</p>
+<div class="answer">
+<p>$N_A = \dfrac{2.6 \times 10^{-5} \times 101\,325}{8.314 \times 298.15 \times 0.10} \times \ln \dfrac{101.325 - 0}{101.325 - 3.17} \approx 3.4 \times 10^{-4}\ \text{mol/(m}^2\text{s)}$</p>
+<p>質量に直すと $3.4 \times 10^{-4} \times 18.0 \times 3600 \approx 0.022\ \text{kg/(m}^2\text{h)}$、つまり1時間に水面1 m²あたり約22 gです。</p>
+<p>水蒸気の分圧（3.17 kPa）は全圧に比べて小さいので、等モル相互拡散の式で計算しても約 3.3 × 10⁻⁴ mol/(m²·s) と、ほぼ同じ値になります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/stefan-tube.svg" target="_blank" rel="noopener"><img src="/fig/stefan-tube.svg" alt="図2　例題の細い管の中の水蒸気の拡散。分圧は水面の蒸気圧から管の口の0までほぼ直線的に下がる" width="600" height="320" loading="lazy"></a><figcaption>図2　例題の細い管の中の水蒸気の拡散。分圧は水面の蒸気圧から管の口の0までほぼ直線的に下がる</figcaption></figure>
+
+<h2>拡散だけでは遅い</h2>
+<p>例題のように、静かな空気中の拡散による蒸発はとてもゆっくりです。実際の装置では、流れや撹拌によって成分を運ぶ<strong>対流による物質移動</strong>を利用して、移動を速めています。その扱い方は<a href="/mass/mass-transfer-coefficient.html">物質移動係数</a>の記事で解説します。</p>
+
+
+<nav class="pager"><span></span><a class="next" href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html" aria-current="page">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>
