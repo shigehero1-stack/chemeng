@@ -15,6 +15,7 @@ order: 3
 <li>$L_w$、$k_w$：管壁の厚さと熱伝導率</li>
 </ul>
 <p>管壁が厚い場合は、面積の違いを考えて外表面積基準などにそろえて計算します。</p>
+<figure class="fig"><img src="/fig/overall-u-wall-profile.svg" alt="図1　管壁をはさんだ温度分布のイメージ。抵抗の大きい油側の境膜で温度が大きく下がる" width="620" height="330" loading="lazy"><figcaption>図1　管壁をはさんだ温度分布のイメージ。抵抗の大きい油側の境膜で温度が大きく下がる</figcaption></figure>
 
 <h2>一番小さい h が全体を決める</h2>
 <p>抵抗の直列では、一番大きい抵抗（一番小さい $h$）が全体をほぼ決めてしまいます。これを<strong>律速</strong>といいます。</p>
@@ -28,6 +29,7 @@ order: 3
 <p>全体の抵抗のうち約8割を油側が占めています。水側の $h$ を2倍にしても $U$ は約880にしか上がりませんが、油側の $h$ を2倍にすると約1350まで上がります。改善するなら油側（フィンをつける、流速を上げるなど）が効果的です。</p>
 </div>
 </div>
+<figure class="fig"><img src="/fig/overall-u-resistance-share.svg" alt="図2　例題の総括伝熱抵抗の内訳" width="600" height="200" loading="lazy"><figcaption>図2　例題の総括伝熱抵抗の内訳</figcaption></figure>
 
 <h2>汚れ係数</h2>
 <p>長く運転すると、管の表面にスケールや錆、生物の付着などの汚れがたまり、熱が伝わりにくくなります。この影響を熱抵抗として足し込んだものを<strong>汚れ係数</strong>（ファウリング係数）$R_f$ [m²·K/W] といいます。</p>

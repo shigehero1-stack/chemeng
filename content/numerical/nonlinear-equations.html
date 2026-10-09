@@ -17,6 +17,7 @@ order: 2
 <li>長所：解が区間の中にあれば<strong>必ず収束する</strong>。プログラムが簡単</li>
 <li>短所：1回の計算で区間が半分になるだけなので、収束が遅い（10回で約1000分の1）</li>
 </ul>
+<figure class="fig"><img src="/fig/bisection-method.svg" alt="図1　二分法の考え方。1回ごとに区間が半分になる" width="580" height="260" loading="lazy"><figcaption>図1　二分法の考え方。1回ごとに区間が半分になる</figcaption></figure>
 
 <h2>ニュートン法</h2>
 <p>今の近似値 $x_k$ での接線が $x$ 軸と交わる点を、次の近似値にします。</p>
@@ -26,6 +27,7 @@ order: 2
 <li>短所：導関数 $f'(x)$ が必要。初期値が悪いと、発散したり別の解に行ったりする</li>
 </ul>
 <p>実用上は、まず二分法でおおまかな範囲をしぼり、ニュートン法で仕上げる、という組み合わせもよく使われます。表計算ソフトの「ゴールシーク」も、同じように数値的に解を探す機能です。</p>
+<figure class="fig"><img src="/fig/newton-method.svg" alt="図2　ニュートン法の考え方。接線をたどって解に近づく" width="580" height="330" loading="lazy"><figcaption>図2　ニュートン法の考え方。接線をたどって解に近づく</figcaption></figure>
 
 <h2>コールブルックの式</h2>
 <p>乱流の管摩擦係数 $f$（ダルシーの摩擦係数）は、管の相対粗さ $\varepsilon/D$ とレイノルズ数から、次のコールブルックの式で求められます。</p>

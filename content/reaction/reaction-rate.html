@@ -26,11 +26,13 @@ order: 1
 <p>1次反応では、濃度が半分になるまでの時間（<strong>半減期</strong>）が、最初の濃度によらず一定になります。</p>
 <div class="formula">$$t_{1/2} = \frac{\ln 2}{k}$$</div>
 <p>たとえば $k = 0.1$ 1/min なら、半減期は $0.693 / 0.1 \approx 6.9$ 分です。7分ごとに半分、14分で4分の1、と減っていきます。</p>
+<figure class="fig"><img src="/fig/first-order-decay.svg" alt="図1　1次反応の濃度の減り方。半減期ごとに濃度が半分になる" width="560" height="300" loading="lazy"><figcaption>図1　1次反応の濃度の減り方。半減期ごとに濃度が半分になる</figcaption></figure>
 
 <h2>温度の影響：アレニウスの式</h2>
 <p>反応速度は温度が上がると大きく速くなります。速度定数と温度の関係は、次の<strong>アレニウスの式</strong>で表されます。</p>
 <div class="formula">$$k = A \exp\!\left(-\frac{E}{R\,T}\right)$$</div>
 <p>$E$ は<strong>活性化エネルギー</strong> [J/mol]、$A$ は頻度因子、$T$ は絶対温度です。活性化エネルギーは、反応が進むために越えなければならないエネルギーの山の高さに当たり、大きいほど温度による速度の変化が大きくなります。</p>
+<figure class="fig"><img src="/fig/activation-energy-diagram.svg" alt="図2　活性化エネルギーのイメージ" width="560" height="280" loading="lazy"><figcaption>図2　活性化エネルギーのイメージ</figcaption></figure>
 <p>2つの温度 $T_1$、$T_2$ での速度定数の比は、頻度因子が打ち消しあって</p>
 <div class="formula">$$\frac{k_2}{k_1} = \exp\!\left[\frac{E}{R}\left(\frac{1}{T_1} - \frac{1}{T_2}\right)\right]$$</div>
 <p>となります。</p>
@@ -47,3 +49,4 @@ order: 1
 
 <h2>アレニウスプロットで活性化エネルギーを求める</h2>
 <p>アレニウスの式の両辺の対数をとると $\ln k = \ln A - \dfrac{E}{R}\cdot\dfrac{1}{T}$ となり、$\ln k$ を $1/T$ に対してプロットすると直線になります。いくつかの温度で速度定数を測り、この直線の傾き $-E/R$ から活性化エネルギーを求められます。これを<strong>アレニウスプロット</strong>といいます。</p>
+<figure class="fig"><img src="/fig/arrhenius-plot.svg" alt="図3　アレニウスプロットの例（E = 80 kJ/mol）。例題の25 °C と35 °C の速度定数の比を示す" width="560" height="310" loading="lazy"><figcaption>図3　アレニウスプロットの例（E = 80 kJ/mol）。例題の25 °C と35 °C の速度定数の比を示す</figcaption></figure>

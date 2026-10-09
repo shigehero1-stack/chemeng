@@ -9,6 +9,7 @@ order: 3
 <p>$\dfrac{dy}{dt} = f(t, y)$ を解くとき、今の傾きがしばらく続くとみなして、刻み幅 $h$ だけ先の値を求めます。</p>
 <div class="formula">$$y_{n+1} = y_n + h\,f(t_n, y_n)$$</div>
 <p>最も簡単ですが、誤差は刻み幅に比例して（1次の精度）しか小さくならないため、正確な答えを得るにはとても細かい刻みが必要です。</p>
+<figure class="fig"><img src="/fig/euler-method-steps.svg" alt="図1　オイラー法のイメージ。刻みが粗いと正しい解からずれていく" width="560" height="280" loading="lazy"><figcaption>図1　オイラー法のイメージ。刻みが粗いと正しい解からずれていく</figcaption></figure>
 
 <h2>4次のルンゲ・クッタ法</h2>
 <p>1つの刻みの中で4か所の傾きを計算し、重みをつけて平均します。</p>
@@ -57,6 +58,7 @@ for n in [7, 14, 70]:
 <p>刻みが約 1 分のとき、オイラー法の誤差は 7% もありますが、ルンゲ・クッタ法はすでに小数第4位まで正確です。オイラー法の誤差は、刻みを半分にするとほぼ半分にしかなりません。</p>
 </div>
 </div>
+<figure class="fig"><img src="/fig/ode-euler-vs-rk.svg" alt="図2　例題の逐次反応の濃度変化。刻み約1分のオイラー法は B の濃度を大きめに見積もる" width="580" height="320" loading="lazy"><figcaption>図2　例題の逐次反応の濃度変化。刻み約1分のオイラー法は B の濃度を大きめに見積もる</figcaption></figure>
 
 <h2>数値解法を使うときの注意</h2>
 <ul>

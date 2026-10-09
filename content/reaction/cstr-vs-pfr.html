@@ -10,6 +10,7 @@ order: 3
 <tr><td>中の様子</td><td>完全に混ざっていて、中の濃度はどこでも出口と同じ</td><td>流れの方向には混ざらず、入口から出口へ濃度が徐々に下がる（押し出し流れ）</td></tr>
 <tr><td>向いている用途</td><td>液相反応、温度管理が大事な反応</td><td>気相反応、大量生産</td></tr>
 </table>
+<figure class="fig"><img src="/fig/cstr-pfr-schematic.svg" alt="図1　CSTR と PFR のイメージ。色の濃さは原料の濃度を表す" width="660" height="330" loading="lazy"><figcaption>図1　CSTR と PFR のイメージ。色の濃さは原料の濃度を表す</figcaption></figure>
 
 <h2>空間時間</h2>
 <p>連続式の反応器の大きさは、<strong>空間時間</strong> $\tau$ で表すと便利です。</p>
@@ -35,6 +36,7 @@ order: 3
 <p>CSTRにはPFRの約4倍の体積が必要です。CSTRの中はいつも出口と同じ低い濃度で反応しているため、平均すると反応が遅くなるからです。</p>
 </div>
 </div>
+<figure class="fig"><img src="/fig/levenspiel-plot.svg" alt="図2　例題の1次反応のレーベンシュピール・プロット。空間時間は CSTR では長方形、PFR では曲線の下の面積になる" width="580" height="340" loading="lazy"><figcaption>図2　例題の1次反応のレーベンシュピール・プロット。空間時間は CSTR では長方形、PFR では曲線の下の面積になる</figcaption></figure>
 
 <h2>CSTRをいくつも直列につなぐと</h2>
 <p>CSTRを $N$ 個直列につなぎ、合計の体積を同じにして分けると、全体の働きはPFRに近づいていきます。同じ大きさの槽を $N$ 個つないだ場合の1次反応では、合計の空間時間は</p>
@@ -47,6 +49,7 @@ order: 3
 <tr><td>PFR（槽の数を無限にした極限）</td><td>23.0</td><td>2.3</td></tr>
 </table>
 <p>2〜3槽に分けるだけで、必要な体積は大きく減ります。撹拌槽の扱いやすさを生かしつつ体積を抑えたいときに、多段のCSTRがよく使われます。</p>
+<figure class="fig"><img src="/fig/cstr-series-volume.svg" alt="図3　CSTR の槽の数と必要な合計体積（例題の条件）" width="580" height="240" loading="lazy"><figcaption>図3　CSTR の槽の数と必要な合計体積（例題の条件）</figcaption></figure>
 
 <h2>どちらを選ぶか</h2>
 <p>反応次数が正の反応（濃度が高いほど速い反応）では、同じ反応率ならPFRのほうが小さくて済みます。一方、CSTRは温度を均一に保ちやすく、発熱の大きい反応や、副反応を抑えるために濃度を低く保ちたい反応で有利なことがあります。実際の反応器は完全なCSTRにもPFRにもならないので、流れの乱れ具合は滞留時間分布の測定で確かめます。</p>

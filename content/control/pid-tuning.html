@@ -20,6 +20,7 @@ order: 3
 <tr><td>PI</td><td>$0.45\,K_u$</td><td>$P_u / 1.2$</td><td>―</td></tr>
 <tr><td>PID</td><td>$0.6\,K_u$</td><td>$0.5\,P_u$</td><td>$0.125\,P_u$</td></tr>
 </table>
+<figure class="fig"><img src="/fig/ultimate-oscillation.svg" alt="図1　限界感度法の持続振動。このときのゲインと周期から PID のパラメータを決める" width="580" height="290" loading="lazy"><figcaption>図1　限界感度法の持続振動。このときのゲインと周期から PID のパラメータを決める</figcaption></figure>
 
 <div class="example">
 <strong>例題：限界感度法によるPIDパラメータ</strong>
@@ -34,6 +35,7 @@ order: 3
 
 <h2>ステップ応答法</h2>
 <p>制御をかけない状態（手動）で操作量をステップ状に変え、制御量の応答曲線を記録します。応答を<a href="/control/first-order-system.html">一次遅れ＋むだ時間</a>とみなして、ゲイン $K$、時定数 $\tau$、むだ時間 $L$ を読み取り、それをもとにパラメータを計算します。ジーグラー・ニコルスのステップ応答法や、より振動の少ない応答を狙ったCHR法、内部モデル制御（IMC）にもとづく方法など、いくつかの計算式が提案されています。</p>
+<figure class="fig"><img src="/fig/step-response-method.svg" alt="図2　ステップ応答法。S 字の応答の変曲点に接線を引き、むだ時間 L と時定数 T を読み取る" width="580" height="320" loading="lazy"><figcaption>図2　ステップ応答法。S 字の応答の変曲点に接線を引き、むだ時間 L と時定数 T を読み取る</figcaption></figure>
 
 <h2>調整後の微調整</h2>
 <p>ジーグラー・ニコルスの方法で求めた値は、外乱をすばやく抑えることを重視した「やや振動的」な設定になりがちです。実際には、得られた値を出発点にして、応答を見ながら次のように微調整します。</p>

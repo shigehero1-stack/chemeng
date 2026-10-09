@@ -203,11 +203,13 @@ def article_page(m, sec, sections):
         f'<a class="next" href="{items[i+1]["url"]}">{html.escape(items[i+1]["title"].split("｜")[0])} →</a>'
         if i < len(items) - 1 else "<span></span>"
     )
+    # 図はタップ（クリック）で拡大して見られるように、画像そのものへのリンクで包む
+    body = re.sub(r'(<img src="(/fig/[^"]+)"[^>]*>)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', m["body"])
     main = f"""<article class="article">
 <h1>{html.escape(m["title"].split("｜")[0])}</h1>
 <p class="lead">{html.escape(m["description"])}</p>
 {ad_slot("広告（記事上）")}
-{m["body"]}
+{body}
 {ad_slot("広告（記事下）")}
 <nav class="pager">{prev_link}{next_link}</nav>
 </article>"""
@@ -252,6 +254,10 @@ def main():
     (OUT / "assets").mkdir(parents=True)
     for f in STATIC.iterdir():
         shutil.copy(f, OUT / "assets" / f.name)
+
+    # 記事の図（figures/make_figures.py で生成した SVG）
+    if (ROOT / "figures" / "svg").exists():
+        shutil.copytree(ROOT / "figures" / "svg", OUT / "fig")
 
     # ダウンロード用のファイル（発展編の検算用プログラムなど）
     if (ROOT / "files").exists():

@@ -5,6 +5,7 @@ order: 1
 <h2>層流と乱流</h2>
 <p>管の中をゆっくり流れる液体は、層が重なるように整然と流れます。これを<strong>層流</strong>といいます。流速を上げていくと、あるところで流れが乱れて渦を巻きながら混ざり合うようになります。これが<strong>乱流</strong>です。</p>
 <p>層流か乱流かで、圧力損失や熱・物質の伝わりやすさが大きく変わるため、配管や装置の計算ではまずどちらの流れかを判定します。その判定に使うのが<strong>レイノルズ数</strong>です。</p>
+<figure class="fig"><img src="/fig/velocity-profiles.svg" alt="図1　円管内の速度分布。層流は放物線、乱流は中央が平らな分布になる" width="640" height="260" loading="lazy"><figcaption>図1　円管内の速度分布。層流は放物線、乱流は中央が平らな分布になる</figcaption></figure>
 
 <h2>レイノルズ数の式</h2>
 <div class="formula">$$\text{Re} = \frac{\rho\, u\, D}{\mu} = \frac{u\, D}{\nu}$$</div>
@@ -39,6 +40,7 @@ order: 1
 <p>4000 を大きく超えているので乱流です。この配管の圧力損失は<a href="/fluid/pressure-loss.html">管内の圧力損失</a>の記事で計算します。</p>
 </div>
 </div>
+<figure class="fig"><img src="/fig/reynolds-regimes.svg" alt="図2　円管内の流れの判定の目安と、例題の水のレイノルズ数" width="600" height="150" loading="lazy"><figcaption>図2　円管内の流れの判定の目安と、例題の水のレイノルズ数</figcaption></figure>
 
 <h2>円管以外の流路では</h2>
 <p>四角いダクトや二重管のすき間のように円管でない流路では、管径 $D$ の代わりに<strong>相当直径</strong>（水力直径）$D_e = 4 \times \text{流路断面積} / \text{ぬれぶち長さ}$ を使います。円管なら $D_e = D$ となり、元の式と一致します。</p>

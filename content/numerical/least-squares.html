@@ -11,6 +11,7 @@ order: 1
 <p>が最も小さくなるように $a$ と $b$ を決めます。2乗するのは、プラスとマイナスの誤差が打ち消し合わないようにするためです。$S$ を $a$、$b$ で微分して0とおくと、次の式が得られます。</p>
 <div class="formula">$$b = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}, \qquad a = \bar{y} - b\,\bar{x}$$</div>
 <p>$\bar{x}$、$\bar{y}$ はそれぞれの平均値です。</p>
+<figure class="fig"><img src="/fig/least-squares-residuals.svg" alt="図1　最小二乗法の考え方。残差（縦の線）の2乗の合計が最小になる直線を選ぶ" width="560" height="300" loading="lazy"><figcaption>図1　最小二乗法の考え方。残差（縦の線）の2乗の合計が最小になる直線を選ぶ</figcaption></figure>
 
 <h2>当てはまりの良さ：決定係数</h2>
 <p>直線がデータにどれだけよく合っているかは、<strong>決定係数</strong> $R^2$ で表します。</p>
@@ -54,6 +55,7 @@ print(f&quot;E = {E/1000:.1f} kJ/mol, A = {A:.2e} 1/s, R^2 = {r2:.5f}&quot;)</co
 <p>活性化エネルギーは約 62 kJ/mol です。決定係数が 1 にとても近く、アレニウスの式でよく表せていることがわかります。</p>
 </div>
 </div>
+<figure class="fig"><img src="/fig/least-squares-arrhenius-fit.svg" alt="図2　例題のデータのアレニウスプロットと最小二乗法で求めた直線" width="560" height="310" loading="lazy"><figcaption>図2　例題のデータのアレニウスプロットと最小二乗法で求めた直線</figcaption></figure>
 
 <h2>使うときの注意</h2>
 <ul>

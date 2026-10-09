@@ -18,6 +18,7 @@ order: 2
 <tr><td>水の沸騰</td><td>2 500〜100 000</td></tr>
 <tr><td>水蒸気の凝縮</td><td>5 000〜100 000</td></tr>
 </table>
+<figure class="fig"><img src="/fig/thermal-boundary-layer.svg" alt="図1　壁の近くの温度分布のイメージ。温度の変化は壁に接した薄い境膜に集中する" width="560" height="280" loading="lazy"><figcaption>図1　壁の近くの温度分布のイメージ。温度の変化は壁に接した薄い境膜に集中する</figcaption></figure>
 <p>気体は液体に比べて $h$ がずっと小さく、沸騰や凝縮のように相変化を伴うと非常に大きくなるのが特徴です。</p>
 
 <h2>無次元数で整理する</h2>
@@ -28,6 +29,7 @@ order: 2
 <div class="formula">$$\text{Nu} = 0.023\,\text{Re}^{0.8}\,\text{Pr}^{n}$$</div>
 <p>流体を加熱するときは $n = 0.4$、冷却するときは $n = 0.3$ とします。目安として Re が 10 000 以上、Pr が 0.7〜160 程度、管の長さが管径の10倍以上の範囲で使えます。</p>
 <div class="note">$h$ は流速の0.8乗に比例します。流速を2倍にすると $h$ は約1.7倍になりますが、<a href="/fluid/pressure-loss.html">圧力損失</a>は約3.4倍（乱流でブラジウスの式の場合）に増えます。伝熱をよくするために流速を上げるときは、ポンプ動力とのバランスを考えます。</div>
+<figure class="fig"><img src="/fig/velocity-h-vs-dp.svg" alt="図2　管内の乱流で流速を上げたときの熱伝達係数と圧力損失の増え方" width="560" height="310" loading="lazy"><figcaption>図2　管内の乱流で流速を上げたときの熱伝達係数と圧力損失の増え方</figcaption></figure>
 
 <h2>管内の層流</h2>
 <p>層流で、流れと温度の分布が十分に発達した場合は、Nu が一定の値になります。管壁の温度が一定なら $\text{Nu} = 3.66$、管壁からの熱流束が一定なら $\text{Nu} = 4.36$ です。層流の $h$ は乱流よりかなり小さくなります。</p>

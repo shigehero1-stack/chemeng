@@ -32,11 +32,13 @@ order: 4
 <p>約0.41 kWなので、余裕をみて0.55 kWや0.75 kWのモーターを検討します。</p>
 </div>
 </div>
+<figure class="fig"><img src="/fig/pump-system-head.svg" alt="図1　例題の送水系統。全揚程は実揚程と損失ヘッドの合計" width="620" height="340" loading="lazy"><figcaption>図1　例題の送水系統。全揚程は実揚程と損失ヘッドの合計</figcaption></figure>
 
 <h2>回転数を変えたとき：相似則</h2>
 <p>同じ遠心ポンプの回転数 $N$ を変えると、流量・揚程・軸動力は次のように変わります（効率がほぼ変わらない範囲）。</p>
 <div class="formula">$$\frac{Q_2}{Q_1} = \frac{N_2}{N_1}, \qquad \frac{H_2}{H_1} = \left(\frac{N_2}{N_1}\right)^2, \qquad \frac{P_2}{P_1} = \left(\frac{N_2}{N_1}\right)^3$$</div>
 <p>たとえば回転数を80%に下げると、流量は80%、揚程は64%、動力は約51%になります。弁を絞って流量を減らすより、インバーターで回転数を下げるほうが大きな省エネルギーになるのはこのためです。送風機（ファン）にも同じ関係が成り立ちます。</p>
+<figure class="fig"><img src="/fig/pump-affinity-laws.svg" alt="図2　回転数を80%に下げたときの流量・揚程・軸動力（相似則）" width="560" height="280" loading="lazy"><figcaption>図2　回転数を80%に下げたときの流量・揚程・軸動力（相似則）</figcaption></figure>
 
 <h2>キャビテーションとNPSH</h2>
 <p>ポンプの吸込み口では圧力が下がります。この圧力が液の蒸気圧より低くなると、液の中に気泡ができて、ポンプの中でつぶれるときに騒音や振動、羽根車の損傷を起こします。これを<strong>キャビテーション</strong>といいます。</p>

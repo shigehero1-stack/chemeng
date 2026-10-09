@@ -13,6 +13,7 @@ order: 5
 <li><strong>前進消去</strong>：1番目の式を使って2番目以降の式から1番目の未知数を消し、2番目の式を使って3番目以降の式から2番目の未知数を消し……と繰り返して、三角形の形にする</li>
 <li><strong>後退代入</strong>：最後の式から未知数を1つずつ求め、上の式に代入していく</li>
 </ol>
+<figure class="fig"><img src="/fig/gauss-elimination.svg" alt="図1　ガウスの消去法の流れ。前進消去で三角形の形にしてから、下の行から順に解く" width="600" height="200" loading="lazy"><figcaption>図1　ガウスの消去法の流れ。前進消去で三角形の形にしてから、下の行から順に解く</figcaption></figure>
 <p>割り算に使う係数（ピボット）が0や非常に小さい値だと計算が不安定になるので、各段階で絶対値が最大の行を選んで入れ替える<strong>部分ピボット選択</strong>を組み合わせるのが普通です。</p>
 
 <div class="example">
@@ -54,6 +55,7 @@ print(f&quot;原料a {a_:.1f}, 原料b {b_:.1f}, 原料c {c_:.1f} kg/h（合計 
 <p>各成分の収支を足し合わせると全体の収支になるので、合計が 1000 kg/h になることが検算になります。</p>
 </div>
 </div>
+<figure class="fig"><img src="/fig/blending-flow.svg" alt="図2　例題の配合の流れと答え" width="620" height="280" loading="lazy"><figcaption>図2　例題の配合の流れと答え</figcaption></figure>
 
 <h2>解けないとき、おかしな答えが出るとき</h2>
 <ul>
