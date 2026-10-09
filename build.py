@@ -47,6 +47,10 @@ SECTIONS = [
     ("control", "プロセス制御", "温度や流量を目標どおりに保つフィードバック制御とPID制御の基本を学びます。"),
     ("exam", "資格試験対策", "エネルギー管理士や公害防止管理者など、化学工学の知識が役立つ資格試験の勉強法と頻出の計算をまとめます。"),
 ]
+# 公開を止めているカテゴリ。発展編・応用編は有料版（note）がまだ出ていないため、
+# 「続きは準備中」の試し読みページが AdSense 審査で「有用性の低いコンテンツ」と見られないよう、
+# 有料版を公開するまではサイトに出さない。公開するときはこの集合から外す
+HIDDEN_SECTIONS = {"advanced", "applied"}
 # 学習データ収集用のAIクローラー（robots.txt で拒否する）。
 # 検索エンジン（Googlebot など）と AdSense のクローラー（Mediapartners-Google）は拒否しないこと
 AI_CRAWLERS = [
@@ -81,6 +85,8 @@ def parse(path):
 def load_articles():
     sections = []
     for key, name, desc in SECTIONS:
+        if key in HIDDEN_SECTIONS:
+            continue
         items = []
         for p in sorted((CONTENT / key).glob("*.html")):
             m = parse(p)
