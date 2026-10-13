@@ -1,0 +1,42 @@
+title: 境界層と熱・物質移動のアナロジー｜平板の境界層とチルトン・コルバーンの式
+description: 流れが物体の表面で遅くなる境界層の厚さ、平板に沿った流れの熱伝達係数と物質移動係数の相関式、運動量・熱・物質の移動のアナロジー（チルトン・コルバーンのj因子）を、平板からの放熱と水の蒸発の例題で解説します。
+order: 5
+---
+<h2>境界層とは</h2>
+<p>流れの中に置かれた物体の表面では、流体は表面にくっついて速度が0になり、表面から離れるにつれて本来の流れの速さに近づきます。この速度が大きく変わる薄い層を<strong>境界層</strong>といいます。熱や物質の移動でも、温度や濃度が表面の値から本体の値まで変わる層（温度境界層、濃度境界層）ができ、<a href="/heat/convection.html">対流伝熱</a>や<a href="/mass/mass-transfer-coefficient.html">物質移動</a>の速さは、この層の厚さで決まります。</p>
+<p>平らな板に沿った流れでは、境界層は先端から下流に向かって厚くなっていきます。先端からの距離 $x$ を使ったレイノルズ数 $\text{Re}_x = u x / \nu$ が約 5 × 10⁵ を超えると、層流の境界層が乱流に変わります。層流の境界層の厚さは</p>
+<div class="formula">$$\delta \approx \frac{5\,x}{\sqrt{\text{Re}_x}}$$</div>
+<p>で、下流ほど厚くなり、流速が速いほど薄くなります。</p>
+<figure class="fig"><img src="/fig/flat-plate-boundary-layer.svg" alt="図1　平板に沿った境界層" width="620" height="260" loading="lazy"><figcaption>図1　平板に沿った速度境界層。先端から下流に向かって厚くなり、やがて乱流に変わる</figcaption></figure>
+
+<h2>平板の熱伝達と物質移動</h2>
+<p>層流の境界層で、平板の長さ $L$ 全体で平均した熱伝達係数と物質移動係数は、次の式で求められます。</p>
+<div class="formula">$$\overline{\text{Nu}} = \frac{\bar{h} L}{k} = 0.664\,\text{Re}_L^{1/2}\,\text{Pr}^{1/3}, \qquad \overline{\text{Sh}} = \frac{\bar{k}_c L}{D_{AB}} = 0.664\,\text{Re}_L^{1/2}\,\text{Sc}^{1/3}$$</div>
+<p>2つの式はまったく同じ形で、Pr を Sc に、Nu を Sh に置きかえただけです。これが<a href="/basics/dimensionless-numbers.html">熱と物質移動のアナロジー</a>です。</p>
+
+<h2>チルトン・コルバーンのアナロジー</h2>
+<p>運動量（摩擦）、熱、物質の移動は、どれも境界層の中で同じような仕組みで起こります。チルトンとコルバーンは、次の <strong>j 因子</strong>を使うと、3つがほぼ等しくなることを示しました。</p>
+<div class="formula">$$j_H = \frac{\text{Nu}}{\text{Re}\,\text{Pr}^{1/3}}, \qquad j_D = \frac{\text{Sh}}{\text{Re}\,\text{Sc}^{1/3}}, \qquad j_H \approx j_D \approx \frac{f}{2}$$</div>
+<p>$f$ はファニングの摩擦係数です。この関係を使うと、圧力損失の測定から熱伝達係数を、伝熱の実験から物質移動係数を見積もることができます。形の抵抗（物体の後ろの渦）が大きい場合は $f/2$ との対応は崩れますが、$j_H \approx j_D$ は広い範囲で成り立ちます。</p>
+
+<div class="example">
+<strong>例題：平板からの放熱と水の蒸発</strong>
+<p>20 °C の空気（動粘度 1.51 × 10⁻⁵ m²/s、熱伝導率 0.0257 W/(m·K)、プラントル数 0.71）が、長さ 0.5 m の平板に沿って 5 m/s で流れています。(1) 平板の後端での境界層の厚さと、平均の熱伝達係数を求めてください。(2) 平板の表面が水でぬれているとき、平均の物質移動係数と、相対湿度50%の空気への水の蒸発速度を求めてください。空気中の水蒸気の拡散係数は 2.6 × 10⁻⁵ m²/s、表面の温度も 20 °C（飽和蒸気圧 2.34 kPa）とします。</p>
+<div class="answer">
+<p>(1) $\text{Re}_L = \dfrac{5 \times 0.5}{1.51 \times 10^{-5}} \approx 1.66 \times 10^5$ で層流です。</p>
+<p>境界層の厚さ：$\delta = \dfrac{5 \times 0.5}{\sqrt{1.66 \times 10^5}} \approx 6.1\ \text{mm}$</p>
+<p>$\overline{\text{Nu}} = 0.664 \times (1.66 \times 10^5)^{1/2} \times 0.71^{1/3} \approx 241$、$\bar{h} = \dfrac{241 \times 0.0257}{0.5} \approx 12.4\ \text{W/(m}^2\text{K)}$</p>
+<p>(2) $\text{Sc} = \dfrac{1.51 \times 10^{-5}}{2.6 \times 10^{-5}} \approx 0.58$、$\overline{\text{Sh}} = 0.664 \times 407 \times 0.58^{1/3} \approx 225$</p>
+<p>$\bar{k}_c = \dfrac{225 \times 2.6 \times 10^{-5}}{0.5} \approx 0.0117\ \text{m/s}$</p>
+<p>表面と空気の水蒸気の濃度差は、理想気体として $\Delta C = \dfrac{0.5 \times 2340}{461.5 \times 293.15} \approx 0.0086\ \text{kg/m}^3$（461.5 J/(kg·K) は水蒸気の気体定数）</p>
+<p>蒸発速度：$0.0117 \times 0.0086 \approx 1.0 \times 10^{-4}\ \text{kg/(m}^2\text{s)}$、1時間あたり約 360 g/m² です。</p>
+<p>実際には蒸発の潜熱で表面が冷えて蒸気圧が下がるので、蒸発はこれより遅くなります。そのときの表面温度が<a href="/separation/humidity.html">湿球温度</a>です。</p>
+</div>
+</div>
+
+<h2>まとめ</h2>
+<ul>
+<li>熱伝達係数と物質移動係数は、どちらも境界層の厚さで決まり、流速の 0.5 乗（層流）〜0.8 乗（乱流）に比例して大きくなる</li>
+<li>伝熱と物質移動の相関式は、Pr と Sc、Nu と Sh を入れかえるだけで互いに使える</li>
+<li>摩擦の大きさから伝熱・物質移動の大きさを見積もることもできる（チルトン・コルバーンのアナロジー）</li>
+</ul>
