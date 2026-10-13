@@ -15,14 +15,15 @@ def fig(name):
 
 @fig("rheology-curves")
 def _():
-    f = Fig(580, 320)
+    f = Fig(580, 350)
     p = Plot(f, 80, 30, 420, 220, (0, 100), (0, 100))
     p.axes(xticks=(), yticks=(), xlabel="せん断速度 γ̇", ylabel="せん断応力 τ", grid=False, box=False)
     p.curve(lambda g: 0.6 * g, 0, 100, cls="c1")
     p.curve(lambda g: 9.5 * g ** 0.5, 0, 100, cls="c2")
     p.curve(lambda g: 0.0085 * g ** 2, 0, 100, cls="c3")
     p.curve(lambda g: 30 + 0.45 * g, 0, 100, cls="ln", width=2.2)
-    f.legend(p.px(3), p.py(97), [("ニュートン流体（n = 1）", "c1"), ("擬塑性流体（n < 1）", "c2"), ("ダイラタント流体（n > 1）", "c3"), ("ビンガム流体（降伏応力がある）", "ln")])
+    f.legend(90, 312, [("ニュートン流体（n = 1）", "c1"), ("擬塑性流体（n < 1）", "c2")])
+    f.legend(330, 312, [("ダイラタント流体（n > 1）", "c3"), ("ビンガム流体（降伏応力がある）", "ln")])
     return f
 
 
