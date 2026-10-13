@@ -126,3 +126,129 @@ def _():
     f.line(300 - 6, y0, 300 - 6, y0 - 4.5 * math.sqrt(240), "thin", arrow="arm", start_arrow=True)
     f.text(292, y0 - 30, "δ", "end", "b")
     return f
+
+
+@fig("lumped-cooling")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 420, 220, (0, 1200), (0, 520))
+    p.axes(xticks=range(0, 1201, 200), yticks=range(0, 501, 100), xlabel="時間 [s]", ylabel="鋼球の温度 [°C]")
+    tau = 240.7
+    T = lambda t: 25 + 475 * math.exp(-t / tau)
+    p.curve(T, 0, 1200, cls="c1")
+    f.line(p.px(0), p.py(25), p.px(1200), p.py(25), "thin dash")
+    f.text(p.px(1190), p.py(25) - 6, "空気 25 °C", "end", "s m")
+    for k in (1, 2):
+        X, Y = p.pt(k * tau, T(k * tau))
+        f.circle(X, Y, 4.5, fill=ACC, stroke="#fff")
+        f.text(X + 8, Y - 6, f"{k}τ = {k*tau:.0f} s：{T(k*tau):.0f} °C", cls="s b a")
+    X, Y = p.pt(444, 100)
+    f.circle(X, Y, 5.5, fill=ACC2, stroke="#fff")
+    f.text(X - 8, Y + 24, "100 °C まで 444 s", "end", "s b a2")
+    return f
+
+
+@fig("fin-efficiency")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 420, 220, (0, 3), (0, 1.05))
+    p.axes(xticks=(0, 0.5, 1, 1.5, 2, 2.5, 3), yticks=(0, 0.2, 0.4, 0.6, 0.8, 1.0), xlabel="mL", ylabel="フィン効率 η_f",
+           xfmt=lambda v: f"{v:g}", yfmt=lambda v: f"{v:g}")
+    p.curve(lambda x: math.tanh(x) / x if x > 1e-6 else 1.0, 0.001, 3, cls="c1")
+    for x, lab, col in ((0.447, "アルミ：0.94", ACC3), (0.943, "鋼：0.78", ACC2)):
+        X, Y = p.pt(x, math.tanh(x) / x)
+        f.circle(X, Y, 5.5, fill=col, stroke="#fff")
+        f.text(X + 8, Y - 8, lab, cls="s b", color=col)
+    f.text(p.px(1.6), p.py(0.82), "η_f = tanh(mL) / (mL)", cls="s b a")
+    f.text(p.px(1.6), p.py(0.82) + 18, "m = √(2h / (k t))", cls="s m")
+    return f
+
+
+@fig("natural-convection-nu")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 420, 220, (1e4, 1e12), (1, 2000), xlog=True, ylog=True)
+    p.axes(xticks=[10 ** k for k in range(4, 13, 2)], yticks=(1, 10, 100, 1000), xlabel="レイリー数 Ra", ylabel="ヌッセルト数 Nu",
+           xfmt=lambda v: "10^{%d}" % round(math.log10(v)), yfmt=lambda v: f"{v:g}")
+    Pr = 0.71
+    cc = lambda Ra: (0.825 + 0.387 * Ra ** (1 / 6) / (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2
+    p.curve(cc, 1e4, 1e12, cls="c1")
+    p.curve(lambda Ra: 0.59 * Ra ** 0.25, 1e4, 1e9, cls="c2 dash")
+    p.curve(lambda Ra: 0.1 * Ra ** (1 / 3), 1e9, 1e12, cls="c3 dash")
+    f.line(p.px(1e9), p.py(1), p.px(1e9), p.py(2000), "thin dot")
+    f.text(p.px(1e9) + 4, p.py(1.5), "層流 ← → 乱流", "middle", "s m")
+    X, Y = p.pt(3.08e9, 174)
+    f.circle(X, Y, 5, fill=ACC2, stroke="#fff")
+    f.text(X - 8, Y - 10, "例題 Nu ≈ 174", "end", "s b a2")
+    f.legend(p.px(2e4), p.py(1200), [("チャーチル・チューの式", "c1"), ("層流の目安 0.59 Ra^{1/4}", "c2", True), ("乱流の目安 0.1 Ra^{1/3}", "c3", True)])
+    return f
+
+
+@fig("cascade-control")
+def _():
+    f = Fig(680, 260)
+    y = 90
+    f.text(10, y - 10, "温度の目標値", cls="s b")
+    f.arrow(10, y + 4, 70, y + 4, "k", width=1.6)
+    f.circle(84, y + 4, 13, fill="#fff", stroke=TEXT)
+    f.text(84, y + 9, "Σ", "middle", "b")
+    f.arrow(97, y + 4, 128, y + 4, "k", width=1.6)
+    f.box(130, y - 18, 100, 44, "温度調節計", fill=SOFT, size=12.5)
+    f.arrow(230, y + 4, 280, y + 4, "k", width=1.6)
+    f.text(255, y - 14, "流量の目標", "middle", "s")
+    f.circle(294, y + 4, 13, fill="#fff", stroke=TEXT)
+    f.text(294, y + 9, "Σ", "middle", "b")
+    f.arrow(307, y + 4, 330, y + 4, "k", width=1.6)
+    f.box(332, y - 18, 90, 44, "流量調節計", fill=SOFT3, size=12.5)
+    f.arrow(422, y + 4, 452, y + 4, "k", width=1.6)
+    f.box(454, y - 18, 70, 44, "蒸気弁", fill=SOFT2, size=12.5)
+    f.arrow(524, y + 4, 556, y + 4, "k", width=1.6)
+    f.box(558, y - 18, 90, 44, "反応器", fill=WALL, size=12.5)
+    f.arrow(648, y + 4, 676, y + 4, "k", width=1.6)
+    f.arrow(489, 30, 489, y - 20, "a2", width=1.6)
+    f.text(497, 36, "蒸気圧の変動", cls="s a2")
+    # 内側ループ
+    f.path(f"M540,{y+4} L540,{y+60} L294,{y+60} L294,{y+19}", "c3", width=1.6, arrow="ar3")
+    f.text(420, y + 54, "流量計（内側のループ：速い）", "middle", "s a3")
+    # 外側ループ
+    f.path(f"M664,{y+4} L664,{y+120} L84,{y+120} L84,{y+19}", "c1", width=1.6, arrow="ara")
+    f.text(380, y + 114, "温度計（外側のループ：遅い）", "middle", "s a")
+    return f
+
+
+def heater_sim(ff, tend=600, dt=0.5):
+    """加熱器（一次遅れ、時定数 60 s）を PI 制御。t = 60 s で流量が 2.0 → 2.5 kg/s"""
+    tau = 60.0
+    T = 60.0
+    Fs = 2.0 * 4.18 * 40 / 2200
+    integ = 0.0
+    Kp, Ti = 0.004, 80.0
+    out_t, out_T = [], []
+    t = 0.0
+    while t <= tend:
+        F = 2.0 if t < 60 else 2.5
+        e = 60.0 - T
+        integ += e * dt
+        base = (F if ff else 2.0) * 4.18 * 40 / 2200
+        Fs = base + Kp * (e + integ / Ti)
+        Tss = 20 + Fs * 2200 / (F * 4.18)
+        T += dt * (Tss - T) / tau
+        if int(round(t / dt)) % 10 == 0:
+            out_t.append(t)
+            out_T.append(T)
+        t += dt
+    return out_t, out_T
+
+
+@fig("feedforward-response")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 420, 220, (0, 600), (50, 62))
+    p.axes(xticks=range(0, 601, 100), yticks=range(50, 63, 2), xlabel="時間 [s]", ylabel="出口温度 [°C]")
+    for ff, cls in ((False, "c2"), (True, "c1")):
+        ts, Ts = heater_sim(ff)
+        p.series(ts, Ts, cls)
+    f.line(p.px(60), p.py(50), p.px(60), p.py(62), "thin dot")
+    f.text(p.px(64), p.py(51), "流量が 2.0 → 2.5 kg/s", cls="s m")
+    f.legend(p.px(250), p.py(54.5), [("フィードバックだけ", "c2"), ("フィードフォワード＋フィードバック", "c1")])
+    return f
