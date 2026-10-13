@@ -174,3 +174,93 @@ def _():
     f.line(p.px(0), p.py(0.9), p.px(1), p.py(0.9), "thin dash")
     f.text(p.px(0.02), p.py(0.9) - 6, "X = 0.9", cls="s m")
     return f
+
+
+@fig("six-tenths-rule")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 420, 220, (0, 40000), (0, 60))
+    p.axes(xticks=range(0, 40001, 10000), yticks=range(0, 61, 10), xlabel="生産能力 [t/年]", ylabel="設備費 [億円]",
+           xfmt=lambda v: f"{v:,.0f}")
+    C = lambda Q: 20 * (Q / 10000) ** 0.6
+    p.curve(C, 1, 40000, cls="c1")
+    p.curve(lambda Q: 20 * Q / 10000, 0, 30000, cls="c3 dash", n=2)
+    for Q in (10000, 30000):
+        X, Y = p.pt(Q, C(Q))
+        f.circle(X, Y, 5, fill=ACC2, stroke="#fff")
+        f.text(X + 8, Y + 16, f"{C(Q):.1f} 億円", cls="s b a2")
+    f.legend(p.px(1000), p.py(57), [("0.6乗則", "c1"), ("能力に比例するとした場合", "c3", True)])
+    return f
+
+
+@fig("flammability-limits")
+def _():
+    f = Fig(600, 230)
+    p = Plot(f, 110, 30, 450, 140, (0, 100), (0, 4))
+    for v in range(0, 101, 20):
+        X = p.px(v)
+        f.line(X, 30, X, 170, "grid")
+        f.text(X, 188, f"{v}", "middle", "s m")
+    data = [("水素", 4, 75, ACC3), ("メタン", 5, 15, ACC), ("プロパン", 2.1, 9.5, ACC2), ("アセチレン", 2.5, 100, MUTED)]
+    for i, (lab, lo, hi, col) in enumerate(data):
+        y = 38 + i * 33
+        f.rect(p.px(lo), y, p.px(hi) - p.px(lo), 22, fill=col, stroke="none", rx=3)
+        f.text(102, y + 16, lab, "end", "b")
+        f.text(p.px(hi) + 6 if hi < 90 else p.px(lo) + 6, y + 16, f"{lo:g}〜{hi:g}%", cls="s b" + ("" if hi < 90 else ""), color=TEXT if hi < 90 else "#fff")
+    f.text(335, 215, "空気中の濃度 [体積%]（色の部分で火がつくと燃え広がる）", "middle", "s m")
+    return f
+
+
+@fig("corrosion-allowance")
+def _():
+    f = Fig(580, 300)
+    p = Plot(f, 80, 30, 450, 200, (0, 14), (0, 16))
+    p.axes(xticks=range(0, 15, 2), yticks=range(0, 17, 4), xlabel="使用年数 [年]", ylabel="肉厚 [mm]")
+    t_req, ca = 10, 4
+    p.series([0, 14], [t_req + ca, t_req + ca - 0.4 * 14], "c2")
+    f.add(f'<rect x="{p.px(0):.1f}" y="{p.py(t_req):.1f}" width="{p.w:.1f}" height="{p.py(0)-p.py(t_req):.1f}" fill="{SOFT3}" opacity="0.7"/>')
+    f.line(p.px(0), p.py(t_req), p.px(14), p.py(t_req), "c3", width=1.8)
+    f.text(p.px(0.3), p.py(t_req) + 18, "強度に必要な厚さ（例：10 mm）", cls="s b a3")
+    f.line(p.px(0.4), p.py(t_req), p.px(0.4), p.py(t_req + ca), "thin", arrow="arm", start_arrow=True)
+    f.text(p.px(0.6), p.py(t_req + ca / 2) + 4, "腐れ代 4 mm", cls="s b")
+    X, Y = p.pt(10, t_req)
+    f.circle(X, Y, 5, fill=ACC2, stroke="#fff")
+    f.text(X + 8, Y - 10, "10年で必要な厚さに達する", cls="s b a2")
+    f.text(p.px(7), p.py(14.5), "腐食速度 0.40 mm/年", cls="s a2")
+    return f
+
+
+@fig("janssen-pressure")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 450, 220, (0, 120), (16, 0))
+    p.axes(xticks=range(0, 121, 20), yticks=range(0, 17, 4), xlabel="鉛直方向の圧力 [kPa]", ylabel="深さ z [m]（下ほど深い）")
+    pt = p.pt
+    a = 29.43
+    pts = [pt(a * (1 - math.exp(-0.2667 * z)), z) for z in [i * 0.1 for i in range(161)]]
+    f.poly(pts, "c1")
+    f.poly([pt(7.848 * z, z) for z in (0, 15)], "c2 dash")
+    f.line(p.px(a), p.py(16), p.px(a), p.py(0), "thin dot")
+    f.text(p.px(a) + 6, p.py(1.2), "上限 29.4 kPa", cls="s m")
+    for z, v in ((5, 21.7), (15, 28.9)):
+        X, Y = pt(v, z)
+        f.circle(X, Y, 5, fill=ACC, stroke="#fff")
+        f.text(X + 8, Y + 4, f"{z} m：{v} kPa", cls="s b a")
+    f.text(p.px(80), p.py(10) - 10, "液体とした場合", cls="s b a2")
+    f.text(p.px(40), p.py(13), "粉体（ヤンセンの式）", cls="s b a")
+    return f
+
+
+@fig("carothers-equation")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 450, 220, (0.8, 1.0), (1, 1000), ylog=True)
+    p.axes(xticks=(0.80, 0.85, 0.90, 0.95, 1.00), yticks=(1, 10, 100, 1000), xlabel="官能基の反応率 p",
+           ylabel="数平均重合度 Xₙ（対数目盛）", xfmt=lambda v: f"{v:.2f}", yfmt=lambda v: f"{v:g}")
+    p.curve(lambda x: 1 / (1 - x), 0.8, 0.999, cls="c1", n=400)
+    for pv in (0.90, 0.99, 0.995):
+        X, Y = p.pt(pv, 1 / (1 - pv))
+        f.circle(X, Y, 5, fill=ACC2, stroke="#fff")
+        f.text(X - 8, Y - 8, f"p = {pv:g}：{1/(1-pv):.0f}", "end", "s b a2")
+    f.text(p.px(0.81), p.py(400), "Xₙ = 1 / (1 − p)", cls="s b a")
+    return f
