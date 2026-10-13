@@ -45,6 +45,7 @@ SECTIONS = [
     ("applied", "応用編", "リサイクルのある物質収支、ポンプの省エネ、ピンチ解析による熱回収など、現場の課題を化学工学で解くケーススタディです。各章の前半は無料で読めます（続きは有料版）。"),
     ("numerical", "数値計算", "化学工学の計算でよく使う数値計算の方法を、Python のプログラム例つきで解説します。"),
     ("control", "プロセス制御", "温度や流量を目標どおりに保つフィードバック制御とPID制御の基本を学びます。"),
+    ("data", "物性データ集", "水蒸気表、空気の物性値、主な物質の沸点・臨界定数・アントワン定数、物理定数と単位換算を、公開されている国際標準の式とデータから計算・整理した表です。CSV でダウンロードできます。"),
     ("exam", "資格試験対策", "エネルギー管理士や公害防止管理者など、化学工学の知識が役立つ資格試験の勉強法と頻出の計算をまとめます。"),
 ]
 # 公開を止めているカテゴリ。発展編・応用編は有料版（note）がまだ出ていないため、
@@ -259,6 +260,12 @@ def main():
     if (ROOT / "figures" / "svg").exists():
         shutil.copytree(ROOT / "figures" / "svg", OUT / "fig")
 
+    # 物性データ集の CSV（data/make_data.py で生成）
+    if (ROOT / "data" / "csv").exists():
+        (OUT / "data").mkdir(exist_ok=True)
+        for f in (ROOT / "data" / "csv").glob("*.csv"):
+            shutil.copy(f, OUT / "data" / f.name)
+
     # ダウンロード用のファイル（発展編の検算用プログラムなど）
     if (ROOT / "files").exists():
         shutil.copytree(ROOT / "files", OUT / "files")
@@ -267,7 +274,7 @@ def main():
     urls = ["/"]
     for sec in sections:
         d = OUT / sec["key"]
-        d.mkdir()
+        d.mkdir(exist_ok=True)
         write_page(d / "index.html", section_page(sec, sections))
         urls.append(f'/{sec["key"]}/')
         for m in sec["items"]:

@@ -1,0 +1,1642 @@
+{
+ "水": {
+  "cid": "C7732185",
+  "formula": "",
+  "mw": "18.0153",
+  "props": {
+   "Tboil": [
+    [
+     "373.17 ± 0.04",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 7 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "647. ± 2.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 7 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "220.64",
+     "bar",
+     "N/A",
+     "Sato, Watanabe, et al., 1991",
+     "Uncertainty assigned by TRC =  0.05 bar; TRC"
+    ],
+    [
+     "220.60",
+     "bar",
+     "N/A",
+     "Brunner, 1990",
+     "Uncertainty assigned by TRC =  0.12 bar; TRC"
+    ],
+    [
+     "220.46",
+     "bar",
+     "N/A",
+     "Morita, Sato, et al., 1989",
+     "Uncertainty assigned by TRC =  0.25 bar; based on analysis o"
+    ],
+    [
+     "220.64",
+     "bar",
+     "N/A",
+     "Aleksandrov, 1986",
+     "Uncertainty assigned by TRC =  0.30 bar; TRC"
+    ],
+    [
+     "220.64",
+     "bar",
+     "N/A",
+     "Sifner, 1985",
+     "Uncertainty assigned by TRC =  0.0001 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "379. to 573.",
+    "3.55959",
+    "643.748",
+    "-198.043",
+    "Liu and Lindsay, 1970",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "273. to 303.",
+    "5.40221",
+    "1838.675",
+    "-31.737",
+    "Bridgeman and Aldrich, 1964",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "304. to 333.",
+    "5.20389",
+    "1733.926",
+    "-39.485",
+    "Bridgeman and Aldrich, 1964",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "334. to 363.",
+    "5.0768",
+    "1659.793",
+    "-45.854",
+    "Bridgeman and Aldrich, 1964",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "344. to 373.",
+    "5.08354",
+    "1663.125",
+    "-45.622",
+    "Bridgeman and Aldrich, 1964",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "293. to 343.",
+    "6.20963",
+    "2354.731",
+    "7.559",
+    "Gubkov, Fermor, et al., 1964",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "255.9 to 373.",
+    "4.6543",
+    "1435.264",
+    "-64.848",
+    "Stull, 1947",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "メタノール": {
+  "cid": "C67561",
+  "formula": "",
+  "mw": "32.0419",
+  "props": {
+   "Tboil": [
+    [
+     "337.8 ± 0.3",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 154 out of 171 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "513. ± 1.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 27 out of 31 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "81. ± 1.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 17 out of 20 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "353.5 to 512.63",
+    "5.15853",
+    "1569.613",
+    "-34.846",
+    "Ambrose, Sprake, et al., 1975",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "288.1 to 356.83",
+    "5.20409",
+    "1581.341",
+    "-33.50",
+    "Ambrose and Sprake, 1970",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "353. to 483.",
+    "5.31301",
+    "1676.569",
+    "-21.728",
+    "Hirata and Suda, 1967",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "エタノール": {
+  "cid": "C64175",
+  "formula": "",
+  "mw": "46.0684",
+  "props": {
+   "Tboil": [
+    [
+     "351.5 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 138 out of 148 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "514. ± 7.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 37 out of 38 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "63. ± 4.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 18 out of 19 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "364.8 to 513.91",
+    "4.92531",
+    "1432.526",
+    "-61.819",
+    "Ambrose, Sprake, et al., 1975",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "292.77 to 366.63",
+    "5.24677",
+    "1598.673",
+    "-46.424",
+    "Ambrose and Sprake, 1970",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "273. to 351.70",
+    "5.37229",
+    "1670.409",
+    "-40.191",
+    "Kretschmer and Wiebe, 1949",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "1-プロパノール": {
+  "cid": "C71238",
+  "formula": "",
+  "mw": "60.0950",
+  "props": {
+   "Tboil": [
+    [
+     "370.3 ± 0.5",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 127 out of 139 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "536.9 ± 0.8",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 20 out of 25 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "52. ± 1.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 12 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "333.32 to 377.72",
+    "4.87601",
+    "1441.629",
+    "-74.299",
+    "Ambrose and Sprake, 1970",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "292.4 to 370.5",
+    "5.31384",
+    "1690.864",
+    "-51.804",
+    "Kemme and Kreps, 1969",
+    ""
+   ],
+   [
+    "405.46 to 536.71",
+    "4.59871",
+    "1300.491",
+    "-86.364",
+    "Ambrose and Townsend, 1963, 2",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "2-プロパノール": {
+  "cid": "C67630",
+  "formula": "",
+  "mw": "60.0950",
+  "props": {
+   "Tboil": [
+    [
+     "355.5 ± 0.4",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 102 out of 118 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "509. ± 2.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 19 out of 20 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "49. ± 5.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 10 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "395.1 to 508.24",
+    "4.57795",
+    "1221.423",
+    "-87.474",
+    "Ambrose and Townsend, 1963, 3",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "329.92 to 362.41",
+    "4.8610",
+    "1357.427",
+    "-75.814",
+    "Biddiscombe, Collerson, et al., 1963, 2",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "アセトン": {
+  "cid": "C67641",
+  "formula": "",
+  "mw": "58.0791",
+  "props": {
+   "Tboil": [
+    [
+     "329.3 ± 0.3",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 117 out of 129 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "508. ± 2.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 19 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "48. ± 4.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 9 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "259.16 to 507.60",
+    "4.42448",
+    "1312.253",
+    "-32.445",
+    "Ambrose, Sprake, et al., 1974",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "酢酸": {
+  "cid": "C64197",
+  "formula": "",
+  "mw": "60.0520",
+  "props": {
+   "Tboil": [
+    [
+     "391.2 ± 0.6",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 80 out of 90 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "593. ± 3.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 10 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "57.81",
+     "bar",
+     "N/A",
+     "Andereya and Chase, 1990",
+     "Uncertainty assigned by TRC =  0.20 bar; TRC"
+    ],
+    [
+     "58.2901",
+     "bar",
+     "N/A",
+     "D'Souza and Teja, 1987",
+     "Uncertainty assigned by TRC =  0.90 bar; Ambrose's procedure"
+    ],
+    [
+     "57.86",
+     "bar",
+     "N/A",
+     "Ambrose, Ellender, et al., 1977",
+     "Uncertainty assigned by TRC =  0.08 bar; TRC"
+    ],
+    [
+     "57.87",
+     "bar",
+     "N/A",
+     "Young, 1910",
+     "Uncertainty assigned by TRC =  1.0132 bar; TRC"
+    ],
+    [
+     "57.867",
+     "bar",
+     "N/A",
+     "Young, 1891",
+     "Uncertainty assigned by TRC =  0.2666 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "290.26 to 391.01",
+    "4.68206",
+    "1642.54",
+    "-39.764",
+    "McDonald, Shrader, et al., 1959"
+   ]
+  ]
+ },
+ "酢酸エチル": {
+  "cid": "C141786",
+  "formula": "",
+  "mw": "88.1051",
+  "props": {
+   "Tboil": [
+    [
+     "350.2 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 58 out of 72 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "530. ± 20.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 7 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "38.82",
+     "bar",
+     "N/A",
+     "Ambrose, Ellender, et al., 1981",
+     "Uncertainty assigned by TRC =  0.0387 bar; Visual; TRC"
+    ],
+    [
+     "38.30",
+     "bar",
+     "N/A",
+     "Young, 1910",
+     "Uncertainty assigned by TRC =  0.8106 bar; TRC"
+    ],
+    [
+     "38.517",
+     "bar",
+     "N/A",
+     "Young and Thomas, 1893",
+     "Uncertainty assigned by TRC =  0.40 bar; TRC"
+    ],
+    [
+     "40.18",
+     "bar",
+     "N/A",
+     "Nadezhdin, 1887",
+     "Uncertainty assigned by TRC =  2.0265 bar; TRC"
+    ],
+    [
+     "42.80",
+     "bar",
+     "N/A",
+     "Sajots, 1879",
+     "Uncertainty assigned by TRC =  4.053 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "288.73 to 348.98",
+    "4.22809",
+    "1245.702",
+    "-55.189",
+    "Polák and Mertl, 1965",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "ベンゼン": {
+  "cid": "C71432",
+  "formula": "",
+  "mw": "78.1118",
+  "props": {
+   "Tboil": [
+    [
+     "353.3 ± 0.1",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 147 out of 183 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "562.0 ± 0.8",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 36 out of 41 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "48.9 ± 0.4",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 24 out of 26 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "333.4 to 373.5",
+    "4.72583",
+    "1660.652",
+    "-1.461",
+    "Eon, Pommier, et al., 1971",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "297.9 to 318.",
+    "0.14591",
+    "39.165",
+    "-261.236",
+    "Deshpande and Pandya, 1967",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "421.56 to 554.8",
+    "4.60362",
+    "1701.073",
+    "20.806",
+    "Kalafati, Rasskazov, et al., 1967",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "287.70 to 354.07",
+    "4.01814",
+    "1203.835",
+    "-53.226",
+    "Williamham, Taylor, et al., 1945",
+    ""
+   ]
+  ]
+ },
+ "トルエン": {
+  "cid": "C108883",
+  "formula": "",
+  "mw": "92.1384",
+  "props": {
+   "Tboil": [
+    [
+     "383.8 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 110 out of 132 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "593. ± 2.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 20 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "41. ± 1.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 11 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "273.13 to 297.89",
+    "4.23679",
+    "1426.448",
+    "-45.957",
+    "Besley and Bottomley, 1974",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "303. to 343.",
+    "4.08245",
+    "1346.382",
+    "-53.508",
+    "Gaw and Swinton, 1968, 2",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "420.00 to 580.00",
+    "4.54436",
+    "1738.123",
+    "0.394",
+    "Ambrose, Broderick, et al., 1967",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "308.52 to 384.66",
+    "4.07827",
+    "1343.943",
+    "-53.773",
+    "Williamham, Taylor, et al., 1945",
+    ""
+   ],
+   [
+    "273. to 323.",
+    "4.14157",
+    "1377.578",
+    "-50.507",
+    "Pitzer and Scott, 1943",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "p-キシレン": {
+  "cid": "C106423",
+  "formula": "",
+  "mw": "106.1650",
+  "props": {
+   "Tboil": [
+    [
+     "411.4 ± 0.5",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 59 out of 65 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "617. ± 3.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 12 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "35. ± 2.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 6 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "286.43 to 452.38",
+    "4.14553",
+    "1474.403",
+    "-55.377",
+    "Osborn and Douslin, 1974",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "420.00 to 600.00",
+    "4.50944",
+    "1788.91",
+    "-13.902",
+    "Ambrose, Broderick, et al., 1967",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "331.44 to 412.44",
+    "4.11138",
+    "1450.688",
+    "-58.16",
+    "Williamham, Taylor, et al., 1945",
+    ""
+   ],
+   [
+    "298. to 333.",
+    "4.44889",
+    "1644.214",
+    "-40.229",
+    "Pitzer and Scott, 1943",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "n-ペンタン": {
+  "cid": "C109660",
+  "formula": "",
+  "mw": "72.1488",
+  "props": {
+   "Tboil": [
+    [
+     "309.2 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 81 out of 94 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "469.8 ± 0.5",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 27 out of 31 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "33.6 ± 0.6",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 20 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "268.8 to 341.37",
+    "3.9892",
+    "1070.617",
+    "-40.454",
+    "Osborn and Douslin, 1974",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "n-ヘキサン": {
+  "cid": "C110543",
+  "formula": "",
+  "mw": "86.1754",
+  "props": {
+   "Tboil": [
+    [
+     "341.9 ± 0.3",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 85 out of 100 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "507.6 ± 0.5",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 39 out of 44 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "30.2 ± 0.4",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 24 out of 25 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "177.70 to 264.93",
+    "3.45604",
+    "1044.038",
+    "-53.893",
+    "Carruth and Kobayashi, 1973",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "286.18 to 342.69",
+    "4.00266",
+    "1171.53",
+    "-48.784",
+    "Williamham, Taylor, et al., 1945",
+    ""
+   ]
+  ]
+ },
+ "n-ヘプタン": {
+  "cid": "C142825",
+  "formula": "",
+  "mw": "100.2019",
+  "props": {
+   "Tboil": [
+    [
+     "371.5 ± 0.3",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 215 out of 227 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "540. ± 2.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 27 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "27.4 ± 0.3",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 18 out of 19 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "185.29 to 295.60",
+    "4.81803",
+    "1635.409",
+    "-27.338",
+    "Carruth and Kobayashi, 1973",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "299.07 to 372.43",
+    "4.02832",
+    "1268.636",
+    "-56.199",
+    "Williamham, Taylor, et al., 1945",
+    ""
+   ]
+  ]
+ },
+ "シクロヘキサン": {
+  "cid": "C110827",
+  "formula": "",
+  "mw": "84.1595",
+  "props": {
+   "Tboil": [
+    [
+     "353.9 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 93 out of 116 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "554. ± 1.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 18 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "40.7 ± 0.5",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 8 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "323. to 523.",
+    "4.13983",
+    "1316.554",
+    "-35.581",
+    "Kerns, Anthony, et al., 1974",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "303. to 343.",
+    "3.9920",
+    "1216.93",
+    "-48.621",
+    "Gaw and Swinton, 1968, 2",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "315.70 to 353.90",
+    "3.17125",
+    "780.637",
+    "-107.29",
+    "Marinichev and Susarev, 1965, 2",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "293.06 to 354.73",
+    "3.96988",
+    "1203.526",
+    "-50.287",
+    "Williamham, Taylor, et al., 1945",
+    ""
+   ]
+  ]
+ },
+ "クロロホルム": {
+  "cid": "C67663",
+  "formula": "",
+  "mw": "119.378",
+  "props": {
+   "Tboil": [
+    [
+     "334.3 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 36 out of 37 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "537. ± 2.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 6 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "53.2868",
+     "bar",
+     "N/A",
+     "Campbell and Chatterjee, 1969",
+     "Uncertainty assigned by TRC =  0.1013 bar; TRC"
+    ],
+    [
+     "53.2868",
+     "bar",
+     "N/A",
+     "Campbell and Chatterjee, 1968",
+     "Uncertainty assigned by TRC =  0.0607 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "215. to 334.4",
+    "4.20772",
+    "1233.129",
+    "-40.953",
+    "Stull, 1947",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "334.4 to 527.",
+    "4.56992",
+    "1486.455",
+    "-8.612",
+    "Stull, 1947",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "ジクロロメタン": {
+  "cid": "C75092",
+  "formula": "",
+  "mw": "84.933",
+  "props": {
+   "Tboil": [
+    [
+     "313. ± 1.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 12 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "508.",
+     "K",
+     "N/A",
+     "Garcia-Sanchez, Romero-Martinez, et al., 1989",
+     "Uncertainty assigned by TRC =  0.2 K; mean of 5 determinatio"
+    ],
+    [
+     "510.",
+     "K",
+     "N/A",
+     "Majer and Svoboda, 1985",
+     " "
+    ]
+   ],
+   "Pc": [
+    [
+     "63.55",
+     "bar",
+     "N/A",
+     "Garcia-Sanchez, Romero-Martinez, et al., 1989",
+     "Uncertainty assigned by TRC =  0.15 bar; mean of 5 determina"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "303.14 to 313.14",
+    "3.97323",
+    "1016.865",
+    "-56.623",
+    "Mueller and Ignatowski, 1960, 2",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "233. to 313.",
+    "4.53691",
+    "1327.016",
+    "-20.474",
+    "Ganeff and Jungers, 1948",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "アンモニア": {
+  "cid": "C7664417",
+  "formula": "",
+  "mw": "17.0305",
+  "props": {
+   "Tc": [
+    [
+     "405.4",
+     "K",
+     "N/A",
+     "Brunner, 1988",
+     "Uncertainty assigned by TRC =  0.1 K; TRC"
+    ],
+    [
+     "405.6",
+     "K",
+     "N/A",
+     "Hentze, 1977",
+     "Uncertainty assigned by TRC =  5. K; TRC"
+    ]
+   ],
+   "Pc": [
+    [
+     "113.00",
+     "bar",
+     "N/A",
+     "Brunner, 1988",
+     "Uncertainty assigned by TRC =  0.05 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "164.0 to 239.6",
+    "3.18757",
+    "506.713",
+    "-80.78",
+    "Stull, 1947",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "239.6 to 371.5",
+    "4.86886",
+    "1113.928",
+    "-10.409",
+    "Stull, 1947",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "二酸化炭素": {
+  "cid": "C124389",
+  "formula": "",
+  "mw": "44.0095",
+  "props": {
+   "Tc": [
+    [
+     "304.18",
+     "K",
+     "N/A",
+     "Suehiro, Nakajima, et al., 1996",
+     "Uncertainty assigned by TRC =  0.04 K; TRC"
+    ],
+    [
+     "304.1",
+     "K",
+     "N/A",
+     "Weber, 1989",
+     "Uncertainty assigned by TRC =  0.1 K; TRC"
+    ],
+    [
+     "304.35",
+     "K",
+     "N/A",
+     "Li and Kiran, 1988",
+     "Uncertainty assigned by TRC =  0.4 K; TRC"
+    ],
+    [
+     "304.200",
+     "K",
+     "N/A",
+     "Morrison, 1981",
+     "Uncertainty assigned by TRC =  0.02 K; TRC"
+    ],
+    [
+     "304.23",
+     "K",
+     "N/A",
+     "Efremova and Shvarts, 1972",
+     "Visual, agreement with literature evidence of sample purity;"
+    ]
+   ],
+   "Pc": [
+    [
+     "73.80",
+     "bar",
+     "N/A",
+     "Suehiro, Nakajima, et al., 1996",
+     "Uncertainty assigned by TRC =  0.15 bar; TRC"
+    ],
+    [
+     "73.40",
+     "bar",
+     "N/A",
+     "Li and Kiran, 1988",
+     "Uncertainty assigned by TRC =  0.50 bar; TRC"
+    ],
+    [
+     "73.825",
+     "bar",
+     "N/A",
+     "Angus, Armstrong, et al., 1976",
+     "Uncertainty assigned by TRC =  0.005 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "154.26 to 195.89",
+    "6.81228",
+    "1301.679",
+    "-3.494",
+    "Giauque and Egan, 1937",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "窒素": {
+  "cid": "C7727379",
+  "formula": "",
+  "mw": "28.0134",
+  "props": {
+   "Tboil": [
+    [
+     "77.34",
+     "K",
+     "N/A",
+     "Jacobsen, Stewart, et al., 1986",
+     "TRC"
+    ],
+    [
+     "77.4",
+     "K",
+     "N/A",
+     "Streng, 1971",
+     "Uncertainty assigned by TRC =  0.3 K; TRC"
+    ]
+   ],
+   "Tc": [
+    [
+     "126.19",
+     "K",
+     "N/A",
+     "Jacobsen, Stewart, et al., 1986",
+     "Uncertainty assigned by TRC =  0.01 K; TRC"
+    ],
+    [
+     "126.2",
+     "K",
+     "N/A",
+     "Angus, de Reuck, et al., 1979",
+     "Uncertainty assigned by TRC =  0.05 K; TRC"
+    ],
+    [
+     "126.2",
+     "K",
+     "N/A",
+     "Weber, 1970",
+     "Uncertainty assigned by TRC =  0.2 K; IPTS-68, critical poin"
+    ],
+    [
+     "128.45",
+     "K",
+     "N/A",
+     "Cardoso, 1915",
+     "Uncertainty assigned by TRC =  0.5 K; TRC"
+    ]
+   ],
+   "Pc": [
+    [
+     "33.978",
+     "bar",
+     "N/A",
+     "Jacobsen, Stewart, et al., 1986",
+     "Uncertainty assigned by TRC =  0.007 bar; TRC"
+    ],
+    [
+     "34.00",
+     "bar",
+     "N/A",
+     "Angus, de Reuck, et al., 1979",
+     "Uncertainty assigned by TRC =  0.05 bar; TRC"
+    ],
+    [
+     "3.0698",
+     "bar",
+     "N/A",
+     "Cardoso, 1915",
+     "Uncertainty assigned by TRC =  0.003 bar; TRC"
+    ],
+    [
+     "3.0682",
+     "bar",
+     "N/A",
+     "Cardoso, 1915",
+     "Uncertainty assigned by TRC =  0.003 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "63.14 to 126.",
+    "3.7362",
+    "264.651",
+    "-6.788",
+    "Edejer and Thodos, 1967",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "63.14 to 78.00",
+    "3.63792",
+    "257.877",
+    "-6.344",
+    "Moussa, Muijlwijk, et al., 1966",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "酸素": {
+  "cid": "C7782447",
+  "formula": "",
+  "mw": "31.9988",
+  "props": {
+   "Tboil": [
+    [
+     "90.2",
+     "K",
+     "N/A",
+     "Streng, 1971",
+     "Uncertainty assigned by TRC =  0.2 K; TRC"
+    ]
+   ],
+   "Tc": [
+    [
+     "154.58",
+     "K",
+     "N/A",
+     "Pentermann and Wagner, 1978",
+     "Uncertainty assigned by TRC =  0.0015 K; TRC"
+    ],
+    [
+     "154.58",
+     "K",
+     "N/A",
+     "Wagner, Ewers, et al., 1976",
+     "Uncertainty assigned by TRC =  0.0015 K; TRC"
+    ],
+    [
+     "155.15",
+     "K",
+     "N/A",
+     "Cardoso, 1915",
+     "Uncertainty assigned by TRC =  0.3 K; 4 determinations with "
+    ]
+   ],
+   "Pc": [
+    [
+     "50.43",
+     "bar",
+     "N/A",
+     "Wagner, Ewers, et al., 1976",
+     "Uncertainty assigned by TRC =  0.005 bar; Vapour-pressure me"
+    ],
+    [
+     "50.0343",
+     "bar",
+     "N/A",
+     "Cardoso, 1915",
+     "Uncertainty assigned by TRC =  0.3039 bar; TRC"
+    ],
+    [
+     "49.9228",
+     "bar",
+     "N/A",
+     "Cardoso, 1915",
+     "Uncertainty assigned by TRC =  0.3039 bar; TRC"
+    ],
+    [
+     "49.8519",
+     "bar",
+     "N/A",
+     "Cardoso, 1915",
+     "Uncertainty assigned by TRC =  0.3039 bar; TRC"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "54.36 to 100.16",
+    "3.85845",
+    "325.675",
+    "-5.667",
+    "Brower and Thodos, 1968",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "54.36 to 154.33",
+    "3.9523",
+    "340.024",
+    "-4.144",
+    "Brower and Thodos, 1968",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "メタン": {
+  "cid": "C74828",
+  "formula": "",
+  "mw": "16.0425",
+  "props": {
+   "Tboil": [
+    [
+     "111. ± 2.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 13 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "190.6 ± 0.3",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 19 out of 23 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "46.1 ± 0.3",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 16 out of 21 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "90.99 to 189.99",
+    "3.9895",
+    "443.028",
+    "-0.49",
+    "Prydz and Goodwin, 1972",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "96.89 to 110.19",
+    "2.00253",
+    "125.819",
+    "-48.823",
+    "Regnier, 1972",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "93.04 to 107.84",
+    "3.80235",
+    "403.106",
+    "-5.479",
+    "Cutler and Morrison, 1965",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "110.00 to 190.5",
+    "4.22061",
+    "516.689",
+    "11.223",
+    "Hestermans and White, 1961",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "エタン": {
+  "cid": "C74840",
+  "formula": "",
+  "mw": "30.0690",
+  "props": {
+   "Tboil": [
+    [
+     "184.6 ± 0.6",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 23 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "305.3 ± 0.3",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 41 out of 46 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "49. ± 1.",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 28 out of 29 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "91.33 to 144.13",
+    "4.50706",
+    "791.3",
+    "-6.422",
+    "Carruth and Kobayashi, 1973",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "135.74 to 199.91",
+    "3.93835",
+    "659.739",
+    "-16.719",
+    "Loomis and Walters, 1926",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "プロパン": {
+  "cid": "C74986",
+  "formula": "",
+  "mw": "44.0956",
+  "props": {
+   "Tboil": [
+    [
+     "231.1 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 17 out of 21 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "369.9 ± 0.2",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 30 out of 37 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "42.5 ± 0.1",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 25 out of 32 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "277.6 to 360.8",
+    "4.53678",
+    "1149.36",
+    "24.906",
+    "Helgeson and Sage, 1967",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "230.6 to 320.7",
+    "3.98292",
+    "819.296",
+    "-24.417",
+    "Rips, 1963",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "166.02 to 231.41",
+    "4.01158",
+    "834.26",
+    "-22.763",
+    "Kemp and Egan, 1938",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ },
+ "n-ブタン": {
+  "cid": "C106978",
+  "formula": "",
+  "mw": "58.1222",
+  "props": {
+   "Tboil": [
+    [
+     "273. ± 1.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 33 values; Individual data points"
+    ]
+   ],
+   "Tc": [
+    [
+     "425. ± 1.",
+     "K",
+     "AVG",
+     "N/A",
+     "Average of 18 values; Individual data points"
+    ]
+   ],
+   "Pc": [
+    [
+     "38.0 ± 0.1",
+     "bar",
+     "AVG",
+     "N/A",
+     "Average of 15 out of 16 values; Individual data points"
+    ]
+   ]
+  },
+  "antoine": [
+   [
+    "135.42 to 212.89",
+    "4.70812",
+    "1200.475",
+    "-13.013",
+    "Carruth and Kobayashi, 1973",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "272.66 to 425.",
+    "4.35576",
+    "1175.581",
+    "-2.071",
+    "Das, Reed, et al., 1973",
+    "Coefficents calculated by NIST from author's data."
+   ],
+   [
+    "195.11 to 272.81",
+    "3.85002",
+    "909.65",
+    "-36.146",
+    "Aston and Messerly, 1940",
+    "Coefficents calculated by NIST from author's data."
+   ]
+  ]
+ }
+}
