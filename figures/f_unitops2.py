@@ -170,3 +170,98 @@ def _():
     f.text(p.px(0.02), p.py(dp) - 34, "固定層：流速とともに増える", cls="s m")
     f.text(p.px(0.29), p.py(dp) - 10, "流動層：層の重さ ÷ 断面積 ≈ 6.2 kPa で一定", "end", "s b a")
     return f
+
+
+@fig("bond-energy-vs-size")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 450, 220, (10, 1000), (0, 45), xlog=True)
+    p.axes(xticks=(10, 20, 50, 100, 200, 500, 1000), yticks=range(0, 46, 10), xlabel="製品の80%通過径 P₈₀ [µm]（対数目盛）",
+           ylabel="粉砕エネルギー [kWh/t]", xfmt=lambda v: f"{v:g}")
+    W = lambda P: 130 * (1 / math.sqrt(P) - 1 / math.sqrt(10000))
+    p.curve(W, 10, 1000, cls="c1")
+    for P, lab in ((100, "100 µm：11.7 kWh/t"), (50, "50 µm：17.1 kWh/t")):
+        X, Y = p.pt(P, W(P))
+        f.circle(X, Y, 5, fill=ACC2, stroke="#fff")
+        f.text(X + 8, Y - 8, lab, cls="s b a2")
+    f.text(p.px(300), p.py(38), "W = 10 W_i (1/√P₈₀ − 1/√F₈₀)", "middle", "s m")
+    return f
+
+
+@fig("partial-classification-efficiency")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 450, 220, (1, 100), (0, 100), xlog=True)
+    p.axes(xticks=(1, 2, 5, 10, 20, 50, 100), yticks=range(0, 101, 25), xlabel="粒子径 d [µm]（対数目盛）",
+           ylabel="部分分級効率 η [%]", xfmt=lambda v: f"{v:g}")
+    d50 = 20.0
+    eta = lambda d: 100 / (1 + (d50 / d) ** 2.5)
+    p.curve(eta, 1, 100, cls="c1")
+    p.series([1, d50, d50, 100], [0, 0, 100, 100], "c2 dash", width=1.6)
+    for v in (25, 50, 75):
+        d = d50 * (v / (100 - v)) ** (1 / 2.5)
+        X, Y = p.pt(d, v)
+        f.circle(X, Y, 4.5, fill=ACC, stroke="#fff")
+        f.line(X, Y, X, p.py(0), "thin dot")
+        f.text(X + 6, Y + (16 if v < 50 else -8), f"d{'₂₅' if v == 25 else '₇₅'} ≈ {d:.0f} µm" if v != 50 else "分級径 d₅₀ = 20 µm", cls="s b" + (" a" if v == 50 else ""))
+    f.text(p.px(1.2), p.py(90), "点線：理想的な分級", cls="s a2")
+    f.text(p.px(1.2), p.py(80), "鋭さ κ = d₂₅/d₇₅ ≈ 0.64", cls="s m")
+    return f
+
+
+def eff(phi):
+    return 1 / phi * (1 / math.tanh(3 * phi) - 1 / (3 * phi))
+
+
+@fig("effectiveness-factor")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 450, 220, (0.05, 20), (0.04, 1.2), xlog=True, ylog=True)
+    p.axes(xticks=(0.1, 0.2, 0.5, 1, 2, 5, 10, 20), yticks=(0.05, 0.1, 0.2, 0.5, 1), xlabel="チーレ数 φ（対数目盛）",
+           ylabel="触媒有効係数 η", xfmt=lambda v: f"{v:g}", yfmt=lambda v: f"{v:g}")
+    p.curve(eff, 0.05, 20, cls="c1")
+    p.curve(lambda ph: 1 / ph, 2, 20, cls="c2 dash")
+    f.text(p.px(12), p.py(1 / 12) - 10, "η ≈ 1/φ", cls="s a2")
+    for ph, lab in ((0.707, "直径 3 mm：η ≈ 0.79"), (0.236, "1 mm：0.97")):
+        X, Y = p.pt(ph, eff(ph))
+        f.circle(X, Y, 5, fill=ACC2, stroke="#fff")
+        f.text(X + (0 if ph < 0.5 else 8), Y + (18 if ph < 0.5 else -10), lab, "middle" if ph < 0.5 else "start", "s b a2")
+    # 挿入図：粒子の中の濃度分布
+    bx, by = p.px(0.06), p.py(0.25)
+    f.rect(bx, by - 10, 150, 80, fill="#fff", stroke=GRID, rx=4)
+    f.text(bx + 75, by + 4, "粒子の中の濃度", "middle", "s m")
+    for k, (phv, cls) in enumerate(((0.3, "c1"), (3.0, "c2"))):
+        pts = []
+        for i in range(41):
+            r = -1 + i / 20
+            a = 3 * phv
+            c = math.sinh(a * abs(r)) / (abs(r) * math.sinh(a)) if abs(r) > 1e-6 else a / math.sinh(a)
+            pts.append((bx + 15 + (r + 1) * 60, by + 62 - c * 44))
+        f.poly(pts, cls, width=1.8)
+    f.text(bx + 140, by + 26, "φ 小", "end", "s a")
+    f.text(bx + 75, by + 66, "φ 大", "middle", "s a2")
+    return f
+
+
+@fig("shift-equilibrium-conversion")
+def _():
+    f = Fig(580, 320)
+    p = Plot(f, 80, 30, 450, 220, (450, 1000), (0.4, 1.0))
+    p.axes(xticks=range(500, 1001, 100), yticks=(0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0), xlabel="温度 [K]",
+           ylabel="CO の平衡転化率", yfmt=lambda v: f"{v:.1f}")
+    Kf = lambda T: 9.0 * math.exp(41200 / 8.314 * (1 / T - 1 / 700))
+    x11 = lambda T: math.sqrt(Kf(T)) / (1 + math.sqrt(Kf(T)))
+    def x12(T):
+        K = Kf(T)
+        a, b, c = K - 1, -3 * K, 2 * K
+        return (-b - math.sqrt(b * b - 4 * a * c)) / (2 * a)
+    p.curve(x11, 450, 1000, cls="c1")
+    p.curve(x12, 450, 1000, cls="c2")
+    for xv, col, lab in ((0.75, ACC, "1:1 で 0.75"), (0.914, ACC2, "1:2 で 0.91")):
+        X, Y = p.pt(700, xv)
+        f.circle(X, Y, 5, fill=col, stroke="#fff")
+        f.text(X + 8, Y - 8, lab, cls="s b", color=col)
+    f.line(p.px(700), p.py(0.4), p.px(700), p.py(1.0), "thin dot")
+    f.legend(p.px(820), p.py(0.97), [("CO : H₂O = 1 : 1", "c1"), ("CO : H₂O = 1 : 2", "c2")])
+    f.text(p.px(460), p.py(0.45), "K(700 K) = 9.0、ΔH = −41.2 kJ/mol として計算", cls="s m")
+    return f
