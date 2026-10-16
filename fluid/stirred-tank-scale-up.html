@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>撹拌槽のスケールアップ｜混合時間と除熱能力の変わり方｜はじめての化学工学</title>
+<meta name="description" content="撹拌槽を大きくしたとき、体積あたりの除熱能力と混合時間がどう変わるかを計算し、スケールアップで温度制御が難しくなる理由と対策を解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/stirred-tank-scale-up.html">
+<meta property="og:title" content="撹拌槽のスケールアップ｜混合時間と除熱能力の変わり方｜はじめての化学工学">
+<meta property="og:description" content="撹拌槽を大きくしたとき、体積あたりの除熱能力と混合時間がどう変わるかを計算し、スケールアップで温度制御が難しくなる理由と対策を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>撹拌槽のスケールアップ｜混合時間と除熱能力の変わり方</span></nav>
+    <article class="article">
+<h1>撹拌槽のスケールアップ</h1>
+<p class="lead">撹拌槽を大きくしたとき、体積あたりの除熱能力と混合時間がどう変わるかを計算し、スケールアップで温度制御が難しくなる理由と対策を解説します。</p>
+
+<h2>現場の課題</h2>
+<p>実験室の数リットルのフラスコで問題なく進んだ反応が、数立方メートルの反応槽では温度が上がりすぎたり、収率が下がったりする。これはスケールアップで最もよく起こるトラブルの一つです。</p>
+<p>原因の多くは、装置を大きくしたときに<strong>変わらずに保てるものと、保てないものがある</strong>ことにあります。この記事では、撹拌槽を相似形のまま大きくしたとき、除熱能力と混合時間がどう変わるかを計算し、スケールアップで何に注意すべきかを考えます。</p>
+<h2>大きくすると何が変わるか</h2>
+<p>形を相似に保ったまま、槽の直径を $s$ 倍にすると、</p>
+<ul><li><strong>体積</strong>（発熱量）は $s^3$ 倍</li><li><strong>ジャケットの伝熱面積</strong>（除熱量）は $s^2$ 倍</li><li><strong>体積あたりの伝熱面積</strong> $A/V$ は $1/s$ 倍</li></ul>
+<p>になります。発熱は体積に比例して増えるのに、除熱は面積にしか比例しないので、<strong>大きな槽ほど熱を取り除きにくくなります</strong>。これはスケールアップの宿命で、撹拌を強めても根本的には解決しません。</p>
+<h2>撹拌の条件をどう合わせるか</h2>
+<p>「<a href="/fluid/agitation-power.html">撹拌所要動力</a>」の記事で紹介したように、スケールアップでは次のような基準がよく使われます。</p>
+<ul><li><strong>単位体積あたりの動力 $P/V$ 一定</strong>：回転数は $N \propto s^{-2/3}$</li><li><strong>翼の先端速度一定</strong>：回転数は $N \propto s^{-1}$</li></ul>
+<p>この記事では、最も一般的な $P/V$ 一定の場合を扱います。</p>
+<p><strong>混合時間</strong>：乱流の撹拌槽では、混合時間と回転数の積がほぼ一定なので、混合時間は $1/N$ に比例します。$P/V$ 一定では、混合時間は $s^{2/3}$ 倍に<strong>長く</strong>なります。</p>
+<p><strong>槽内側の熱伝達係数</strong>：撹拌槽の槽壁の熱伝達は、次のような相関式で表されます。</p>
+<div class="formula">$$\frac{h_i D_T}{k} = 0.36\,Re^{2/3}\,Pr^{1/3}\left(\frac{\mu}{\mu_w}\right)^{0.14}, \qquad Re = \frac{\rho N d^2}{\mu}$$</div>
+<p>$D_T$ は槽径、$d$ は翼径です。$P/V$ 一定で大きくすると、$Re$ は増えますが槽径で割る効果のほうが大きく、$h_i$ はわずかに下がります（およそ $s^{-1/9}$ 倍）。</p>
+<h2>総括伝熱係数と除熱能力</h2>
+<p>ジャケット付き撹拌槽の総括伝熱係数は、</p>
+<div class="formula">$$\frac{1}{U} = \frac{1}{h_i} + \frac{\delta_w}{k_w} + \frac{1}{h_j}$$</div>
+<p>です（槽壁が薄いとして面積の違いは無視）。$h_j$ はジャケット側の熱伝達係数です。除熱能力を体積あたりで表した $UA/V$ [W/(m³·K)] と、反応による体積あたりの発熱速度 $q_v$ [W/m³] から、必要な温度差（反応液と冷媒の温度差）は</p>
+<div class="formula">$$\Delta T = \frac{q_v}{UA/V}$$</div>
+<p>となります。この温度差が大きくなるほど、冷媒をより低温にする必要があり、冷却が追いつかなくなります。</p>
+<h2>例題：実験槽から実機へ</h2>
+<p>槽径 0.24 m（約 11 L）の実験槽で、6枚平羽根タービン（翼径は槽径の 1/3）を毎分 300 回転で回し、発熱速度 20 kW/m³ の反応を行っていました。これを $P/V$ 一定で槽径 2.4 m（約 11 m³）まで大きくしたとき、除熱に必要な温度差と混合時間はどう変わるでしょうか。液は水に近い物性、ジャケット側の熱伝達係数 2000 W/(m²·K)、槽壁はステンレス 5 mm とします（説明用の値）。</p>
+<p><strong>解答</strong></p>
+<table><tr><th>槽径</th><th>体積</th><th>回転数</th><th>槽内側 $h_i$</th><th>$U$</th><th>$A/V$</th><th>$UA/V$</th><th>必要な温度差</th><th>混合時間（実験槽比）</th></tr><tr><td>0.24 m</td><td>0.011 m³</td><td>300 rpm</td><td>1733</td><td>720</td><td>20.8</td><td>14 990</td><td>1.3 K</td><td>1 倍</td></tr><tr><td>0.6 m</td><td>0.17 m³</td><td>163 rpm</td><td>1565</td><td>689</td><td>8.33</td><td>5 740</td><td>3.5 K</td><td>1.8 倍</td></tr><tr><td>1.2 m</td><td>1.36 m³</td><td>103 rpm</td><td>1449</td><td>665</td><td>4.17</td><td>2 770</td><td>7.2 K</td><td>2.9 倍</td></tr><tr><td>2.4 m</td><td>10.9 m³</td><td>65 rpm</td><td>1341</td><td>642</td><td>2.08</td><td>1 340</td><td>15.0 K</td><td>4.6 倍</td></tr></table>
+<p>（$h_i$、$U$ は W/(m²·K)、$A/V$ は 1/m、$UA/V$ は W/(m³·K)）</p>
+<p><strong>結果の読み方</strong></p>
+<ul><li>総括伝熱係数 $U$ は 720 から 642 W/(m²·K) へ、1割ほどしか下がりません</li><li>しかし体積あたりの伝熱面積 $A/V$ が 10 分の 1 になるため、<strong>体積あたりの除熱能力 $UA/V$ は約 11 分の 1</strong> になります</li><li>その結果、同じ発熱速度の反応を行うには、反応液と冷媒の温度差を 1.3 K から <strong>15 K</strong> まで広げる必要があります</li><li>混合時間は約 4.6 倍に長くなります</li></ul>
+<figure class="fig"><a href="/fig/scale-up-heat-mixing.svg" target="_blank" rel="noopener"><img src="/fig/scale-up-heat-mixing.svg" alt="図1　例題の槽径と、除熱に必要な温度差・混合時間（当サイトで計算）" width="720" height="320" loading="lazy"></a><figcaption>図1　例題の槽径と、除熱に必要な温度差・混合時間（当サイトで計算）</figcaption></figure>
+<p>実験槽ではほとんど意識しなかった除熱が、実機では大きな制約になることがわかります。実機で温度差を実験槽と同じ 1.3 K に抑えるには、発熱速度を 20 kW/m³ から約 1.8 kW/m³（<strong>9%</strong>）まで下げる、つまり原料を加える速さを約 11 分の 1 にする必要があります。</p>
+<h2>スケールアップの対策</h2>
+<p><strong>除熱の対策</strong></p>
+<ul><li><strong>半回分操作で発熱速度を制御する</strong>：原料を少しずつ加え、発熱速度を除熱能力に合わせる。ただし、温度が低すぎて加えた原料がたまらないよう注意する（「<a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a>」の記事を参照）</li><li><strong>伝熱面積を増やす</strong>：槽内にコイルやバッフル型の冷却管を入れる、外部の熱交換器に液を循環させる</li><li><strong>冷媒温度を下げる</strong>：冷水やブラインを使う。ただし、槽壁の近くで液が冷えすぎて固まったり、粘度が上がったりしないか確かめる</li><li><strong>還流冷却</strong>：溶媒の沸点で運転し、蒸発した溶媒をコンデンサーで凝縮して戻す。蒸発潜熱で大きな熱を取り除ける</li></ul>
+<p><strong>混合の対策</strong></p>
+<ul><li>反応が混合時間より速い場合（速い反応、局所的な濃度の偏りで副反応が起こる反応）は、原料の投入位置（翼の近くの乱れが強い場所）や投入速度を工夫する</li><li>実験槽で、わざと混合を悪くした条件（回転数を下げるなど）で試験し、結果が変わるかどうかを確かめておくと、スケールアップのリスクを事前に評価できる</li></ul>
+<h2>検算について</h2>
+<p>この記事の数値は、検算用に作成したプログラム（Python）で計算しています。槽径ごとに回転数を $P/V$ 一定で決め、槽内側の熱伝達係数から $U$、$UA/V$、必要な温度差を求めました。槽径が 10 倍のときの $UA/V$ の比（0.089）は、$U$ が槽内側だけで決まると仮定した指数則の予想（$10^{-10/9} \approx 0.077$）に近く、ジャケット側と槽壁の抵抗がある分だけ差が小さくなっています。物性値と熱伝達係数は説明用の値です。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul></aside><!-- /related -->
+<h2>参考文献</h2>
+<ul><li>J. Y. Oldshue, <em>Fluid Mixing Technology</em>, McGraw-Hill</li><li>E. L. Paul, V. A. Atiemo-Obeng, S. M. Kresta（編）, <em>Handbook of Industrial Mixing</em>, Wiley</li><li>T. H. Chilton, T. B. Drew, R. H. Jebens, <em>Industrial and Engineering Chemistry</em>, 36, 510 (1944)</li></ul>
+<hr>
+<p>※ この記事は学習を目的としたものです。実際の装置の設計や運転には、最新の規格、信頼できる物性データ、専門家の判断にもとづいてください。</p>
+
+
+<nav class="pager"><a class="prev" href="/fluid/mixing-time.html">← 撹拌槽の混合時間</a><a class="next" href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html" aria-current="page">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

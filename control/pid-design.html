@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PID 制御の設計｜モデルにもとづくチューニングと方法の比較｜はじめての化学工学</title>
+<meta name="description" content="一次遅れ＋むだ時間のモデルから PID のパラメータを決める SIMC 法（IMC 法）を、ジーグラー・ニコルス法と閉ループのシミュレーションで比較して解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/control/pid-design.html">
+<meta property="og:title" content="PID 制御の設計｜モデルにもとづくチューニングと方法の比較｜はじめての化学工学">
+<meta property="og:description" content="一次遅れ＋むだ時間のモデルから PID のパラメータを決める SIMC 法（IMC 法）を、ジーグラー・ニコルス法と閉ループのシミュレーションで比較して解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/control/">プロセス制御</a> › <span>PID 制御の設計｜モデルにもとづくチューニングと方法の比較</span></nav>
+    <article class="article">
+<h1>PID 制御の設計</h1>
+<p class="lead">一次遅れ＋むだ時間のモデルから PID のパラメータを決める SIMC 法（IMC 法）を、ジーグラー・ニコルス法と閉ループのシミュレーションで比較して解説します。</p>
+
+<h2>この記事で学ぶこと</h2>
+<p>このサイトの<a href="/control/pid-tuning.html">基本の記事</a>では、ジーグラー・ニコルスの限界感度法で PID のパラメータを決める方法を紹介しました。この方法は手軽ですが、実際に使ってみると「振動が大きすぎる」と感じることが少なくありません。</p>
+<p>この記事では、プロセスのモデル（一次遅れ＋むだ時間）から PID のパラメータを計算する<strong>モデルにもとづくチューニング</strong>を学びます。代表として、内部モデル制御（IMC）の考え方から導かれた <strong>SIMC 法</strong>を取り上げ、ジーグラー・ニコルスの方法と、シミュレーションで性能を比べます。</p>
+<h2>プロセスモデルを求める：一次遅れ＋むだ時間</h2>
+<p>制御をかけない状態（手動）で操作量をステップ状に変え、制御量の応答を記録します。この応答を、次の3つのパラメータで表します。</p>
+<ul><li><strong>ゲイン</strong> $K$：操作量を1変えたとき、最終的に制御量がどれだけ変わるか</li><li><strong>時定数</strong> $\tau$：変化の速さ</li><li><strong>むだ時間</strong> $\theta$：操作してから制御量が動き始めるまでの時間</li></ul>
+<div class="formula">$$\frac{y(s)}{u(s)} = \frac{K\,e^{-\theta s}}{\tau s + 1}$$</div>
+<p>高次の遅れをもつプロセスも、応答曲線の形に合わせてこの形に近似するのが一般的です。むだ時間と時定数の比 $\theta / \tau$ が大きいほど、制御は難しくなります。</p>
+<figure class="fig"><a href="/fig/fopdt-step-response.svg" target="_blank" rel="noopener"><img src="/fig/fopdt-step-response.svg" alt="図1　一次遅れ＋むだ時間のステップ応答と3つのパラメータ（例題のプロセス）" width="600" height="320" loading="lazy"></a><figcaption>図1　一次遅れ＋むだ時間のステップ応答と3つのパラメータ（例題のプロセス）</figcaption></figure>
+<h2>IMC の考え方</h2>
+<p>IMC（内部モデル制御）は、「目標値を変えたとき、制御量がどのような応答をしてほしいか」を先に決め、それを実現するコントローラーを逆算する考え方です。一次遅れ＋むだ時間のプロセスでは、望む応答を「むだ時間のあと、時定数 $\tau_c$ の一次遅れで目標値に近づく」とすると、その応答を実現するコントローラーが近似的に PI 制御になります。</p>
+<p>$\tau_c$ は、設計者が選ぶ<strong>唯一の調整つまみ</strong>です。</p>
+<ul><li>$\tau_c$ を小さくすると、応答は速くなるが、モデルの誤差に弱くなり、操作量の動きが激しくなる</li><li>$\tau_c$ を大きくすると、応答はゆっくりになるが、安定で頑丈になる</li></ul>
+<h2>SIMC 法のチューニング式</h2>
+<p>IMC の考え方をもとに、実用的に整理された SIMC 法（スコゲスタッドの方法）の PI パラメータは次のとおりです。</p>
+<div class="formula">$$K_c = \frac{1}{K}\cdot\frac{\tau}{\tau_c + \theta}, \qquad T_i = \min\{\tau,\ 4(\tau_c + \theta)\}$$</div>
+<p>$\tau_c$ の標準的な選び方は $\tau_c = \theta$ です。これで、速さと頑丈さのバランスがとれた設定になるとされています。</p>
+<p>積分時間の式の $\min$ は、時定数が非常に長いプロセス（積分に近いプロセス）で、外乱からの回復が遅くなりすぎないようにするための工夫です。</p>
+<h2>比較のための他の方法</h2>
+<p>ジーグラー・ニコルスのステップ応答法では、同じ3つのパラメータから次のように決めます。</p>
+<table><tr><th>制御の種類</th><th>$K_c$</th><th>$T_i$</th><th>$T_d$</th></tr><tr><td>PI</td><td>$0.9\,\tau / (K\theta)$</td><td>$3.33\,\theta$</td><td>―</td></tr><tr><td>PID</td><td>$1.2\,\tau / (K\theta)$</td><td>$2\,\theta$</td><td>$0.5\,\theta$</td></tr></table>
+<h2>例題：シミュレーションによる比較</h2>
+<p>ゲイン $K$ = 2.0、時定数 $\tau$ = 10 min、むだ時間 $\theta$ = 2 min のプロセスを考えます。次の2つの場面で、各方法の性能を比べます。</p>
+<ol><li>時刻 0 で目標値を 1 だけ上げる（目標値追従）</li><li>時刻 60 min で、操作量の入口側に大きさ −0.5 の外乱が入る（外乱抑制）</li></ol>
+<p><strong>パラメータの計算</strong></p>
+<p>SIMC 法（$\tau_c = \theta = 2$ min）：</p>
+<div class="formula">$$K_c = \frac{1}{2.0}\cdot\frac{10}{2 + 2} = 1.25, \qquad T_i = \min\{10,\ 16\} = 10\ \text{min}$$</div>
+<p>ジーグラー・ニコルスの PI：$K_c = 0.9 \times 10 / (2.0 \times 2) = 2.25$、$T_i = 6.67$ min</p>
+<p>ジーグラー・ニコルスの PID：$K_c = 3.0$、$T_i = 4.0$ min、$T_d = 1.0$ min</p>
+<p><strong>シミュレーション結果</strong></p>
+<table><tr><th>方法</th><th>行き過ぎ量</th><th>整定時間（±5%）</th><th>目標値追従の IAE</th><th>外乱時の最大のずれ</th><th>外乱抑制の IAE</th></tr><tr><td>SIMC PI（$\tau_c$ = 4）</td><td>0%</td><td>12.8 min</td><td>6.00</td><td>0.34</td><td>5.97</td></tr><tr><td><strong>SIMC PI（$\tau_c$ = 2、標準）</strong></td><td><strong>4%</strong></td><td><strong>6.7 min</strong></td><td><strong>4.34</strong></td><td><strong>0.29</strong></td><td><strong>3.99</strong></td></tr><tr><td>SIMC PI（$\tau_c$ = 1）</td><td>18%</td><td>10.1 min</td><td>4.26</td><td>0.27</td><td>2.99</td></tr><tr><td>ZN PI</td><td>54%</td><td>18.6 min</td><td>5.96</td><td>0.25</td><td>1.48</td></tr><tr><td>ZN PID</td><td>64%</td><td>13.8 min</td><td>5.32</td><td>0.19</td><td>0.79</td></tr></table>
+<p>IAE は、目標値からのずれの絶対値を時間で積分したもので、小さいほど良い制御です。</p>
+<figure class="fig"><a href="/fig/pid-method-comparison.svg" target="_blank" rel="noopener"><img src="/fig/pid-method-comparison.svg" alt="図2　例題のプロセスでの目標値追従と外乱抑制の比較（当サイトでシミュレーション）" width="760" height="360" loading="lazy"></a><figcaption>図2　例題のプロセスでの目標値追従と外乱抑制の比較（当サイトでシミュレーション）</figcaption></figure>
+<p><strong>結果の読み方</strong></p>
+<ul><li><strong>目標値追従</strong>では、SIMC 法（標準）が行き過ぎ 4%、整定 6.7 分と、最もバランスのよい応答になりました。ジーグラー・ニコルスの方法は行き過ぎが 50% を超え、振動的です</li><li><strong>外乱抑制</strong>では、逆にジーグラー・ニコルスの方法のほうがずれが小さく、早く回復します。強い（ゲインが大きい）設定ほど外乱には強いためです</li><li>SIMC 法の $\tau_c$ を小さくすると、外乱には強くなりますが、目標値追従の行き過ぎが増えます</li></ul>
+<p>つまり、<strong>目標値追従と外乱抑制はトレードオフの関係</strong>にあり、「どの方法が一番良いか」はプロセスで何を重視するかによって変わります。化学プロセスでは目標値を変えることは少なく、外乱を抑えることが主な役割である制御ループが多いため、外乱抑制を重視して $\tau_c$ を小さめにとることもあります。一方、ジーグラー・ニコルスの設定はむだ時間やプロセスの特性が変わったときに不安定になりやすいので、そのまま使うのではなく出発点として微調整するのが無難です。</p>
+<h2>目標値と外乱の両方をよくする工夫</h2>
+<ul><li><strong>目標値の重み付け（2自由度 PID）</strong>：比例動作を「目標値 − 制御量」ではなく「$b$ × 目標値 − 制御量」（$0 \le b \le 1$）に対してかける。外乱に強い設定のまま、目標値を変えたときの行き過ぎを抑えられる。多くの調節計に機能として備わっている</li><li><strong>微分動作を測定値にかける</strong>：目標値を急に変えたときに、微分動作で操作量が跳ね上がるのを防ぐ（この記事のシミュレーションでもこの方式を使用）</li></ul>
+<h2>カスケード制御</h2>
+<p>反応器の温度を、ジャケットの冷却水の弁で制御する場合を考えます。冷却水の温度や圧力が変わると、弁の開度が同じでも冷却の強さが変わり、それが反応器の温度に現れるまでには大きな遅れがあります。</p>
+<p><strong>カスケード制御</strong>では、反応器温度の調節計（外側のループ）がジャケット温度の目標値を決め、ジャケット温度の調節計（内側のループ）が弁を操作します。冷却水側の外乱は、反応器の温度に影響が出る前に内側のループで素早く打ち消されます。内側のループは外側より十分に速い（目安として3倍以上）必要があり、チューニングは内側から先に行います。</p>
+<h2>検算について</h2>
+<p>この記事のシミュレーションは、検算用に作成したプログラム（Python）で行っています。一次遅れ＋むだ時間のプロセスを 0.001 分の刻みで数値積分し、各方法の PI・PID 制御を組み合わせて、行き過ぎ量・整定時間・IAE を計算しました。微分動作は測定値にかけ、微分時間の 1/10 の時定数のフィルタをつけています。フィルタの設定などによって数値は多少変わりますが、方法どうしの傾向は変わりません。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li></ul></aside><!-- /related -->
+<h2>参考文献</h2>
+<ul><li>S. Skogestad, <em>Journal of Process Control</em>, 13, 291 (2003)</li><li>D. E. Rivera, M. Morari, S. Skogestad, <em>Industrial &amp; Engineering Chemistry Process Design and Development</em>, 25, 252 (1986)</li><li>J. G. Ziegler, N. B. Nichols, <em>Transactions of the ASME</em>, 64, 759 (1942)</li><li>D. E. Seborg, T. F. Edgar ほか, <em>Process Dynamics and Control</em>, Wiley</li></ul>
+<hr>
+<p>※ この記事は学習を目的としたものです。実際の制御系の設計や調整は、プロセスの安全性を確認したうえで、専門家の判断のもとで行ってください。</p>
+
+
+<nav class="pager"><a class="prev" href="/control/pid-tuning.html">← PID制御のパラメータ調整</a><a class="next" href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html" aria-current="page">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

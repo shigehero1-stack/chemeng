@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>圧縮機の動力と吐出温度｜断熱圧縮と多段圧縮・中間冷却の効果｜はじめての化学工学</title>
+<meta name="description" content="気体を圧縮する圧縮機の種類、等温圧縮と断熱圧縮の動力の式、圧縮で気体の温度が上がる理由と吐出温度の計算、多段圧縮と中間冷却で動力を減らす考え方を、空気の圧縮の例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/compressor-power.html">
+<meta property="og:title" content="圧縮機の動力と吐出温度｜断熱圧縮と多段圧縮・中間冷却の効果｜はじめての化学工学">
+<meta property="og:description" content="気体を圧縮する圧縮機の種類、等温圧縮と断熱圧縮の動力の式、圧縮で気体の温度が上がる理由と吐出温度の計算、多段圧縮と中間冷却で動力を減らす考え方を、空気の圧縮の例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>圧縮機の動力と吐出温度｜断熱圧縮と多段圧縮・中間冷却の効果</span></nav>
+    <article class="article">
+<h1>圧縮機の動力と吐出温度</h1>
+<p class="lead">気体を圧縮する圧縮機の種類、等温圧縮と断熱圧縮の動力の式、圧縮で気体の温度が上がる理由と吐出温度の計算、多段圧縮と中間冷却で動力を減らす考え方を、空気の圧縮の例題で解説します。</p>
+
+<h2>圧縮機と送風機</h2>
+<p>気体を送ったり、圧力を上げたりする機械を、圧力の上げ幅によって送風機（ファン、ブロワー）と<strong>圧縮機</strong>（コンプレッサー）に分けます。工場の圧縮空気、冷凍機の冷媒、天然ガスや水素の輸送、化学反応に使う高圧ガスなど、圧縮機は動力の大きな設備の代表です。</p>
+<table>
+<tr><th>形式</th><th>仕組み</th><th>特徴</th></tr>
+<tr><td>往復式（レシプロ）</td><td>ピストンで押し縮める</td><td>高い圧力が得られる。流量は小さめ。脈動がある</td></tr>
+<tr><td>回転式（スクリュー、ベーン）</td><td>回転する部品の間の空間を狭くして押し縮める</td><td>工場の圧縮空気で最も多く使われる。脈動が少ない</td></tr>
+<tr><td>遠心式（ターボ）</td><td>羽根車で気体を加速し、その勢いを圧力に変える</td><td>大流量向き。大型の化学プラントや空気分離装置で使われる</td></tr>
+</table>
+
+<h2>圧縮の動力</h2>
+<p>液体のポンプと違って、気体は圧縮すると体積が小さくなり、温度も上がります。そのため圧縮の動力は、圧縮の途中で熱がどう出入りするかによって変わります。吸い込みの圧力を $p_1$、体積流量を $V_1$、吐出しの圧力を $p_2$ とすると、理想気体では次のようになります。</p>
+<h3>等温圧縮（熱を十分に取り去りながら圧縮）</h3>
+<div class="formula">$$W_{\text{等温}} = p_1 V_1 \ln \frac{p_2}{p_1}$$</div>
+<h3>断熱圧縮（熱の出入りなしで圧縮）</h3>
+<div class="formula">$$W_{\text{断熱}} = \frac{\kappa}{\kappa - 1}\,p_1 V_1\left[\left(\frac{p_2}{p_1}\right)^{(\kappa - 1)/\kappa} - 1\right]$$</div>
+<p>$\kappa$ は比熱比 $c_p / c_v$ で、空気や窒素では約1.4です。等温圧縮のほうが動力は小さく、これが理論上の最小の動力です。実際の圧縮機は断熱圧縮に近く、さらに摩擦などの損失があるので、断熱圧縮の動力を断熱効率（0.7〜0.85 程度）で割って軸動力を見積もります。</p>
+
+<h2>吐出温度</h2>
+<p>断熱圧縮では、加えた仕事がすべて気体の内部エネルギーになるので、温度が上がります。</p>
+<div class="formula">$$T_2 = T_1 \left(\frac{p_2}{p_1}\right)^{(\kappa - 1)/\kappa}$$</div>
+<p>圧力比が大きいと吐出温度が非常に高くなり、潤滑油の劣化や、可燃性ガスでは発火の危険があります。そこで圧縮を何段かに分け、段の間で気体を冷やす<strong>多段圧縮・中間冷却</strong>が使われます。各段の圧力比を等しくすると動力が最も小さくなります。</p>
+
+<div class="example">
+<strong>例題：空気の1段圧縮と2段圧縮</strong>
+<p>20 °C、101.3 kPa の空気を 1000 m³/h 吸い込み、700 kPa（絶対圧）まで圧縮します。比熱比を1.4として、(1) 1段で断熱圧縮したときの理論動力と吐出温度、(2) 2段に分け、段の間で 20 °C まで冷やしたときの理論動力と各段の吐出温度、(3) 等温圧縮の理論動力を求めてください。</p>
+<div class="answer">
+<p>$V_1 = 1000/3600 = 0.2778\ \text{m}^3/\text{s}$、圧力比は $700/101.3 \approx 6.91$、$(\kappa - 1)/\kappa = 0.2857$</p>
+<p>(1) $W = 3.5 \times 101.3 \times 10^3 \times 0.2778 \times (6.91^{0.2857} - 1) \approx 72.6\ \text{kW}$</p>
+<p>吐出温度：$293.15 \times 6.91^{0.2857} \approx 509\ \text{K}$（約 236 °C）</p>
+<p>(2) 各段の圧力比は $\sqrt{6.91} \approx 2.63$。各段の動力は同じで、$W = 2 \times 3.5 \times 101.3 \times 10^3 \times 0.2778 \times (2.63^{0.2857} - 1) \approx 62.6\ \text{kW}$</p>
+<p>各段の吐出温度：$293.15 \times 2.63^{0.2857} \approx 386\ \text{K}$（約 113 °C）</p>
+<p>(3) $W = 101.3 \times 10^3 \times 0.2778 \times \ln 6.91 \approx 54.4\ \text{kW}$</p>
+<p>2段にすると動力が約14%減り、吐出温度も 236 °C から 113 °C に下がります。段数を増やすほど等温圧縮に近づきますが、機械と冷却器が増えるので、圧力比に応じて段数を決めます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/compressor-stages.svg" target="_blank" rel="noopener"><img src="/fig/compressor-stages.svg" alt="図1　圧縮の段数と理論動力" width="580" height="320" loading="lazy"></a><figcaption>図1　例題の圧縮の段数と理論動力。段数を増やすと、等温圧縮の動力（最小値）に近づく</figcaption></figure>
+
+<h2>省エネのポイント</h2>
+<ul>
+<li>工場の圧縮空気は、作るのに多くの電力を使う。漏れを減らす、必要以上に高い圧力にしない（圧力を 0.1 MPa 下げると動力は数%減る）</li>
+<li>吸い込む空気の温度を下げると、体積流量あたりの質量が増え、同じ量を送る動力が減る</li>
+<li>使う量が変動する場合は、インバーターで回転数を制御する（<a href="/fluid/pump-power.html">ポンプの相似則</a>と同じ考え方）</li>
+<li>圧縮で出た熱を、温水を作るのに回収できる（<a href="/energy/heat-pump-and-heat-recovery.html">排熱回収</a>）</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/fluid/two-phase-flow.html">← 気液二相流の基礎</a><a class="next" href="/fluid/vacuum-pumping.html">真空排気の基礎 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html" aria-current="page">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

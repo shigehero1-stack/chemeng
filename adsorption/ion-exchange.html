@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>イオン交換の基礎｜イオン交換樹脂の交換容量と軟水化・純水製造の計算｜はじめての化学工学</title>
+<meta name="description" content="イオン交換樹脂の種類と選択性、交換容量の表し方、硬水を軟水にする装置の処理量と再生の計算、純水製造の仕組みを例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/adsorption/ion-exchange.html">
+<meta property="og:title" content="イオン交換の基礎｜イオン交換樹脂の交換容量と軟水化・純水製造の計算｜はじめての化学工学">
+<meta property="og:description" content="イオン交換樹脂の種類と選択性、交換容量の表し方、硬水を軟水にする装置の処理量と再生の計算、純水製造の仕組みを例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/adsorption/">吸着・イオン交換</a> › <span>イオン交換の基礎｜イオン交換樹脂の交換容量と軟水化・純水製造の計算</span></nav>
+    <article class="article">
+<h1>イオン交換の基礎</h1>
+<p class="lead">イオン交換樹脂の種類と選択性、交換容量の表し方、硬水を軟水にする装置の処理量と再生の計算、純水製造の仕組みを例題で解説します。</p>
+
+<h2>イオン交換とは</h2>
+<p><strong>イオン交換</strong>は、水に溶けているイオンを、固体（イオン交換体）がもっている別のイオンと入れ替える操作です。ボイラーの給水のカルシウムやマグネシウムを取り除く軟水化、半導体工場や発電所で使う純水の製造、排水からの金属の回収などに使われます。</p>
+<p>工業的には、スチレンなどの高分子の粒に、イオンを交換できる基（交換基）を結合させた<strong>イオン交換樹脂</strong>がよく使われます。大きさ 0.3〜1 mm 程度の粒を塔に詰め、<a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着</a>と同じように水を流して使います。</p>
+
+<h2>樹脂の種類</h2>
+<table>
+<tr><th>種類</th><th>交換するイオン</th><th>例</th></tr>
+<tr><td>強酸性陽イオン交換樹脂</td><td>陽イオン（Ca²⁺、Mg²⁺、Na⁺ など）</td><td>スルホン酸基 −SO₃H をもつ。Na 形で軟水化、H 形で純水製造に使う</td></tr>
+<tr><td>弱酸性陽イオン交換樹脂</td><td>陽イオン</td><td>カルボキシ基をもつ。再生しやすい</td></tr>
+<tr><td>強塩基性陰イオン交換樹脂</td><td>陰イオン（Cl⁻、SO₄²⁻、炭酸、ケイ酸 など）</td><td>第四級アンモニウム基をもつ。OH 形で純水製造に使う</td></tr>
+<tr><td>弱塩基性陰イオン交換樹脂</td><td>強酸の陰イオン</td><td>再生しやすいが、弱い酸は取れない</td></tr>
+</table>
+<p>樹脂はイオンを電荷の量で交換するので、Ca²⁺ が1つ入ると Na⁺ が2つ出ていきます。同じ条件なら、電荷の大きいイオンや、水和したときの大きさが小さいイオンほど強く取り込まれます（選択性）。強酸性陽イオン交換樹脂では、おおよそ Ca²⁺ ＞ Mg²⁺ ＞ K⁺ ＞ Na⁺ ＞ H⁺ の順です。</p>
+
+<h2>交換容量</h2>
+<p>樹脂がどれだけのイオンを交換できるかを<strong>交換容量</strong>といい、樹脂の体積あたりの当量 [eq/L-樹脂] で表します。当量（eq）は「物質量 × イオンの電荷の大きさ」で、Ca²⁺ 1 mol は 2 eq です。</p>
+<ul>
+<li><strong>総交換容量</strong>：樹脂がもっている交換基の総量。強酸性陽イオン交換樹脂で 1.8〜2.2 eq/L 程度</li>
+<li><strong>有効交換容量</strong>：実際の運転で、破過までに利用できる量。再生剤の量や流速によって変わり、総交換容量の5〜7割程度になることが多い</li>
+</ul>
+<p>水の硬度は、炭酸カルシウム CaCO₃ に換算した濃度 [mg/L] で表すことが多く、CaCO₃（式量 100、2価）50 mg が 1 meq（ミリ当量）に当たります。</p>
+
+<div class="example">
+<strong>例題：軟水器の運転日数と再生</strong>
+<p>硬度 100 mg/L（CaCO₃ 換算）の水を、強酸性陽イオン交換樹脂（Na 形）0.50 m³ を詰めた軟水器で、1日 10 m³ 処理します。樹脂の総交換容量は 2.0 eq/L、有効に使えるのはその60%とします。何日ごとに再生が必要ですか。また、再生に必要な食塩の量を求めてください。食塩は理論量の3倍使うとします。</p>
+<div class="answer">
+<p>水の硬度：$100 / 50 = 2.0\ \text{meq/L} = 2.0\ \text{eq/m}^3$</p>
+<p>樹脂の有効交換容量：$2.0\ \text{eq/L} \times 500\ \text{L} \times 0.60 = 600\ \text{eq}$</p>
+<p>処理できる水の量は $600 / 2.0 = 300\ \text{m}^3$、1日 10 m³ なので約 <strong>30日</strong>ごとに再生が必要です。</p>
+<p>再生では、600 eq の Ca²⁺・Mg²⁺ を Na⁺ で追い出します。NaCl（58.4 g/mol、1価）の理論量は $600 \times 58.4 \approx 35\ \text{kg}$、3倍使うと約 <strong>105 kg</strong> です。</p>
+<p>平衡の関係で、交換したイオンを追い出すには理論量より多くの再生剤が必要です。再生剤を多く使うほど有効交換容量は大きくなりますが、再生排水の塩分も増えます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/ion-exchange-softening.svg" target="_blank" rel="noopener"><img src="/fig/ion-exchange-softening.svg" alt="図1　軟水化と再生のイオンの動き" width="650" height="280" loading="lazy"></a><figcaption>図1　軟水化と再生のイオンの動き。運転中は硬度成分を取り込み、再生では濃い食塩水で Na⁺ に戻す</figcaption></figure>
+
+<h2>純水の製造</h2>
+<p>H 形の陽イオン交換樹脂と OH 形の陰イオン交換樹脂を組み合わせると、水中の陽イオンは H⁺ に、陰イオンは OH⁻ に置きかわり、両者が反応して水になります。こうして塩類をほとんど含まない<strong>純水</strong>が得られます。2種類の樹脂を別々の塔に詰める方法（2床式）と、混ぜて1つの塔に詰める方法（混床式）があり、混床式のほうが高い純度が得られます。</p>
+<p>大量の純水を作る場合は、先に<a href="/membrane/reverse-osmosis.html">逆浸透膜</a>で大部分の塩類を取り除き、残りをイオン交換で仕上げる組み合わせが一般的です。再生に使う酸やアルカリの量を大きく減らせます。純水の水質は、電気の通しにくさ（比抵抗、または電気伝導率）で管理します。</p>
+
+
+<nav class="pager"><a class="prev" href="/adsorption/psa-and-regeneration.html">← 吸着剤の再生とPSA（圧力スイング吸着）</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html" aria-current="page">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

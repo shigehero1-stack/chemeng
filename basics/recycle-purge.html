@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>リサイクルとパージを含む物質収支｜不活性成分のたまり方と逐次代入法｜はじめての化学工学</title>
+<meta name="description" content="リサイクルとパージを含むプロセスの物質収支で、不活性成分がどれだけたまるか、パージ率をどう決めるか、逐次代入法での解き方を解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/basics/recycle-purge.html">
+<meta property="og:title" content="リサイクルとパージを含む物質収支｜不活性成分のたまり方と逐次代入法｜はじめての化学工学">
+<meta property="og:description" content="リサイクルとパージを含むプロセスの物質収支で、不活性成分がどれだけたまるか、パージ率をどう決めるか、逐次代入法での解き方を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/basics/">基礎</a> › <span>リサイクルとパージを含む物質収支｜不活性成分のたまり方と逐次代入法</span></nav>
+    <article class="article">
+<h1>リサイクルとパージを含む物質収支</h1>
+<p class="lead">リサイクルとパージを含むプロセスの物質収支で、不活性成分がどれだけたまるか、パージ率をどう決めるか、逐次代入法での解き方を解説します。</p>
+
+<h2>現場の課題</h2>
+<p>アンモニアやメタノールの合成のように、反応器を1回通るだけでは原料の一部しか反応しないプロセスでは、未反応の原料を分離して反応器の入口に戻す<strong>リサイクル</strong>が欠かせません。リサイクルによって、1回あたりの反応率が低くても、プロセス全体では原料のほとんどを製品にできます。</p>
+<p>しかし、原料にわずかでも<strong>反応しない成分</strong>（不活性成分）が含まれていると、それはリサイクルの輪の中にたまり続けます。そこで、循環する流れの一部を捨てる<strong>パージ</strong>を設けます。パージを増やせば不活性成分はたまりにくくなりますが、そのぶん貴重な原料も一緒に捨ててしまいます。</p>
+<p>この記事では、このトレードオフを物質収支で定量的に扱い、パージ率をどう決めるかを考えます。あわせて、リサイクルのある物質収支を数値的に解く方法も学びます。</p>
+<h2>プロセスの構成</h2>
+<p>次のような簡単なプロセスを考えます。</p>
+<ol><li><strong>混合</strong>：新しい原料（A と、わずかな不活性成分 I）と、リサイクル流を混ぜる</li><li><strong>反応器</strong>：A → B の反応。反応器を1回通るあいだに、入ってきた A の一定割合（1回通過反応率 $X_1$）が反応する。I は反応しない</li><li><strong>分離器</strong>：製品 B をすべて取り出す。未反応の A と I は循環ガスとして出る</li><li><strong>パージ</strong>：循環ガスのうち割合 $p$ を系外に捨て、残り $(1 - p)$ を混合点に戻す</li></ol>
+<figure class="fig"><a href="/fig/recycle-purge-flowsheet.svg" target="_blank" rel="noopener"><img src="/fig/recycle-purge-flowsheet.svg" alt="図1　リサイクルとパージのあるプロセスの構成" width="700" height="270" loading="lazy"></a><figcaption>図1　リサイクルとパージのあるプロセスの構成</figcaption></figure>
+<h2>収支の立て方</h2>
+<p>反応器入口での A と I の流量を $a$、$i$ [mol/h]、新しい原料の流量を $F_0$、原料中の I の割合を $z_I$ とします。</p>
+<p><strong>A の収支</strong>（混合点）：入口の A ＝ 新しい原料の A ＋ 戻ってくる A</p>
+<div class="formula">$$a = F_0(1 - z_I) + (1 - p)(1 - X_1)\,a
+\quad\Rightarrow\quad
+a = \frac{F_0(1 - z_I)}{1 - (1 - p)(1 - X_1)}$$</div>
+<p><strong>I の収支</strong>：I は反応も分離もされないので、系から出ていく道はパージだけです。定常状態では、入る量とパージで出る量が等しくなります。</p>
+<div class="formula">$$F_0\,z_I = p\,i \quad\Rightarrow\quad i = \frac{F_0\,z_I}{p}$$</div>
+<p>この2つの式から、次のことが読み取れます。</p>
+<ul><li><strong>反応器入口の不活性成分の量は、パージ率に反比例する</strong>。パージ率を半分にすると、循環する不活性成分は2倍になる</li><li>不活性成分の量は、原料中の割合がどれだけ小さくても、パージ率を小さくすればいくらでも大きくなる</li></ul>
+<p><strong>プロセス全体の反応率</strong>は、製品 B の量 $X_1 a$ を新しい原料の A で割ったものです。系全体で見ると、A は製品になるかパージで捨てられるかのどちらかなので、</p>
+<div class="formula">$$\text{全体の反応率} = \frac{X_1\,a}{F_0(1 - z_I)} = \frac{X_1}{X_1 + p(1 - X_1)}$$</div>
+<p>となります。</p>
+<h2>例題1：パージ率の影響</h2>
+<p>新しい原料 100 mol/h（不活性成分 0.5%）、1回通過反応率 30% のプロセスで、パージ率を変えたときの結果を求めてください。</p>
+<p><strong>解答</strong></p>
+<table><tr><th>パージ率 $p$</th><th>反応器入口の A [mol/h]</th><th>反応器入口の I [mol/h]</th><th>入口での I の割合</th><th>製品 B [mol/h]</th><th>パージで失う A [mol/h]</th><th>全体の反応率</th></tr><tr><td>0.01</td><td>324.1</td><td>50.0</td><td>13.4%</td><td>97.2</td><td>2.3</td><td>97.7%</td></tr><tr><td>0.02</td><td>316.9</td><td>25.0</td><td>7.3%</td><td>95.1</td><td>4.4</td><td>95.5%</td></tr><tr><td>0.05</td><td>297.0</td><td>10.0</td><td>3.3%</td><td>89.1</td><td>10.4</td><td>89.6%</td></tr><tr><td>0.10</td><td>268.9</td><td>5.0</td><td>1.8%</td><td>80.7</td><td>18.8</td><td>81.1%</td></tr><tr><td>0.20</td><td>226.1</td><td>2.5</td><td>1.1%</td><td>67.8</td><td>31.7</td><td>68.2%</td></tr></table>
+<p>製品とパージで失う A の合計は、どの場合も新しい原料の A（99.5 mol/h）に一致します。</p>
+<figure class="fig"><a href="/fig/purge-tradeoff.svg" target="_blank" rel="noopener"><img src="/fig/purge-tradeoff.svg" alt="図2　例題1のパージ率と、全体の反応率・反応器入口の不活性成分の割合（当サイトで計算）" width="700" height="340" loading="lazy"></a><figcaption>図2　例題1のパージ率と、全体の反応率・反応器入口の不活性成分の割合（当サイトで計算）</figcaption></figure>
+<p><strong>結果の読み方</strong></p>
+<ul><li>1回通過反応率が 30% しかなくても、パージ率を 1% にすれば全体の反応率は約 98% になります。これがリサイクルの効果です</li><li>しかしそのとき、反応器入口の不活性成分は 13% にもなります。原料にわずか 0.5% しか含まれていない成分が、26 倍以上に濃縮されています</li><li>不活性成分が増えると、A の分圧（濃度）が下がって反応速度が落ちるため、実際には 1回通過反応率 $X_1$ 自体も下がります。さらに、反応器や循環用の圧縮機を流れる量が増え、設備と動力の負担が大きくなります</li></ul>
+<p>パージ率は、「パージで失う原料の費用」と「不活性成分がたまることによる反応率の低下や設備・動力の費用」のバランスで決めます。例題の範囲では、パージ率 1〜5% のあたりが検討の中心になるでしょう。</p>
+<h2>リサイクルのある収支を数値的に解く</h2>
+<p>例題1は式で解けましたが、実際のプロセスでは成分が多く、反応や分離の関係も複雑なため、式で解けないことがほとんどです。プロセスシミュレーターは、次のような方法でリサイクルを含む収支を解いています。</p>
+<p><strong>逐次代入法（テアストリーム法）</strong></p>
+<ol><li>リサイクル流のどこか1か所を「切った」と考え、その流れ（<strong>テアストリーム</strong>）の組成と流量を仮定する</li><li>仮定した値から出発して、プロセスを流れの順に1周計算する</li><li>1周して戻ってきたリサイクル流の値を、次の仮定値にする</li><li>仮定値と計算値の差が十分小さくなるまで繰り返す</li></ol>
+<p>例題1のパージ率 5% の条件で、リサイクル流を0から始めて逐次代入法で解くと、解析解（A = 297.015、I = 10.000 mol/h）と一致するまでに <strong>256 回</strong>の繰り返しが必要でした（許容誤差 10⁻⁶ mol/h）。</p>
+<p>収束に時間がかかるのは、不活性成分のためです。I は1周するごとに 95%（$1 - p$）が戻ってくるので、仮定値との差は1周あたり 5% ずつしか縮みません。<strong>パージ率が小さいほど、リサイクルの収束は遅くなります。</strong></p>
+<p><strong>加速法</strong></p>
+<p>逐次代入の収束を速める方法として、<strong>ウェグスタイン法</strong>がよく使われます。直前の2回の計算結果から、値がどこに向かっているかを推定して、先回りした値を次の仮定値にする方法です。例題の A の循環流に使うと、<strong>3 回</strong>で収束しました。</p>
+<p>プロセスシミュレーターで「リサイクルが収束しない」というトラブルは珍しくありません。その場合は、次の点を確認します。</p>
+<ul><li>テアストリームの初期値を、手計算などで現実的な値にする</li><li>パージ率が極端に小さくないか（不活性成分の収束が極端に遅くなる）</li><li>加速法の設定（加速の強さの上限など）を見直す</li></ul>
+<h2>まとめ</h2>
+<ul><li>リサイクルは原料の利用率を高めるが、不活性成分がたまる。不活性成分の量はパージ率に反比例する</li><li>パージ率は、原料の損失と、不活性成分の蓄積による反応率低下・設備負担のトレードオフで決める</li><li>リサイクルのある収支は逐次代入法で解けるが、パージ率が小さいと収束が遅い。ウェグスタイン法などで加速する</li></ul>
+<h2>検算について</h2>
+<p>この記事の数値は、検算用に作成したプログラム（Python）で計算しています。パージ率ごとの結果は解析式で求め、パージ率 5% の場合について、逐次代入法とウェグスタイン法の結果が解析解と一致すること、製品とパージで失う A の合計が原料の A に一致することを確かめています。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li></ul></aside><!-- /related -->
+<h2>参考文献</h2>
+<ul><li>R. M. Felder, R. W. Rousseau, <em>Elementary Principles of Chemical Processes</em>, Wiley</li><li>J. H. Wegstein, <em>Communications of the ACM</em>, 1 (6), 9 (1958)</li><li>L. T. Biegler, I. E. Grossmann, A. W. Westerberg, <em>Systematic Methods of Chemical Process Design</em>, Prentice Hall</li></ul>
+<hr>
+<p>※ この記事は学習を目的としたものです。実際の装置の設計や運転には、最新の規格、信頼できる物性データ、専門家の判断にもとづいてください。</p>
+
+
+<nav class="pager"><a class="prev" href="/basics/material-balance.html">← 物質収支の基本と解き方</a><a class="next" href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html" aria-current="page">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>
