@@ -43,8 +43,6 @@ SECTIONS = [
     ("adsorption", "吸着・イオン交換", "活性炭やゼオライトによる吸着の平衡と装置の設計、吸着剤の再生（PSA・TSA）、イオン交換樹脂による軟水化と純水製造を学びます。"),
     ("membrane", "膜分離", "逆浸透、限外ろ過、ガス分離膜など、膜を使って混合物を分ける操作の原理と計算方法を学びます。"),
     ("reaction", "反応工学", "反応速度の表し方と、回分・連続槽型・管型の反応器の設計の基本を学びます。"),
-    ("advanced", "発展編", "基本の記事を読み終えた人向けに、多成分蒸留、熱交換器の詳細設計、反応器の安全、制御系の設計、経済性など、実務につながる発展的な内容を扱います。各章の前半は無料で読めます（続きは有料版）。"),
-    ("applied", "応用編", "リサイクルのある物質収支、ポンプの省エネ、ピンチ解析による熱回収など、現場の課題を化学工学で解くケーススタディです。各章の前半は無料で読めます（続きは有料版）。"),
     ("environment", "環境保全", "排水処理（活性汚泥法）や排ガス処理（脱硫・脱硝）など、環境を守るための処理技術の考え方と計算方法を学びます。"),
     ("energy", "エネルギー有効利用", "ヒートポンプ、排熱回収、エクセルギーなど、工場のエネルギーを無駄なく使うための考え方を学びます。"),
     ("process", "プロセス設計と安全", "プロセス設計の進め方と設備費の見積もり、爆発範囲や HAZOP などの安全の考え方、装置材料と腐食を学びます。"),
@@ -53,10 +51,37 @@ SECTIONS = [
     ("data", "物性データ集", "水蒸気表、空気の物性値、主な物質の沸点・臨界定数・アントワン定数、物理定数と単位換算を、公開されている国際標準の式とデータから計算・整理した表です。CSV でダウンロードできます。"),
     ("exam", "資格試験対策", "エネルギー管理士や公害防止管理者など、化学工学の知識が役立つ資格試験の勉強法と頻出の計算をまとめます。"),
 ]
-# 公開を止めているカテゴリ。発展編・応用編は有料版（note）がまだ出ていないため、
-# 「続きは準備中」の試し読みページが AdSense 審査で「有用性の低いコンテンツ」と見られないよう、
-# 有料版を公開するまではサイトに出さない。公開するときはこの集合から外す
-HIDDEN_SECTIONS = {"advanced", "applied"}
+# 公開を止めているカテゴリ（空なら全部公開）
+HIDDEN_SECTIONS = set()
+# 移動した記事の古い URL → 新しい URL。古い URL には転送用のページを置く（サイトマップには入れない）。
+# 発展編・応用編（以前は /advanced/・/applied/ に試し読みを掲載）は 2026-10 に全文を無料公開し、各カテゴリに移した
+REDIRECTS = {
+    "/advanced/": "/", "/applied/": "/",
+    "/advanced/multicomponent-vle.html": "/thermo/multicomponent-vle.html",
+    "/advanced/shortcut-distillation.html": "/separation/shortcut-distillation.html",
+    "/advanced/packed-column.html": "/separation/packed-column.html",
+    "/advanced/chemical-absorption.html": "/separation/chemical-absorption.html",
+    "/advanced/epsilon-ntu.html": "/heat/epsilon-ntu.html",
+    "/advanced/shell-and-tube-design.html": "/heat/shell-and-tube-design.html",
+    "/advanced/boiling-condensation.html": "/heat/boiling-condensation.html",
+    "/advanced/complex-reactions.html": "/reaction/complex-reactions.html",
+    "/advanced/reactor-heat-balance.html": "/reaction/reactor-heat-balance.html",
+    "/advanced/thermal-runaway.html": "/reaction/thermal-runaway.html",
+    "/advanced/residence-time-distribution.html": "/reaction/residence-time-distribution.html",
+    "/advanced/transfer-functions.html": "/control/transfer-functions.html",
+    "/advanced/pid-design.html": "/control/pid-design.html",
+    "/advanced/process-economics.html": "/process/process-economics.html",
+    "/applied/recycle-purge.html": "/basics/recycle-purge.html",
+    "/applied/pump-operating-point.html": "/fluid/pump-operating-point.html",
+    "/applied/economic-pipe-diameter.html": "/fluid/economic-pipe-diameter.html",
+    "/applied/pinch-analysis.html": "/energy/pinch-analysis.html",
+    "/applied/cooling-tower.html": "/separation/cooling-tower.html",
+    "/applied/stirred-tank-scale-up.html": "/fluid/stirred-tank-scale-up.html",
+    "/applied/crystallization-msmpr.html": "/separation/crystallization-msmpr.html",
+    "/applied/batch-scheduling.html": "/process/batch-scheduling.html",
+    "/applied/activated-sludge.html": "/environment/activated-sludge.html",
+    "/applied/lopa.html": "/process/lopa.html",
+}
 # 学習データ収集用のAIクローラー（robots.txt で拒否する）。
 # 検索エンジン（Googlebot など）と AdSense のクローラー（Mediapartners-Google）は拒否しないこと
 AI_CRAWLERS = [
@@ -84,7 +109,7 @@ def parse(path):
         k, v = line.split(":", 1)
         meta[k.strip()] = v.strip()
     meta["body"] = body
-    meta["order"] = int(meta.get("order", 99))
+    meta["order"] = float(meta.get("order", 99))
     return meta
 
 
@@ -271,7 +296,7 @@ def main():
         for f in (ROOT / "data" / "csv").glob("*.csv"):
             shutil.copy(f, OUT / "data" / f.name)
 
-    # ダウンロード用のファイル（発展編の検算用プログラムなど）
+    # ダウンロード用のファイル
     if (ROOT / "files").exists():
         shutil.copytree(ROOT / "files", OUT / "files")
 
@@ -296,6 +321,16 @@ def main():
             layout(m["title"], m["description"], url, body, sections, breadcrumbs=[(m["title"], None)]),
         )
         urls.append(url)
+
+    for old, new in REDIRECTS.items():
+        dest = OUT / (old.lstrip("/") + ("index.html" if old.endswith("/") else ""))
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        write_page(dest, f"""<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><title>移動しました｜{SITE_NAME}</title>
+<link rel="canonical" href="{SITE_URL}{new}"><meta http-equiv="refresh" content="0; url={new}">
+<meta name="robots" content="noindex"></head>
+<body><p>このページは <a href="{new}">{SITE_URL}{new}</a> に移動しました。</p></body></html>
+""")
 
     intro = parse(CONTENT / "index.html")
     write_page(OUT / "index.html", index_page(sections, intro))
