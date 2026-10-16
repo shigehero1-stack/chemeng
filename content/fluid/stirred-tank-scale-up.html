@@ -39,7 +39,7 @@ order: 6.5
 <ul><li>反応が混合時間より速い場合（速い反応、局所的な濃度の偏りで副反応が起こる反応）は、原料の投入位置（翼の近くの乱れが強い場所）や投入速度を工夫する</li><li>実験槽で、わざと混合を悪くした条件（回転数を下げるなど）で試験し、結果が変わるかどうかを確かめておくと、スケールアップのリスクを事前に評価できる</li></ul>
 <h2>検算について</h2>
 <p>この記事の数値は、検算用に作成したプログラム（Python）で計算しています。槽径ごとに回転数を $P/V$ 一定で決め、槽内側の熱伝達係数から $U$、$UA/V$、必要な温度差を求めました。槽径が 10 倍のときの $UA/V$ の比（0.089）は、$U$ が槽内側だけで決まると仮定した指数則の予想（$10^{-10/9} \approx 0.077$）に近く、ジャケット側と槽壁の抵抗がある分だけ差が小さくなっています。物性値と熱伝達係数は説明用の値です。</p>
-<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul></aside><!-- /related -->
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li></ul></aside><!-- /related -->
 <h2>参考文献</h2>
 <ul><li>J. Y. Oldshue, <em>Fluid Mixing Technology</em>, McGraw-Hill</li><li>E. L. Paul, V. A. Atiemo-Obeng, S. M. Kresta（編）, <em>Handbook of Industrial Mixing</em>, Wiley</li><li>T. H. Chilton, T. B. Drew, R. H. Jebens, <em>Industrial and Engineering Chemistry</em>, 36, 510 (1944)</li></ul>
 <hr>
