@@ -328,7 +328,7 @@ def main():
         write_page(dest, f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8"><title>移動しました｜{SITE_NAME}</title>
 <link rel="canonical" href="{SITE_URL}{new}"><meta http-equiv="refresh" content="0; url={new}">
-<meta name="robots" content="noindex"></head>
+</head>
 <body><p>このページは <a href="{new}">{SITE_URL}{new}</a> に移動しました。</p></body></html>
 """)
 
