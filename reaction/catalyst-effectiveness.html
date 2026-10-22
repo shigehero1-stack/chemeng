@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>固体触媒反応と触媒有効係数｜チーレ数と細孔内拡散の影響｜はじめての化学工学</title>
+<meta name="description" content="固体触媒の上で反応が進むまでの段階（境膜拡散、細孔内拡散、吸着・表面反応）、細孔内の拡散が反応を遅くする効果を表すチーレ数と触媒有効係数の計算、触媒粒子の大きさの決め方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/reaction/catalyst-effectiveness.html">
+<meta property="og:title" content="固体触媒反応と触媒有効係数｜チーレ数と細孔内拡散の影響｜はじめての化学工学">
+<meta property="og:description" content="固体触媒の上で反応が進むまでの段階（境膜拡散、細孔内拡散、吸着・表面反応）、細孔内の拡散が反応を遅くする効果を表すチーレ数と触媒有効係数の計算、触媒粒子の大きさの決め方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/reaction/">反応工学</a> › <span>固体触媒反応と触媒有効係数｜チーレ数と細孔内拡散の影響</span></nav>
+    <article class="article">
+<h1>固体触媒反応と触媒有効係数</h1>
+<p class="lead">固体触媒の上で反応が進むまでの段階（境膜拡散、細孔内拡散、吸着・表面反応）、細孔内の拡散が反応を遅くする効果を表すチーレ数と触媒有効係数の計算、触媒粒子の大きさの決め方を例題で解説します。</p>
+
+<h2>固体触媒反応とは</h2>
+<p>化学工業の反応の多くは、<strong>固体触媒</strong>の上で行われます。アンモニアの合成、石油の分解や改質、自動車の排ガス浄化などがその例です。触媒は、多孔質の担体（アルミナ、シリカ、活性炭など）の細孔の内側に、白金やニッケルなどの活性成分を細かく分散させたもので、粒の内部に大きな表面積をもっています。</p>
+<p>反応する分子は、流れている気体や液体から触媒の粒の中の活性な場所まで移動しなければ反応できません。そのため固体触媒の反応の速さは、化学反応そのものの速さだけでなく、<strong>物質移動の速さ</strong>にも左右されます。</p>
+
+<h2>反応が進むまでの段階</h2>
+<ol>
+<li><strong>境膜拡散</strong>：流体の本体から、触媒粒子の外表面まで、粒子を包む<a href="/mass/mass-transfer-coefficient.html">境膜</a>を通って移動する</li>
+<li><strong>細孔内拡散</strong>：粒子の外表面から、細孔の中を奥へ拡散する</li>
+<li><strong>吸着・表面反応・脱着</strong>：活性な場所に吸着して反応し、生成物が離れる</li>
+<li>生成物が細孔の中を外へ拡散し、境膜を通って流体の本体に戻る</li>
+</ol>
+<p>これらは直列に起こるので、一番遅い段階が全体の速さを決めます（律速段階）。反応が速い触媒ほど、物質移動の遅さが目立つようになります。</p>
+
+<h2>チーレ数と触媒有効係数</h2>
+<p>細孔の奥に反応物が届く前に反応で消費されてしまうと、粒子の中心付近の触媒は働かず、無駄になります。この効果を表すのが<strong>触媒有効係数</strong> $\eta$ で、</p>
+<div class="formula">$$\eta = \frac{\text{粒子全体での実際の反応速度}}{\text{粒子の中がすべて外表面と同じ濃度だったときの反応速度}}$$</div>
+<p>と定義します。1次反応で球形の粒子の場合、細孔内の拡散と反応の収支を解くと、次の式が得られます。</p>
+<div class="formula">$$\eta = \frac{1}{\phi}\left(\frac{1}{\tanh 3\phi} - \frac{1}{3\phi}\right), \qquad \phi = \frac{R}{3}\sqrt{\frac{k}{D_e}}$$</div>
+<p>$\phi$ を<strong>チーレ数</strong>といい、「反応の速さ」と「細孔内の拡散の速さ」の比を表します。$R$ は粒子の半径、$k$ は粒子の体積あたりの1次の速度定数 [1/s]、$D_e$ は細孔内の有効拡散係数 [m²/s] です。</p>
+<ul>
+<li>$\phi$ が小さい（およそ0.3以下）：拡散が十分速く、$\eta \approx 1$。粒子の中まで全部使われる</li>
+<li>$\phi$ が大きい（およそ3以上）：拡散が追いつかず、$\eta \approx 1/\phi$。反応は外表面の近くだけで起こる</li>
+</ul>
+<figure class="fig"><a href="/fig/effectiveness-factor.svg" target="_blank" rel="noopener"><img src="/fig/effectiveness-factor.svg" alt="図1　チーレ数と触媒有効係数の関係" width="580" height="320" loading="lazy"></a><figcaption>図1　チーレ数と触媒有効係数の関係（球形粒子、1次反応）。挿入図は粒子の中の濃度分布のイメージ</figcaption></figure>
+
+<div class="example">
+<strong>例題：触媒粒子の大きさと有効係数</strong>
+<p>直径 3.0 mm の球形の触媒で、1次反応を行います。粒子の体積あたりの速度定数は 2.0 1/s、有効拡散係数は 1.0 × 10⁻⁶ m²/s です。触媒有効係数を求めてください。また、直径 1.0 mm の粒子にするとどうなりますか。</p>
+<div class="answer">
+<p>直径 3.0 mm（$R$ = 1.5 × 10⁻³ m）：$\phi = \dfrac{1.5 \times 10^{-3}}{3}\sqrt{\dfrac{2.0}{1.0 \times 10^{-6}}} = 5.0 \times 10^{-4} \times 1414 \approx 0.71$</p>
+<p>$\eta = \dfrac{1}{0.71}\left(\dfrac{1}{\tanh 2.12} - \dfrac{1}{2.12}\right) \approx 1.414 \times (1.030 - 0.471) \approx 0.79$</p>
+<p>直径 1.0 mm（$R$ = 0.5 × 10⁻³ m）：$\phi \approx 0.24$、$\eta \approx 0.97$</p>
+<p>3 mm の粒子では、細孔内の拡散の遅さで触媒の約2割が無駄になっています。粒子を小さくすれば有効係数は上がりますが、触媒を詰めた層の<a href="/fluid/pressure-loss.html">圧力損失</a>が大きくなります。そこで実際には、粒子の大きさと圧力損失のバランスをとったり、活性成分を粒子の外側の層だけに担持したり（エッグシェル型）、リング状や多孔の形にしたりします。</p>
+</div>
+</div>
+
+<h2>拡散の影響を見分ける</h2>
+<ul>
+<li><strong>粒子の大きさを変えて反応速度を測る</strong>：速度が粒子の大きさで変わらなければ、細孔内拡散の影響はない</li>
+<li><strong>流速を変えて反応速度を測る</strong>：同じ接触時間で流速を上げても速度が変わらなければ、境膜拡散の影響はない</li>
+<li><strong>温度依存性</strong>：細孔内拡散が強く効いていると、見かけの活性化エネルギーは本来の値の約半分になる。温度を上げても<a href="/reaction/reaction-rate.html">アレニウスの式</a>から期待されるほど速くならない</li>
+</ul>
+<p>触媒の性能を正しく評価するには、まず細かい粒子と十分な流速で、物質移動の影響のない「本来の反応速度」を測り、それから実際の粒子での有効係数を見積もるのが基本です。</p>
+
+
+<nav class="pager"><a class="prev" href="/reaction/residence-time-distribution.html">← 滞留時間分布と非理想流れ</a><a class="next" href="/reaction/chemical-equilibrium.html">化学平衡と反応熱 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html" aria-current="page">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

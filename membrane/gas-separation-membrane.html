@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ガス分離膜の基礎｜透過係数と分離係数、圧力比が純度に与える影響｜はじめての化学工学</title>
+<meta name="description" content="高分子膜による気体の分離の仕組み（溶解拡散）、透過係数・パーミアンスと分離係数の意味、空気から酸素富化空気や窒素を作るときの透過側の純度と圧力比の関係を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/membrane/gas-separation-membrane.html">
+<meta property="og:title" content="ガス分離膜の基礎｜透過係数と分離係数、圧力比が純度に与える影響｜はじめての化学工学">
+<meta property="og:description" content="高分子膜による気体の分離の仕組み（溶解拡散）、透過係数・パーミアンスと分離係数の意味、空気から酸素富化空気や窒素を作るときの透過側の純度と圧力比の関係を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/membrane/">膜分離</a> › <span>ガス分離膜の基礎｜透過係数と分離係数、圧力比が純度に与える影響</span></nav>
+    <article class="article">
+<h1>ガス分離膜の基礎</h1>
+<p class="lead">高分子膜による気体の分離の仕組み（溶解拡散）、透過係数・パーミアンスと分離係数の意味、空気から酸素富化空気や窒素を作るときの透過側の純度と圧力比の関係を例題で解説します。</p>
+
+<h2>ガス分離膜とは</h2>
+<p><strong>ガス分離膜</strong>は、気体の種類によって膜を通り抜ける速さが違うことを利用して、混合気体を分ける膜です。空気から窒素を作る装置、天然ガスやバイオガスから二酸化炭素を除く装置、水素の回収などに使われています。動く部分がなく、圧縮機さえあれば運転できるので、小〜中規模の設備に向いています。</p>
+<p>工業的なガス分離膜の多くは、穴のない高分子の膜です。気体の分子は、高い圧力側で膜に<strong>溶け込み</strong>、膜の中を<strong>拡散</strong>して、低い圧力側で出ていきます（溶解拡散機構）。溶けやすさと拡散しやすさの両方が大きい気体ほど、速く透過します。</p>
+
+<h2>透過係数とパーミアンス</h2>
+<p>成分 $i$ の透過流束 $J_i$ [mol/(m²·s)] は、膜の両側での分圧の差に比例します。</p>
+<div class="formula">$$J_i = Q_i\,(p_h x_i - p_l y_i)$$</div>
+<p>$p_h$、$p_l$ は供給側（高圧側）と透過側（低圧側）の全圧、$x_i$、$y_i$ はそれぞれの側のモル分率です。$Q_i$ を<strong>パーミアンス</strong>（透過速度）といい、膜の材料の性質である<strong>透過係数</strong> $P_i$ を膜の厚さで割ったものです。膜を薄くするほどパーミアンスは大きくなるので、実用の膜は、厚さ 0.1 µm 程度の分離層を多孔質の支持体の上に重ねた構造になっています。</p>
+<p>2成分 A、B の分けやすさは、パーミアンスの比である<strong>分離係数</strong>（理想分離係数）で表します。</p>
+<div class="formula">$$\alpha = \frac{Q_A}{Q_B}$$</div>
+<p>酸素と窒素では、一般的な高分子膜で $\alpha$ = 4〜8 程度です。透過しやすい膜ほど分離係数が小さくなる傾向があり（トレードオフ）、両方を高めることが膜開発の課題になっています。</p>
+
+<h2>圧力比が純度を決める</h2>
+<p>透過側の組成は、分離係数だけでなく、膜の両側の圧力の比 $\phi = p_h / p_l$ にも左右されます。透過側の気体が膜の近くで混ざらないとすると、A と B の流束の比から、透過側のモル分率 $y$ は次の式を満たします（2成分、$x$ は供給側の A のモル分率）。</p>
+<div class="formula">$$\frac{y}{1 - y} = \alpha\,\frac{x - y/\phi}{(1 - x) - (1 - y)/\phi}$$</div>
+<p>圧力比が無限に大きければ $y = \dfrac{\alpha x}{1 + (\alpha - 1)x}$ となり、<a href="/thermo/vapor-liquid-equilibrium.html">比揮発度</a>を使った気液平衡と同じ形になります。圧力比が小さいと、透過側の分圧が上がって A の推進力が減り、分離係数がいくら大きくても純度は上がりません。</p>
+
+<div class="example">
+<strong>例題：空気から酸素富化空気を作る</strong>
+<p>酸素 21% の空気を、酸素と窒素の分離係数が5の膜で分けます。透過側を大気圧として、供給側の圧力比が (1) 3、(2) 10、(3) 無限大のとき、透過側の酸素濃度を求めてください。供給側の組成は空気のまま変わらない（取り出す量が少ない）とします。</p>
+<div class="answer">
+<p>上の式で $\alpha = 5$、$x = 0.21$ とし、$y$ を求めます。$y$ について2次方程式になるので、<a href="/numerical/nonlinear-equations.html">二分法</a>などで解くと</p>
+<p>(1) $\phi = 3$：$y \approx 0.40$（40%）</p>
+<p>(2) $\phi = 10$：$y \approx 0.52$（52%）</p>
+<p>(3) $\phi = \infty$：$y = \dfrac{5 \times 0.21}{1 + 4 \times 0.21} \approx 0.57$（57%）</p>
+<p>圧力比を3から10に上げると酸素濃度は大きく上がりますが、10を超えると伸びは小さくなります。圧力比を上げるには圧縮機（または透過側の真空ポンプ）の動力が増えるので、実際の装置では必要な純度とエネルギーのバランスで圧力比を決めます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/gas-membrane-pressure-ratio.svg" target="_blank" rel="noopener"><img src="/fig/gas-membrane-pressure-ratio.svg" alt="図1　圧力比と透過側の酸素濃度" width="580" height="320" loading="lazy"></a><figcaption>図1　圧力比と透過側の酸素濃度（供給側は空気）。分離係数が大きくても、圧力比が小さいと純度は上がらない</figcaption></figure>
+
+<h2>窒素の製造</h2>
+<p>空気を膜に通すと、酸素が先に透過するので、供給側に残る気体は窒素に富んでいきます。膜の長さ方向に供給側の酸素がどんどん抜けていき、出口では窒素 95〜99.5% 程度の気体が得られます。純度を高くするほど、出口から取り出せる量（回収率）は小さくなります。食品の包装や防爆用の不活性ガスなど、純度がそれほど高くなくてよい用途で広く使われています。</p>
+<h2>ほかの膜分離との違い</h2>
+<ul>
+<li>気体は液体に比べて膜の中で拡散しやすく、透過の推進力も分圧差なので、圧縮のエネルギーが運転コストの中心になる</li>
+<li>高い純度や大量処理が必要な場合は、<a href="/adsorption/psa-and-regeneration.html">PSA</a> や深冷分離（低温での蒸留）のほうが有利なことが多い</li>
+<li>膜を何段か組み合わせたり、透過した気体の一部を戻したりして、純度と回収率を高める工夫もされている</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/membrane/ultrafiltration.html">← 限外ろ過・精密ろ過と濃度分極</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html" aria-current="page">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重合反応の基礎｜逐次重合と連鎖重合、重合度と分子量分布｜はじめての化学工学</title>
+<meta name="description" content="高分子を作る重合反応の2つの型（逐次重合と連鎖重合）の違い、カロザースの式による反応率と重合度の関係、数平均分子量と重量平均分子量・分散度の計算、重合反応器の熱の除去を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/reaction/polymerization-basics.html">
+<meta property="og:title" content="重合反応の基礎｜逐次重合と連鎖重合、重合度と分子量分布｜はじめての化学工学">
+<meta property="og:description" content="高分子を作る重合反応の2つの型（逐次重合と連鎖重合）の違い、カロザースの式による反応率と重合度の関係、数平均分子量と重量平均分子量・分散度の計算、重合反応器の熱の除去を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=da54a998">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=da54a998"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/reaction/">反応工学</a> › <span>重合反応の基礎｜逐次重合と連鎖重合、重合度と分子量分布</span></nav>
+    <article class="article">
+<h1>重合反応の基礎</h1>
+<p class="lead">高分子を作る重合反応の2つの型（逐次重合と連鎖重合）の違い、カロザースの式による反応率と重合度の関係、数平均分子量と重量平均分子量・分散度の計算、重合反応器の熱の除去を例題で解説します。</p>
+
+<h2>重合とは</h2>
+<p><strong>重合</strong>は、小さな分子（モノマー）が次々につながって、非常に大きな分子（ポリマー、高分子）を作る反応です。ポリエチレン、ポリプロピレン、ポリエステル、ナイロンなどのプラスチックや合成繊維、合成ゴムは、すべて重合で作られています。</p>
+<p>高分子の性質（強さ、溶けたときの粘さ、加工のしやすさ）は、分子の大きさとそのばらつきで大きく変わります。そのため重合反応の工学では、反応の速さだけでなく、<strong>どれだけ長い分子をどれだけそろえて作るか</strong>を制御することが中心になります。</p>
+
+<h2>2つの重合の型</h2>
+<table>
+<tr><th></th><th>逐次重合（重縮合・重付加）</th><th>連鎖重合（付加重合）</th></tr>
+<tr><td>進み方</td><td>どの分子どうしも反応して、少しずつ長くなる</td><td>活性な末端（ラジカルなど）にモノマーが次々に高速で付加する</td></tr>
+<tr><td>分子の大きさ</td><td>反応の終わり近くになって急に大きくなる</td><td>反応の初めから長い分子ができる</td></tr>
+<tr><td>例</td><td>ポリエステル（PET）、ナイロン、ポリウレタン</td><td>ポリエチレン、ポリスチレン、塩化ビニル樹脂</td></tr>
+</table>
+
+<h2>逐次重合とカロザースの式</h2>
+<p>2つの官能基をもつモノマー（たとえばジカルボン酸とジオール）が等しい量で反応する逐次重合では、官能基の反応率 $p$ と、できた分子1本あたりのモノマー単位の平均の数（数平均重合度 $\bar{X}_n$）の間に、次の関係があります。</p>
+<div class="formula">$$\bar{X}_n = \frac{1}{1 - p}$$</div>
+<p>これを<strong>カロザースの式</strong>といいます。反応率が 90% でも重合度は 10 にしかならず、実用的な高分子（重合度100以上）を得るには、反応率を 99% 以上にする必要があります。そのため、生成する水などの副生物を減圧で取り除いて平衡を進め（<a href="/reaction/chemical-equilibrium.html">化学平衡</a>）、原料の量の比を厳密にそろえることが重要です。</p>
+<figure class="fig"><a href="/fig/carothers-equation.svg" target="_blank" rel="noopener"><img src="/fig/carothers-equation.svg" alt="図1　カロザースの式による反応率と重合度" width="580" height="320" loading="lazy"></a><figcaption>図1　カロザースの式による反応率と数平均重合度の関係。反応の終わり近くで急に重合度が上がる</figcaption></figure>
+
+<h2>分子量の平均と分布</h2>
+<p>高分子には、長さの違う分子が混ざっています。そのため分子量は平均値で表し、平均のとり方によって2種類がよく使われます。分子量 $M_i$ の分子が $N_i$ 個あるとき</p>
+<div class="formula">$$\bar{M}_n = \frac{\sum N_i M_i}{\sum N_i}, \qquad \bar{M}_w = \frac{\sum N_i M_i^2}{\sum N_i M_i}$$</div>
+<p>$\bar{M}_n$ を<strong>数平均分子量</strong>、$\bar{M}_w$ を<strong>重量平均分子量</strong>といいます。重量平均は大きな分子の影響を強く受け、必ず数平均以上になります。その比 $\bar{M}_w / \bar{M}_n$ を<strong>分散度</strong>（多分散度）といい、分子の大きさのばらつきを表します。理想的な逐次重合では、反応が十分進むと分散度は約2になります。<a href="/particle/particle-size.html">粒子径の個数平均とザウター平均</a>と同じ考え方です。</p>
+
+<div class="example">
+<strong>例題：反応率と分子量</strong>
+<p>繰り返し単位の分子量が 192 のポリエステルを逐次重合で作ります（繰り返し単位1つが、モノマー2つ分に当たるとします）。(1) 官能基の反応率が 99.0% と 99.5% のときの数平均重合度を求めてください。(2) それぞれの数平均分子量を見積もってください。(3) 分子量 1 万、2 万、4 万の分子が、個数で 5:3:2 の割合で混ざっている試料の数平均分子量、重量平均分子量、分散度を求めてください。</p>
+<div class="answer">
+<p>(1) $p = 0.990$：$\bar{X}_n = 1/0.010 = 100$。$p = 0.995$：$\bar{X}_n = 1/0.005 = 200$</p>
+<p>(2) 重合度はモノマー単位の数なので、繰り返し単位の数はその半分です。$\bar{M}_n \approx 100/2 \times 192 = 9600$、$200/2 \times 192 = 19\,200$。反応率がわずか 0.5% 上がるだけで、分子量は2倍になります。</p>
+<p>(3) $\bar{M}_n = \dfrac{5 \times 1 + 3 \times 2 + 2 \times 4}{5 + 3 + 2} = 1.9$ 万</p>
+<p>$\bar{M}_w = \dfrac{5 \times 1^2 + 3 \times 2^2 + 2 \times 4^2}{5 \times 1 + 3 \times 2 + 2 \times 4} = \dfrac{49}{19} \approx 2.58$ 万、分散度は $2.58 / 1.9 \approx 1.36$</p>
+</div>
+</div>
+
+<h2>重合反応器で気をつけること</h2>
+<ul>
+<li><strong>熱の除去</strong>：重合は大きな発熱反応で、熱を取り損ねると温度が上がって反応が加速する暴走反応につながる。ジャケットや冷却コイル、還流冷却、反応熱を吸収する溶媒や水（懸濁重合・乳化重合）を使って除熱する</li>
+<li><strong>粘度の上昇</strong>：反応が進むと液の粘度が何桁も上がり、撹拌と伝熱が難しくなる（<a href="/fluid/agitation-power.html">撹拌動力</a>の層流域）。高粘度に対応した撹拌翼や、押出機型の反応器を使う</li>
+<li><strong>分子量の制御</strong>：温度、開始剤や触媒の量、連鎖移動剤の添加などで分子量を調整する</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/reaction/gas-solid-reaction.html">← 気固反応と未反応核モデル</a><a class="next" href="/reaction/semi-batch-reactor.html">半回分反応器の考え方 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2><a href="/thermo/">物性と熱力学</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2><a href="/fluid/">流体</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2><a href="/heat/">伝熱</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2><a href="/mass/">物質移動</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2><a href="/particle/">粉体と機械的分離</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2><a href="/separation/">分離操作</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2><a href="/adsorption/">吸着・イオン交換</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2><a href="/membrane/">膜分離</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2><a href="/reaction/">反応工学</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html" aria-current="page">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2><a href="/environment/">環境保全</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html">活性汚泥法の設計</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li></ul><h2><a href="/energy/">エネルギー有効利用</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2><a href="/process/">プロセス設計と安全</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul><h2><a href="/numerical/">数値計算</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2><a href="/control/">プロセス制御</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2><a href="/data/">物性データ集</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2><a href="/exam/">資格試験対策</a></h2><ul><li><a href="/exam/energy-manager.html">エネルギー管理士（熱分野）の受験資格・試験日と勉強に役立つ化学工学</a></li><li><a href="/exam/pollution-control-manager.html">公害防止管理者（大気・水質）の受験資格・試験日と役立つ化学工学の計算</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>
