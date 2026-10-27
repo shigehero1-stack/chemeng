@@ -7,7 +7,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 MODULES = ["f_basics", "f_thermo", "f_fluid", "f_heat", "f_mass", "f_particle",
-           "f_separation", "f_adsorption", "f_membrane", "f_unitops2", "f_env", "f_deep1", "f_deep2", "f_deep3", "f_series1", "f_series2", "f_new1", "f_reaction", "f_numerical", "f_control", "f_exam", "f_new2"]
+           "f_separation", "f_adsorption", "f_membrane", "f_unitops2", "f_env", "f_deep1", "f_deep2", "f_deep3", "f_series1", "f_series2", "f_new1", "f_reaction", "f_numerical", "f_control", "f_exam", "f_new2", "f_new3"]
 
 
 def main():

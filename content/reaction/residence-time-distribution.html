@@ -56,7 +56,7 @@ order: 3.3
 <ul><li><strong>撹拌槽の死角やショートパスの発見</strong>：$t_m$ が $\tau$ より短い、立ち上がりが極端に早い、などの形から判断する</li><li><strong>スケールアップの確認</strong>：小さな装置と大きな装置で $N$ や $Pe$ を比べ、流れ方が変わっていないかを確かめる</li><li><strong>反応器の改造の効果の確認</strong>：邪魔板や分散板を入れた前後でトレーサー試験を行い、比べる</li></ul>
 <h2>検算について</h2>
 <p>この記事の例題のトレーサーデータは、検算のために、平均滞留時間 10 分・4 槽直列の反応器から理論的に作ったものです。検算用に作成したプログラム（Python）で、このデータから台形則で求めた平均（10.00 min）・分散（24.96 min²）・段数（4.00）が元の値を再現すること、分離流れモデルの反応率が、データからの計算（0.8022）と細かい刻みでの積分（0.8025）と槽列モデル（0.8024）で一致することを確かめています。実際の測定データでは、測定誤差や、分布のすそ（長い時間の小さな値）の扱いで分散が大きく変わることがあるので注意してください。</p>
-<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul></aside><!-- /related -->
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/bio/sterilization.html">培地の熱殺菌の計算</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li></ul></aside><!-- /related -->
 <h2>参考文献</h2>
 <ul><li>O. Levenspiel, <em>Chemical Reaction Engineering</em>, 3rd ed., Wiley</li><li>P. V. Danckwerts, <em>Chemical Engineering Science</em>, 2, 1 (1953)</li><li>H. S. Fogler, <em>Elements of Chemical Reaction Engineering</em>, Prentice Hall</li></ul>
 <hr>
