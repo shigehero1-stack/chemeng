@@ -483,3 +483,476 @@ def _():
         q.dots([r[0]], [r[2] * 1e6], r=4, fill=ACC2)
         q.f.text(q.px(r[0]) - 6, q.py(r[2] * 1e6) - 8, f"{r[2]*1e6:.2f} μm", "end", "s b")
     return f
+
+
+# ---------- 設備の信頼性と保全 ----------
+WB_BETA, WB_ETA, PM_COST, CM_COST = 2.5, 12000.0, 0.3, 2.0   # ワイブルの形状・尺度 [h]、予防交換と故障の費用 [百万円]
+
+
+def wb_R(t, beta=WB_BETA, eta=WB_ETA):
+    return math.exp(-(t / eta) ** beta)
+
+
+def pm_cost_rate(T, beta=WB_BETA, eta=WB_ETA, n=400):
+    """一定の使用時間 T で予防交換するときの、1年あたりの平均費用 [百万円/年]"""
+    h = T / n
+    integ = sum((wb_R(i * h, beta, eta) + wb_R((i + 1) * h, beta, eta)) / 2 * h for i in range(n))
+    return (PM_COST * wb_R(T, beta, eta) + CM_COST * (1 - wb_R(T, beta, eta))) / integ * 8760
+
+
+@fig("bathtub-curve")
+def _():
+    f = Fig(640, 300)
+    p = Plot(f, 70, 30, 440, 210, (0, 10), (0, 1))
+    p.axes(xticks=[], yticks=[], xlabel="使用時間 →", ylabel="故障率 λ(t) →", grid=False, box=False)
+    lam = lambda t: 0.55 * math.exp(-t / 0.7) + 0.12 + 0.6 * math.exp((t - 10) / 1.3)
+    p.curve(lam, 0, 10, cls="c1", clip=False)
+    for x in (2.5, 7.5):
+        f.line(p.px(x), p.y + 10, p.px(x), p.y + p.h, "thin dash")
+    f.text(p.px(1.25), p.py(0.9), "初期故障期", "middle", "s b a3")
+    f.text(p.px(1.25), p.py(0.9) + 16, "故障率が減る", "middle", "s m")
+    f.text(p.px(1.25), p.py(0.9) + 32, "（β < 1）", "middle", "s m")
+    f.text(p.px(5), p.py(0.45), "偶発故障期", "middle", "s b a")
+    f.text(p.px(5), p.py(0.45) + 16, "故障率がほぼ一定（β ≈ 1）", "middle", "s m")
+    f.text(p.px(8.75), p.py(0.9), "摩耗故障期", "middle", "s b a2")
+    f.text(p.px(8.75), p.py(0.9) + 16, "故障率が増える", "middle", "s m")
+    f.text(p.px(8.75), p.py(0.9) + 32, "（β > 1）", "middle", "s m")
+    f.text(p.x + p.w + 12, p.py(0.80), "対策", cls="s b")
+    for i, s in enumerate(["初期：試運転・", "　据付の確認", "偶発：予備機、", "　状態の監視", "摩耗：寿命前の", "　予防交換"]):
+        f.text(p.x + p.w + 12, p.py(0.80) + 18 + i * 16, s, cls="s m")
+    return f
+
+
+@fig("pm-cost-rate")
+def _():
+    f = Fig(660, 330)
+    p = Plot(f, 80, 30, 400, 240, (1000, 20000), (0, 2.5))
+    p.axes(xticks=range(0, 20001, 4000)[1:], yticks=[0, 0.5, 1.0, 1.5, 2.0, 2.5], xlabel="予防交換までの使用時間 T [h]", ylabel="平均費用 [百万円/年]", xfmt=lambda v: f"{v:,.0f}")
+    p.curve(lambda T: pm_cost_rate(T), 1000, 20000, cls="c1", n=120)
+    eta1 = WB_ETA * math.gamma(1 + 1 / WB_BETA)
+    p.curve(lambda T: pm_cost_rate(T, 1.0, eta1), 1000, 20000, cls="c3 dash", n=120)
+    rtf = CM_COST / eta1 * 8760
+    f.line(p.px(1000), p.py(rtf), p.px(20000), p.py(rtf), "thin dot")
+    f.text(p.px(4300), p.py(rtf) - 6, f"故障するまで使い続ける場合：{rtf:.2f}", cls="s m")
+    Tb = min(range(1000, 20001, 50), key=pm_cost_rate)
+    p.dots([Tb], [pm_cost_rate(Tb)], r=5, fill=ACC)
+    f.text(p.px(Tb), p.py(pm_cost_rate(Tb)) + 22, f"最適 T ≈ {round(Tb, -2):,.0f} h：{pm_cost_rate(Tb):.2f}", "middle", "s b a")
+    f.legend(p.x + p.w + 14, 60, [("摩耗故障（β = 2.5）", "c1"), ("偶発故障（β = 1）", "c3", True)])
+    f.text(p.x + p.w + 14, 110, "平均寿命はどちらも", cls="s m")
+    f.text(p.x + p.w + 14, 126, f"{eta1:,.0f} h", cls="s m")
+    f.text(p.x + p.w + 14, 156, "予防交換 0.3 百万円", cls="s m")
+    f.text(p.x + p.w + 14, 172, "故障時 2.0 百万円", cls="s m")
+    return f
+
+
+# ---------- 管理図と工程能力 ----------
+def spc_data():
+    import random
+    r = random.Random(4)
+    base = [[round(r.gauss(50.2, 0.30), 2) for _ in range(5)] for _ in range(20)]
+    r2 = random.Random(104)
+    new = [[round(r2.gauss(50.2 if i < 2 else 50.75, 0.30), 2) for _ in range(5)] for i in range(6)]
+    return base, new
+
+
+def spc_limits():
+    base, _ = spc_data()
+    xb = [sum(g) / 5 for g in base]
+    rr = [max(g) - min(g) for g in base]
+    X, Rb = sum(xb) / len(xb), sum(rr) / len(rr)
+    return X, Rb, X + 0.577 * Rb, X - 0.577 * Rb, 2.114 * Rb, Rb / 2.326
+
+
+@fig("spc-xbar-chart")
+def _():
+    f = Fig(700, 330)
+    base, new = spc_data()
+    X, Rb, ucl, lcl, rucl, s = spc_limits()
+    allg = base + new
+    xb = [sum(g) / 5 for g in allg]
+    p = Plot(f, 80, 30, 470, 240, (0, 27), (49.4, 51.2))
+    p.axes(xticks=[1, 5, 10, 15, 20, 26], yticks=[49.4, 49.6, 49.8, 50.0, 50.2, 50.4, 50.6, 50.8, 51.0, 51.2], xlabel="群の番号（1日1群、5個ずつ測定）", ylabel="群の平均 X̄ [wt%]", yfmt=lambda v: f"{v:.1f}")
+    f.rect(p.px(20.5), p.y, p.px(27) - p.px(20.5), p.h, fill=SOFT2, stroke="none")
+    f.text(p.px(23.75), p.y + 16, "管理限界を決めた後", "middle", "s a2")
+    for v, cls, lab in ((ucl, "c2 dash", f"UCL {ucl:.2f}"), (X, "c1", f"中心線 {X:.2f}"), (lcl, "c2 dash", f"LCL {lcl:.2f}")):
+        f.line(p.px(0), p.py(v), p.px(27), p.py(v), cls)
+        f.text(p.x + p.w + 8, p.py(v) + 4, lab, cls="s b")
+    p.series(list(range(1, 27)), xb, "thin")
+    for i, v in enumerate(xb, 1):
+        out = v > ucl or v < lcl
+        f.circle(p.px(i), p.py(v), 4.5 if out else 3.5, fill=ACC2 if out else ACC, stroke="#fff", width=1)
+    f.text(p.x + p.w + 8, p.py(51.0) + 4, "規格上限 51.0", cls="s m")
+    f.line(p.px(0), p.py(51.0), p.px(27), p.py(51.0), "thin dot")
+    return f
+
+
+@fig("spc-capability")
+def _():
+    f = Fig(640, 320)
+    X, Rb, ucl, lcl, rucl, s = spc_limits()
+    base, _ = spc_data()
+    vals = [v for g in base for v in g]
+    p = Plot(f, 70, 30, 440, 230, (48.8, 51.2), (0, 30))
+    p.axes(xticks=[49.0, 49.5, 50.0, 50.5, 51.0], yticks=[0, 10, 20, 30], xlabel="製品の濃度 [wt%]", ylabel="個数", xfmt=lambda v: f"{v:.1f}")
+    w = 0.15
+    for k in range(16):
+        lo = 49.25 + k * w
+        n = sum(1 for v in vals if lo <= v < lo + w)
+        if n:
+            f.rect(p.px(lo), p.py(n), p.px(lo + w) - p.px(lo) - 1, p.py(0) - p.py(n), fill="#9fc9c5", stroke="none")
+    norm = lambda x: len(vals) * w / (s * math.sqrt(2 * math.pi)) * math.exp(-((x - X) / s) ** 2 / 2)
+    p.curve(norm, 48.8, 51.2, cls="c1")
+    for v, lab in ((49.0, "規格下限 49.0"), (51.0, "規格上限 51.0")):
+        f.line(p.px(v), p.y, p.px(v), p.y + p.h, "c2")
+        f.text(p.px(v), p.y - 6, lab, "middle", "s b a2")
+    f.line(p.px(X), p.py(26), p.px(X), p.py(0), "thin dash")
+    f.text(p.px(X) + 6, p.py(26), f"平均 {X:.2f}", cls="s b")
+    f.text(p.x + p.w + 14, 70, f"σ = R̄/d₂ = {s:.3f}", cls="s")
+    f.text(p.x + p.w + 14, 92, f"Cp = {2.0 / (6 * s):.2f}", cls="s b")
+    f.text(p.x + p.w + 14, 114, f"Cpk = {min(51.0 - X, X - 49.0) / (3 * s):.2f}", cls="s b a2")
+    f.text(p.x + p.w + 14, 144, "平均が上限側に", cls="s m")
+    f.text(p.x + p.w + 14, 160, "寄っている", cls="s m")
+    return f
+
+
+# ---------- 安全弁の吹出し面積 ----------
+def api_c(k):
+    return 0.03948 * math.sqrt(k * (2 / (k + 1)) ** ((k + 1) / (k - 1)))
+
+
+def gas_flux(r, k=1.4, P1=1.201e6, M=0.028013, T=313.15, Z=1.0):
+    """背圧比 r = P2/P1 のときのノズルの質量流束 [kg/(m²·s)]（理想ノズル）"""
+    rc = (2 / (k + 1)) ** (k / (k - 1))
+    rr = max(r, rc)
+    return P1 * math.sqrt(2 * k / (k - 1) * M / (Z * R * T) * (rr ** (2 / k) - rr ** ((k + 1) / k)))
+
+
+@fig("relief-valve-section")
+def _():
+    f = Fig(600, 360)
+    cx = 250
+    # 本体（入口ノズルと出口）
+    f.rect(cx - 30, 250, 60, 90, fill=WALL, stroke=TEXT)
+    f.rect(cx - 20, 250, 40, 90, fill="#fff", stroke="none")
+    f.poly([(cx - 90, 250), (cx - 90, 140), (cx + 150, 140), (cx + 150, 250)], "ln", closed=True, fill=WALL, stroke=TEXT, width=1.5)
+    f.rect(cx - 70, 160, 200, 90, fill="#fff", stroke="none")
+    f.rect(cx + 130, 185, 80, 40, fill="#fff", stroke=TEXT)
+    f.rect(cx + 128, 187, 6, 36, fill="#fff", stroke="none")
+    # 弁座と弁体
+    f.rect(cx - 26, 238, 52, 12, fill=SOFT3, stroke=ACC3, width=1.5)
+    f.rect(cx - 34, 226, 68, 12, fill=ACC3, stroke=TEXT, width=1)
+    # ばね室とばね
+    f.rect(cx - 40, 40, 80, 100, fill="#fff", stroke=TEXT, width=1.5)
+    f.line(cx, 20, cx, 226, "ln", width=3)
+    pts = []
+    for i in range(41):
+        y = 60 + i * 2.0
+        pts.append((cx + (22 if i % 4 == 1 else -22 if i % 4 == 3 else 0), y))
+    f.poly(pts, "ln", stroke=ACC2, width=2)
+    f.rect(cx - 28, 140, 56, 8, fill=WALL, stroke=TEXT, width=1)
+    f.rect(cx - 28, 52, 56, 8, fill=WALL, stroke=TEXT, width=1)
+    f.text(cx + 50, 90, "ばね：設定圧力で", cls="s b a2")
+    f.text(cx + 50, 106, "弁体を押さえる", cls="s a2")
+    f.text(cx + 50, 236, "弁体", cls="s b a3")
+    f.text(cx - 140, 246, "弁座", cls="s b")
+    f.arrow(cx - 110, 242, cx - 30, 244, "m", width=1.2)
+    f.arrow(cx, 350, cx, 300, "a2", width=2.5)
+    f.text(cx + 14, 330, "容器から（入口）", cls="s b")
+    f.arrow(cx + 170, 205, cx + 240, 205, "a2", width=2.5)
+    f.text(cx + 200, 248, "出口（放出先へ）", "middle", "s b")
+    f.text(cx - 140, 300, "吹出し面積 A", cls="s b")
+    f.text(cx - 140, 316, "（ノズルののど部）", cls="s m")
+    f.arrow(cx - 60, 296, cx - 22, 280, "m", width=1.2)
+    return f
+
+
+@fig("relief-critical-flow")
+def _():
+    f = Fig(640, 320)
+    p = Plot(f, 80, 30, 400, 230, (0, 1), (0, 3000))
+    p.axes(xticks=[0, 0.2, 0.4, 0.6, 0.8, 1.0], yticks=range(0, 3001, 500), xlabel="背圧比 P₂ / P₁（絶対圧）", ylabel="質量流束 [kg/(m²·s)]", ylabel_dx=52)
+    p.curve(lambda r: gas_flux(r), 0, 0.9999, cls="c1", n=300)
+    rc = (2 / 2.4) ** 3.5
+    f.line(p.px(rc), p.y, p.px(rc), p.y + p.h, "c2 dash")
+    f.text(p.px(rc) + 6, p.y + 18, f"臨界圧力比 {rc:.3f}", cls="s b a2")
+    f.text(p.px(0.24), p.py(gas_flux(0)) + 20, "臨界流れ（チョーク）", "middle", "s b a")
+    f.text(p.px(0.24), p.py(gas_flux(0)) + 36, "背圧によらず一定", "middle", "s m")
+    f.text(p.px(0.78), p.py(1500), "亜臨界流れ", "middle", "s b")
+    f.text(p.x + p.w + 14, 60, "窒素（k = 1.40）", cls="s m")
+    f.text(p.x + p.w + 14, 76, "入口 1.20 MPa abs", cls="s m")
+    f.text(p.x + p.w + 14, 92, "40 °C", cls="s m")
+    f.text(p.x + p.w + 14, 108, "流出係数を掛ける", cls="s m")
+    f.text(p.x + p.w + 14, 124, "前の値", cls="s m")
+    return f
+
+
+# ---------- 圧力容器の胴と鏡板の厚さ ----------
+PV_S, PV_ETA = 120.0, 0.85   # 許容引張応力 [MPa]（例題で置いた値）、溶接継手効率
+
+
+def t_shell(P, D):
+    return P * D / (2 * PV_S * PV_ETA - 1.2 * P)
+
+
+def t_ellip(P, D):
+    return P * D / (2 * PV_S * PV_ETA - 0.2 * P)
+
+
+def t_hemi(P, D):
+    return P * D / (4 * PV_S * PV_ETA - 0.4 * P)
+
+
+def t_tori(P, D, r_ratio=0.1):
+    W = (3 + math.sqrt(1 / r_ratio)) / 4
+    return P * D * W / (2 * PV_S * PV_ETA - 0.2 * P)
+
+
+@fig("pressure-vessel-parts")
+def _():
+    f = Fig(660, 330)
+    x0, x1, yc, r = 150, 450, 150, 80
+    f.rect(x0, yc - r, x1 - x0, 2 * r, fill=SOFT, stroke=TEXT, width=2)
+    f.path(f"M{x0},{yc - r} A40,{r} 0 0,0 {x0},{yc + r}", "ln", fill=SOFT2, stroke=TEXT, width=2)
+    f.path(f"M{x1},{yc - r} A40,{r} 0 0,1 {x1},{yc + r}", "ln", fill=SOFT2, stroke=TEXT, width=2)
+    f.text((x0 + x1) / 2, yc + 5, "胴（円筒）", "middle", "b")
+    f.text(x0 - 62, yc + 5, "鏡板", "middle", "s b a2")
+    f.text(x1 + 62, yc + 5, "鏡板", "middle", "s b a2")
+    f.arrow(x0 + 30, yc - r + 4, x0 + 30, yc + r - 4, "m", both=True, width=1.2)
+    f.text(x0 + 38, yc - 30, "内径 D", cls="s")
+    f.arrow(340, yc - r - 4, 340, yc - r - 36, "a3", width=2)
+    f.arrow(340, yc + r + 4, 340, yc + r + 36, "a3", width=2)
+    f.text(352, yc + r + 30, "周方向の応力 σ_θ = PD / 2t", cls="s b a3")
+    f.arrow(x1 + 46, yc - 50, x1 + 96, yc - 50, "a", width=2)
+    f.text(x1 + 48, yc - 62, "軸方向の応力", cls="s b a")
+    f.text(x1 + 48, yc - 28, "σ_z = PD / 4t", cls="s b a")
+    f.text(330, 312, "周方向の応力は軸方向の 2 倍 → 胴の厚さは周方向の応力で決まる", "middle", "s")
+    return f
+
+
+@fig("pressure-vessel-thickness")
+def _():
+    f = Fig(640, 330)
+    p = Plot(f, 80, 30, 400, 240, (0, 3), (0, 30))
+    p.axes(xticks=[0, 0.5, 1, 1.5, 2, 2.5, 3], yticks=range(0, 31, 5), xlabel="設計圧力 P [MPa]", ylabel="計算厚さ [mm]（腐れ代を含まない）", ylabel_dx=50)
+    D = 1500
+    items = []
+    for fn, cls, lab in ((t_tori, "c2", "皿形鏡板"), (t_shell, "c1", "胴"), (t_ellip, "c3 dash", "半だ円体形鏡板"), (t_hemi, "c3", "半球形鏡板")):
+        p.curve(lambda P, fn=fn: fn(P, D), 0, 3, cls=cls)
+        items.append((lab, cls))
+    p.dots([1.0], [t_shell(1.0, D)], r=5, fill=ACC)
+    f.text(p.px(1.0) + 8, p.py(t_shell(1.0, D)) + 18, f"例題 {t_shell(1.0, D):.2f} mm", cls="s b a")
+    f.legend(p.x + p.w + 14, 60, items)
+    f.text(p.x + p.w + 14, 140, "皿形は r = 0.1D、", cls="s m")
+    f.text(p.x + p.w + 14, 156, "半だ円体形は 2:1", cls="s m")
+    f.text(p.x + p.w + 14, 172, "内径 1500 mm", cls="s m")
+    f.text(p.x + p.w + 14, 188, "許容応力 120 MPa", cls="s m")
+    f.text(p.x + p.w + 14, 204, "継手効率 0.85", cls="s m")
+    return f
+
+
+# ---------- ウォーターハンマー ----------
+WH_K, WH_RHO, WH_E, WH_D, WH_W, WH_L, WH_V0 = 2.2e9, 998.0, 206e9, 0.1023, 0.006, 500.0, 2.0
+WH_A = math.sqrt(WH_K / WH_RHO / (1 + WH_K * WH_D / (WH_E * WH_W)))
+
+
+def water_hammer(Tc, tend, H0=120.0, f=0.02, N=50):
+    """上流がタンク（水頭 H0 一定）、下流端の弁を Tc 秒で直線的に閉じるときの弁の直前の水頭 [m]（特性曲線法）"""
+    g = 9.81
+    A = math.pi * WH_D ** 2 / 4
+    dx = WH_L / N
+    dt = dx / WH_A
+    B = WH_A / (g * A)
+    Rf = f * dx / (2 * g * WH_D * A ** 2)
+    Q0 = WH_V0 * A
+    H = [H0 - Rf * Q0 * Q0 * i for i in range(N + 1)]
+    Q = [Q0] * (N + 1)
+    Cv = Q0 / math.sqrt(H[N])
+    t, out = 0.0, [(0.0, H[N])]
+    while t < tend:
+        t += dt
+        Hn, Qn = H[:], Q[:]
+        for i in range(1, N):
+            Cp = H[i - 1] + B * Q[i - 1] - Rf * Q[i - 1] * abs(Q[i - 1])
+            Cm = H[i + 1] - B * Q[i + 1] + Rf * Q[i + 1] * abs(Q[i + 1])
+            Hn[i], Qn[i] = (Cp + Cm) / 2, (Cp - Cm) / (2 * B)
+        Cm = H[1] - B * Q[1] + Rf * Q[1] * abs(Q[1])
+        Hn[0], Qn[0] = H0, (H0 - Cm) / B
+        Cp = H[N - 1] + B * Q[N - 1] - Rf * Q[N - 1] * abs(Q[N - 1])
+        c = Cv * max(0.0, 1 - t / Tc) if Tc > 0 else 0.0
+        if c == 0:
+            Qn[N], Hn[N] = 0.0, Cp
+        else:
+            k = c * c * B
+            Qn[N] = (-k + math.sqrt(k * k + 4 * c * c * Cp)) / 2
+            Hn[N] = Cp - B * Qn[N]
+        H, Q = Hn, Qn
+        out.append((t, H[N]))
+    return out
+
+
+@fig("water-hammer-system")
+def _():
+    f = Fig(660, 280)
+    f.rect(30, 50, 90, 110, fill=SOFT3, stroke=TEXT, width=1.5)
+    f.rect(30, 70, 90, 90, fill="#bcd3ee", stroke="none")
+    f.text(75, 40, "タンク", "middle", "s b")
+    f.rect(120, 140, 430, 14, fill=SOFT3, stroke=TEXT, width=1.5)
+    f.poly([(550, 130), (580, 147), (550, 164)], "ln", closed=True, fill="#fff", stroke=TEXT, width=1.5)
+    f.poly([(610, 130), (580, 147), (610, 164)], "ln", closed=True, fill="#fff", stroke=TEXT, width=1.5)
+    f.line(580, 147, 580, 110, "ln", width=2)
+    f.rect(566, 100, 28, 10, fill=TEXT, stroke=TEXT)
+    f.text(580, 92, "弁を急に閉じる", "middle", "s b a2")
+    f.arrow(160, 120, 260, 120, "a3")
+    f.text(210, 112, "流速 v", "middle", "s b a3")
+    f.rect(400, 136, 150, 22, fill=SOFT2, stroke="none")
+    f.rect(120, 140, 430, 14, fill="none", stroke=TEXT, width=1.5)
+    f.arrow(395, 185, 320, 185, "a2", width=2)
+    f.text(470, 190, "圧力が上がった部分", "middle", "s b a2")
+    f.text(358, 206, "圧力波が速さ a で上流へ進む", "middle", "s a2")
+    f.arrow(120, 240, 550, 240, "m", both=True, width=1.2)
+    f.text(335, 262, "管の長さ L", "middle", "s m")
+    return f
+
+
+@fig("water-hammer-time")
+def _():
+    f = Fig(660, 330)
+    rhog = WH_RHO * 9.81 / 1e6
+    p = Plot(f, 80, 30, 400, 240, (0, 14), (0, 2.0))
+    p.axes(xticks=range(0, 15, 2), yticks=[0, 0.5, 1.0, 1.5, 2.0], xlabel="弁を閉じ始めてからの時間 [s]", ylabel="弁の直前の圧力 [MPa（ゲージ）]", ylabel_dx=50)
+    items = []
+    for Tc, cls in ((2.0, "c2"), (5.0, "c1"), (10.0, "c3")):
+        res = water_hammer(Tc, 14.0)
+        p.series([r[0] for r in res], [r[1] * rhog for r in res], cls)
+        items.append((f"{Tc:g} 秒で閉じる", cls))
+    f.legend(p.x + p.w + 14, 60, items)
+    f.text(p.x + p.w + 14, 130, f"往復時間 2L/a = {2*WH_L/WH_A:.2f} s", cls="s m")
+    f.text(p.x + p.w + 14, 146, "鋼管 DN100、長さ 500 m、", cls="s m")
+    f.text(p.x + p.w + 14, 162, "流速 2 m/s", cls="s m")
+    f.text(p.x + p.w + 14, 192, "瞬時に閉じると 3.9 MPa に", cls="s b a2")
+    f.text(p.x + p.w + 14, 208, "達する（図の範囲外）", cls="s a2")
+    return f
+
+
+@fig("water-hammer-closure")
+def _():
+    f = Fig(640, 330)
+    rhog = WH_RHO * 9.81 / 1e6
+    p = Plot(f, 80, 30, 400, 240, (0, 12), (0, 3.5))
+    p.axes(xticks=range(0, 13, 2), yticks=[0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5], xlabel="弁を閉じる時間 T_c [s]", ylabel="圧力上昇の最大値 [MPa]", ylabel_dx=50)
+    xs = [0.05, 0.3, 0.6, 0.73, 1.0, 1.5, 2, 3, 4, 5, 6, 8, 10, 12]
+    ys = []
+    for Tc in xs:
+        res = water_hammer(Tc, Tc + 3 * 2 * WH_L / WH_A + 1)
+        ys.append((max(r[1] for r in res) - res[0][1]) * rhog)
+    p.series(xs, ys, "c1")
+    p.dots(xs, ys, r=3.5, fill=ACC)
+    jk = WH_RHO * WH_A * WH_V0 / 1e6
+    f.line(p.px(0), p.py(jk), p.px(2 * WH_L / WH_A), p.py(jk), "c2 dash")
+    f.text(p.px(0.9), p.py(jk) - 8, f"ジューコフスキーの式 ρav = {jk:.2f} MPa", cls="s b a2")
+    p.curve(lambda T: WH_RHO * WH_V0 * 2 * WH_L / T / 1e6, 0.73, 12, cls="c3 dash")
+    f.text(p.px(6), p.py(0.55), "ミショーの式 2ρvL / T_c", cls="s b a3")
+    f.line(p.px(2 * WH_L / WH_A), p.y, p.px(2 * WH_L / WH_A), p.y + p.h, "thin dot")
+    f.text(p.px(2 * WH_L / WH_A) + 4, p.y + p.h - 8, "2L/a", cls="s m")
+    f.legend(p.x + p.w + 14, 60, [("特性曲線法の計算", "c1")])
+    f.text(p.x + p.w + 14, 92, "弁の開度を時間に", cls="s m")
+    f.text(p.x + p.w + 14, 108, "比例して閉じた場合", cls="s m")
+    return f
+
+
+# ---------- エクセルギー ----------
+T0_EX = 298.15
+
+
+@fig("exergy-carnot-factor")
+def _():
+    f = Fig(640, 320)
+    p = Plot(f, 80, 30, 400, 230, (0, 1200), (0, 1))
+    p.axes(xticks=range(0, 1201, 200), yticks=[0, 0.2, 0.4, 0.6, 0.8, 1.0], xlabel="熱の温度 [°C]", ylabel="熱のうちエクセルギーの割合 1 − T₀/T")
+    p.curve(lambda t: 1 - T0_EX / (t + 273.15), 25, 1200, cls="c1")
+    for t, lab in ((80, "温水 80 °C"), (180, "蒸気 180 °C（1 MPa）"), (1000, "燃焼ガス 1000 °C")):
+        v = 1 - T0_EX / (t + 273.15)
+        p.dots([t], [v], r=5, fill=ACC2)
+        if t > 500:
+            f.text(p.px(t) - 8, p.py(v) + 22, f"{lab}：{v*100:.0f}%", "end", "s b")
+        else:
+            f.text(p.px(t) + 8, p.py(v) + 18, f"{lab}：{v*100:.0f}%", cls="s b")
+    f.text(p.x + p.w + 14, 60, "周囲の温度 T₀ = 25 °C", cls="s m")
+    f.text(p.x + p.w + 14, 90, "温度の低い熱ほど", cls="s m")
+    f.text(p.x + p.w + 14, 106, "仕事に変えられる量が", cls="s m")
+    f.text(p.x + p.w + 14, 122, "少ない", cls="s m")
+    return f
+
+
+@fig("exergy-heat-exchanger")
+def _():
+    f = Fig(640, 280)
+    ts = if97.tsat(1.0)
+    Q = 500.0
+    ex_in = Q * (1 - T0_EX / ts)
+    tlm = 40 / math.log(333.15 / 293.15)
+    ex_out = Q * (1 - T0_EX / tlm)
+    p = Plot(f, 160, 40, 360, 190, (0, 520), (0, 2))
+    labels = [("熱量", [(Q, ACC3, f"蒸気が渡す {Q:.0f} kW")], [(Q, ACC3, f"水が受け取る {Q:.0f} kW")]),
+              ("エクセルギー", [(ex_in, ACC2, f"蒸気が渡す {ex_in:.0f} kW")], [(ex_out, ACC, f"水が受け取る {ex_out:.0f} kW")])]
+    y = 50
+    for name, a, b in labels:
+        f.text(150, y + 20, name, "end", "b")
+        for row, (v, col, lab) in ((0, a[0]), (1, b[0])):
+            yy = y + row * 34
+            f.rect(160, yy, v / 520 * 280, 24, fill=col, stroke="none")
+            f.text(160 + v / 520 * 280 + 6, yy + 17, lab, cls="s b")
+        y += 100
+    f.text(150, 84 + 17, "", "end")
+    f.text(320, 262, f"失われたエクセルギー {ex_in - ex_out:.0f} kW（蒸気のエクセルギーの {(1 - ex_out / ex_in) * 100:.0f}%）", "middle", "s b a2")
+    return f
+
+
+# ---------- フラッシュ蒸気の回収 ----------
+def flash_frac(p1_abs, p2_abs):
+    s1 = if97.saturation(if97.tsat(p1_abs))
+    s2 = if97.saturation(if97.tsat(p2_abs))
+    return (s1["hf"] - s2["hf"]) / s2["hfg"]
+
+
+@fig("flash-steam-fraction")
+def _():
+    f = Fig(640, 320)
+    p = Plot(f, 80, 30, 400, 230, (0, 0.8), (0, 25))
+    p.axes(xticks=[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8], yticks=range(0, 26, 5), xlabel="フラッシュタンクの圧力 [MPa（ゲージ）]", ylabel="フラッシュ蒸気の割合 [%]")
+    items = []
+    for p1, cls in ((2.0, "c2"), (1.0, "c1"), (0.5, "c3")):
+        hi = min(p1 - 0.01, 0.8)
+        p.curve(lambda pg, p1=p1: flash_frac(p1 + 0.101325, pg + 0.101325) * 100, 0, hi, cls=cls)
+        items.append((f"{p1:g} MPaG のドレン", cls))
+    x = flash_frac(1.101325, 0.201325) * 100
+    p.dots([0.1], [x], r=5, fill=ACC)
+    f.text(p.px(0.1) + 8, p.py(x) - 8, f"例題 {x:.1f}%", cls="s b a")
+    f.legend(p.x + p.w + 14, 60, items)
+    f.text(p.x + p.w + 14, 130, "IAPWS-IF97 から計算", cls="s m")
+    return f
+
+
+@fig("flash-tank-system")
+def _():
+    f = Fig(660, 280)
+    f.box(30, 40, 120, 60, "蒸気の使用先", fill=SOFT2, sub="1.0 MPaG の蒸気")
+    f.circle(90, 140, 12, fill="#fff")
+    f.text(110, 145, "スチームトラップ", cls="s")
+    f.line(90, 100, 90, 128, "ln", width=2)
+    f.line(90, 152, 90, 200, "ln", width=2)
+    f.arrow(90, 200, 268, 200, "a3")
+    f.text(180, 192, "高圧のドレン（184 °C）", "middle", "s b a3")
+    f.rect(270, 90, 70, 150, fill="#fff", stroke=TEXT, width=1.5, rx=10)
+    f.rect(272, 180, 66, 58, fill="#bcd3ee", stroke="none")
+    f.text(305, 80, "フラッシュタンク", "middle", "s b")
+    f.text(305, 120, "0.1 MPaG", "middle", "s")
+    f.text(305, 136, "120 °C", "middle", "s")
+    f.line(305, 90, 305, 60, "ln", width=2)
+    f.arrow(305, 60, 470, 60, "a2")
+    f.text(385, 52, "フラッシュ蒸気 12.5%", "middle", "s b a2")
+    f.box(472, 30, 160, 60, "低圧の蒸気の使用先", fill=SOFT2, sub="予熱・保温など")
+    f.arrow(340, 225, 470, 225, "a3")
+    f.text(405, 217, "低圧のドレン", "middle", "s b a3")
+    f.box(472, 195, 160, 60, "ボイラーへ戻す", fill=SOFT3, sub="（給水タンク）")
+    return f
