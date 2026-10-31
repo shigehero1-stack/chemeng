@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>蒸発缶の計算と多重効用｜蒸気使用量・伝熱面積・沸点上昇｜はじめての化学工学</title>
+<meta name="description" content="溶液を濃縮する蒸発缶の物質収支と熱収支、必要な加熱蒸気量と伝熱面積の求め方、沸点上昇の影響、蒸気を何度も使い回す多重効用缶と蒸気再圧縮による省エネを例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/heat/evaporator.html">
+<meta property="og:title" content="蒸発缶の計算と多重効用｜蒸気使用量・伝熱面積・沸点上昇｜はじめての化学工学">
+<meta property="og:description" content="溶液を濃縮する蒸発缶の物質収支と熱収支、必要な加熱蒸気量と伝熱面積の求め方、沸点上昇の影響、蒸気を何度も使い回す多重効用缶と蒸気再圧縮による省エネを例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "蒸発缶の計算と多重効用", "description": "溶液を濃縮する蒸発缶の物質収支と熱収支、必要な加熱蒸気量と伝熱面積の求め方、沸点上昇の影響、蒸気を何度も使い回す多重効用缶と蒸気再圧縮による省エネを例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/heat/evaporator.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/heat/">伝熱</a> › <span>蒸発缶の計算と多重効用</span></nav>
+    <article class="article">
+<h1>蒸発缶の計算と多重効用</h1>
+<p class="lead">溶液を濃縮する蒸発缶の物質収支と熱収支、必要な加熱蒸気量と伝熱面積の求め方、沸点上昇の影響、蒸気を何度も使い回す多重効用缶と蒸気再圧縮による省エネを例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">蒸発操作とは</a></li><li><a href="#s2">物質収支と熱収支</a></li><li><a href="#s3">沸点上昇</a></li><li><a href="#s4">多重効用缶</a></li><li><a href="#s5">蒸気再圧縮</a></li></ol></nav>
+
+<h2 id="s1">蒸発操作とは</h2>
+<p><strong>蒸発</strong>は、溶液を加熱して溶媒（多くは水）を蒸発させ、溶液を濃縮する操作です。砂糖液や果汁、牛乳の濃縮、苛性ソーダの濃縮、排水の減容化などに使われます。蒸留と違って、蒸発させた水そのものは製品ではなく、濃縮された液のほうが製品になります。</p>
+<p>装置を<strong>蒸発缶</strong>といい、加熱蒸気が通る熱交換器（加熱管）と、発生した蒸気と濃縮液を分ける空間（蒸発室）からできています。発生した蒸気は凝縮器で水に戻し、真空ポンプで缶内を減圧して運転することが多くあります。圧力を下げると沸点が下がり、熱に弱い製品を傷めず、加熱蒸気との温度差も大きくとれるからです。</p>
+<figure class="fig"><a href="/fig/evaporator-single.svg" target="_blank" rel="noopener"><img src="/fig/evaporator-single.svg" alt="図1　単一効用の蒸発缶の流れ" width="620" height="320" loading="lazy"></a><figcaption>図1　単一効用の蒸発缶の流れと例題の値</figcaption></figure>
+
+<h2 id="s2">物質収支と熱収支</h2>
+<p>原料液の流量を $F$、溶質の質量分率を $x_F$、濃縮液を $L$（$x_L$）、発生する蒸気を $V$ とすると、溶質は蒸発しないので</p>
+<div class="formula">$$F\,x_F = L\,x_L, \qquad V = F - L$$</div>
+<p>加熱蒸気 $S$ が凝縮して出す熱は、原料を沸点まで温める顕熱と、水を蒸発させる潜熱に使われます。原料が沸点で入り、熱損失を無視すると</p>
+<div class="formula">$$S\,\lambda_S = V\,\lambda_V$$</div>
+<p>$\lambda_S$ は加熱蒸気の、$\lambda_V$ は缶内の圧力での蒸発潜熱です（<a href="/data/water-saturation-pressure.html">飽和蒸気表</a>から引けます）。加熱蒸気 1 kg あたりに蒸発させる水の量 $V/S$ を<strong>蒸気経済</strong>（スチームエコノミー）といい、蒸発缶の効率の目安になります。単一の缶では、潜熱の比から 1 弱になります。</p>
+<p>伝熱面積は、<a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数</a> $U$ と、加熱蒸気と沸騰液の温度差 $\Delta T$ から</p>
+<div class="formula">$$A = \frac{Q}{U\,\Delta T}, \qquad Q = S\,\lambda_S$$</div>
+<p>で求めます。両側とも相変化なので温度はほぼ一定で、対数平均温度差を使う必要はありません。</p>
+
+<div class="example">
+<strong>例題：単一効用の蒸発缶</strong>
+<p>溶質 10 wt% の水溶液 5000 kg/h を 40 wt% まで濃縮します。缶内は絶対圧 20 kPa、加熱には絶対圧 200 kPa の飽和蒸気を使います。原料は沸点で入り、沸点上昇と熱損失は無視します。総括伝熱係数を 1500 W/(m²·K) として、加熱蒸気量、蒸気経済、伝熱面積を求めてください。</p>
+<div class="answer">
+<p>濃縮液：$L = 5000 \times 0.10 / 0.40 = 1250$ kg/h、蒸発量：$V = 5000 - 1250 = 3750$ kg/h</p>
+<p>飽和蒸気表から、20 kPa の飽和温度は 60.1 °C、蒸発潜熱は 2357.5 kJ/kg。200 kPa の飽和温度は 120.2 °C、蒸発潜熱は 2201.6 kJ/kg です。</p>
+<p>加熱蒸気量：$S = \dfrac{3750 \times 2357.5}{2201.6} \approx 4016$ kg/h、蒸気経済は $3750 / 4016 \approx 0.93$</p>
+<p>伝熱量：$Q = 4016 \times 2201.6 / 3600 \approx 2456$ kW</p>
+<p>伝熱面積：$A = \dfrac{2456 \times 10^3}{1500 \times (120.2 - 60.1)} \approx 27\ \text{m}^2$</p>
+<p>原料が 25 °C で入る場合は、沸点まで温める顕熱（比熱 3.9 kJ/(kg·K) として約 190 kW）の分、加熱蒸気が約 310 kg/h 増えます。</p>
+</div>
+</div>
+
+<h2 id="s3">沸点上昇</h2>
+<p>溶質が溶けている液の沸点は、同じ圧力の純水より高くなります（<strong>沸点上昇</strong>）。濃い食塩水や苛性ソーダ液では 10 °C 以上になることもあります。沸点上昇があると、加熱蒸気との温度差がその分小さくなり、伝熱面積が増えます。また、発生する蒸気は液の温度（沸点）のまま出てくるので、純水の飽和温度より高い「過熱蒸気」になります。濃縮が進むほど沸点上昇は大きくなるので、製品側の濃度での値で設計するのが安全です。</p>
+
+<h2 id="s4">多重効用缶</h2>
+<p>単一の缶では、発生した蒸気の大きな潜熱を凝縮器で冷却水に捨ててしまいます。この蒸気を、より圧力の低い次の缶の加熱に使うのが<strong>多重効用缶</strong>です。缶を $n$ 個つなぐと、1 kg の加熱蒸気でおよそ $n$ kg 近い水を蒸発させられます。</p>
+<ul>
+<li>後ろの缶ほど圧力（沸点）を低くして、前の缶の蒸気との温度差を確保する</li>
+<li>全体で使える温度差（最初の加熱蒸気の温度 − 最後の缶の沸点）を各缶で分け合うので、缶の数を増やすほど1缶あたりの温度差が小さくなり、合計の伝熱面積が増える</li>
+<li>そのため、蒸気代と設備費のバランスから、3〜6 効用程度が多く使われる</li>
+</ul>
+<p>例題の条件を3重効用にすると、蒸気経済はおよそ 2.5〜2.8 になり、加熱蒸気は約 1300〜1500 kg/h と、単一効用の3分の1強で済みます。</p>
+<figure class="fig"><a href="/fig/evaporator-multiple-effect.svg" target="_blank" rel="noopener"><img src="/fig/evaporator-multiple-effect.svg" alt="図2　3重効用の蒸発缶" width="660" height="280" loading="lazy"></a><figcaption>図2　3重効用の蒸発缶（並流）。前の缶で発生した蒸気が、次の缶の加熱蒸気になる</figcaption></figure>
+
+<h2 id="s5">蒸気再圧縮</h2>
+<p>発生した蒸気を圧縮機で圧縮して温度を上げ、同じ缶の加熱に戻す方法を<strong>機械的蒸気再圧縮（MVR）</strong>といいます。蒸気の潜熱をほとんど捨てずに使えるので、電力だけで運転でき、蒸気経済に換算すると数十にもなります。沸点上昇が小さく、温度差を小さくとれる系で特に有利です。高圧蒸気の勢いで低圧の蒸気を吸い込んで圧縮するエジェクター（熱圧縮）を使う方法もあります。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/heat/radiation.html">← 放射伝熱の基本</a><a class="next" href="/heat/unsteady-conduction.html">非定常伝熱の基礎 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/heat/">伝熱の記事</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html" aria-current="page">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/" aria-current="page">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

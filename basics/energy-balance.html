@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>エネルギー収支（熱収支）の基本｜加熱量と混合温度の計算｜はじめての化学工学</title>
+<meta name="description" content="流れのある装置のエネルギー収支の式と、顕熱による加熱量、液を混ぜたときの温度の求め方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/basics/energy-balance.html">
+<meta property="og:title" content="エネルギー収支（熱収支）の基本｜加熱量と混合温度の計算｜はじめての化学工学">
+<meta property="og:description" content="流れのある装置のエネルギー収支の式と、顕熱による加熱量、液を混ぜたときの温度の求め方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "エネルギー収支（熱収支）の基本", "description": "流れのある装置のエネルギー収支の式と、顕熱による加熱量、液を混ぜたときの温度の求め方を例題で解説します。", "datePublished": "2026-09-28", "dateModified": "2026-10-09", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/basics/energy-balance.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/basics/">基礎</a> › <span>エネルギー収支（熱収支）の基本</span></nav>
+    <article class="article">
+<h1>エネルギー収支（熱収支）の基本</h1>
+<p class="lead">流れのある装置のエネルギー収支の式と、顕熱による加熱量、液を混ぜたときの温度の求め方を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-28">2026-09-28</time>　更新日 <time datetime="2026-10-09">2026-10-09</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">エネルギー収支の考え方</a></li><li><a href="#s2">流れのある装置の式</a></li><li><a href="#s3">顕熱の計算</a></li><li><a href="#s4">潜熱も忘れずに</a></li></ol></nav>
+
+<h2 id="s1">エネルギー収支の考え方</h2>
+<p>エネルギーも物質と同じく、勝手に生まれたり消えたりしません（熱力学第一法則）。そこで物質収支と同じように、装置に出入りするエネルギーを突き合わせることができます。これを<strong>エネルギー収支</strong>、熱だけに注目する場合は<strong>熱収支</strong>ともいいます。</p>
+
+<h2 id="s2">流れのある装置の式</h2>
+<p>ポンプや熱交換器のように、流体が連続して出入りする装置が定常状態で動いているとき、エネルギー収支は次のように書けます。</p>
+<div class="formula">$$Q - W_s = \Delta H + \Delta E_k + \Delta E_p$$</div>
+<ul>
+<li>$Q$：外から系に加えた熱（加えるときを正）</li>
+<li>$W_s$：系が外にした仕事（軸仕事）。ポンプのように外から仕事をもらう場合は負</li>
+<li>$\Delta H$：出口と入口のエンタルピーの差</li>
+<li>$\Delta E_k$、$\Delta E_p$：運動エネルギー、位置エネルギーの差</li>
+</ul>
+<figure class="fig"><a href="/fig/energy-balance-device.svg" target="_blank" rel="noopener"><img src="/fig/energy-balance-device.svg" alt="図1　流れのある装置のエネルギー収支。熱 Q と軸仕事 Wₛ の向きに注意する" width="600" height="230" loading="lazy"></a><figcaption>図1　流れのある装置のエネルギー収支。熱 Q と軸仕事 Wₛ の向きに注意する</figcaption></figure>
+<p>加熱や冷却が主役の装置では、運動エネルギーと位置エネルギーの変化は熱に比べてとても小さいので、ふつうは無視して</p>
+<div class="formula">$$Q = \Delta H$$</div>
+<p>として扱います。逆にポンプや配管の計算では熱の出入りが小さく、仕事と位置・運動エネルギーが主役になります（<a href="/fluid/bernoulli.html">ベルヌーイの式</a>を参照）。</p>
+
+<h2 id="s3">顕熱の計算</h2>
+<p>相変化（蒸発や凝縮）がなく、温度だけが変わるときのエンタルピー変化は、比熱 $c_p$ を使って次のように計算できます。これを<strong>顕熱</strong>といいます。</p>
+<div class="formula">$$Q = m\, c_p\, (T_{\text{出口}} - T_{\text{入口}})$$</div>
+<p>$m$ は質量流量 [kg/s]、$c_p$ は定圧比熱 [J/(kg·K)] です。水の比熱はおよそ 4.18 kJ/(kg·K) です。</p>
+
+<div class="example">
+<strong>例題1：水を温めるのに必要な熱量</strong>
+<p>2000 kg/h の水を 20 °C から 80 °C まで温めます。必要な加熱量を kW で求めてください。水の比熱は 4.18 kJ/(kg·K) とします。</p>
+<div class="answer">
+<p>1時間あたりの熱量は $2000 \times 4.18 \times (80 - 20) = 501\,600\ \text{kJ/h}$。</p>
+<p>1 kW = 1 kJ/s なので、3600で割って $501\,600 / 3600 \approx 139\ \text{kW}$ です。</p>
+</div>
+</div>
+
+<div class="example">
+<strong>例題2：温度の違う水を混ぜる</strong>
+<p>80 °C の水 100 kg/h と 20 °C の水 300 kg/h を、断熱された槽で混ぜます。出てくる水の温度は何 °C ですか。比熱は温度によらず一定とします。</p>
+<div class="answer">
+<p>外との熱のやりとりがないので、入ってくる熱量と出ていく熱量は等しくなります。0 °C を基準にすると</p>
+<p>$100 \times 80 + 300 \times 20 = (100 + 300) \times T$</p>
+<p>$T = 14\,000 / 400 = 35\ ^\circ\text{C}$ です。</p>
+</div>
+</div>
+
+<h2 id="s4">潜熱も忘れずに</h2>
+<p>水が蒸発したり蒸気が凝縮したりするときは、温度が変わらなくても大きな熱が出入りします。これを<strong>潜熱</strong>といいます。たとえば100 °Cの水の蒸発潜熱は約2257 kJ/kgで、水を0 °Cから100 °Cまで温める顕熱（約418 kJ/kg）の5倍以上あります。蒸発や凝縮を含む装置では、顕熱と潜熱を分けて足し合わせましょう。</p>
+<figure class="fig"><a href="/fig/water-heating-curve.svg" target="_blank" rel="noopener"><img src="/fig/water-heating-curve.svg" alt="図2　1気圧で水 1 kg を 0 °C から加熱したときの温度変化。蒸発の潜熱は顕熱の5倍以上ある" width="600" height="330" loading="lazy"></a><figcaption>図2　1気圧で水 1 kg を 0 °C から加熱したときの温度変化。蒸発の潜熱は顕熱の5倍以上ある</figcaption></figure>
+
+
+<nav class="pager"><a class="prev" href="/basics/recycle-purge.html">← リサイクルとパージを含む物質収支</a><a class="next" href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎の記事</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html" aria-current="page">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/" aria-current="page">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

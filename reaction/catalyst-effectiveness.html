@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>固体触媒反応と触媒有効係数｜チーレ数と細孔内拡散の影響｜はじめての化学工学</title>
+<meta name="description" content="固体触媒の上で反応が進むまでの段階（境膜拡散、細孔内拡散、吸着・表面反応）、細孔内の拡散が反応を遅くする効果を表すチーレ数と触媒有効係数の計算、触媒粒子の大きさの決め方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/reaction/catalyst-effectiveness.html">
+<meta property="og:title" content="固体触媒反応と触媒有効係数｜チーレ数と細孔内拡散の影響｜はじめての化学工学">
+<meta property="og:description" content="固体触媒の上で反応が進むまでの段階（境膜拡散、細孔内拡散、吸着・表面反応）、細孔内の拡散が反応を遅くする効果を表すチーレ数と触媒有効係数の計算、触媒粒子の大きさの決め方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "固体触媒反応と触媒有効係数", "description": "固体触媒の上で反応が進むまでの段階（境膜拡散、細孔内拡散、吸着・表面反応）、細孔内の拡散が反応を遅くする効果を表すチーレ数と触媒有効係数の計算、触媒粒子の大きさの決め方を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/reaction/catalyst-effectiveness.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/reaction/">反応工学</a> › <span>固体触媒反応と触媒有効係数</span></nav>
+    <article class="article">
+<h1>固体触媒反応と触媒有効係数</h1>
+<p class="lead">固体触媒の上で反応が進むまでの段階（境膜拡散、細孔内拡散、吸着・表面反応）、細孔内の拡散が反応を遅くする効果を表すチーレ数と触媒有効係数の計算、触媒粒子の大きさの決め方を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">固体触媒反応とは</a></li><li><a href="#s2">反応が進むまでの段階</a></li><li><a href="#s3">チーレ数と触媒有効係数</a></li><li><a href="#s4">拡散の影響を見分ける</a></li></ol></nav>
+
+<h2 id="s1">固体触媒反応とは</h2>
+<p>化学工業の反応の多くは、<strong>固体触媒</strong>の上で行われます。アンモニアの合成、石油の分解や改質、自動車の排ガス浄化などがその例です。触媒は、多孔質の担体（アルミナ、シリカ、活性炭など）の細孔の内側に、白金やニッケルなどの活性成分を細かく分散させたもので、粒の内部に大きな表面積をもっています。</p>
+<p>反応する分子は、流れている気体や液体から触媒の粒の中の活性な場所まで移動しなければ反応できません。そのため固体触媒の反応の速さは、化学反応そのものの速さだけでなく、<strong>物質移動の速さ</strong>にも左右されます。</p>
+
+<h2 id="s2">反応が進むまでの段階</h2>
+<ol>
+<li><strong>境膜拡散</strong>：流体の本体から、触媒粒子の外表面まで、粒子を包む<a href="/mass/mass-transfer-coefficient.html">境膜</a>を通って移動する</li>
+<li><strong>細孔内拡散</strong>：粒子の外表面から、細孔の中を奥へ拡散する</li>
+<li><strong>吸着・表面反応・脱着</strong>：活性な場所に吸着して反応し、生成物が離れる</li>
+<li>生成物が細孔の中を外へ拡散し、境膜を通って流体の本体に戻る</li>
+</ol>
+<p>これらは直列に起こるので、一番遅い段階が全体の速さを決めます（律速段階）。反応が速い触媒ほど、物質移動の遅さが目立つようになります。</p>
+
+<h2 id="s3">チーレ数と触媒有効係数</h2>
+<p>細孔の奥に反応物が届く前に反応で消費されてしまうと、粒子の中心付近の触媒は働かず、無駄になります。この効果を表すのが<strong>触媒有効係数</strong> $\eta$ で、</p>
+<div class="formula">$$\eta = \frac{\text{粒子全体での実際の反応速度}}{\text{粒子の中がすべて外表面と同じ濃度だったときの反応速度}}$$</div>
+<p>と定義します。1次反応で球形の粒子の場合、細孔内の拡散と反応の収支を解くと、次の式が得られます。</p>
+<div class="formula">$$\eta = \frac{1}{\phi}\left(\frac{1}{\tanh 3\phi} - \frac{1}{3\phi}\right), \qquad \phi = \frac{R}{3}\sqrt{\frac{k}{D_e}}$$</div>
+<p>$\phi$ を<strong>チーレ数</strong>といい、「反応の速さ」と「細孔内の拡散の速さ」の比を表します。$R$ は粒子の半径、$k$ は粒子の体積あたりの1次の速度定数 [1/s]、$D_e$ は細孔内の有効拡散係数 [m²/s] です。</p>
+<ul>
+<li>$\phi$ が小さい（およそ0.3以下）：拡散が十分速く、$\eta \approx 1$。粒子の中まで全部使われる</li>
+<li>$\phi$ が大きい（およそ3以上）：拡散が追いつかず、$\eta \approx 1/\phi$。反応は外表面の近くだけで起こる</li>
+</ul>
+<figure class="fig"><a href="/fig/effectiveness-factor.svg" target="_blank" rel="noopener"><img src="/fig/effectiveness-factor.svg" alt="図1　チーレ数と触媒有効係数の関係" width="580" height="320" loading="lazy"></a><figcaption>図1　チーレ数と触媒有効係数の関係（球形粒子、1次反応）。挿入図は粒子の中の濃度分布のイメージ</figcaption></figure>
+
+<div class="example">
+<strong>例題：触媒粒子の大きさと有効係数</strong>
+<p>直径 3.0 mm の球形の触媒で、1次反応を行います。粒子の体積あたりの速度定数は 2.0 1/s、有効拡散係数は 1.0 × 10⁻⁶ m²/s です。触媒有効係数を求めてください。また、直径 1.0 mm の粒子にするとどうなりますか。</p>
+<div class="answer">
+<p>直径 3.0 mm（$R$ = 1.5 × 10⁻³ m）：$\phi = \dfrac{1.5 \times 10^{-3}}{3}\sqrt{\dfrac{2.0}{1.0 \times 10^{-6}}} = 5.0 \times 10^{-4} \times 1414 \approx 0.71$</p>
+<p>$\eta = \dfrac{1}{0.71}\left(\dfrac{1}{\tanh 2.12} - \dfrac{1}{2.12}\right) \approx 1.414 \times (1.030 - 0.471) \approx 0.79$</p>
+<p>直径 1.0 mm（$R$ = 0.5 × 10⁻³ m）：$\phi \approx 0.24$、$\eta \approx 0.97$</p>
+<p>3 mm の粒子では、細孔内の拡散の遅さで触媒の約2割が無駄になっています。粒子を小さくすれば有効係数は上がりますが、触媒を詰めた層の<a href="/fluid/pressure-loss.html">圧力損失</a>が大きくなります。そこで実際には、粒子の大きさと圧力損失のバランスをとったり、活性成分を粒子の外側の層だけに担持したり（エッグシェル型）、リング状や多孔の形にしたりします。</p>
+</div>
+</div>
+
+<h2 id="s4">拡散の影響を見分ける</h2>
+<ul>
+<li><strong>粒子の大きさを変えて反応速度を測る</strong>：速度が粒子の大きさで変わらなければ、細孔内拡散の影響はない</li>
+<li><strong>流速を変えて反応速度を測る</strong>：同じ接触時間で流速を上げても速度が変わらなければ、境膜拡散の影響はない</li>
+<li><strong>温度依存性</strong>：細孔内拡散が強く効いていると、見かけの活性化エネルギーは本来の値の約半分になる。温度を上げても<a href="/reaction/reaction-rate.html">アレニウスの式</a>から期待されるほど速くならない</li>
+</ul>
+<p>触媒の性能を正しく評価するには、まず細かい粒子と十分な流速で、物質移動の影響のない「本来の反応速度」を測り、それから実際の粒子での有効係数を見積もるのが基本です。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/bio/enzyme-kinetics.html">酵素反応の速度</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/reaction/residence-time-distribution.html">← 滞留時間分布と非理想流れ</a><a class="next" href="/reaction/chemical-equilibrium.html">化学平衡と反応熱 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/reaction/">反応工学の記事</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html" aria-current="page">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/" aria-current="page">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

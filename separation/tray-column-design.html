@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>蒸留塔の段の構造と塔径の決め方｜多孔板・バルブ段、フラッディング、段効率と実段数｜はじめての化学工学</title>
+<meta name="description" content="蒸留塔の段（トレイ）の構造と種類、蒸気と液が多すぎたり少なすぎたりしたときに起こるフラッディングやウィーピング、フラッディング速度から塔径を決める方法、段効率から実際の段数と塔の高さを求める手順を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/tray-column-design.html">
+<meta property="og:title" content="蒸留塔の段の構造と塔径の決め方｜多孔板・バルブ段、フラッディング、段効率と実段数｜はじめての化学工学">
+<meta property="og:description" content="蒸留塔の段（トレイ）の構造と種類、蒸気と液が多すぎたり少なすぎたりしたときに起こるフラッディングやウィーピング、フラッディング速度から塔径を決める方法、段効率から実際の段数と塔の高さを求める手順を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "蒸留塔の段の構造と塔径の決め方", "description": "蒸留塔の段（トレイ）の構造と種類、蒸気と液が多すぎたり少なすぎたりしたときに起こるフラッディングやウィーピング、フラッディング速度から塔径を決める方法、段効率から実際の段数と塔の高さを求める手順を例題で解説します。", "datePublished": "2026-10-17", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/separation/tray-column-design.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>蒸留塔の段の構造と塔径の決め方</span></nav>
+    <article class="article">
+<h1>蒸留塔の段の構造と塔径の決め方</h1>
+<p class="lead">蒸留塔の段（トレイ）の構造と種類、蒸気と液が多すぎたり少なすぎたりしたときに起こるフラッディングやウィーピング、フラッディング速度から塔径を決める方法、段効率から実際の段数と塔の高さを求める手順を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">理論段から実際の塔へ</a></li><li><a href="#s2">段の構造</a></li><li><a href="#s3">運転できる範囲：フラッディングとウィーピング</a></li><li><a href="#s4">塔径の決め方</a></li><li><a href="#s5">段効率と実際の段数</a></li><li><a href="#s6">例題：ベンゼン－トルエン蒸留塔の塔径と段数</a></li><li><a href="#s7">設計で確かめること</a></li></ol></nav>
+
+<h2 id="s1">理論段から実際の塔へ</h2>
+<p><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法</a>で求めた理論段数は、「各段で気液平衡に達する」と仮定したときの段数です。実際の蒸留塔を作るには、さらに次のことを決める必要があります。</p>
+<ul>
+<li>どんな構造の段を使うか</li>
+<li>塔の直径（塔径）をいくらにするか：蒸気と液を無理なく流せる太さ</li>
+<li>実際に何段にするか：1段で理論段の何割の分離ができるか（段効率）</li>
+<li>塔の高さ：段の数と段の間隔</li>
+</ul>
+<p>この記事では、化学工場で最も多く使われている棚段塔（トレイ塔）について、この4つを順に見ていきます。充填物を詰めた充填塔については<a href="/separation/packed-column.html">充填塔の設計</a>の記事を参照してください。</p>
+
+<h2 id="s2">段の構造</h2>
+<p>棚段塔の各段は、蒸気が通る穴のあいた板（トレイ）と、液を下の段へ落とす<strong>降液管</strong>（ダウンカマー）でできています。</p>
+<ul>
+<li>上の段の降液管から落ちてきた液は、段の上を横切るように流れ、<strong>出口堰</strong>を越えて次の降液管に入ります。堰の高さで、段の上にたまる液の深さが決まります</li>
+<li>下の段から上がってきた蒸気は、板の穴から液の中に吹き込み、泡立った液（フロス）の中で液と接触します。ここで物質と熱が移動し、蒸気は揮発しやすい成分を多く含むようになります</li>
+<li>泡から抜け出した蒸気は、段と段の間の空間で液滴を落としてから、上の段へ上がります</li>
+</ul>
+<figure class="fig"><a href="/fig/sieve-tray-section.svg" target="_blank" rel="noopener"><img src="/fig/sieve-tray-section.svg" alt="図1　多孔板段の断面（模式図）。液は段の上を横切って流れ、蒸気は穴から吹き上がって液と接触する" width="640" height="360" loading="lazy"></a><figcaption>図1　多孔板段の断面（模式図）。液は段の上を横切って流れ、蒸気は穴から吹き上がって液と接触する</figcaption></figure>
+<p>段の種類には、主に次の3つがあります。</p>
+<table>
+<tr><th>種類</th><th>構造</th><th>特徴</th></tr>
+<tr><td>多孔板段（シーブトレイ）</td><td>直径 5〜15 mm 程度の穴をあけた板</td><td>構造が簡単で安く、圧力損失が小さい。蒸気が少ないと穴から液が漏れやすく、運転できる範囲がやや狭い</td></tr>
+<tr><td>バルブ段</td><td>穴に、蒸気の量に応じて持ち上がる弁（バルブ）をつけたもの</td><td>蒸気が少ないときは弁が下がって穴を狭めるので、運転できる範囲が広い。現在の標準的な選択</td></tr>
+<tr><td>泡鐘段</td><td>立ち上がりの管にかぶせたキャップの切り込みから蒸気を出す</td><td>液が漏れないので、非常に少ない蒸気量でも運転できる。高価で圧力損失が大きく、新設ではあまり使われない</td></tr>
+</table>
+
+<h2 id="s3">運転できる範囲：フラッディングとウィーピング</h2>
+<p>段は、蒸気と液の量がある範囲に入っているときにだけ、うまく働きます。範囲を外れると、次のような現象が起こります。</p>
+<ul>
+<li><strong>飛まつ同伴</strong>：蒸気が多すぎると、泡から飛び散った液滴が蒸気に運ばれて上の段に持ち上がります。上の段に重い成分を戻してしまうので、分離が悪くなります</li>
+<li><strong>フラッディング</strong>（溢汪）：さらに蒸気を増やすと、液が下に落ちられなくなって塔の中にたまり、塔の圧力損失が急に上がって運転できなくなります。液が多すぎて降液管があふれる場合にも起こります</li>
+<li><strong>ウィーピング</strong>：蒸気が少なすぎると、蒸気が液を支えられず、液が穴から下の段へ漏れ落ちます。液が蒸気と接触せずに素通りするので、分離が悪くなります</li>
+</ul>
+<figure class="fig"><a href="/fig/tray-operating-window.svg" target="_blank" rel="noopener"><img src="/fig/tray-operating-window.svg" alt="図2　段が安定に運転できる範囲（模式図）。設計点は上限から余裕をとって決める" width="640" height="340" loading="lazy"></a><figcaption>図2　段が安定に運転できる範囲（模式図）。設計点は上限から余裕をとって決める</figcaption></figure>
+<p>設計では、最大の運転量でもフラッディングに対して余裕があり、最小の運転量（ターンダウン）でもウィーピングを起こさないように、段の開孔率や堰の高さを決めます。</p>
+
+<h2 id="s4">塔径の決め方</h2>
+<p>塔径は、主に蒸気の量で決まります。蒸気の速さの上限（フラッディング速度）は、液滴が蒸気に持ち上げられるかどうかのつり合いから、次の<strong>サウダース・ブラウンの式</strong>の形で表されます。</p>
+<div class="formula">$$u_f = C\,\sqrt{\frac{\rho_L - \rho_V}{\rho_V}}$$</div>
+<p>$u_f$ は段の上の蒸気が通れる断面（塔の断面積から降液管の分を除いた面積）を基準にしたフラッディング速度 [m/s]、$\rho_L$、$\rho_V$ は液と蒸気の密度です。係数 $C$ [m/s] は段の間隔、液と蒸気の流量の比、表面張力によって変わり、相関線図や式から求めます。段間隔 0.6 m で液の量が蒸気に比べて少ない場合は、0.08〜0.10 m/s 程度になります。</p>
+<p>設計の手順は次のとおりです。</p>
+<ol>
+<li>塔頂と塔底それぞれで、蒸気の体積流量と、液・蒸気の密度を求める</li>
+<li>フラッディング速度を求め、その 75〜85% 程度を設計の蒸気速度とする</li>
+<li>蒸気の体積流量を設計速度で割って、蒸気が通る面積（正味の面積）を求める</li>
+<li>降液管の面積（塔の断面積の 10〜15% 程度）を足して塔の断面積とし、塔径を求める</li>
+</ol>
+<p>塔頂と塔底で必要な塔径が違う場合は、大きいほうに合わせるか、差が大きければ上下で塔径を変えます。</p>
+
+<h2 id="s5">段効率と実際の段数</h2>
+<p>実際の段では、蒸気と液が接触する時間が限られているため、気液平衡まで達しません。理論段数を実際の段数で割ったものを<strong>総括段効率</strong> $E_0$ といいます。</p>
+<div class="formula">$$N_{\text{実}} = \frac{N_{\text{理}}}{E_0}$$</div>
+<p>総括段効率は、物質の移動が遅いほど（液の粘度が高いほど）、また比揮発度が大きいほど低くなる傾向があり、多くの実在の塔のデータをまとめた<strong>オコンネルの相関</strong>がよく使われます。</p>
+<div class="formula">$$E_0 = 0.492\,(\mu_L\,\alpha)^{-0.245}$$</div>
+<p>$\mu_L$ は塔頂と塔底の平均温度での液（原料組成）の粘度 [mPa·s]、$\alpha$ は軽い成分と重い成分の比揮発度です。炭化水素の蒸留では 50〜80% 程度になることが多い一方、粘度の高い液や、吸収塔のように物質の移動が遅い系では 10〜30% まで下がることもあります。相関の精度は高くないので、実績のある塔のデータがあれば、そちらを優先します。</p>
+
+<h2 id="s6">例題：ベンゼン－トルエン蒸留塔の塔径と段数</h2>
+<p>マッケーブ・シーレ法の記事の例題（ベンゼン 50 mol% の飽和液を、留出液 95 mol%、缶出液 5 mol% に分ける。比揮発度 2.4、還流比 2.0、理論段数はリボイラーを含めて12段）で、原料が 100 kmol/h のとき、塔径と実際の段数を求めてください。圧力は 1 気圧、段間隔は 0.6 m、係数 $C$ = 0.09 m/s、設計の蒸気速度はフラッディング速度の 80%、降液管は塔の断面積の 12% とします。</p>
+<p><strong>解答</strong></p>
+<p><strong>(1) 流量</strong>：留出液と缶出液はそれぞれ 50 kmol/h です。濃縮部の蒸気は $V = (R + 1)\,D = 150$ kmol/h、液は $L = R\,D = 100$ kmol/h です。原料が飽和液なので、回収部の蒸気も 150 kmol/h、液は $100 + 100 = 200$ kmol/h になります。</p>
+<p><strong>(2) 塔頂（約 81 °C、ほぼベンゼン）</strong></p>
+<ul>
+<li>蒸気の平均分子量 78.8、蒸気の密度 $\rho_V = PM/(RT) = 101\,325 \times 78.8 / (8314 \times 354) \approx 2.71$ kg/m³、液の密度は約 815 kg/m³</li>
+<li>蒸気の体積流量：$150 \times 78.8 / 3600 / 2.71 \approx 1.21$ m³/s</li>
+<li>フラッディング速度：$u_f = 0.09 \times \sqrt{(815 - 2.71)/2.71} \approx 1.56$ m/s、設計速度 1.25 m/s</li>
+<li>正味の面積 $1.21 / 1.25 \approx 0.97$ m²、塔の断面積 $0.97 / 0.88 \approx 1.10$ m²、塔径 <strong>1.19 m</strong></li>
+</ul>
+<p><strong>(3) 塔底（約 108 °C、ほぼトルエン）</strong></p>
+<ul>
+<li>蒸気の平均分子量 91.4、蒸気の密度 2.92 kg/m³、液の密度は約 780 kg/m³</li>
+<li>蒸気の体積流量 1.30 m³/s、フラッディング速度 1.47 m/s、設計速度 1.17 m/s</li>
+<li>正味の面積 1.11 m²、塔の断面積 1.26 m²、塔径 <strong>1.27 m</strong></li>
+</ul>
+<p>塔底のほうが、蒸気の分子量が大きく体積流量が増えるうえ、フラッディング速度も下がるので、太い塔径が必要です。上下で差が小さいので、塔全体を <strong>1.3 m</strong> とします。</p>
+<p><strong>(4) 段効率と実際の段数</strong>：平均温度（約 95 °C）での原料組成の液の粘度を 0.27 mPa·s とすると</p>
+<div class="formula">$$E_0 = 0.492 \times (0.27 \times 2.4)^{-0.245} \approx 0.55$$</div>
+<p>理論段数 12 のうち1段はリボイラーなので、塔の中の理論段は 11 段です。実際の段数は $11 / 0.55 = 20$ 段になります。原料供給段は、理論段の6段目に当たる位置（塔頂から約 10 段目）を中心に、原料の組成の変化に備えて複数の供給口を設けておくことが多いです。</p>
+<p><strong>(5) 塔の高さ</strong>：段の部分が $20 \times 0.6 = 12$ m で、塔頂の気液分離の空間と、塔底の液だめ（缶出液を数分間ためる容量）を加えると、全体の高さは 15〜16 m 程度になります。</p>
+
+<h2 id="s7">設計で確かめること</h2>
+<ul>
+<li><strong>圧力損失</strong>：段1枚あたりの圧力損失は、蒸気が穴を通る抵抗と、液の深さの分を合わせて 0.5〜1 kPa 程度です。20 段なら塔頂と塔底で 10〜20 kPa の差になり、塔底の圧力と温度が上がります。減圧蒸留では圧力損失が特に重要で、圧力損失の小さい充填塔が選ばれることが多くなります</li>
+<li><strong>降液管の容量</strong>：降液管の中で泡が十分に抜けないと、液が下に落ちきれずにあふれます（降液管のフラッディング）。泡立ちやすい液では、降液管を大きめにとります</li>
+<li><strong>ターンダウン</strong>：生産量を減らしたときにウィーピングを起こさないか確かめます。運転量の幅が大きい場合はバルブ段を選びます</li>
+<li><strong>点検口と段間隔</strong>：塔径が大きい塔では、人が入って点検できるように段間隔を 0.6 m 以上にし、マンホールを設けます</li>
+</ul>
+<p>実際の設計では、段の詳細（開孔率、堰の高さ、降液管の大きさ）を段のメーカーの方法やプロセスシミュレーターの機能で決め、上のような手計算は、その結果の見当をつけたり確かめたりするのに使います。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/separation/minimum-reflux-ratio.html">← 最小還流比と最小理論段数</a><a class="next" href="/separation/shortcut-distillation.html">多成分蒸留の近道法 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/separation/">分離操作の記事</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html" aria-current="page">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/" aria-current="page">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

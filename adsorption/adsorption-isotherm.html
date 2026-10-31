@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>吸着平衡と吸着等温線｜ラングミュア式・フロイントリッヒ式と回分吸着の計算｜はじめての化学工学</title>
+<meta name="description" content="吸着の仕組みと代表的な吸着剤、ラングミュア式とフロイントリッヒ式による吸着等温線の表し方、活性炭を入れて汚れを取る回分吸着の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/adsorption/adsorption-isotherm.html">
+<meta property="og:title" content="吸着平衡と吸着等温線｜ラングミュア式・フロイントリッヒ式と回分吸着の計算｜はじめての化学工学">
+<meta property="og:description" content="吸着の仕組みと代表的な吸着剤、ラングミュア式とフロイントリッヒ式による吸着等温線の表し方、活性炭を入れて汚れを取る回分吸着の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "吸着平衡と吸着等温線", "description": "吸着の仕組みと代表的な吸着剤、ラングミュア式とフロイントリッヒ式による吸着等温線の表し方、活性炭を入れて汚れを取る回分吸着の計算を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/adsorption/adsorption-isotherm.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/adsorption/">吸着・イオン交換</a> › <span>吸着平衡と吸着等温線</span></nav>
+    <article class="article">
+<h1>吸着平衡と吸着等温線</h1>
+<p class="lead">吸着の仕組みと代表的な吸着剤、ラングミュア式とフロイントリッヒ式による吸着等温線の表し方、活性炭を入れて汚れを取る回分吸着の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">吸着とは</a></li><li><a href="#s2">吸着平衡と吸着等温線</a></li><li><a href="#s3">回分吸着の計算</a></li><li><a href="#s4">温度と吸着</a></li></ol></nav>
+
+<h2 id="s1">吸着とは</h2>
+<p><strong>吸着</strong>は、気体や液体に含まれる成分が、固体の表面にくっついて濃縮される現象です。この性質を使って、ごく薄い成分を取り除いたり回収したりする操作を吸着操作といいます。浄水場でカビ臭を取る活性炭、エアコンや工場の排気から溶剤を回収する装置、空気から酸素や窒素を取り出す装置などに使われています。</p>
+<p>吸着される成分を<strong>吸着質</strong>、表面を提供する固体を<strong>吸着剤</strong>といいます。吸着剤は、内部に細かい穴（細孔）がたくさんあり、1 g あたり数百〜千数百 m² という大きな表面積をもっています。</p>
+<table>
+<tr><th>吸着剤</th><th>特徴</th><th>おもな用途</th></tr>
+<tr><td>活性炭</td><td>疎水性で、有機物をよく吸着する</td><td>浄水、排水処理、溶剤回収、脱臭</td></tr>
+<tr><td>ゼオライト</td><td>結晶性で細孔の大きさがそろっている。分子の大きさや極性で選び分ける</td><td>ガスの乾燥、空気から酸素・窒素の製造</td></tr>
+<tr><td>シリカゲル</td><td>親水性で、水分をよく吸着する</td><td>乾燥剤、ガスの除湿</td></tr>
+<tr><td>活性アルミナ</td><td>親水性で、強度が高い</td><td>ガスの乾燥、フッ素の除去</td></tr>
+</table>
+<p>吸着は、分子と表面の間の弱い引力（ファンデルワールス力）による<strong>物理吸着</strong>が中心です。物理吸着は温度を上げたり圧力を下げたりすると外れる（<strong>脱着</strong>する）ので、吸着剤を繰り返し使えます。</p>
+
+<h2 id="s2">吸着平衡と吸着等温線</h2>
+<p>吸着剤を液や気体に十分長く接触させると、吸着される量と離れる量がつり合って、吸着量が一定になります。このときの吸着剤 1 kg あたりの吸着量 $q$ と、周りの濃度 $C$（気体なら分圧 $p$）の関係を、一定の温度で表したものが<strong>吸着等温線</strong>です。吸着装置の大きさは、この平衡関係で大部分が決まります。</p>
+<p>多くの系で、濃度が低いうちは吸着量が濃度に比例して増え、濃度が高くなると頭打ちになります。代表的な式を2つ紹介します。</p>
+<h3>ラングミュア式</h3>
+<div class="formula">$$q = \frac{q_m K C}{1 + K C}$$</div>
+<p>吸着剤の表面に吸着できる場所が決まった数だけあり、そこが一層だけ埋まっていく、というモデルから導かれた式です。$q_m$ は表面がすべて埋まったときの吸着量（飽和吸着量）、$K$ は吸着のしやすさを表す定数です。濃度が低いと $q \approx q_m K C$（比例）、高いと $q \approx q_m$（飽和）になります。</p>
+<h3>フロイントリッヒ式</h3>
+<div class="formula">$$q = k\,C^{1/n}$$</div>
+<p>実験結果をよく表せる経験式です。$n$ は1より大きい値をとることが多く、$n$ が大きいほど低い濃度でもよく吸着します。上限がないので、濃度の高い範囲での外挿には向きません。</p>
+<p>どちらの式も、実験データから定数を決めて使います。ラングミュア式は $C/q = 1/(q_m K) + C/q_m$、フロイントリッヒ式は $\log q = \log k + (1/n)\log C$ と変形すると直線になるので、<a href="/numerical/least-squares.html">最小二乗法</a>で定数を求められます。</p>
+<figure class="fig"><a href="/fig/adsorption-isotherms.svg" target="_blank" rel="noopener"><img src="/fig/adsorption-isotherms.svg" alt="図1　吸着等温線の形の比較" width="580" height="320" loading="lazy"></a><figcaption>図1　吸着等温線の形の比較。ラングミュア式は高い濃度で飽和吸着量に近づく</figcaption></figure>
+
+<h2 id="s3">回分吸着の計算</h2>
+<p>容器に入れた液に吸着剤を加えてかき混ぜ、平衡になってから吸着剤をろ過して除く方法を<strong>回分吸着</strong>といいます。液の体積を $V$、最初の濃度を $C_0$、加える吸着剤の質量を $m$ とすると、吸着質の<a href="/basics/material-balance.html">物質収支</a>は</p>
+<div class="formula">$$V\,(C_0 - C) = m\,q$$</div>
+<p>です（吸着剤は最初は何も吸着していないとします）。この式と吸着等温線を同時に満たす $C$ が、平衡後の濃度です。$q$ を $C$ に対して描くと、物質収支は傾き $-V/m$ の直線になり、吸着等温線との交点が答えになります。</p>
+
+<div class="example">
+<strong>例題：活性炭で液中の汚れを取る</strong>
+<p>ある有機物を 100 mg/L 含む水 1.0 L に、粉末活性炭 2.0 g を入れて平衡にします。この系の吸着等温線はラングミュア式で $q_m$ = 150 mg/g、$K$ = 0.05 L/mg です。平衡後の濃度と除去率を求めてください。また、濃度を 5 mg/L まで下げるには活性炭が何 g 必要ですか。</p>
+<div class="answer">
+<p>物質収支 $1.0 \times (100 - C) = 2.0\,q$ に $q = \dfrac{150 \times 0.05\,C}{1 + 0.05\,C}$ を代入して整理すると</p>
+<p>$0.05\,C^2 + 11\,C - 100 = 0$ となり、$C = \dfrac{-11 + \sqrt{11^2 + 4 \times 0.05 \times 100}}{2 \times 0.05} \approx 8.7\ \text{mg/L}$</p>
+<p>吸着量は $q = (100 - 8.7)/2.0 \approx 45.6$ mg/g、除去率は $(100 - 8.7)/100 \approx 91\%$ です。</p>
+<p>5 mg/L まで下げる場合は、そのときの吸着量が $q = \dfrac{150 \times 0.05 \times 5}{1 + 0.05 \times 5} = 30$ mg/g なので、必要な活性炭は $m = \dfrac{1.0 \times (100 - 5)}{30} \approx 3.2\ \text{g}$ です。</p>
+<p>出口の濃度を低くするほど、平衡な吸着量が小さくなり、活性炭の使用量が増えます。吸着剤の能力を使い切るには、次の記事の<a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着</a>のように、新しい液が新しい吸着剤から順に出会う向流的な使い方が有利です。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/batch-adsorption-graphical.svg" target="_blank" rel="noopener"><img src="/fig/batch-adsorption-graphical.svg" alt="図2　例題の回分吸着の作図による解き方" width="580" height="320" loading="lazy"></a><figcaption>図2　例題の回分吸着の作図による解き方。物質収支の直線と吸着等温線の交点が平衡の状態</figcaption></figure>
+
+<h2 id="s4">温度と吸着</h2>
+<p>物理吸着は発熱を伴うため、温度が高いほど吸着量は小さくなります。この性質は、吸着剤を加熱して吸着質を追い出す<strong>温度スイング再生</strong>に利用されます。気体の吸着では、圧力を下げて追い出す<strong>圧力スイング</strong>も使われます（<a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA</a>）。液相の吸着では、溶けている他の成分との競争や pH の影響も大きいので、実際の液を使った吸着試験で等温線を求めるのが基本です。</p>
+
+
+<nav class="pager"><span></span><a class="next" href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/adsorption/">吸着・イオン交換の記事</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html" aria-current="page">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html">イオン交換の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/" aria-current="page">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

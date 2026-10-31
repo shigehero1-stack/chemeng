@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ヒートポンプと排熱回収の基礎｜成績係数（COP）とカルノー効率、省エネの考え方｜はじめての化学工学</title>
+<meta name="description" content="工場の省エネルギーの柱であるヒートポンプの仕組みと成績係数（COP）、理論上の上限であるカルノーの成績係数、温度差とCOPの関係、ボイラーとの比較、排熱回収の考え方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/energy/heat-pump-and-heat-recovery.html">
+<meta property="og:title" content="ヒートポンプと排熱回収の基礎｜成績係数（COP）とカルノー効率、省エネの考え方｜はじめての化学工学">
+<meta property="og:description" content="工場の省エネルギーの柱であるヒートポンプの仕組みと成績係数（COP）、理論上の上限であるカルノーの成績係数、温度差とCOPの関係、ボイラーとの比較、排熱回収の考え方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ヒートポンプと排熱回収の基礎", "description": "工場の省エネルギーの柱であるヒートポンプの仕組みと成績係数（COP）、理論上の上限であるカルノーの成績係数、温度差とCOPの関係、ボイラーとの比較、排熱回収の考え方を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/energy/heat-pump-and-heat-recovery.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/energy/">エネルギー有効利用</a> › <span>ヒートポンプと排熱回収の基礎</span></nav>
+    <article class="article">
+<h1>ヒートポンプと排熱回収の基礎</h1>
+<p class="lead">工場の省エネルギーの柱であるヒートポンプの仕組みと成績係数（COP）、理論上の上限であるカルノーの成績係数、温度差とCOPの関係、ボイラーとの比較、排熱回収の考え方を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">工場のエネルギーと省エネ</a></li><li><a href="#s2">ヒートポンプの仕組み</a></li><li><a href="#s3">成績係数（COP）</a></li><li><a href="#s4">エクセルギー：熱の「質」</a></li></ol></nav>
+
+<h2 id="s1">工場のエネルギーと省エネ</h2>
+<p>化学工場では、蒸気による加熱、冷却水や冷凍機による冷却、ポンプや圧縮機の動力などに大量のエネルギーを使います。省エネルギーの基本は、次の順に考えることです。</p>
+<ol>
+<li><strong>使う量を減らす</strong>：保温を強化する（<a href="/heat/conduction.html">熱伝導</a>）、ポンプの回転数を下げる（<a href="/fluid/pump-power.html">相似則</a>）、過剰な空気比を減らす（<a href="/basics/combustion.html">燃焼</a>）</li>
+<li><strong>捨てている熱を回収する</strong>：熱交換器で排水や排ガスの熱を原料の予熱に使う（<a href="/heat/heat-exchanger-lmtd.html">熱交換器</a>）、蒸気を何度も使う（<a href="/heat/evaporator.html">多重効用缶</a>）</li>
+<li><strong>低い温度の熱を、使える温度まで上げる</strong>：ヒートポンプ</li>
+</ol>
+
+<h2 id="s2">ヒートポンプの仕組み</h2>
+<p>熱は自然には温度の低いところから高いところへ流れません。<strong>ヒートポンプ</strong>は、外から仕事（多くは電力）を加えて、低い温度の熱源から熱をくみ上げ、高い温度で放出する装置です。冷蔵庫やエアコンと同じ仕組みで、冷媒を圧縮機で圧縮し、凝縮器で熱を出し、膨張弁で減圧し、蒸発器で熱を吸う、というサイクルを繰り返します。</p>
+<figure class="fig"><a href="/fig/heat-pump-cycle.svg" target="_blank" rel="noopener"><img src="/fig/heat-pump-cycle.svg" alt="図1　ヒートポンプのサイクル" width="620" height="320" loading="lazy"></a><figcaption>図1　ヒートポンプのサイクル。電力 W で低温の熱 Q_L をくみ上げ、Q_H = Q_L + W の熱を高温側に出す</figcaption></figure>
+
+<h2 id="s3">成績係数（COP）</h2>
+<p>ヒートポンプの性能は、加えた仕事に対して何倍の熱を得られるかで表します。これを<strong>成績係数</strong>（COP）といいます。加熱に使う場合は</p>
+<div class="formula">$$\text{COP}_H = \frac{Q_H}{W}$$</div>
+<p>エネルギーの保存から $Q_H = Q_L + W$ なので、COP は必ず1より大きくなります。電気ヒーターで加熱すると 1 kWh の電力で 1 kWh の熱しか得られませんが、ヒートポンプなら3〜5倍の熱が得られます。</p>
+<p>熱力学の第二法則から、COP には理論上の上限があります。高温側の温度 $T_H$、低温側の温度 $T_L$（どちらも絶対温度）の間で働く理想的なサイクル（カルノーサイクル）の COP は</p>
+<div class="formula">$$\text{COP}_{H,\text{カルノー}} = \frac{T_H}{T_H - T_L}$$</div>
+<p>です。<strong>くみ上げる温度差が小さいほど COP は大きくなります</strong>。実際の機械の COP は、カルノーの値の 40〜60% 程度です。</p>
+<figure class="fig"><a href="/fig/heat-pump-cop.svg" target="_blank" rel="noopener"><img src="/fig/heat-pump-cop.svg" alt="図2　温度差と成績係数の関係" width="580" height="320" loading="lazy"></a><figcaption>図2　くみ上げる温度差と成績係数の関係（高温側 80 °C）。温度差が大きいほど COP は下がる</figcaption></figure>
+
+<div class="example">
+<strong>例題：排温水の熱で 80 °C の温水を作る</strong>
+<p>30 °C の排温水から熱をくみ上げ、80 °C の温水を 100 kW 分作るヒートポンプを考えます。実際の COP はカルノーの値の50%とします。(1) COP と必要な電力を求めてください。(2) 同じ熱を、効率 90% のガスボイラーで作る場合の燃料の量（熱量）と比べてください。</p>
+<div class="answer">
+<p>(1) カルノーの COP：$\dfrac{353.15}{353.15 - 303.15} \approx 7.1$、実際の COP は $7.1 \times 0.5 \approx 3.5$</p>
+<p>必要な電力：$100 / 3.5 \approx 28\ \text{kW}$。排温水からくみ上げる熱は $100 - 28 = 72$ kW です。</p>
+<p>(2) ガスボイラーでは $100 / 0.9 \approx 111$ kW の燃料が必要です。</p>
+<p>電力を発電所の燃料に換算する（発電効率を約37%とする）と、ヒートポンプは $28 / 0.37 \approx 76$ kW 分の燃料に相当し、ボイラーより約3割少なくなります。さらに、捨てていた 30 °C の排温水の熱を有効に使えています。</p>
+</div>
+</div>
+
+<h2 id="s4">エクセルギー：熱の「質」</h2>
+<p>同じ 1 kJ の熱でも、高い温度の熱ほど仕事に変えられる量が多く、価値が高いといえます。熱のうち、周囲の温度 $T_0$ を基準にして理論上仕事に変えられる部分を<strong>エクセルギー</strong>といい、温度 $T$ の熱 $Q$ では $Q(1 - T_0/T)$ です。たとえば 25 °C の環境で、1000 °C の燃焼ガスの熱は約77%がエクセルギーですが、80 °C の温水の熱は約16%しかありません。</p>
+<p>高温の燃焼熱を 80 °C の温水を作るためだけに使うと、熱の「質」を大きく無駄にしています。高温の熱は発電や高温の反応に使い、そこから出る低い温度の熱を順に低温の用途に使う（カスケード利用、コージェネレーション）のが、エネルギーを有効に使う考え方です。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li><li><a href="/energy/exergy.html">エクセルギーとは</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><span></span><a class="next" href="/energy/flash-steam-recovery.html">フラッシュ蒸気の回収 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/energy/">エネルギー有効利用の記事</a></h2><ul><li><a href="/energy/heat-pump-and-heat-recovery.html" aria-current="page">ヒートポンプと排熱回収の基礎</a></li><li><a href="/energy/flash-steam-recovery.html">フラッシュ蒸気の回収</a></li><li><a href="/energy/exergy.html">エクセルギーとは</a></li><li><a href="/energy/pinch-analysis.html">ピンチ解析による熱回収</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/" aria-current="page">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

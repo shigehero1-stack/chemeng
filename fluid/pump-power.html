@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ポンプの揚程と所要動力の計算方法｜はじめての化学工学</title>
+<meta name="description" content="ポンプに必要な全揚程を、高さの差・圧力差・配管の損失から求め、軸動力を効率から計算する手順を例題で解説します。NPSHとキャビテーションにも触れます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/pump-power.html">
+<meta property="og:title" content="ポンプの揚程と所要動力の計算方法｜はじめての化学工学">
+<meta property="og:description" content="ポンプに必要な全揚程を、高さの差・圧力差・配管の損失から求め、軸動力を効率から計算する手順を例題で解説します。NPSHとキャビテーションにも触れます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ポンプの揚程と所要動力の計算方法", "description": "ポンプに必要な全揚程を、高さの差・圧力差・配管の損失から求め、軸動力を効率から計算する手順を例題で解説します。NPSHとキャビテーションにも触れます。", "datePublished": "2026-09-28", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/fluid/pump-power.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>ポンプの揚程と所要動力の計算方法</span></nav>
+    <article class="article">
+<h1>ポンプの揚程と所要動力の計算方法</h1>
+<p class="lead">ポンプに必要な全揚程を、高さの差・圧力差・配管の損失から求め、軸動力を効率から計算する手順を例題で解説します。NPSHとキャビテーションにも触れます。</p>
+<p class="byline">公開日 <time datetime="2026-09-28">2026-09-28</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">ポンプに必要なもの：流量と揚程</a></li><li><a href="#s2">全揚程の求め方</a></li><li><a href="#s3">動力の計算</a></li><li><a href="#s4">回転数を変えたとき：相似則</a></li><li><a href="#s5">キャビテーションとNPSH</a></li></ol></nav>
+
+<h2 id="s1">ポンプに必要なもの：流量と揚程</h2>
+<p>ポンプを選ぶときは、<strong>流量</strong>（どれだけ送るか）と<strong>全揚程</strong>（どれだけのエネルギーを液に与える必要があるか）の二つを決めます。揚程はヘッドと同じく長さ [m] で表します。</p>
+
+<h2 id="s2">全揚程の求め方</h2>
+<p><a href="/fluid/bernoulli.html">ベルヌーイの式</a>を、吸込み側の液面（点1）と吐出し先の液面（点2）の間で立てると、ポンプが与えるべきヘッド $H$ は次のようになります。</p>
+<div class="formula">$$H = (z_2 - z_1) + \frac{p_2 - p_1}{\rho g} + \frac{u_2^2 - u_1^2}{2g} + h_L$$</div>
+<ul>
+<li>$z_2 - z_1$：液を持ち上げる高さ（実揚程）</li>
+<li>$(p_2 - p_1)/(\rho g)$：吐出し先の圧力が高い場合に必要な分</li>
+<li>速度ヘッドの差：タンクからタンクへ送る場合はふつう無視できる</li>
+<li>$h_L$：直管、継手、バルブ、機器などの損失ヘッドの合計</li>
+</ul>
+
+<h2 id="s3">動力の計算</h2>
+<p>ポンプが液に与える正味の動力を<strong>水動力</strong>といいます。</p>
+<div class="formula">$$P_w = \rho\, g\, Q\, H$$</div>
+<p>実際には摩擦や漏れがあるので、モーターがポンプに与える<strong>軸動力</strong>はポンプ効率 $\eta$ で割って求めます。</p>
+<div class="formula">$$P = \frac{\rho\, g\, Q\, H}{\eta}$$</div>
+<p>$Q$ は体積流量 [m³/s]、$P$ は [W] です。小型の遠心ポンプの効率はおよそ 0.4〜0.7 程度で、モーターはさらに余裕をみて一回り大きいものを選びます。</p>
+
+<div class="example">
+<strong>例題：タンクからタンクへ水を送る</strong>
+<p>20 °C の水（998 kg/m³）を 6 m³/h で、下のタンクから 12 m 高いタンクへ送ります。どちらのタンクも大気開放です。配管・継手・バルブの損失ヘッドの合計を 3 m、ポンプ効率を 0.6 とするとき、全揚程と軸動力を求めてください。</p>
+<div class="answer">
+<p>圧力差と速度ヘッドの差は0なので、全揚程は $H = 12 + 3 = 15\ \text{m}$。</p>
+<p>$Q = 6 / 3600 = 1.667 \times 10^{-3}\ \text{m}^3/\text{s}$</p>
+<p>$P = \dfrac{998 \times 9.81 \times 1.667 \times 10^{-3} \times 15}{0.6} \approx 408\ \text{W}$</p>
+<p>約0.41 kWなので、余裕をみて0.55 kWや0.75 kWのモーターを検討します。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/pump-system-head.svg" target="_blank" rel="noopener"><img src="/fig/pump-system-head.svg" alt="図1　例題の送水系統。全揚程は実揚程と損失ヘッドの合計" width="620" height="340" loading="lazy"></a><figcaption>図1　例題の送水系統。全揚程は実揚程と損失ヘッドの合計</figcaption></figure>
+
+<h2 id="s4">回転数を変えたとき：相似則</h2>
+<p>同じ遠心ポンプの回転数 $N$ を変えると、流量・揚程・軸動力は次のように変わります（効率がほぼ変わらない範囲）。</p>
+<div class="formula">$$\frac{Q_2}{Q_1} = \frac{N_2}{N_1}, \qquad \frac{H_2}{H_1} = \left(\frac{N_2}{N_1}\right)^2, \qquad \frac{P_2}{P_1} = \left(\frac{N_2}{N_1}\right)^3$$</div>
+<p>たとえば回転数を80%に下げると、流量は80%、揚程は64%、動力は約51%になります。弁を絞って流量を減らすより、インバーターで回転数を下げるほうが大きな省エネルギーになるのはこのためです。送風機（ファン）にも同じ関係が成り立ちます。</p>
+<figure class="fig"><a href="/fig/pump-affinity-laws.svg" target="_blank" rel="noopener"><img src="/fig/pump-affinity-laws.svg" alt="図2　回転数を80%に下げたときの流量・揚程・軸動力（相似則）" width="560" height="280" loading="lazy"></a><figcaption>図2　回転数を80%に下げたときの流量・揚程・軸動力（相似則）</figcaption></figure>
+
+<h2 id="s5">キャビテーションとNPSH</h2>
+<p>ポンプの吸込み口では圧力が下がります。この圧力が液の蒸気圧より低くなると、液の中に気泡ができて、ポンプの中でつぶれるときに騒音や振動、羽根車の損傷を起こします。これを<strong>キャビテーション</strong>といいます。</p>
+<p>防ぐには、吸込み側で確保できる余裕（有効NPSH、NPSHa）が、ポンプが必要とする値（必要NPSH、NPSHr、メーカーが示す）を十分に上回るように設計します。</p>
+<div class="formula">$$\text{NPSH}_a = \frac{p_s - p_v}{\rho g} + z_s - h_{Ls}$$</div>
+<p>$p_s$ は吸込み側液面の絶対圧、$p_v$ は液の蒸気圧、$z_s$ はポンプより液面が高い分（低い場合は負）、$h_{Ls}$ は吸込み配管の損失ヘッドです。温度の高い液や揮発しやすい液ほど蒸気圧が高く、NPSHa が小さくなるので注意が必要です。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/fluid/pressure-loss.html">← 管内の圧力損失の計算</a><a class="next" href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/fluid/">流体の記事</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html" aria-current="page">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/" aria-current="page">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>活量係数と共沸｜非理想溶液の気液平衡とマーギュレス式｜はじめての化学工学</title>
+<meta name="description" content="ラウールの法則からずれる非理想溶液の気液平衡と活量係数の意味、正と負のずれ、マーギュレス式による活量係数の計算、共沸点が生じる条件と共沸組成の求め方、共沸混合物を分ける方法を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/thermo/activity-coefficient.html">
+<meta property="og:title" content="活量係数と共沸｜非理想溶液の気液平衡とマーギュレス式｜はじめての化学工学">
+<meta property="og:description" content="ラウールの法則からずれる非理想溶液の気液平衡と活量係数の意味、正と負のずれ、マーギュレス式による活量係数の計算、共沸点が生じる条件と共沸組成の求め方、共沸混合物を分ける方法を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "活量係数と共沸", "description": "ラウールの法則からずれる非理想溶液の気液平衡と活量係数の意味、正と負のずれ、マーギュレス式による活量係数の計算、共沸点が生じる条件と共沸組成の求め方、共沸混合物を分ける方法を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/thermo/activity-coefficient.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/thermo/">物性と熱力学</a> › <span>活量係数と共沸</span></nav>
+    <article class="article">
+<h1>活量係数と共沸</h1>
+<p class="lead">ラウールの法則からずれる非理想溶液の気液平衡と活量係数の意味、正と負のずれ、マーギュレス式による活量係数の計算、共沸点が生じる条件と共沸組成の求め方、共沸混合物を分ける方法を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">ラウールの法則からのずれ</a></li><li><a href="#s2">マーギュレス式</a></li><li><a href="#s3">共沸</a></li><li><a href="#s4">共沸混合物を分けるには</a></li></ol></nav>
+
+<h2 id="s1">ラウールの法則からのずれ</h2>
+<p><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡の記事</a>では、性質の似た成分の混合物（理想溶液）でラウールの法則が成り立つことを見ました。しかし、水とアルコール、水と有機溶媒のように、分子の性質が大きく違う成分の混合物では、ラウールの法則から大きくずれます。このずれを補正するのが<strong>活量係数</strong> $\gamma_i$ です。</p>
+<div class="formula">$$y_i\,P = \gamma_i\,x_i\,p_i^{\text{sat}}$$</div>
+<ul>
+<li>$\gamma_i > 1$（<strong>正のずれ</strong>）：異なる分子どうしの引力が、同じ分子どうしより弱い。分子が液から逃げ出しやすく、蒸気圧が理想より高くなる。多くの混合物はこちら</li>
+<li>$\gamma_i < 1$（<strong>負のずれ</strong>）：異なる分子どうしが強く引き合う（水と酸、クロロホルムとアセトンなど）。蒸気圧が理想より低くなる</li>
+</ul>
+<p>ある成分の活量係数は、その成分が少ないほど1から大きく離れ、その成分だけになると1になります。</p>
+
+<h2 id="s2">マーギュレス式</h2>
+<p>活量係数を組成の関数として表す式（活量係数モデル）はいくつもあります。最も簡単な2成分系の<strong>マーギュレス式</strong>（1定数）は</p>
+<div class="formula">$$\ln \gamma_1 = A\,x_2^2, \qquad \ln \gamma_2 = A\,x_1^2$$</div>
+<p>です。$A$ は実験データから決める定数で、正なら正のずれ、負なら負のずれを表します。実用的には、2つの定数をもつファンラール式、ウィルソン式、NRTL 式などが使われ、実験データがない場合は分子の構造から推算する UNIFAC 法も使われます。</p>
+
+<h2 id="s3">共沸</h2>
+<p>ずれが大きいと、ある組成で気相と液相の組成が同じになります。これを<strong>共沸</strong>、その点を<strong>共沸点</strong>といいます。共沸点では $y_1 = x_1$ なので、上の式から</p>
+<div class="formula">$$\gamma_1\,p_1^{\text{sat}} = \gamma_2\,p_2^{\text{sat}}$$</div>
+<p>が成り立ちます。正のずれでは全圧が極大になる（沸点が極小になる）<strong>最低共沸</strong>、負のずれでは全圧が極小になる<strong>最高共沸</strong>になります。共沸点では比揮発度が1になるので、ふつうの蒸留ではそれ以上分けられません。水とエタノールは、エタノールのモル分率約0.89（質量で約96%）で最低共沸を作ります。</p>
+
+<div class="example">
+<strong>例題：共沸組成を求める</strong>
+<p>ある温度で、成分1の飽和蒸気圧が 100 kPa、成分2が 80 kPa の2成分系があります。この系の活量係数が、$A$ = 1.2 のマーギュレス式で表されるとき、(1) 共沸組成と共沸点の全圧を求めてください。(2) 液組成 $x_1$ = 0.2 のときの気相組成を求め、ラウールの法則とした場合と比べてください。</p>
+<div class="answer">
+<p>(1) 共沸点では $\ln \gamma_1 - \ln \gamma_2 = \ln(p_2^{\text{sat}}/p_1^{\text{sat}})$ なので、$A(x_2^2 - x_1^2) = A(1 - 2x_1) = \ln 0.8$</p>
+<p>$1 - 2x_1 = -0.223/1.2 \approx -0.186$ より、$x_1 \approx 0.59$</p>
+<p>このとき $\gamma_1 = e^{1.2 \times 0.407^2} \approx 1.22$、$\gamma_2 = e^{1.2 \times 0.593^2} \approx 1.53$、全圧は $1.22 \times 0.593 \times 100 + 1.53 \times 0.407 \times 80 \approx 122$ kPa で、どちらの純成分の蒸気圧よりも高くなります（最低共沸）。</p>
+<p>(2) $\gamma_1 = e^{1.2 \times 0.8^2} \approx 2.16$、$\gamma_2 = e^{1.2 \times 0.2^2} \approx 1.05$</p>
+<p>分圧は $2.16 \times 0.2 \times 100 = 43.2$ kPa と $1.05 \times 0.8 \times 80 = 67.2$ kPa、全圧 110.4 kPa、$y_1 = 43.2 / 110.4 \approx 0.39$ です。</p>
+<p>ラウールの法則なら $y_1 = 20 / (20 + 64) \approx 0.24$ です。活量係数を考えないと、気相組成も全圧も大きく外れてしまいます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/azeotrope-pxy.svg" target="_blank" rel="noopener"><img src="/fig/azeotrope-pxy.svg" alt="図1　例題の系の P-x-y 線図" width="580" height="330" loading="lazy"></a><figcaption>図1　例題の系の P-x-y 線図（マーギュレス式、A = 1.2）。共沸点で全圧が極大になり、液と蒸気の組成が一致する</figcaption></figure>
+
+<h2 id="s4">共沸混合物を分けるには</h2>
+<ul>
+<li><strong>圧力を変える</strong>：共沸組成は圧力で変わるので、圧力の違う2本の塔を組み合わせる（圧力スイング蒸留）</li>
+<li><strong>第3の成分を加える</strong>：共沸剤を加えて新しい共沸を作って取り除く（共沸蒸留）、または揮発しにくい溶剤を加えて比揮発度を変える（抽出蒸留）</li>
+<li><strong>蒸留以外の方法と組み合わせる</strong>：膜（浸透気化）や<a href="/adsorption/adsorption-isotherm.html">吸着</a>（ゼオライトによる脱水）で共沸点を越える。エタノールの脱水でよく使われる</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/thermo/thermal-conductivity-estimation.html">← 熱伝導率の推算</a><a class="next" href="/thermo/multicomponent-vle.html">多成分系の気液平衡 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/thermo/">物性と熱力学の記事</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/group-contribution.html">原子団寄与法による物性推算</a></li><li><a href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算</a></li><li><a href="/thermo/thermal-conductivity-estimation.html">熱伝導率の推算</a></li><li><a href="/thermo/activity-coefficient.html" aria-current="page">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/" aria-current="page">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

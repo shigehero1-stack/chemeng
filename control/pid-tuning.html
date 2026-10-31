@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PID制御のパラメータ調整｜ジーグラー・ニコルスの限界感度法｜はじめての化学工学</title>
+<meta name="description" content="PID制御の比例ゲイン・積分時間・微分時間の決め方として、ジーグラー・ニコルスの限界感度法とステップ応答法の手順、調整後の微調整のコツを例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/control/pid-tuning.html">
+<meta property="og:title" content="PID制御のパラメータ調整｜ジーグラー・ニコルスの限界感度法｜はじめての化学工学">
+<meta property="og:description" content="PID制御の比例ゲイン・積分時間・微分時間の決め方として、ジーグラー・ニコルスの限界感度法とステップ応答法の手順、調整後の微調整のコツを例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PID制御のパラメータ調整", "description": "PID制御の比例ゲイン・積分時間・微分時間の決め方として、ジーグラー・ニコルスの限界感度法とステップ応答法の手順、調整後の微調整のコツを例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/control/pid-tuning.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/control/">プロセス制御</a> › <span>PID制御のパラメータ調整</span></nav>
+    <article class="article">
+<h1>PID制御のパラメータ調整</h1>
+<p class="lead">PID制御の比例ゲイン・積分時間・微分時間の決め方として、ジーグラー・ニコルスの限界感度法とステップ応答法の手順、調整後の微調整のコツを例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">パラメータ調整（チューニング）とは</a></li><li><a href="#s2">ジーグラー・ニコルスの限界感度法</a></li><li><a href="#s3">ステップ応答法</a></li><li><a href="#s4">調整後の微調整</a></li><li><a href="#s5">よくある間違い</a></li><li><a href="#s6">練習問題</a></li></ol></nav>
+
+<h2 id="s1">パラメータ調整（チューニング）とは</h2>
+<p><a href="/control/feedback-pid.html">PID制御</a>では、比例ゲイン $K_p$、積分時間 $T_i$、微分時間 $T_d$ の3つの値を、制御するプロセスに合わせて決める必要があります。この作業を<strong>チューニング</strong>といいます。</p>
+<p>値が小さすぎると反応が鈍く、外乱からの回復に時間がかかります。大きすぎると行き過ぎや振動が起こり、最悪の場合は制御が不安定になります。</p>
+
+<h2 id="s2">ジーグラー・ニコルスの限界感度法</h2>
+<p>実際の制御ループを使って調整する、古くから知られた方法です。</p>
+<ol>
+<li>積分動作と微分動作を止め、比例動作だけにする</li>
+<li>比例ゲインを小さい値から少しずつ上げていく</li>
+<li>制御量が一定の振幅で振動し続ける（持続振動）ときのゲインを<strong>限界ゲイン</strong> $K_u$、振動の周期を<strong>限界周期</strong> $P_u$ として記録する</li>
+<li>次の表から各パラメータを計算する</li>
+</ol>
+<table>
+<tr><th>制御の種類</th><th>$K_p$</th><th>$T_i$</th><th>$T_d$</th></tr>
+<tr><td>P</td><td>$0.5\,K_u$</td><td>―</td><td>―</td></tr>
+<tr><td>PI</td><td>$0.45\,K_u$</td><td>$P_u / 1.2$</td><td>―</td></tr>
+<tr><td>PID</td><td>$0.6\,K_u$</td><td>$0.5\,P_u$</td><td>$0.125\,P_u$</td></tr>
+</table>
+<figure class="fig"><a href="/fig/ultimate-oscillation.svg" target="_blank" rel="noopener"><img src="/fig/ultimate-oscillation.svg" alt="図1　限界感度法の持続振動。このときのゲインと周期から PID のパラメータを決める" width="580" height="290" loading="lazy"></a><figcaption>図1　限界感度法の持続振動。このときのゲインと周期から PID のパラメータを決める</figcaption></figure>
+
+<div class="example">
+<strong>例題：限界感度法によるPIDパラメータ</strong>
+<p>ある温度制御ループで比例ゲインを上げていったところ、$K_u = 4.0$ で周期 60 秒の持続振動が起こりました。PI制御とPID制御のパラメータを求めてください。</p>
+<div class="answer">
+<p>PI制御：$K_p = 0.45 \times 4.0 = 1.8$、$T_i = 60 / 1.2 = 50\ \text{s}$</p>
+<p>PID制御：$K_p = 0.6 \times 4.0 = 2.4$、$T_i = 0.5 \times 60 = 30\ \text{s}$、$T_d = 0.125 \times 60 = 7.5\ \text{s}$</p>
+</div>
+</div>
+
+<div class="note">限界感度法は、実際のプロセスを意図的に振動させる必要があります。安全上や品質上それが許されないプロセスでは使えないので、次のステップ応答法やモデルを使った方法を選びます。</div>
+
+<h2 id="s3">ステップ応答法</h2>
+<p>制御をかけない状態（手動）で操作量をステップ状に変え、制御量の応答曲線を記録します。応答を<a href="/control/first-order-system.html">一次遅れ＋むだ時間</a>とみなして、ゲイン $K$、時定数 $\tau$、むだ時間 $L$ を読み取り、それをもとにパラメータを計算します。ジーグラー・ニコルスのステップ応答法や、より振動の少ない応答を狙ったCHR法、内部モデル制御（IMC）にもとづく方法など、いくつかの計算式が提案されています。</p>
+<figure class="fig"><a href="/fig/step-response-method.svg" target="_blank" rel="noopener"><img src="/fig/step-response-method.svg" alt="図2　ステップ応答法。S 字の応答の変曲点に接線を引き、むだ時間 L と時定数 T を読み取る" width="580" height="320" loading="lazy"></a><figcaption>図2　ステップ応答法。S 字の応答の変曲点に接線を引き、むだ時間 L と時定数 T を読み取る</figcaption></figure>
+
+<h2 id="s4">調整後の微調整</h2>
+<p>ジーグラー・ニコルスの方法で求めた値は、外乱をすばやく抑えることを重視した「やや振動的」な設定になりがちです。実際には、得られた値を出発点にして、応答を見ながら次のように微調整します。</p>
+<ul>
+<li>振動が大きい：比例ゲインを下げる、積分時間を長くする</li>
+<li>目標値に戻るのが遅い：比例ゲインを上げる、積分時間を短くする</li>
+<li>行き過ぎが大きい：微分時間を少し加える（ノイズが多い場合は注意）</li>
+</ul>
+<p>一度にたくさんのパラメータを変えず、1つずつ変えて効果を確かめるのがコツです。</p>
+<h2 id="s5">よくある間違い</h2>
+<ul>
+<li><strong>比例帯とゲイン：</strong>調節計によっては比例ゲイン $K_p$ ではなく比例帯 $PB = 100 / K_p$ [%] で設定します。$K_p = 2$ なら比例帯は 50% です。値を大きくしたときの効き方が逆になるので注意します。</li>
+<li><strong>積分時間と積分ゲイン：</strong>積分時間 $T_i$ を長くすると積分動作は弱くなります。積分ゲインで設定する機種では $K_i = K_p / T_i$ の関係があります。</li>
+<li><strong>秒と分：</strong>$T_i$・$T_d$ の単位が秒か分かは、調節計のメーカーや機種で違います。60倍ずれると、ほとんど効かないか、激しく振動します。</li>
+<li><strong>限界感度試験の危険：</strong>持続振動を起こす試験は、実際のプラントでは製品や安全に影響することがあります。振幅を小さく抑えるか、ステップ応答法やモデルにもとづく方法（<a href="/control/pid-design.html">PID 制御の設計</a>）を使います。</li>
+</ul>
+
+<h2 id="s6">練習問題</h2>
+<div class="example">
+<strong>練習：限界感度法でパラメータを決める</strong>
+<p>ある流量制御ループで、比例ゲインを上げていくと $K_u = 2.5$ で周期 $P_u = 120$ 秒の持続振動が起こりました。(1) P制御、(2) PI制御、(3) PID制御のパラメータを求めてください。PID制御の比例帯も答えてください。</p>
+<div class="answer">
+<p>(1) P制御：$K_p = 0.5 \times 2.5 = 1.25$</p>
+<p>(2) PI制御：$K_p = 0.45 \times 2.5 \approx 1.13$、$T_i = 120 / 1.2 = 100\ \text{s}$</p>
+<p>(3) PID制御：$K_p = 0.6 \times 2.5 = 1.5$、$T_i = 0.5 \times 120 = 60\ \text{s}$、$T_d = 0.125 \times 120 = 15\ \text{s}$。比例帯は $100 / 1.5 \approx 67\%$ です。</p>
+<p>ジーグラー・ニコルスの値は振動しやすめなので、実際にはここから $K_p$ を少し下げて様子を見ます。</p>
+</div>
+</div>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/control/pid-design.html">PID 制御の設計</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/control/transfer-functions.html">← 伝達関数とブロック線図</a><a class="next" href="/control/pid-design.html">PID 制御の設計 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/control/">プロセス制御の記事</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html" aria-current="page">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/" aria-current="page">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

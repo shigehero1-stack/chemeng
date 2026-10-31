@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>気固反応と未反応核モデル｜固体粒子の反応時間の計算｜はじめての化学工学</title>
+<meta name="description" content="鉱石の焙焼や還元、石炭の燃焼、触媒の再生など、気体と固体粒子の反応を表す未反応核モデルと、ガス境膜・生成物層内拡散・化学反応の各律速での反応率と時間の関係を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/reaction/gas-solid-reaction.html">
+<meta property="og:title" content="気固反応と未反応核モデル｜固体粒子の反応時間の計算｜はじめての化学工学">
+<meta property="og:description" content="鉱石の焙焼や還元、石炭の燃焼、触媒の再生など、気体と固体粒子の反応を表す未反応核モデルと、ガス境膜・生成物層内拡散・化学反応の各律速での反応率と時間の関係を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "気固反応と未反応核モデル", "description": "鉱石の焙焼や還元、石炭の燃焼、触媒の再生など、気体と固体粒子の反応を表す未反応核モデルと、ガス境膜・生成物層内拡散・化学反応の各律速での反応率と時間の関係を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/reaction/gas-solid-reaction.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/reaction/">反応工学</a> › <span>気固反応と未反応核モデル</span></nav>
+    <article class="article">
+<h1>気固反応と未反応核モデル</h1>
+<p class="lead">鉱石の焙焼や還元、石炭の燃焼、触媒の再生など、気体と固体粒子の反応を表す未反応核モデルと、ガス境膜・生成物層内拡散・化学反応の各律速での反応率と時間の関係を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">気固反応とは</a></li><li><a href="#s2">3つの抵抗</a></li><li><a href="#s3">装置の選び方</a></li></ol></nav>
+
+<h2 id="s1">気固反応とは</h2>
+<p>気体と固体が反応して、固体が別の固体や気体に変わる反応を<strong>気固反応</strong>といいます。鉄鉱石の水素や一酸化炭素による還元、硫化鉱の焙焼、石灰石の焼成、石炭やコークスの燃焼・ガス化、触媒にたまった炭素の燃焼（再生）などがその例です。<a href="/reaction/catalyst-effectiveness.html">固体触媒反応</a>と違い、固体そのものが反応して変化していきます。</p>
+<p>反応の進み方は、固体の構造によって大きく2つに分けて考えます。</p>
+<ul>
+<li><strong>均一反応モデル</strong>：気体が粒子全体にすぐ行き渡り、粒子の中のどこでも同時に反応が進む。多孔質で反応が遅い場合</li>
+<li><strong>未反応核モデル</strong>：反応は粒子の外側から始まり、反応した層（生成物の層、灰の層）の内側に、まだ反応していない芯（未反応核）が残って、だんだん小さくなっていく。緻密な固体で多く見られる</li>
+</ul>
+<figure class="fig"><a href="/fig/shrinking-core.svg" target="_blank" rel="noopener"><img src="/fig/shrinking-core.svg" alt="図1　未反応核モデル" width="620" height="260" loading="lazy"></a><figcaption>図1　未反応核モデル。反応面は外側から中心に向かって進み、外側には反応後の固体の層が残る</figcaption></figure>
+
+<h2 id="s2">3つの抵抗</h2>
+<p>未反応核モデルで、気体の反応物が未反応核の表面に届いて反応するまでには、次の3つの段階を通ります。</p>
+<ol>
+<li><strong>ガス境膜</strong>：粒子を包む<a href="/mass/mass-transfer-coefficient.html">境膜</a>を通って、粒子の外表面まで移動する</li>
+<li><strong>生成物層内の拡散</strong>：反応後にできた多孔質の層の中を、未反応核の表面まで拡散する</li>
+<li><strong>化学反応</strong>：未反応核の表面で反応する</li>
+</ol>
+<p>どの段階が一番遅いか（律速か）によって、反応率 $X$ と時間 $t$ の関係が変わります。粒子が完全に反応するまでの時間を $\tau$ とすると、球形の粒子で粒子の大きさが変わらない場合、次のようになります。</p>
+<table>
+<tr><th>律速段階</th><th>時間と反応率の関係</th><th>完全反応時間 τ と粒子半径 R</th></tr>
+<tr><td>ガス境膜</td><td>$t/\tau = X$</td><td>$\tau \propto R$</td></tr>
+<tr><td>生成物層内の拡散</td><td>$t/\tau = 1 - 3(1 - X)^{2/3} + 2(1 - X)$</td><td>$\tau \propto R^2$</td></tr>
+<tr><td>化学反応</td><td>$t/\tau = 1 - (1 - X)^{1/3}$</td><td>$\tau \propto R$</td></tr>
+</table>
+<p>粒子の大きさを変えて完全反応時間を測り、$R$ と $R^2$ のどちらに比例するかを見ると、律速段階を見分けられます。</p>
+<figure class="fig"><a href="/fig/shrinking-core-conversion.svg" target="_blank" rel="noopener"><img src="/fig/shrinking-core-conversion.svg" alt="図2　律速段階ごとの反応率と時間の関係" width="580" height="320" loading="lazy"></a><figcaption>図2　未反応核モデルの律速段階ごとの、反応率と時間の関係（時間は完全反応時間 τ で割った値）</figcaption></figure>
+
+<div class="example">
+<strong>例題：反応率90%までの時間</strong>
+<p>ある鉱石の粒子（直径 2 mm）を還元ガスで還元すると、完全に反応するまで 60 分かかります。(1) 化学反応が律速の場合と、(2) 生成物層内の拡散が律速の場合のそれぞれについて、反応率 50% と 90% に達する時間を求めてください。(3) 粒子を直径 1 mm にすると、完全反応時間はどうなりますか。</p>
+<div class="answer">
+<p>(1) 化学反応律速：50% で $t/\tau = 1 - 0.5^{1/3} \approx 0.206$、$t \approx 12$ 分。90% で $1 - 0.1^{1/3} \approx 0.536$、$t \approx 32$ 分</p>
+<p>(2) 生成物層内の拡散律速：50% で $1 - 3 \times 0.5^{2/3} + 2 \times 0.5 \approx 0.110$、$t \approx 6.6$ 分。90% で $1 - 3 \times 0.1^{2/3} + 0.2 \approx 0.554$、$t \approx 33$ 分</p>
+<p>(3) 化学反応律速なら $\tau \propto R$ で 30 分、拡散律速なら $\tau \propto R^2$ で 15 分になります。</p>
+<p>拡散律速では、反応が進んで生成物の層が厚くなるほど遅くなるので、初めは速く、終わりにかけて急に遅くなります。また粒子を細かくする効果が大きく、半分の大きさで時間は4分の1になります。</p>
+</div>
+</div>
+
+<h2 id="s3">装置の選び方</h2>
+<p>気固反応の装置には、粒子を積んだ層にガスを流す固定層・移動層、粒子を浮かせて混ぜる<a href="/particle/fluidized-bed.html">流動層</a>、回転する円筒の中で粒子を転がすロータリーキルンなどがあります。粒子の大きさ、反応熱の大きさ（発熱が大きいと温度の均一な流動層が有利）、必要な滞留時間、生成物の取り出しやすさを考えて選びます。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/materials/cvd-film-growth.html">CVD の成膜速度</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/reaction/bioreactor-monod.html">← 微生物反応とバイオリアクター</a><a class="next" href="/reaction/polymerization-basics.html">重合反応の基礎 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/reaction/">反応工学の記事</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html" aria-current="page">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/" aria-current="page">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

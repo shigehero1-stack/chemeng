@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>化学工学の無次元数一覧｜Re・Pr・Nu・Sc・Shの意味｜はじめての化学工学</title>
+<meta name="description" content="レイノルズ数、プラントル数、ヌッセルト数などの無次元数を、式と「何と何の比か」という意味で一覧にまとめます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/basics/dimensionless-numbers.html">
+<meta property="og:title" content="化学工学の無次元数一覧｜Re・Pr・Nu・Sc・Shの意味｜はじめての化学工学">
+<meta property="og:description" content="レイノルズ数、プラントル数、ヌッセルト数などの無次元数を、式と「何と何の比か」という意味で一覧にまとめます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "化学工学の無次元数一覧", "description": "レイノルズ数、プラントル数、ヌッセルト数などの無次元数を、式と「何と何の比か」という意味で一覧にまとめます。", "datePublished": "2026-09-28", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/basics/dimensionless-numbers.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/basics/">基礎</a> › <span>化学工学の無次元数一覧</span></nav>
+    <article class="article">
+<h1>化学工学の無次元数一覧</h1>
+<p class="lead">レイノルズ数、プラントル数、ヌッセルト数などの無次元数を、式と「何と何の比か」という意味で一覧にまとめます。</p>
+<p class="byline">公開日 <time datetime="2026-09-28">2026-09-28</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">無次元数とは</a></li><li><a href="#s2">よく使う無次元数</a></li><li><a href="#s3">熱と物質の「そっくりな関係」</a></li><li><a href="#s4">使うときの注意</a></li><li><a href="#s5">練習問題</a></li></ol></nav>
+
+<h2 id="s1">無次元数とは</h2>
+<p>単位が打ち消しあって単位をもたない数を<strong>無次元数</strong>といいます。化学工学では、流れや熱・物質の移動の様子を、装置の大きさや流体の種類によらず比べるために無次元数を使います。</p>
+<p>たとえば小さな実験装置と大きな実機で同じレイノルズ数になるように条件をそろえれば、流れの状態（層流か乱流か）も同じになると考えられます。これがスケールアップの基本的な考え方の一つです。</p>
+
+<h2 id="s2">よく使う無次元数</h2>
+<table>
+<tr><th>名前</th><th>式</th><th>意味（何と何の比か）</th><th>主な用途</th></tr>
+<tr><td>レイノルズ数 Re</td><td>$\dfrac{\rho u D}{\mu}$</td><td>慣性力 ÷ 粘性力</td><td>層流か乱流かの判定</td></tr>
+<tr><td>プラントル数 Pr</td><td>$\dfrac{c_p \mu}{k}$</td><td>運動量の伝わりやすさ ÷ 熱の伝わりやすさ</td><td>伝熱の相関式</td></tr>
+<tr><td>ヌッセルト数 Nu</td><td>$\dfrac{h D}{k}$</td><td>対流による伝熱 ÷ 伝導だけの伝熱</td><td>熱伝達係数の計算</td></tr>
+<tr><td>シュミット数 Sc</td><td>$\dfrac{\mu}{\rho D_{AB}}$</td><td>運動量の伝わりやすさ ÷ 物質の拡散しやすさ</td><td>物質移動の相関式</td></tr>
+<tr><td>シャーウッド数 Sh</td><td>$\dfrac{k_c D}{D_{AB}}$</td><td>対流による物質移動 ÷ 拡散だけの物質移動</td><td>物質移動係数の計算</td></tr>
+<tr><td>フルード数 Fr</td><td>$\dfrac{u^2}{g L}$</td><td>慣性力 ÷ 重力</td><td>撹拌槽の渦、開水路の流れ</td></tr>
+</table>
+<p>記号：$\rho$ 密度、$u$ 流速、$D$ 管径などの代表長さ、$\mu$ 粘度、$c_p$ 比熱、$k$ 熱伝導率、$h$ 熱伝達係数、$D_{AB}$ 拡散係数、$k_c$ 物質移動係数、$g$ 重力加速度。</p>
+
+<h2 id="s3">熱と物質の「そっくりな関係」</h2>
+<p>表を見ると、Nu と Sh、Pr と Sc がそれぞれよく似た形をしていることに気づきます。熱の移動と物質の移動は同じような仕組みで起こるため、伝熱で得られた相関式 $\text{Nu} = f(\text{Re}, \text{Pr})$ の Nu を Sh に、Pr を Sc に置きかえると、物質移動の見積もりに使えることがあります。この考え方を<strong>アナロジー（相似則）</strong>といいます。</p>
+<figure class="fig"><a href="/fig/dimensionless-analogy.svg" target="_blank" rel="noopener"><img src="/fig/dimensionless-analogy.svg" alt="図1　伝熱と物質移動の無次元数の対応。伝熱の式の Nu を Sh に、Pr を Sc に置きかえて使える" width="600" height="250" loading="lazy"></a><figcaption>図1　伝熱と物質移動の無次元数の対応。伝熱の式の Nu を Sh に、Pr を Sc に置きかえて使える</figcaption></figure>
+
+<div class="example">
+<strong>例題：水のプラントル数</strong>
+<p>25 °C の水について、粘度 $\mu = 0.89 \times 10^{-3}$ Pa·s、比熱 $c_p = 4180$ J/(kg·K)、熱伝導率 $k = 0.607$ W/(m·K) とします。プラントル数を求めてください。</p>
+<div class="answer">
+<p>$\text{Pr} = \dfrac{c_p \mu}{k} = \dfrac{4180 \times 0.89 \times 10^{-3}}{0.607} \approx 6.1$</p>
+<p>単位は J/(kg·K) × kg/(m·s) ÷ W/(m·K) で、すべて打ち消しあって無次元になります。ちなみに空気の Pr は約0.7、油は数百〜数千と大きくなります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/prandtl-number-compare.svg" target="_blank" rel="noopener"><img src="/fig/prandtl-number-compare.svg" alt="図2　流体によるプラントル数の違い（対数目盛）。油は水よりも数百倍大きい" width="560" height="220" loading="lazy"></a><figcaption>図2　流体によるプラントル数の違い（対数目盛）。油は水よりも数百倍大きい</figcaption></figure>
+<h2 id="s4">使うときの注意</h2>
+<ul>
+<li><strong>代表長さの取り方：</strong>同じ Re でも、円管なら管径、撹拌槽なら翼の直径、平板なら先端からの距離を使います。相関式の出典がどの長さを使っているかを必ず確かめます。</li>
+<li><strong>単位をそろえる：</strong>無次元数は単位が打ち消しあうことが前提です。粘度を cP のまま、管径を mm のまま入れると、桁が大きくずれます。</li>
+<li><strong>物性値の温度：</strong>流体の温度が入口と出口で大きく違うときは、平均温度（膜温度）での物性値を使うなど、相関式が決めている条件に合わせます。</li>
+</ul>
+
+<h2 id="s5">練習問題</h2>
+<div class="example">
+<strong>練習1：ダクトを流れる空気のレイノルズ数</strong>
+<p>内径 0.3 m の円形ダクトに、20 °C の空気が 10 m/s で流れています。密度 1.20 kg/m³、粘度 $1.81 \times 10^{-5}$ Pa·s として、Re を求めてください。</p>
+<div class="answer"><p>$\text{Re} = \dfrac{1.20 \times 10 \times 0.3}{1.81 \times 10^{-5}} \approx 2.0 \times 10^{5}$。十分に乱流です。</p></div>
+</div>
+<div class="example">
+<strong>練習2：空気中の水蒸気のシュミット数</strong>
+<p>上の空気に含まれる水蒸気の拡散係数を $D_{AB} = 2.5 \times 10^{-5}$ m²/s とします。シュミット数 $\text{Sc} = \mu / (\rho D_{AB})$ を求めてください。</p>
+<div class="answer"><p>動粘度は $\nu = \mu/\rho = 1.81 \times 10^{-5} / 1.20 = 1.51 \times 10^{-5}$ m²/s なので、$\text{Sc} = 1.51 \times 10^{-5} / 2.5 \times 10^{-5} \approx 0.60$ です。気体の Sc は 1 前後で、空気の Pr（約 0.7）と近い値になります。このため気体では、熱と物質の移動がほぼ同じように進みます（<a href="/mass/boundary-layer-analogy.html">境界層とアナロジー</a>）。</p></div>
+</div>
+
+
+<nav class="pager"><a class="prev" href="/basics/energy-balance.html">← エネルギー収支（熱収支）の基本</a><a class="next" href="/basics/combustion.html">燃焼計算の基本 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎の記事</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html" aria-current="page">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/" aria-current="page">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>非線形方程式の解き方｜二分法とニュートン法、摩擦係数の計算例｜はじめての化学工学</title>
+<meta name="description" content="化学工学でよく出てくる、手で解けない方程式を数値的に解く二分法とニュートン法を、コールブルックの式から管摩擦係数を求める例題と Python のプログラムで解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/numerical/nonlinear-equations.html">
+<meta property="og:title" content="非線形方程式の解き方｜二分法とニュートン法、摩擦係数の計算例｜はじめての化学工学">
+<meta property="og:description" content="化学工学でよく出てくる、手で解けない方程式を数値的に解く二分法とニュートン法を、コールブルックの式から管摩擦係数を求める例題と Python のプログラムで解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "非線形方程式の解き方", "description": "化学工学でよく出てくる、手で解けない方程式を数値的に解く二分法とニュートン法を、コールブルックの式から管摩擦係数を求める例題と Python のプログラムで解説します。", "datePublished": "2026-09-30", "dateModified": "2026-10-09", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/numerical/nonlinear-equations.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/numerical/">数値計算</a> › <span>非線形方程式の解き方</span></nav>
+    <article class="article">
+<h1>非線形方程式の解き方</h1>
+<p class="lead">化学工学でよく出てくる、手で解けない方程式を数値的に解く二分法とニュートン法を、コールブルックの式から管摩擦係数を求める例題と Python のプログラムで解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-30">2026-09-30</time>　更新日 <time datetime="2026-10-09">2026-10-09</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">手で解けない方程式</a></li><li><a href="#s2">二分法</a></li><li><a href="#s3">ニュートン法</a></li><li><a href="#s4">コールブルックの式</a></li><li><a href="#s5">収束しないときのチェックポイント</a></li></ol></nav>
+
+<h2 id="s1">手で解けない方程式</h2>
+<p>化学工学の計算では、未知数について式を解けない方程式がよく出てきます。</p>
+<ul>
+<li>ある温度での混合物の沸点（<a href="/thermo/xy-diagram.html">気液平衡</a>）</li>
+<li>流量から圧力損失を求めるときの管摩擦係数（コールブルックの式）</li>
+<li>理想気体でない気体の体積（3次の状態方程式）</li>
+</ul>
+<p>このような方程式は、$f(x) = 0$ の形に直して、答えを少しずつ絞り込んでいく<strong>数値解法</strong>で解きます。代表的な2つの方法を紹介します。</p>
+
+<h2 id="s2">二分法</h2>
+<p>$f(a)$ と $f(b)$ の符号が逆なら、その間に解があります。区間の真ん中 $m = (a + b)/2$ で $f(m)$ を計算し、符号が変わる側の半分に区間を狭める、という操作を繰り返します。</p>
+<ul>
+<li>長所：解が区間の中にあれば<strong>必ず収束する</strong>。プログラムが簡単</li>
+<li>短所：1回の計算で区間が半分になるだけなので、収束が遅い（10回で約1000分の1）</li>
+</ul>
+<figure class="fig"><a href="/fig/bisection-method.svg" target="_blank" rel="noopener"><img src="/fig/bisection-method.svg" alt="図1　二分法の考え方。1回ごとに区間が半分になる" width="580" height="260" loading="lazy"></a><figcaption>図1　二分法の考え方。1回ごとに区間が半分になる</figcaption></figure>
+
+<h2 id="s3">ニュートン法</h2>
+<p>今の近似値 $x_k$ での接線が $x$ 軸と交わる点を、次の近似値にします。</p>
+<div class="formula">$$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}$$</div>
+<ul>
+<li>長所：解の近くでは<strong>非常に速く収束する</strong>（1回ごとに正しい桁数がほぼ倍になる）</li>
+<li>短所：導関数 $f'(x)$ が必要。初期値が悪いと、発散したり別の解に行ったりする</li>
+</ul>
+<p>実用上は、まず二分法でおおまかな範囲をしぼり、ニュートン法で仕上げる、という組み合わせもよく使われます。表計算ソフトの「ゴールシーク」も、同じように数値的に解を探す機能です。</p>
+<figure class="fig"><a href="/fig/newton-method.svg" target="_blank" rel="noopener"><img src="/fig/newton-method.svg" alt="図2　ニュートン法の考え方。接線をたどって解に近づく" width="580" height="330" loading="lazy"></a><figcaption>図2　ニュートン法の考え方。接線をたどって解に近づく</figcaption></figure>
+
+<h2 id="s4">コールブルックの式</h2>
+<p>乱流の管摩擦係数 $f$（ダルシーの摩擦係数）は、管の相対粗さ $\varepsilon/D$ とレイノルズ数から、次のコールブルックの式で求められます。</p>
+<div class="formula">$$\frac{1}{\sqrt{f}} = -2\log_{10}\left(\frac{\varepsilon/D}{3.7} + \frac{2.51}{Re\,\sqrt{f}}\right)$$</div>
+<p>$f$ が両辺にあるので、手では解けません。$x = 1/\sqrt{f}$ とおくと、$F(x) = x + 2\log_{10}\left(\dfrac{\varepsilon/D}{3.7} + \dfrac{2.51\,x}{Re}\right) = 0$ を解く問題になります。</p>
+
+<div class="example">
+<strong>例題：管摩擦係数を求める</strong>
+<p>レイノルズ数 $10^5$、相対粗さ $\varepsilon/D = 10^{-4}$ の管の摩擦係数を、コールブルックの式から求めてください。</p>
+<div class="answer">
+<pre><code>import math
+
+def colebrook(Re, eps_D, x=5.0, tol=1e-10):
+    &quot;&quot;&quot;コールブルックの式を x = 1/sqrt(f) についてニュートン法で解く&quot;&quot;&quot;
+    for i in range(50):
+        F = x + 2 * math.log10(eps_D / 3.7 + 2.51 * x / Re)
+        dF = 1 + 2 / math.log(10) * (2.51 / Re) / (eps_D / 3.7 + 2.51 * x / Re)
+        x_new = x - F / dF
+        if abs(x_new - x) &lt; tol:
+            return 1 / x_new ** 2, i + 1
+        x = x_new
+    raise RuntimeError(&quot;収束しませんでした&quot;)
+
+f, n = colebrook(1e5, 1e-4)
+print(f&quot;f = {f:.5f}（{n} 回で収束）&quot;)</code></pre>
+<p>実行結果：</p>
+<pre class="output"><code>f = 0.01851（4 回で収束）</code></pre>
+<p>初期値 $x = 5$（$f = 0.04$）から始めて、4回で収束しました。なめらかな管とみなしたブラジウスの式（<a href="/fluid/pressure-loss.html">管内の圧力損失</a>の記事を参照）では $f \approx 0.0178$ となり、わずかな粗さで摩擦係数が 4% ほど大きくなることがわかります。</p>
+</div>
+</div>
+
+<h2 id="s5">収束しないときのチェックポイント</h2>
+<ul>
+<li>初期値が解から離れすぎていないか（物理的にありうる範囲から始める）</li>
+<li>解が複数ある方程式で、ほしい解の近くから始めているか</li>
+<li>導関数の式が正しいか（数値微分で確かめられる）</li>
+<li>繰り返しの上限回数と、収束の判定（差がどれだけ小さくなったら止めるか）を決めておく</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/numerical/least-squares.html">← 最小二乗法とパラメータ推定</a><a class="next" href="/numerical/ode.html">常微分方程式の数値解法 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/numerical/">数値計算の記事</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html" aria-current="page">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html">線形計画法の基本</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/" aria-current="page">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

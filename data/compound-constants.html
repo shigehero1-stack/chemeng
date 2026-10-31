@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>主な物質の物性定数表｜沸点・臨界温度・臨界圧力・アントワン定数｜はじめての化学工学</title>
+<meta name="description" content="水、アルコール、芳香族、炭化水素、ガスなど25物質の分子量、標準沸点、臨界温度、臨界圧力、アントワン定数をまとめた表です。NISTのデータから整理し、CSVでもダウンロードできます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/data/compound-constants.html">
+<meta property="og:title" content="主な物質の物性定数表｜沸点・臨界温度・臨界圧力・アントワン定数｜はじめての化学工学">
+<meta property="og:description" content="水、アルコール、芳香族、炭化水素、ガスなど25物質の分子量、標準沸点、臨界温度、臨界圧力、アントワン定数をまとめた表です。NISTのデータから整理し、CSVでもダウンロードできます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "主な物質の物性定数表", "description": "水、アルコール、芳香族、炭化水素、ガスなど25物質の分子量、標準沸点、臨界温度、臨界圧力、アントワン定数をまとめた表です。NISTのデータから整理し、CSVでもダウンロードできます。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/data/compound-constants.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/data/">物性データ集</a> › <span>主な物質の物性定数表</span></nav>
+    <article class="article">
+<h1>主な物質の物性定数表</h1>
+<p class="lead">水、アルコール、芳香族、炭化水素、ガスなど25物質の分子量、標準沸点、臨界温度、臨界圧力、アントワン定数をまとめた表です。NISTのデータから整理し、CSVでもダウンロードできます。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+
+
+<p>化学工学の計算でよく使う25の物質について、分子量、標準沸点（1気圧での沸点）、臨界温度、臨界圧力、蒸気圧を計算するアントワン式の定数をまとめた表です。数値は米国国立標準技術研究所（NIST）が公開しているデータベース「NIST Chemistry WebBook」から、当サイトで物質と値を選んで整理しました。</p>
+<h2 id="s1">主な物質の物性定数</h2>
+<div class="note"><strong>アントワン式の形に注意</strong>：この表の A、B、C は $\log_{10} p = A - \dfrac{B}{T + C}$ で、<strong>圧力 $p$ は bar、温度 $T$ は K</strong> の形です。<a href="/thermo/vapor-pressure.html">蒸気圧の記事</a>の表（mmHg と °C の形）とは定数の値が違うので、混ぜて使わないでください。</div>
+<table class="num"><tr><th>物質</th><th>化学式</th><th>分子量<br>[g/mol]</th><th>標準沸点<br>[°C]</th><th>臨界温度<br>[K]</th><th>臨界温度<br>[°C]</th><th>臨界圧力<br>[MPa]</th><th>A</th><th>B</th><th>C</th><th>アントワン式の<br>範囲 [°C]</th></tr><tr><td>水</td><td>H₂O</td><td>18.015</td><td>100.0</td><td>647.096</td><td>373.9</td><td>22.064</td><td>5.08354</td><td>1663.125</td><td>-45.622</td><td>71〜100</td></tr><tr><td>メタノール</td><td>CH₃OH</td><td>32.042</td><td>64.5</td><td>513 ± 1</td><td>239.9</td><td>8.1 ± 0.1</td><td>5.20409</td><td>1581.341</td><td>-33.50</td><td>15〜84</td></tr><tr><td>エタノール</td><td>C₂H₅OH</td><td>46.068</td><td>78.3</td><td>514 ± 7</td><td>240.9</td><td>6.3 ± 0.4</td><td>5.24677</td><td>1598.673</td><td>-46.424</td><td>20〜93</td></tr><tr><td>1-プロパノール</td><td>C₃H₇OH</td><td>60.095</td><td>97.2</td><td>536.9 ± 0.8</td><td>263.8</td><td>5.2 ± 0.1</td><td>5.31384</td><td>1690.864</td><td>-51.804</td><td>19〜97</td></tr><tr><td>2-プロパノール</td><td>C₃H₇OH</td><td>60.095</td><td>82.2</td><td>509 ± 2</td><td>235.9</td><td>4.9 ± 0.5</td><td>4.8610</td><td>1357.427</td><td>-75.814</td><td>57〜89</td></tr><tr><td>アセトン</td><td>C₃H₆O</td><td>58.079</td><td>56.3</td><td>508 ± 2</td><td>234.9</td><td>4.8 ± 0.4</td><td>4.42448</td><td>1312.253</td><td>-32.445</td><td>-14〜234</td></tr><tr><td>酢酸</td><td>CH₃COOH</td><td>60.052</td><td>117.9</td><td>593 ± 3</td><td>319.9</td><td>5.781</td><td>4.68206</td><td>1642.54</td><td>-39.764</td><td>17〜118</td></tr><tr><td>酢酸エチル</td><td>C₄H₈O₂</td><td>88.105</td><td>77.1</td><td>530 ± 20</td><td>256.9</td><td>3.882</td><td>4.22809</td><td>1245.702</td><td>-55.189</td><td>16〜76</td></tr><tr><td>ベンゼン</td><td>C₆H₆</td><td>78.112</td><td>80.1</td><td>562.0 ± 0.8</td><td>288.9</td><td>4.89 ± 0.04</td><td>4.01814</td><td>1203.835</td><td>-53.226</td><td>15〜81</td></tr><tr><td>トルエン</td><td>C₇H₈</td><td>92.138</td><td>110.6</td><td>593 ± 2</td><td>319.9</td><td>4.1 ± 0.1</td><td>4.07827</td><td>1343.943</td><td>-53.773</td><td>35〜112</td></tr><tr><td>p-キシレン</td><td>C₈H₁₀</td><td>106.165</td><td>138.4</td><td>617 ± 3</td><td>343.9</td><td>3.5 ± 0.2</td><td>4.14553</td><td>1474.403</td><td>-55.377</td><td>13〜179</td></tr><tr><td>n-ペンタン</td><td>C₅H₁₂</td><td>72.149</td><td>36.1</td><td>469.8 ± 0.5</td><td>196.7</td><td>3.36 ± 0.06</td><td>3.9892</td><td>1070.617</td><td>-40.454</td><td>-4〜68</td></tr><tr><td>n-ヘキサン</td><td>C₆H₁₄</td><td>86.175</td><td>68.7</td><td>507.6 ± 0.5</td><td>234.5</td><td>3.02 ± 0.04</td><td>4.00266</td><td>1171.53</td><td>-48.784</td><td>13〜70</td></tr><tr><td>n-ヘプタン</td><td>C₇H₁₆</td><td>100.202</td><td>98.4</td><td>540 ± 2</td><td>266.9</td><td>2.74 ± 0.03</td><td>4.02832</td><td>1268.636</td><td>-56.199</td><td>26〜99</td></tr><tr><td>シクロヘキサン</td><td>C₆H₁₂</td><td>84.159</td><td>80.7</td><td>554 ± 1</td><td>280.9</td><td>4.07 ± 0.05</td><td>3.96988</td><td>1203.526</td><td>-50.287</td><td>20〜82</td></tr><tr><td>クロロホルム</td><td>CHCl₃</td><td>119.378</td><td>61.3</td><td>537 ± 2</td><td>263.9</td><td>5.329</td><td>4.20772</td><td>1233.129</td><td>-40.953</td><td>-58〜61</td></tr><tr><td>ジクロロメタン</td><td>CH₂Cl₂</td><td>84.933</td><td>40.2</td><td>508</td><td>234.9</td><td>6.355</td><td>4.53691</td><td>1327.016</td><td>-20.474</td><td>-40〜40</td></tr><tr><td>アンモニア</td><td>NH₃</td><td>17.030</td><td>-33.7</td><td>405.4</td><td>132.2</td><td>11.3</td><td>4.86886</td><td>1113.928</td><td>-10.409</td><td>-34〜98</td></tr><tr><td>二酸化炭素</td><td>CO₂</td><td>44.010</td><td>（昇華 −78.5）</td><td>304.18</td><td>31.0</td><td>7.38</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>窒素</td><td>N₂</td><td>28.013</td><td>-195.4</td><td>126.19</td><td>-147.0</td><td>3.398</td><td>3.7362</td><td>264.651</td><td>-6.788</td><td>-210〜-147</td></tr><tr><td>酸素</td><td>O₂</td><td>31.999</td><td>-182.8</td><td>154.58</td><td>-118.6</td><td>5.043</td><td>3.9523</td><td>340.024</td><td>-4.144</td><td>-219〜-119</td></tr><tr><td>メタン</td><td>CH₄</td><td>16.043</td><td>-161.5</td><td>190.6 ± 0.3</td><td>-82.5</td><td>4.61 ± 0.03</td><td>3.9895</td><td>443.028</td><td>-0.49</td><td>-182〜-83</td></tr><tr><td>エタン</td><td>C₂H₆</td><td>30.069</td><td>-88.7</td><td>305.3 ± 0.3</td><td>32.2</td><td>4.9 ± 0.1</td><td>3.93835</td><td>659.739</td><td>-16.719</td><td>-137〜-73</td></tr><tr><td>プロパン</td><td>C₃H₈</td><td>44.096</td><td>-42.7</td><td>369.9 ± 0.2</td><td>96.8</td><td>4.25 ± 0.01</td><td>3.98292</td><td>819.296</td><td>-24.417</td><td>-43〜48</td></tr><tr><td>n-ブタン</td><td>C₄H₁₀</td><td>58.122</td><td>-0.8</td><td>425 ± 1</td><td>151.9</td><td>3.80 ± 0.01</td><td>4.35576</td><td>1175.581</td><td>-2.071</td><td>0〜152</td></tr></table>
+<p class="download">CSV ファイル：<a href="/data/compound-constants.csv" download>主な物質の物性定数（compound-constants.csv）</a>（Excel などで開けます）</p>
+<h2 id="s2">表の見方</h2>
+<ul>
+<li><strong>標準沸点</strong>：表のアントワン式で蒸気圧が 1.01325 bar になる温度を計算した値です。文献の沸点と0.5 °C程度ずれることがありますが、表のアントワン式と組み合わせて使うときはこの値のほうが矛盾がありません</li>
+<li><strong>臨界温度・臨界圧力</strong>：NIST が多数の測定値を平均した値（± はそのばらつきの目安）か、表の下の出典の測定値です。水は IAPWS が定めた値です</li>
+<li><strong>アントワン式の範囲</strong>：定数を求めたときの測定温度の範囲です。範囲の外で使うと誤差が大きくなるので、外挿はなるべく避けてください</li>
+</ul>
+<div class="example">
+<strong>使い方の例：80 °C のトルエンの蒸気圧</strong>
+<p>$T$ = 353.15 K を入れると $\log_{10} p = 4.07827 - \dfrac{1343.943}{353.15 + (-53.773)}$ より $p \approx 0.388$ bar ≒ 38.8 kPa です。80 °C は表の範囲（35〜112 °C）の中なので、この値は信頼できます。</p>
+</div>
+<h2 id="s3">出典</h2>
+<ul>
+<li>P. J. Linstrom and W. G. Mallard (Eds.), <a href="https://webbook.nist.gov/chemistry/" rel="nofollow">NIST Chemistry WebBook, NIST Standard Reference Database Number 69</a>, National Institute of Standards and Technology（各物質の「Phase change data」）。アントワン定数と臨界定数の元の文献は CSV ファイルに載せています</li>
+<li>水の臨界定数：IAPWS R2-83(1992), "Release on the Values of Temperature, Pressure and Density of Ordinary and Heavy Water Substances at their Respective Critical Points"</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/data/air-properties.html">← 乾き空気の物性値表</a><a class="next" href="/data/constants-units.html">基本物理定数と単位換算表 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/data/">物性データ集の記事</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html" aria-current="page">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/" aria-current="page">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

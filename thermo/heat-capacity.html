@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>熱容量と比熱の温度依存性｜平均比熱とエンタルピー変化の計算｜はじめての化学工学</title>
+<meta name="description" content="気体の比熱が温度で変わる理由と、温度の多項式（Shomate式）で表した比熱から顕熱（エンタルピー変化）を積分で求める方法、平均比熱の使い方、燃焼排ガスの熱量の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/thermo/heat-capacity.html">
+<meta property="og:title" content="熱容量と比熱の温度依存性｜平均比熱とエンタルピー変化の計算｜はじめての化学工学">
+<meta property="og:description" content="気体の比熱が温度で変わる理由と、温度の多項式（Shomate式）で表した比熱から顕熱（エンタルピー変化）を積分で求める方法、平均比熱の使い方、燃焼排ガスの熱量の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "熱容量と比熱の温度依存性", "description": "気体の比熱が温度で変わる理由と、温度の多項式（Shomate式）で表した比熱から顕熱（エンタルピー変化）を積分で求める方法、平均比熱の使い方、燃焼排ガスの熱量の計算を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/thermo/heat-capacity.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/thermo/">物性と熱力学</a> › <span>熱容量と比熱の温度依存性</span></nav>
+    <article class="article">
+<h1>熱容量と比熱の温度依存性</h1>
+<p class="lead">気体の比熱が温度で変わる理由と、温度の多項式（Shomate式）で表した比熱から顕熱（エンタルピー変化）を積分で求める方法、平均比熱の使い方、燃焼排ガスの熱量の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">比熱は温度で変わる</a></li><li><a href="#s2">比熱を温度の式で表す</a></li><li><a href="#s3">平均比熱</a></li><li><a href="#s4">液体と固体の比熱</a></li></ol></nav>
+
+<h2 id="s1">比熱は温度で変わる</h2>
+<p><a href="/basics/energy-balance.html">エネルギー収支の記事</a>では、比熱を一定として $Q = m c_p \Delta T$ で顕熱を計算しました。温度差が小さいときはこれで十分ですが、燃焼排ガスや反応器の加熱のように温度が数百 °C も変わる場合は、比熱の温度による変化を考える必要があります。</p>
+<p>気体の分子は、温度が上がると、並進運動や回転だけでなく、原子どうしの振動にもエネルギーをためられるようになります。そのため、原子の多い分子ほど、温度とともに比熱が大きく増えます。単原子のアルゴンはほぼ一定ですが、二酸化炭素や水蒸気は 300 K から 1000 K の間で 1.4 倍前後になります。</p>
+<figure class="fig"><a href="/fig/gas-heat-capacity.svg" target="_blank" rel="noopener"><img src="/fig/gas-heat-capacity.svg" alt="図1　気体のモル比熱の温度変化" width="580" height="320" loading="lazy"></a><figcaption>図1　気体の定圧モル比熱の温度変化（NIST の Shomate 式から計算）。分子が複雑なほど温度とともに大きく増える</figcaption></figure>
+
+<h2 id="s2">比熱を温度の式で表す</h2>
+<p>比熱の温度変化は、温度の多項式で表すのが一般的です。NIST の熱化学データベースでは、次の <strong>Shomate 式</strong>の係数が多くの物質について公開されています。</p>
+<div class="formula">$$c_p = A + B\,t + C\,t^2 + D\,t^3 + \frac{E}{t^2}, \qquad t = \frac{T}{1000}$$</div>
+<p>$c_p$ の単位は J/(mol·K)、$T$ は絶対温度 [K] です。係数には使える温度範囲があり、範囲が分かれている物質では、温度に応じて係数を使い分けます。</p>
+<p>温度 $T_1$ から $T_2$ まで加熱するのに必要な熱（エンタルピー変化）は、比熱を積分して求めます。</p>
+<div class="formula">$$\Delta H = \int_{T_1}^{T_2} c_p\,dT$$</div>
+<p>多項式なので項ごとに積分でき、Shomate 式では $H(T) - H(298.15\ \text{K})$ を表す式も合わせて公開されています。</p>
+
+<h2 id="s3">平均比熱</h2>
+<p>温度 $T_1$ から $T_2$ までのエンタルピー変化を温度差で割った値を<strong>平均比熱</strong>といいます。</p>
+<div class="formula">$$\bar{c}_p = \frac{\Delta H}{T_2 - T_1}$$</div>
+<p>平均比熱がわかっていれば、$\Delta H = \bar{c}_p (T_2 - T_1)$ と、比熱一定のときと同じ形で計算できます。燃焼の計算などでは、基準温度（0 °C や 25 °C）からの平均比熱の表がよく使われます。ただし、平均比熱は温度の範囲ごとに値が違うので、使う範囲に合った値を選ぶ必要があります。</p>
+
+<div class="example">
+<strong>例題：燃焼排ガスから回収できる熱</strong>
+<p><a href="/basics/combustion.html">燃焼計算の例題</a>で、メタン 1 m³N を空気比 1.2 で燃やしたときの排ガスは、CO₂ 1.00、H₂O 2.00、N₂ 9.03、O₂ 0.40 [m³N] でした。この排ガスを 1000 K から 500 K まで冷やすとき、出てくる熱を求めてください。各成分の 500〜1000 K の平均モル比熱は、Shomate 式から計算すると CO₂ 50.2、H₂O 38.2、N₂ 31.1、O₂ 33.2 [J/(mol·K)] です。</p>
+<div class="answer">
+<p>1 m³N は $1000 / 22.414 \approx 44.6$ mol です。成分ごとの熱は「物質量 × 平均比熱 × 温度差」で</p>
+<p>CO₂：$44.6 \times 1.00 \times 50.2 \times 500 \approx 1.12$ MJ</p>
+<p>H₂O：$44.6 \times 2.00 \times 38.2 \times 500 \approx 1.70$ MJ</p>
+<p>N₂：$44.6 \times 9.03 \times 31.1 \times 500 \approx 6.27$ MJ</p>
+<p>O₂：$44.6 \times 0.40 \times 33.2 \times 500 \approx 0.30$ MJ</p>
+<p>合計で約 <strong>9.4 MJ</strong> です。メタン 1 m³N の低位発熱量（約 35.8 MJ）の約26%にあたる熱が、排ガスを 500 K まで冷やすだけで回収できます。量の多い窒素が3分の2を占めているので、<a href="/basics/combustion.html">空気比</a>を下げて排ガスの量を減らすことが、熱損失を減らす近道です。</p>
+<p>比熱を 300 K の値で一定とした場合は、合計が約1割小さく見積もられます。温度の変化が大きいときは、温度による変化を考えることが大切です。</p>
+</div>
+</div>
+
+<h2 id="s4">液体と固体の比熱</h2>
+<ul>
+<li>液体の比熱は気体ほど大きく変わらないが、温度とともに少しずつ増えるものが多い。水の比熱は 0〜100 °C で 4.18〜4.22 kJ/(kg·K) とほぼ一定</li>
+<li>固体の比熱は、室温付近では「1 mol の原子あたり約 25 J/K」に近い値になることが多い（デュロン・プティの法則）</li>
+<li>混合物の比熱は、理想的な混合物なら各成分の比熱を組成で平均して見積もる。溶解熱や混合熱が大きい系（硫酸と水など）では、実測の値を使う</li>
+</ul>
+<p>主な物質の物性値は<a href="/data/">物性データ集</a>にまとめています。</p>
+
+
+<nav class="pager"><a class="prev" href="/thermo/xy-diagram.html">← x-y線図とT-x-y線図の読み方</a><a class="next" href="/thermo/viscosity.html">粘度の温度依存性と推算 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/thermo/">物性と熱力学の記事</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html" aria-current="page">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/group-contribution.html">原子団寄与法による物性推算</a></li><li><a href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算</a></li><li><a href="/thermo/thermal-conductivity-estimation.html">熱伝導率の推算</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/" aria-current="page">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

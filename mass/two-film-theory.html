@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二重境膜説と総括物質移動係数｜ガス側律速と液側律速｜はじめての化学工学</title>
+<meta name="description" content="気体と液体の界面をはさんだ物質移動を表す二重境膜説、気相・液相の物質移動係数から総括物質移動係数を求める式、ガス側律速と液側律速の見分け方を解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/mass/two-film-theory.html">
+<meta property="og:title" content="二重境膜説と総括物質移動係数｜ガス側律速と液側律速｜はじめての化学工学">
+<meta property="og:description" content="気体と液体の界面をはさんだ物質移動を表す二重境膜説、気相・液相の物質移動係数から総括物質移動係数を求める式、ガス側律速と液側律速の見分け方を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "二重境膜説と総括物質移動係数", "description": "気体と液体の界面をはさんだ物質移動を表す二重境膜説、気相・液相の物質移動係数から総括物質移動係数を求める式、ガス側律速と液側律速の見分け方を解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/mass/two-film-theory.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/mass/">物質移動</a> › <span>二重境膜説と総括物質移動係数</span></nav>
+    <article class="article">
+<h1>二重境膜説と総括物質移動係数</h1>
+<p class="lead">気体と液体の界面をはさんだ物質移動を表す二重境膜説、気相・液相の物質移動係数から総括物質移動係数を求める式、ガス側律速と液側律速の見分け方を解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">気液界面をはさんだ物質移動</a></li><li><a href="#s2">二重境膜説</a></li><li><a href="#s3">総括物質移動係数</a></li><li><a href="#s4">ガス側律速と液側律速</a></li></ol></nav>
+
+<h2 id="s1">気液界面をはさんだ物質移動</h2>
+<p>ガス吸収のように、気体中の成分が液体に移る場合、その成分は「気相の本体 → 気液界面 → 液相の本体」と移動します。界面の両側それぞれに移動の抵抗があるので、全体の速さを考えるには両方をまとめて扱う必要があります。</p>
+
+<h2 id="s2">二重境膜説</h2>
+<p><strong>二重境膜説</strong>（ルイス・ホイットマンの説）では、界面の気相側と液相側にそれぞれ薄い境膜があると考え、次の2つを仮定します。</p>
+<ul>
+<li>物質移動の抵抗は2つの境膜の中だけにある</li>
+<li>界面そのものでは、気相と液相の濃度がいつも<a href="/mass/henrys-law.html">気液平衡</a>にある</li>
+</ul>
+<p>定常状態では、気相側の境膜を通る量と液相側の境膜を通る量は等しいので、モル分率で表すと</p>
+<div class="formula">$$N_A = k_y\,(y - y_i) = k_x\,(x_i - x)$$</div>
+<p>となります。$y$、$x$ は気相・液相の本体の組成、$y_i$、$x_i$ は界面の組成、$k_y$、$k_x$ は気相・液相の<a href="/mass/mass-transfer-coefficient.html">物質移動係数</a> [mol/(m²·s)] です。</p>
+<figure class="fig"><a href="/fig/two-film-profile.svg" target="_blank" rel="noopener"><img src="/fig/two-film-profile.svg" alt="図1　二重境膜説の濃度分布。界面では気相と液相が平衡にあるとする" width="620" height="320" loading="lazy"></a><figcaption>図1　二重境膜説の濃度分布。界面では気相と液相が平衡にあるとする</figcaption></figure>
+
+<h2 id="s3">総括物質移動係数</h2>
+<p>界面の組成は直接測れないので、実際の計算では、測れる本体の組成だけで表した<strong>総括物質移動係数</strong>を使います。平衡関係が $y^* = m\,x$（直線）のとき、気相基準の総括物質移動係数 $K_y$ は</p>
+<div class="formula">$$N_A = K_y\,(y - y^*), \qquad \frac{1}{K_y} = \frac{1}{k_y} + \frac{m}{k_x}$$</div>
+<p>となります。$y^*$ は液相本体の組成 $x$ と平衡な気相組成です。液相基準でも同じように</p>
+<div class="formula">$$\frac{1}{K_x} = \frac{1}{m\,k_y} + \frac{1}{k_x}$$</div>
+<p>と書けます。<a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数</a>と同じく、抵抗の直列の考え方です。</p>
+
+<h2 id="s4">ガス側律速と液側律速</h2>
+<p>$1/K_y$ の式を見ると、液相側の抵抗には平衡定数 $m$ が掛かっています。このため、溶けやすさによってどちらの抵抗が大きいかが変わります。</p>
+<table>
+<tr><th></th><th>溶けやすい気体（$m$ が小さい）</th><th>溶けにくい気体（$m$ が大きい）</th></tr>
+<tr><td>例</td><td>水に吸収されるアンモニア、塩化水素</td><td>水に吸収される酸素、二酸化炭素</td></tr>
+<tr><td>大きい抵抗</td><td>気相側（ガス側律速）</td><td>液相側（液側律速）</td></tr>
+<tr><td>速くするには</td><td>ガスの流れを速くする、ガス側の乱れを増やす</td><td>液の撹拌や液膜の更新を増やす、液の化学反応を利用する</td></tr>
+</table>
+
+<div class="example">
+<strong>例題：どちらの抵抗が大きいか</strong>
+<p>ある吸収操作で、$k_y = 0.05$ mol/(m²·s)、$k_x = 0.5$ mol/(m²·s) です。平衡定数が (1) $m = 0.5$ の場合と (2) $m = 50$ の場合について、総括物質移動係数 $K_y$ と、気相側の抵抗が全体に占める割合を求めてください。</p>
+<div class="answer">
+<p>(1) $\dfrac{1}{K_y} = \dfrac{1}{0.05} + \dfrac{0.5}{0.5} = 20 + 1 = 21$、$K_y \approx 0.048$ mol/(m²·s)。気相側の割合は $20/21 \approx 95\%$ で、ガス側律速です。</p>
+<p>(2) $\dfrac{1}{K_y} = \dfrac{1}{0.05} + \dfrac{50}{0.5} = 20 + 100 = 120$、$K_y \approx 0.0083$ mol/(m²·s)。気相側の割合は $20/120 \approx 17\%$ で、液側律速です。</p>
+<p>同じ装置でも、溶けにくい気体では $K_y$ が約6分の1になります。溶けにくい気体の吸収で、吸収液にアルカリなどを加えて化学反応させるのは、液側の抵抗を小さくするためです。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/two-film-resistance-share.svg" target="_blank" rel="noopener"><img src="/fig/two-film-resistance-share.svg" alt="図2　例題の総括抵抗の内訳。溶けにくい気体（m が大きい）では液相側の抵抗が大部分を占める" width="600" height="230" loading="lazy"></a><figcaption>図2　例題の総括抵抗の内訳。溶けにくい気体（m が大きい）では液相側の抵抗が大部分を占める</figcaption></figure>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/mass/henrys-law.html">← ヘンリーの法則とは？気体の溶解度の計算</a><a class="next" href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/mass/">物質移動の記事</a></h2><ul><li><a href="/mass/diffusion.html">拡散とフィックの法則</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li><li><a href="/mass/henrys-law.html">ヘンリーの法則とは？気体の溶解度の計算</a></li><li><a href="/mass/two-film-theory.html" aria-current="page">二重境膜説と総括物質移動係数</a></li><li><a href="/mass/boundary-layer-analogy.html">境界層と熱・物質移動のアナロジー</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/" aria-current="page">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

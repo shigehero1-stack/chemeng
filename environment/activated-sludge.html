@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>活性汚泥法の設計｜モノー式と汚泥滞留時間｜はじめての化学工学</title>
+<meta name="description" content="活性汚泥法をモノー式で表し、汚泥滞留時間（SRT）が処理水質、余剰汚泥の発生量、酸素の必要量にどう影響するかを例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/environment/activated-sludge.html">
+<meta property="og:title" content="活性汚泥法の設計｜モノー式と汚泥滞留時間｜はじめての化学工学">
+<meta property="og:description" content="活性汚泥法をモノー式で表し、汚泥滞留時間（SRT）が処理水質、余剰汚泥の発生量、酸素の必要量にどう影響するかを例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "活性汚泥法の設計", "description": "活性汚泥法をモノー式で表し、汚泥滞留時間（SRT）が処理水質、余剰汚泥の発生量、酸素の必要量にどう影響するかを例題で解説します。", "datePublished": "2026-10-17", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/environment/activated-sludge.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/environment/">環境保全</a> › <span>活性汚泥法の設計</span></nav>
+    <article class="article">
+<h1>活性汚泥法の設計</h1>
+<p class="lead">活性汚泥法をモノー式で表し、汚泥滞留時間（SRT）が処理水質、余剰汚泥の発生量、酸素の必要量にどう影響するかを例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">現場の課題</a></li><li><a href="#s2">活性汚泥法のしくみ</a></li><li><a href="#s3">微生物の増殖の式</a></li><li><a href="#s4">定常状態の設計式</a></li><li><a href="#s5">例題：SRT を変えたときの処理水質と汚泥・酸素</a></li><li><a href="#s6">運転で気をつけること</a></li><li><a href="#s7">検算について</a></li><li><a href="#s8">参考文献</a></li></ol></nav>
+
+<h2 id="s1">現場の課題</h2>
+<p>工場の排水や下水の処理では、微生物の働きで有機物を分解する<strong>活性汚泥法</strong>が最も広く使われています。「処理水の BOD が上がってきた」「余剰汚泥の処分費がかさむ」「曝気の電気代を減らしたい」——排水処理設備の担当者が直面するこうした問題は、微生物の増え方を表す簡単なモデルで整理できます。</p>
+<p>この記事では、活性汚泥法を化学工学の反応器として捉え、<strong>汚泥滞留時間（SRT）</strong>という最も重要な運転変数が、処理水質、汚泥の発生量、酸素の必要量にどう影響するかを計算します。</p>
+<h2 id="s2">活性汚泥法のしくみ</h2>
+<ol><li><strong>反応槽（曝気槽）</strong>：排水と、微生物の集まり（活性汚泥）を混ぜ、空気を送り込む。微生物は有機物を食べて分解し、自分の体を増やす</li><li><strong>沈殿池</strong>：処理された水から活性汚泥を沈めて分ける。上澄みが処理水になる</li><li><strong>返送と引き抜き</strong>：沈めた汚泥の大部分は反応槽に戻し（返送汚泥）、増えた分を引き抜く（余剰汚泥）</li></ol>
+<p>汚泥を返送することで、水が反応槽にいる時間（水理学的滞留時間、<strong>HRT</strong>）よりずっと長く、微生物を系内にとどめておけます。微生物が系内にとどまる平均の時間を<strong>汚泥滞留時間（SRT）</strong>といいます。</p>
+<figure class="fig"><a href="/fig/activated-sludge-flowsheet.svg" target="_blank" rel="noopener"><img src="/fig/activated-sludge-flowsheet.svg" alt="図1　活性汚泥法の構成" width="700" height="270" loading="lazy"></a><figcaption>図1　活性汚泥法の構成</figcaption></figure>
+<div class="formula">$$\text{SRT} = \frac{\text{反応槽内の汚泥の量}}{\text{1日に引き抜く汚泥の量}}$$</div>
+<h2 id="s3">微生物の増殖の式</h2>
+<p>微生物の比増殖速度（単位量の微生物が1日に増える割合）は、有機物の濃度 $S$ に対して、次の<strong>モノー式</strong>で表されます。</p>
+<div class="formula">$$\mu = \frac{\mu_{\max} S}{K_s + S}, \qquad \mu_{\max} = Y k$$</div>
+<ul><li>$k$：単位量の微生物が1日に分解できる有機物の最大量 [1/d]</li><li>$K_s$：半飽和定数 [mg/L]（$\mu$ が最大値の半分になる濃度）</li><li>$Y$：収率（有機物 1 g を分解したときに増える微生物の量）</li></ul>
+<p>微生物は、生きているあいだにも自分の体の一部を分解して減っていきます（内生呼吸）。その速さを減衰係数 $k_d$ [1/d] で表します。</p>
+<h2 id="s4">定常状態の設計式</h2>
+<p>反応槽を完全混合とし、微生物は余剰汚泥の引き抜きだけで系外に出る（処理水に流出する分は無視する）とすると、微生物の収支から「正味の増殖速度 ＝ 引き抜かれる割合」、つまり $\mu - k_d = 1/\text{SRT}$ が成り立ちます。これから、</p>
+<p><strong>処理水の有機物濃度</strong></p>
+<div class="formula">$$S = \frac{K_s\,(1 + k_d\,\text{SRT})}{\text{SRT}\,(Y k - k_d) - 1}$$</div>
+<p><strong>反応槽内の微生物濃度</strong></p>
+<div class="formula">$$X = \frac{\text{SRT}}{\text{HRT}} \cdot \frac{Y\,(S_0 - S)}{1 + k_d\,\text{SRT}}$$</div>
+<p>が得られます。$S_0$ は流入水の有機物濃度です。</p>
+<p>処理水の濃度 $S$ は <strong>SRT だけで決まり、流入水の濃度や HRT によらない</strong>ことに注目してください。これが、SRT が活性汚泥法の最も重要な運転変数である理由です。</p>
+<p>SRT が短すぎると、微生物が増えるより早く引き抜かれてしまい、系内からいなくなります（<strong>ウォッシュアウト</strong>）。その限界は</p>
+<div class="formula">$$\frac{1}{\text{SRT}_{\min}} = \frac{Y k S_0}{K_s + S_0} - k_d$$</div>
+<p>です。</p>
+<h2 id="s5">例題：SRT を変えたときの処理水質と汚泥・酸素</h2>
+<p>流量 1000 m³/日、流入 BOD 200 mg/L の排水を、HRT 6 時間（反応槽 250 m³）で処理します。動力学定数は、$k$ = 5 1/d、$K_s$ = 60 mg/L、$Y$ = 0.6、$k_d$ = 0.06 1/d とします（20 °C の BOD 除去の代表的な範囲から選んだ説明用の値）。SRT を 3〜20 日で変えたときの結果を求めてください。</p>
+<p><strong>解答</strong></p>
+<p>最小の SRT（ウォッシュアウト）は 0.44 日です。</p>
+<table><tr><th>SRT</th><th>処理水の BOD（溶解性）</th><th>除去率</th><th>反応槽の MLVSS</th><th>余剰汚泥の発生量</th><th>酸素の必要量</th></tr><tr><td>3 日</td><td>9.1 mg/L</td><td>95.5%</td><td>1165 mg/L</td><td>97 kg/日</td><td>53 kg/日</td></tr><tr><td>5 日</td><td>5.7 mg/L</td><td>97.2%</td><td>1794 mg/L</td><td>90 kg/日</td><td>67 kg/日</td></tr><tr><td>10 日</td><td>3.4 mg/L</td><td>98.3%</td><td>2949 mg/L</td><td>74 kg/日</td><td>92 kg/日</td></tr><tr><td>20 日</td><td>2.3 mg/L</td><td>98.9%</td><td>4314 mg/L</td><td>54 kg/日</td><td>121 kg/日</td></tr></table>
+<p>余剰汚泥の発生量は、反応槽の汚泥量を SRT で割って求めました。酸素の必要量は、分解した有機物の量から汚泥になった分（汚泥 1 g あたり 1.42 g の酸素に相当）を引いた簡易式で求めています。</p>
+<p><strong>結果の読み方</strong></p>
+<ul><li>SRT を長くすると、処理水の BOD は下がり、<strong>余剰汚泥の発生量は減ります</strong>。微生物が長く系内にいるあいだに、自分の体を分解（内生呼吸）するためです</li><li>その代わり、<strong>酸素の必要量（曝気の電気代）は増え</strong>、反応槽の汚泥濃度が上がるので、沈殿池の負担も大きくなります</li><li>余剰汚泥の処分費と曝気の電力費は、どちらも排水処理の大きな費用です。SRT は、処理水質の目標を満たす範囲で、この2つのバランスを考えて決めます</li></ul>
+<figure class="fig"><a href="/fig/srt-effects.svg" target="_blank" rel="noopener"><img src="/fig/srt-effects.svg" alt="図2　例題の SRT と処理水質・余剰汚泥・酸素の必要量（説明用の定数で当サイトが計算）" width="720" height="320" loading="lazy"></a><figcaption>図2　例題の SRT と処理水質・余剰汚泥・酸素の必要量（説明用の定数で当サイトが計算）</figcaption></figure>
+<h2 id="s6">運転で気をつけること</h2>
+<ul><li><strong>水温</strong>：微生物の活動は水温に大きく左右され、冬は動力学定数が小さくなる。冬の水温で処理水質を満たせるよう、SRT に余裕をもたせる</li><li><strong>窒素の除去</strong>：アンモニアを硝酸に変える硝化菌は、BOD を分解する菌より増えるのが遅い。硝化を行うには、BOD の除去だけの場合よりずっと長い SRT が必要になる</li><li><strong>沈降性</strong>：糸状の微生物が増えると、汚泥が沈みにくくなる（バルキング）。沈殿池から汚泥が流出すると、処理水の BOD や浮遊物質が急に悪化する。この記事の計算の処理水 BOD は溶けている有機物の分だけで、流出した汚泥の分は含まない</li><li><strong>負荷の変動</strong>：流入水の量や濃度の急な変化に対応できるよう、調整槽で変動をならす</li></ul>
+<h2 id="s7">検算について</h2>
+<p>この記事の数値は、検算用に作成したプログラム（Python）で計算しています。定常状態の設計式による結果を、反応槽の有機物と微生物の非定常の収支式を 200 日分数値積分して求めた定常値と比べ、すべての SRT で一致することを確かめています。動力学定数は説明用の値で、実際の設計では、対象の排水での処理試験や、実績にもとづく設計指針を使ってください。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li></ul></aside><!-- /related -->
+<h2 id="s8">参考文献</h2>
+<ul><li>Metcalf &amp; Eddy, <em>Wastewater Engineering: Treatment and Resource Recovery</em>, McGraw-Hill</li><li>J. Monod, <em>Annual Review of Microbiology</em>, 3, 371 (1949)</li></ul>
+<hr>
+<p>※ この記事は学習を目的としたものです。実際の設備の設計や運転には、関係法令、最新の設計指針、専門家の判断にもとづいてください。</p>
+
+
+<nav class="pager"><a class="prev" href="/environment/activated-sludge-basics.html">← 排水処理の基礎と活性汚泥法</a><a class="next" href="/environment/coagulation-flocculation.html">凝集とフロック形成 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/environment/">環境保全の記事</a></h2><ul><li><a href="/environment/activated-sludge-basics.html">排水処理の基礎と活性汚泥法</a></li><li><a href="/environment/activated-sludge.html" aria-current="page">活性汚泥法の設計</a></li><li><a href="/environment/coagulation-flocculation.html">凝集とフロック形成</a></li><li><a href="/environment/flue-gas-desulfurization.html">排ガス処理の基礎と排煙脱硫</a></li><li><a href="/environment/scr-denox.html">排煙脱硝（選択触媒還元）の設計</a></li><li><a href="/environment/voc-thermal-oxidation.html">VOC の燃焼処理</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/" aria-current="page">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

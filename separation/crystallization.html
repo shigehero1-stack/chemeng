@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>晶析の基礎｜溶解度と過飽和、冷却晶析と蒸発晶析の収量計算｜はじめての化学工学</title>
+<meta name="description" content="溶液から結晶を取り出す晶析の原理、溶解度曲線と過飽和の意味、冷却晶析と蒸発晶析の使い分け、物質収支による結晶の収量の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/crystallization.html">
+<meta property="og:title" content="晶析の基礎｜溶解度と過飽和、冷却晶析と蒸発晶析の収量計算｜はじめての化学工学">
+<meta property="og:description" content="溶液から結晶を取り出す晶析の原理、溶解度曲線と過飽和の意味、冷却晶析と蒸発晶析の使い分け、物質収支による結晶の収量の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "晶析の基礎", "description": "溶液から結晶を取り出す晶析の原理、溶解度曲線と過飽和の意味、冷却晶析と蒸発晶析の使い分け、物質収支による結晶の収量の計算を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/separation/crystallization.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>晶析の基礎</span></nav>
+    <article class="article">
+<h1>晶析の基礎</h1>
+<p class="lead">溶液から結晶を取り出す晶析の原理、溶解度曲線と過飽和の意味、冷却晶析と蒸発晶析の使い分け、物質収支による結晶の収量の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">晶析とは</a></li><li><a href="#s2">溶解度と過飽和</a></li><li><a href="#s3">過飽和の作り方</a></li><li><a href="#s4">収量の計算</a></li><li><a href="#s5">晶析装置</a></li></ol></nav>
+
+<h2 id="s1">晶析とは</h2>
+<p><strong>晶析</strong>は、溶液から溶けている物質を結晶として取り出す操作です。食塩や砂糖、肥料、医薬品の原薬、半導体材料など、多くの固体製品が晶析で作られています。結晶は成分の純度が高くなりやすいので、精製の手段としても重要です。</p>
+<p>晶析で作った結晶は、<a href="/particle/filtration.html">ろ過</a>や遠心分離で液から分け、洗浄して<a href="/separation/drying.html">乾燥</a>します。結晶の大きさや形がそろっていると、ろ過や乾燥がしやすく、製品の流れやすさや溶けやすさもよくなります。</p>
+
+<h2 id="s2">溶解度と過飽和</h2>
+<p>一定の温度で、溶媒にそれ以上溶けなくなる量を<strong>溶解度</strong>といい、晶析では「水 100 g に溶ける溶質の g 数」や「溶媒 1 kg あたりの kg 数」で表すことが多くあります。多くの物質は温度が高いほど溶解度が大きくなりますが、食塩のように温度でほとんど変わらないものや、逆に下がるものもあります。</p>
+<p>溶解度を超えて溶質を含む状態を<strong>過飽和</strong>といい、溶解度との差（過飽和度）が結晶の生まれる速さと育つ速さを決めます。結晶は過飽和の溶液の中でしか生まれず、育ちません。</p>
+<figure class="fig"><a href="/fig/solubility-curve.svg" target="_blank" rel="noopener"><img src="/fig/solubility-curve.svg" alt="図1　溶解度曲線と晶析の方法" width="580" height="330" loading="lazy"></a><figcaption>図1　溶解度曲線と、冷却晶析・蒸発晶析で過飽和を作る道筋（溶解度は例題の仮想的な塩）</figcaption></figure>
+
+<h2 id="s3">過飽和の作り方</h2>
+<table>
+<tr><th>方法</th><th>やり方</th><th>向いている物質</th></tr>
+<tr><td>冷却晶析</td><td>溶液を冷やして溶解度を下げる</td><td>温度で溶解度が大きく変わる物質（硝酸カリウム、多くの有機物）</td></tr>
+<tr><td>蒸発晶析</td><td>溶媒を蒸発させて濃くする</td><td>温度で溶解度があまり変わらない物質（食塩）</td></tr>
+<tr><td>貧溶媒晶析</td><td>溶質が溶けにくい別の溶媒を加える</td><td>医薬品など、熱に弱い有機物</td></tr>
+<tr><td>反応晶析</td><td>反応で溶けにくい物質を作る</td><td>炭酸カルシウム、硫酸バリウムなどの無機塩</td></tr>
+</table>
+
+<h2 id="s4">収量の計算</h2>
+<p>晶析で得られる結晶の量は、溶媒と溶質の<a href="/basics/material-balance.html">物質収支</a>から求めます。晶析が終わったときの母液（結晶を除いた液）は、その温度で飽和していると考えるのが基本です。溶媒を基準にすると計算が簡単になります。</p>
+<div class="formula">$$\text{結晶の量} = \text{最初の溶質の量} - \text{最後の溶媒の量} \times \text{最後の温度での溶解度}$$</div>
+<p>結晶が水を含む（水和物）場合は、結晶に取り込まれる水の分だけ母液の水が減るので、その分も収支に入れます。</p>
+
+<div class="example">
+<strong>例題：冷却晶析と蒸発を組み合わせた収量</strong>
+<p>ある塩の溶解度は、60 °C で 100 g/100 g-水、20 °C で 30 g/100 g-水 です（無水の結晶ができるとします）。(1) 60 °C の飽和溶液 1000 kg を 20 °C まで冷やすと、結晶は何 kg 得られますか。(2) 冷やす前に水を 100 kg 蒸発させておくと、結晶はどれだけ増えますか。</p>
+<div class="answer">
+<p>(1) 60 °C の飽和溶液は塩と水が同じ量なので、塩 500 kg、水 500 kg です。</p>
+<p>20 °C で水 500 kg に溶けていられる塩は $500 \times 30/100 = 150$ kg なので、結晶は $500 - 150 = 350$ kg です。収率は $350/500 = 70\%$ です。</p>
+<p>(2) 水が 400 kg になるので、20 °C で溶けていられる塩は $400 \times 0.30 = 120$ kg、結晶は $500 - 120 = 380$ kg と、30 kg 増えます。収率は76%です。</p>
+<p>母液に残った塩（ここでは 120〜150 kg）は捨てずに、次の原料に戻して再利用するのが一般的です。ただし、母液には不純物もたまっていくので、一部を抜き出す（パージする）必要があります（<a href="/basics/material-balance.html">物質収支</a>のリサイクルの考え方）。</p>
+</div>
+</div>
+
+<h2 id="s5">晶析装置</h2>
+<ul>
+<li><strong>撹拌槽型（回分式）</strong>：ジャケットや内部のコイルで冷却する。医薬品などの少量生産に多い</li>
+<li><strong>連続撹拌槽型</strong>：原料を連続して入れ、結晶を含む液（スラリー）を連続して抜き出す</li>
+<li><strong>真空冷却型</strong>：缶内を減圧して溶媒を蒸発させ、その蒸発潜熱で冷やす。冷却面に結晶がつかない</li>
+<li><strong>蒸発晶析缶</strong>：<a href="/heat/evaporator.html">蒸発缶</a>と同じ構造で、結晶を含んだまま濃縮する。食塩の製造など</li>
+</ul>
+<p>結晶の大きさをそろえる考え方は、<a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a>の記事で解説します。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/separation/dryer-design.html">← 乾燥装置の設計</a><a class="next" href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/separation/">分離操作の記事</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html" aria-current="page">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/" aria-current="page">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

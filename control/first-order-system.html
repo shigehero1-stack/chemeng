@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一次遅れ系と時定数｜ステップ応答の読み方｜はじめての化学工学</title>
+<meta name="description" content="プロセスの動きを表す最も基本的なモデルである一次遅れ系について、時定数とゲインの意味、ステップ応答の式と63.2%の意味、むだ時間を撹拌槽の例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/control/first-order-system.html">
+<meta property="og:title" content="一次遅れ系と時定数｜ステップ応答の読み方｜はじめての化学工学">
+<meta property="og:description" content="プロセスの動きを表す最も基本的なモデルである一次遅れ系について、時定数とゲインの意味、ステップ応答の式と63.2%の意味、むだ時間を撹拌槽の例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "一次遅れ系と時定数", "description": "プロセスの動きを表す最も基本的なモデルである一次遅れ系について、時定数とゲインの意味、ステップ応答の式と63.2%の意味、むだ時間を撹拌槽の例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/control/first-order-system.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/control/">プロセス制御</a> › <span>一次遅れ系と時定数</span></nav>
+    <article class="article">
+<h1>一次遅れ系と時定数</h1>
+<p class="lead">プロセスの動きを表す最も基本的なモデルである一次遅れ系について、時定数とゲインの意味、ステップ応答の式と63.2%の意味、むだ時間を撹拌槽の例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">プロセスの「動き方」を表す</a></li><li><a href="#s2">一次遅れ系の式</a></li><li><a href="#s3">ステップ応答</a></li><li><a href="#s4">撹拌槽はなぜ一次遅れ系か</a></li><li><a href="#s5">むだ時間</a></li></ol></nav>
+
+<h2 id="s1">プロセスの「動き方」を表す</h2>
+<p>制御を設計するには、操作量を変えたときに制御量がどのように変化するか（プロセスの動特性）を知る必要があります。その最も基本的なモデルが<strong>一次遅れ系</strong>です。撹拌槽の温度や濃度、タンクの液面など、多くのプロセスがおおまかにこの形で表せます。</p>
+
+<h2 id="s2">一次遅れ系の式</h2>
+<p>入力 $u$ を変えたときの出力 $y$ の変化が、次の微分方程式で表されるものを一次遅れ系といいます。</p>
+<div class="formula">$$\tau\,\frac{dy}{dt} + y = K\,u$$</div>
+<ul>
+<li>$K$：<strong>ゲイン</strong>。入力を1だけ変えたとき、最終的に出力がどれだけ変わるか</li>
+<li>$\tau$：<strong>時定数</strong>。変化の速さを表す時間</li>
+</ul>
+
+<h2 id="s3">ステップ応答</h2>
+<p>入力を時刻0で大きさ $\Delta u$ だけ階段状に変えたとき（ステップ入力）、出力の変化は</p>
+<div class="formula">$$\Delta y(t) = K\,\Delta u\left(1 - e^{-t/\tau}\right)$$</div>
+<p>となります。このグラフから、時定数の意味がわかります。</p>
+<table>
+<tr><th>経過時間</th><th>最終変化量に対する到達割合</th></tr>
+<tr><td>$\tau$</td><td>63.2%</td></tr>
+<tr><td>$2\tau$</td><td>86.5%</td></tr>
+<tr><td>$3\tau$</td><td>95.0%</td></tr>
+<tr><td>$4\tau$</td><td>98.2%</td></tr>
+</table>
+<p>時定数は「最終的な変化の63.2%に達するまでの時間」で、ほぼ落ち着くまでには時定数の3〜4倍の時間がかかります。実際のプロセスでステップ試験を行い、応答曲線から $K$ と $\tau$ を読み取るのが、制御設計の第一歩です。</p>
+<figure class="fig"><a href="/fig/first-order-step-response.svg" target="_blank" rel="noopener"><img src="/fig/first-order-step-response.svg" alt="図1　例題の槽の出口温度のステップ応答（時定数20分）。点線は初めの傾きのまま進んだ場合で、ちょうど時定数で最終値に届く" width="580" height="330" loading="lazy"></a><figcaption>図1　例題の槽の出口温度のステップ応答（時定数20分）。点線は初めの傾きのまま進んだ場合で、ちょうど時定数で最終値に届く</figcaption></figure>
+
+<h2 id="s4">撹拌槽はなぜ一次遅れ系か</h2>
+<p>体積 $V$ のよく混ざった槽に、流量 $Q$ で液が流れ込んで同じ量が出ていくとします。入口の温度 $T_{\text{in}}$ が変わったときの出口温度 $T$ は、<a href="/basics/energy-balance.html">エネルギー収支</a>から</p>
+<div class="formula">$$V\,\frac{dT}{dt} = Q\,(T_{\text{in}} - T) \quad\Rightarrow\quad \frac{V}{Q}\,\frac{dT}{dt} + T = T_{\text{in}}$$</div>
+<p>となり、時定数 $\tau = V/Q$、ゲイン $K = 1$ の一次遅れ系になります。時定数は<a href="/reaction/cstr-vs-pfr.html">空間時間</a>と同じで、槽が大きいほど、流量が少ないほど、ゆっくり変化します。</p>
+
+<div class="example">
+<strong>例題：入口温度が変わったときの出口温度</strong>
+<p>体積 2.0 m³ のよく混ざった槽に、水が 0.10 m³/min で流れています。入口の水温が急に 10 °C 上がりました。20分後、40分後、60分後に出口温度は何 °C 上がっていますか。</p>
+<div class="answer">
+<p>時定数：$\tau = 2.0 / 0.10 = 20\ \text{min}$</p>
+<p>20分後：$10 \times (1 - e^{-1}) \approx 6.3\ ^\circ\text{C}$</p>
+<p>40分後：$10 \times (1 - e^{-2}) \approx 8.6\ ^\circ\text{C}$</p>
+<p>60分後：$10 \times (1 - e^{-3}) \approx 9.5\ ^\circ\text{C}$</p>
+<p>槽が外乱をやわらげる「緩衝」の役割をしていることがわかります。大きな槽を途中に置くと、上流の変動が下流に伝わりにくくなります。</p>
+</div>
+</div>
+
+<h2 id="s5">むだ時間</h2>
+<p>長い配管の先で温度を測る場合など、入力を変えてもしばらくは出力がまったく変わらない時間があります。これを<strong>むだ時間</strong> $L$ といいます。実際の多くのプロセスは「一次遅れ＋むだ時間」でおおまかに表せます。</p>
+<figure class="fig"><a href="/fig/dead-time-response.svg" target="_blank" rel="noopener"><img src="/fig/dead-time-response.svg" alt="図2　むだ時間のある応答。入力を変えてもしばらく出力が変わらない" width="580" height="280" loading="lazy"></a><figcaption>図2　むだ時間のある応答。入力を変えてもしばらく出力が変わらない</figcaption></figure>
+<p>むだ時間は制御にとって特にやっかいで、時定数に比べてむだ時間が大きいほど、フィードバック制御は振動しやすく、難しくなります。センサーをできるだけ操作する場所の近くに置くなど、むだ時間を小さくする工夫が大切です。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/control/feedback-pid.html">← フィードバック制御とPID制御の基本をわかりやすく</a><a class="next" href="/control/transfer-functions.html">伝達関数とブロック線図 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/control/">プロセス制御の記事</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html" aria-current="page">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/" aria-current="page">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

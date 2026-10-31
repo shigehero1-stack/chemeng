@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>流量の測り方｜オリフィス流量計の原理と計算式｜はじめての化学工学</title>
+<meta name="description" content="配管の流量を測る代表的な方法として、差圧式のオリフィス流量計とベンチュリ管の原理と計算式を解説し、そのほかの流量計の特徴もまとめます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/flow-measurement.html">
+<meta property="og:title" content="流量の測り方｜オリフィス流量計の原理と計算式｜はじめての化学工学">
+<meta property="og:description" content="配管の流量を測る代表的な方法として、差圧式のオリフィス流量計とベンチュリ管の原理と計算式を解説し、そのほかの流量計の特徴もまとめます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "流量の測り方", "description": "配管の流量を測る代表的な方法として、差圧式のオリフィス流量計とベンチュリ管の原理と計算式を解説し、そのほかの流量計の特徴もまとめます。", "datePublished": "2026-09-28", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/fluid/flow-measurement.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>流量の測り方</span></nav>
+    <article class="article">
+<h1>流量の測り方</h1>
+<p class="lead">配管の流量を測る代表的な方法として、差圧式のオリフィス流量計とベンチュリ管の原理と計算式を解説し、そのほかの流量計の特徴もまとめます。</p>
+<p class="byline">公開日 <time datetime="2026-09-28">2026-09-28</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">差圧式流量計の原理</a></li><li><a href="#s2">計算式</a></li><li><a href="#s3">オリフィスとベンチュリ管の比較</a></li><li><a href="#s4">そのほかの流量計</a></li><li><a href="#s5">差圧式流量計の使える範囲</a></li><li><a href="#s6">練習問題</a></li></ol></nav>
+
+<h2 id="s1">差圧式流量計の原理</h2>
+<p>配管の途中に穴のあいた板（オリフィス板）や、ゆるやかにしぼった管（ベンチュリ管）を入れると、しぼった部分で流速が上がり、そのぶん圧力が下がります。この圧力の差（差圧）を測れば、<a href="/fluid/bernoulli.html">ベルヌーイの式</a>から流速、つまり流量がわかります。</p>
+<figure class="fig"><a href="/fig/orifice-venturi.svg" target="_blank" rel="noopener"><img src="/fig/orifice-venturi.svg" alt="図1　オリフィスとベンチュリ管。しぼった部分の前後の圧力差 Δp から流量を求める" width="660" height="270" loading="lazy"></a><figcaption>図1　オリフィスとベンチュリ管。しぼった部分の前後の圧力差 Δp から流量を求める</figcaption></figure>
+
+<h2 id="s2">計算式</h2>
+<p>しぼり部の断面積を $A_0$、しぼり部の直径と管の内径の比を $\beta = d_0 / D$、測った差圧を $\Delta p$ とすると、体積流量 $Q$ は次の式で表されます。</p>
+<div class="formula">$$Q = C\, A_0 \sqrt{\frac{2\,\Delta p}{\rho \,(1 - \beta^4)}}$$</div>
+<p>$C$ は<strong>流出係数</strong>で、理想的なベルヌーイの式と実際の流れのずれ（流れの縮み、摩擦など）をまとめて補正する係数です。</p>
+<ul>
+<li>オリフィス：$C$ はおよそ 0.6 前後</li>
+<li>ベンチュリ管：$C$ はおよそ 0.98 前後</li>
+</ul>
+<p>正確な値は形状、$\beta$、レイノルズ数によって変わり、規格（ISO 5167、JIS Z 8762 など）で定められています。</p>
+<div class="note">流量は差圧の<strong>平方根</strong>に比例します。流量が半分になると差圧は4分の1になるので、流量の小さい範囲では測定精度が落ちやすい点に注意しましょう。</div>
+
+<div class="example">
+<strong>例題：オリフィスで流量を求める</strong>
+<p>内径 50 mm の配管に、穴の直径 25 mm のオリフィスを入れました。20 °C の水（998 kg/m³）を流したところ、差圧は 5.0 kPa でした。流出係数を 0.61 として流量を求めてください。</p>
+<div class="answer">
+<p>$\beta = 25/50 = 0.5$、$\beta^4 = 0.0625$</p>
+<p>$A_0 = \pi \times 0.025^2 / 4 = 4.91 \times 10^{-4}\ \text{m}^2$</p>
+<p>$Q = 0.61 \times 4.91 \times 10^{-4} \times \sqrt{\dfrac{2 \times 5000}{998 \times (1 - 0.0625)}} \approx 9.8 \times 10^{-4}\ \text{m}^3/\text{s}$</p>
+<p>1時間あたりに直すと約 3.5 m³/h です。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/orifice-flow-vs-dp.svg" target="_blank" rel="noopener"><img src="/fig/orifice-flow-vs-dp.svg" alt="図2　例題のオリフィスの流量と差圧の関係。差圧は流量の2乗に比例する" width="560" height="310" loading="lazy"></a><figcaption>図2　例題のオリフィスの流量と差圧の関係。差圧は流量の2乗に比例する</figcaption></figure>
+
+<h2 id="s3">オリフィスとベンチュリ管の比較</h2>
+<table>
+<tr><th></th><th>オリフィス</th><th>ベンチュリ管</th></tr>
+<tr><td>構造</td><td>板を挟むだけで簡単・安価</td><td>長く、製作費が高い</td></tr>
+<tr><td>永久圧力損失</td><td>大きい</td><td>小さい（しぼった後にゆっくり広げて圧力を回復する）</td></tr>
+<tr><td>向いている用途</td><td>一般的な液体・気体の配管</td><td>大流量で、ポンプ動力を節約したい場合</td></tr>
+</table>
+
+<h2 id="s4">そのほかの流量計</h2>
+<table>
+<tr><th>方式</th><th>原理</th><th>特徴</th></tr>
+<tr><td>面積式（ロータメーター）</td><td>テーパー管の中の浮き子の高さ</td><td>目で読めて安価。垂直に設置する</td></tr>
+<tr><td>電磁流量計</td><td>導電性の液が磁場を横切るときに生じる電圧</td><td>圧力損失がほぼない。電気を通さない液には使えない</td></tr>
+<tr><td>渦流量計</td><td>障害物の後ろにできる渦の数</td><td>液体・気体・蒸気に使える</td></tr>
+<tr><td>コリオリ式</td><td>振動する管に生じるコリオリの力</td><td>質量流量を直接測れる。高精度だが高価</td></tr>
+</table>
+<h2 id="s5">差圧式流量計の使える範囲</h2>
+<p>差圧式流量計では、流量は差圧の平方根に比例します。逆にいうと、差圧は流量の2乗に比例します。</p>
+<div class="formula">$$\frac{Q_2}{Q_1} = \sqrt{\frac{\Delta p_2}{\Delta p_1}}$$</div>
+<p>流量が最大流量の 10% まで下がると、差圧は $0.1^2 = 1\%$ しか出ません。差圧計の誤差はレンジに対してほぼ一定なので、小さな流量ほど相対的な誤差が大きくなります。このため差圧式は、最大流量の3〜4分の1くらいまでの範囲で使うのが一般的です。流量の変化が大きいラインでは、レンジの違う差圧計を2台つけるか、電磁流量計やコリオリ式などを選びます。</p>
+
+<h2 id="s6">練習問題</h2>
+<div class="example">
+<strong>練習1：差圧が4倍になったら</strong>
+<p>上の例題のオリフィスで、差圧が 5.0 kPa から 20 kPa に増えました。流量は何倍になりましたか。</p>
+<div class="answer"><p>$\sqrt{20 / 5.0} = 2$ 倍です。差圧が4倍になっても、流量は2倍にしかなりません。</p></div>
+</div>
+<div class="example">
+<strong>練習2：最大流量の何%まで測れるか</strong>
+<p>差圧計のレンジが 0〜10 kPa で、最大流量のとき 10 kPa になるようにオリフィスを選びました。差圧計の誤差が ±0.1 kPa のとき、流量が最大流量の 20% のときの流量の誤差はおよそ何%ですか。</p>
+<div class="answer">
+<p>流量 20% のときの差圧は $10 \times 0.2^2 = 0.4\ \text{kPa}$ です。差圧の誤差 ±0.1 kPa は、その $0.1/0.4 = 25\%$ にあたります。</p>
+<p>流量は差圧の平方根に比例するので、流量の誤差はおよそその半分の約 ±12% になります（$\sqrt{0.5/0.4} \approx 1.118$、$\sqrt{0.3/0.4} \approx 0.866$ なので +12%・−13%）。最大流量のときの誤差（約 ±0.5%）と比べて、ずっと大きくなります。</p>
+</div>
+</div>
+
+
+<nav class="pager"><a class="prev" href="/fluid/economic-pipe-diameter.html">← 経済的な配管径の選び方</a><a class="next" href="/fluid/agitation-power.html">撹拌所要動力の計算 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/fluid/">流体の記事</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html" aria-current="page">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/" aria-current="page">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

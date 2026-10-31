@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>充填層の圧力損失とエルガンの式｜粒子を詰めた層に流体を流すとき｜はじめての化学工学</title>
+<meta name="description" content="触媒層や吸着塔、ろ過層など、粒子を詰めた層（充填層）を流体が通るときの圧力損失を求めるエルガンの式、空隙率と粒子径の影響、層流の項と乱流の項の意味を、空気を流す充填層の例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/packed-bed-pressure-drop.html">
+<meta property="og:title" content="充填層の圧力損失とエルガンの式｜粒子を詰めた層に流体を流すとき｜はじめての化学工学">
+<meta property="og:description" content="触媒層や吸着塔、ろ過層など、粒子を詰めた層（充填層）を流体が通るときの圧力損失を求めるエルガンの式、空隙率と粒子径の影響、層流の項と乱流の項の意味を、空気を流す充填層の例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "充填層の圧力損失とエルガンの式", "description": "触媒層や吸着塔、ろ過層など、粒子を詰めた層（充填層）を流体が通るときの圧力損失を求めるエルガンの式、空隙率と粒子径の影響、層流の項と乱流の項の意味を、空気を流す充填層の例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/packed-bed-pressure-drop.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>充填層の圧力損失とエルガンの式</span></nav>
+    <article class="article">
+<h1>充填層の圧力損失とエルガンの式</h1>
+<p class="lead">触媒層や吸着塔、ろ過層など、粒子を詰めた層（充填層）を流体が通るときの圧力損失を求めるエルガンの式、空隙率と粒子径の影響、層流の項と乱流の項の意味を、空気を流す充填層の例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">充填層とは</a></li><li><a href="#s2">エルガンの式</a></li><li><a href="#s3">流体の向きと流動化</a></li></ol></nav>
+
+<h2 id="s1">充填層とは</h2>
+<p>粒子をぎっしり詰めた層の中を、気体や液体が粒子のすき間を縫って流れる装置を<strong>充填層</strong>といいます。固定層の触媒反応器（<a href="/reaction/catalyst-effectiveness.html">触媒反応</a>）、<a href="/adsorption/fixed-bed-breakthrough.html">吸着塔</a>、砂ろ過、イオン交換塔、蓄熱器などがその例です。設計では、流体を流すのに必要な圧力（ポンプやブロワーの能力）を見積もるために、層の<strong>圧力損失</strong>を計算します。</p>
+
+<h2 id="s2">エルガンの式</h2>
+<p>粒子のすき間の流れは、細く曲がりくねった管の束の流れと考えることができます。これをもとに、層流の損失と乱流の損失を足し合わせた<strong>エルガンの式</strong>が広く使われています。</p>
+<div class="formula">$$\frac{\Delta P}{L} = 150\,\frac{\mu\,u\,(1 - \varepsilon)^2}{d_p^2\,\varepsilon^3} + 1.75\,\frac{\rho\,u^2\,(1 - \varepsilon)}{d_p\,\varepsilon^3}$$</div>
+<ul>
+<li>$\Delta P / L$：層の長さあたりの圧力損失 [Pa/m]</li>
+<li>$u$：空塔速度（流量 ÷ 塔の断面積）[m/s]</li>
+<li>$\varepsilon$：空隙率（層の体積のうち、すき間の割合）。球を詰めると 0.36〜0.42 程度</li>
+<li>$d_p$：粒子径 [m]。球でない粒子は、体積と表面積が同じ割合になる球の直径（比表面積径）を使う</li>
+</ul>
+<p>第1項は粘性による損失で流速に比例し（遅い流れで支配的）、第2項は流れの方向が変わることによる損失で流速の2乗に比例します（速い流れで支配的）。</p>
+<p><strong>空隙率の影響がとても大きい</strong>ことに注意しましょう。第1項は $(1-\varepsilon)^2/\varepsilon^3$ に比例するので、空隙率が 0.40 から 0.35 に下がるだけで、圧力損失は約1.8倍になります。粒子が割れて細かくなったり、粉が詰まったりすると、圧力損失は急に増えます。</p>
+<figure class="fig"><a href="/fig/ergun-pressure-drop.svg" target="_blank" rel="noopener"><img src="/fig/ergun-pressure-drop.svg" alt="図1　空塔速度と充填層の圧力損失" width="580" height="320" loading="lazy"></a><figcaption>図1　例題の充填層の空塔速度と圧力損失（エルガンの式）。遅い流れでは粘性の項、速い流れでは慣性の項が大きくなる</figcaption></figure>
+
+<div class="example">
+<strong>例題：触媒層に空気を流す</strong>
+<p>直径 3 mm の球形の粒子を空隙率 0.40 で詰めた、高さ 1.0 m の層に、20 °C の空気（密度 1.204 kg/m³、粘度 1.81 × 10⁻⁵ Pa·s）を空塔速度 0.5 m/s で流します。圧力損失を求めてください。また、粒子を直径 1.5 mm にするとどうなりますか。</p>
+<div class="answer">
+<p>第1項：$150 \times \dfrac{1.81 \times 10^{-5} \times 0.5 \times 0.6^2}{0.003^2 \times 0.4^3} \approx 848\ \text{Pa/m}$</p>
+<p>第2項：$1.75 \times \dfrac{1.204 \times 0.5^2 \times 0.6}{0.003 \times 0.4^3} \approx 1646\ \text{Pa/m}$</p>
+<p>合計：約 2.5 kPa/m、高さ 1.0 m で約 <strong>2.5 kPa</strong> です。</p>
+<p>粒子を半分の 1.5 mm にすると、第1項は4倍の約 3.4 kPa/m、第2項は2倍の約 3.3 kPa/m で、合計約 6.7 kPa/m と2.7倍になります。<a href="/reaction/catalyst-effectiveness.html">触媒有効係数</a>を上げるために粒子を小さくすると、圧力損失がこのように増えます。</p>
+</div>
+</div>
+
+<h2 id="s3">流体の向きと流動化</h2>
+<p>下から上へ流体を流す場合、流速を上げていくと、圧力損失による上向きの力が層の重さに等しくなり、粒子が浮き始めます（<a href="/particle/fluidized-bed.html">流動層</a>）。固定層として使いたい場合は、流速を最小流動化速度より十分小さくするか、上から下へ流すか、層の上を押さえて粒子が動かないようにします。また、塔の壁の近くは空隙率が大きく流れが偏りやすいので、塔径は粒子径の10倍以上にするのが目安です。</p>
+
+
+<nav class="pager"><a class="prev" href="/particle/thickener.html">← 沈降濃縮とシックナーの設計</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html" aria-current="page">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絶対湿度・相対湿度・露点の計算｜湿度図表の基礎｜はじめての化学工学</title>
+<meta name="description" content="乾燥や空調の計算で使う絶対湿度と相対湿度の違い、水蒸気分圧からの計算式、露点と湿球温度の意味、湿度図表の読み方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/humidity.html">
+<meta property="og:title" content="絶対湿度・相対湿度・露点の計算｜湿度図表の基礎｜はじめての化学工学">
+<meta property="og:description" content="乾燥や空調の計算で使う絶対湿度と相対湿度の違い、水蒸気分圧からの計算式、露点と湿球温度の意味、湿度図表の読み方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "絶対湿度・相対湿度・露点の計算", "description": "乾燥や空調の計算で使う絶対湿度と相対湿度の違い、水蒸気分圧からの計算式、露点と湿球温度の意味、湿度図表の読み方を例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/separation/humidity.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>絶対湿度・相対湿度・露点の計算</span></nav>
+    <article class="article">
+<h1>絶対湿度・相対湿度・露点の計算</h1>
+<p class="lead">乾燥や空調の計算で使う絶対湿度と相対湿度の違い、水蒸気分圧からの計算式、露点と湿球温度の意味、湿度図表の読み方を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">湿度を扱う場面</a></li><li><a href="#s2">絶対湿度</a></li><li><a href="#s3">相対湿度</a></li><li><a href="#s4">露点</a></li><li><a href="#s5">湿球温度</a></li><li><a href="#s6">湿度図表</a></li></ol></nav>
+
+<h2 id="s1">湿度を扱う場面</h2>
+<p>乾燥機、冷却塔、空調、ガスの除湿など、空気と水蒸気の混合物を扱う計算を<strong>調湿</strong>（湿り空気の計算）といいます。まずは湿度の表し方を正しく押さえましょう。</p>
+
+<h2 id="s2">絶対湿度</h2>
+<p>化学工学でいう<strong>絶対湿度</strong> $H$ は、乾き空気1 kgあたりに含まれる水蒸気の質量 [kg-水蒸気/kg-乾き空気] です。水蒸気の分圧を $p_w$、全圧を $P$ とすると</p>
+<div class="formula">$$H = \frac{18.02}{28.97} \cdot \frac{p_w}{P - p_w} \approx 0.622\,\frac{p_w}{P - p_w}$$</div>
+<p>となります。18.02と28.97は水と空気のモル質量です。乾き空気を基準にするので、加湿や除湿で水蒸気の量が変わっても基準の量が変わらず、<a href="/basics/material-balance.html">物質収支</a>が立てやすいのが利点です。</p>
+
+<h2 id="s3">相対湿度</h2>
+<p>天気予報でおなじみの湿度は<strong>相対湿度</strong>で、水蒸気の分圧が、その温度の<a href="/thermo/vapor-pressure.html">飽和蒸気圧</a>の何%に当たるかを表します。</p>
+<div class="formula">$$\phi = \frac{p_w}{p_w^{\text{sat}}(T)} \times 100\ [\%]$$</div>
+<p>同じ水蒸気の量でも、温度が上がると飽和蒸気圧が大きくなるので、相対湿度は下がります。冬に暖房をつけると空気が乾燥するのはこのためです。</p>
+
+<h2 id="s4">露点</h2>
+<p>水蒸気の量を変えずに空気を冷やしていくと、ある温度で水蒸気の分圧が飽和蒸気圧と等しくなり、結露が始まります。この温度を<strong>露点</strong>といいます。露点は空気に含まれる水蒸気の量だけで決まります。</p>
+
+<div class="example">
+<strong>例題：夏の空気の湿度</strong>
+<p>30 °C、相対湿度 60%、1気圧（101.3 kPa）の空気について、絶対湿度と露点を求めてください。30 °C の水の飽和蒸気圧は 4.23 kPa とします。</p>
+<div class="answer">
+<p>水蒸気の分圧：$p_w = 0.60 \times 4.23 \approx 2.54\ \text{kPa}$</p>
+<p>絶対湿度：$H = 0.622 \times \dfrac{2.54}{101.3 - 2.54} \approx 0.016\ \text{kg/kg-乾き空気}$</p>
+<p>露点は、飽和蒸気圧が 2.54 kPa になる温度です。水の<a href="/thermo/vapor-pressure.html">アントワン式</a>で逆算すると、約 21 °C になります。この空気が21 °C以下の窓ガラスや冷たい配管に触れると、結露が起こります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/humidity-chart.svg" target="_blank" rel="noopener"><img src="/fig/humidity-chart.svg" alt="図1　簡単な湿度図表（1気圧、当サイトで計算）。例題の空気を冷やしていくと約21 °C で飽和線に当たる" width="600" height="360" loading="lazy"></a><figcaption>図1　簡単な湿度図表（1気圧、当サイトで計算）。例題の空気を冷やしていくと約21 °C で飽和線に当たる</figcaption></figure>
+
+<h2 id="s5">湿球温度</h2>
+<p>温度計の感温部を湿った布で包んで風を当てると、水の蒸発で熱が奪われ、普通の温度計（乾球温度）より低い温度を示します。これを<strong>湿球温度</strong>といいます。空気が乾いているほど蒸発が盛んになり、乾球温度との差が大きくなります。乾球温度と湿球温度の組み合わせから湿度を求められるので、乾湿計として使われています。</p>
+<p>空気と水の系では、湿球温度は、断熱された状態で水を蒸発させて空気を飽和させたときの温度（断熱飽和温度）とほぼ等しくなります。この性質は、乾燥機の中の材料の表面温度を考えるときに重要です（<a href="/separation/drying.html">乾燥の記事</a>を参照）。</p>
+
+<h2 id="s6">湿度図表</h2>
+<p>温度、絶対湿度、相対湿度、湿球温度、露点、エンタルピーなどの関係を1枚の図にまとめたものが<strong>湿度図表</strong>（湿り空気線図）です。2つの値がわかれば、図の上で交点を探すだけで残りの値をまとめて読み取れるため、空調や乾燥の設計でよく使われます。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/separation/liquid-liquid-extraction.html">← 液液抽出の基礎</a><a class="next" href="/separation/cooling-tower.html">冷却塔の設計と運転 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/separation/">分離操作の記事</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html" aria-current="page">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/" aria-current="page">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>カスケード制御とフィードフォワード制御｜フィードバック制御を補う方法｜はじめての化学工学</title>
+<meta name="description" content="フィードバック制御だけでは外乱への対応が遅れる理由と、それを補うカスケード制御（制御ループの二重化）とフィードフォワード制御（外乱を測って先回りする）の仕組み、熱収支からフィードフォワードの操作量を決める計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/control/cascade-feedforward.html">
+<meta property="og:title" content="カスケード制御とフィードフォワード制御｜フィードバック制御を補う方法｜はじめての化学工学">
+<meta property="og:description" content="フィードバック制御だけでは外乱への対応が遅れる理由と、それを補うカスケード制御（制御ループの二重化）とフィードフォワード制御（外乱を測って先回りする）の仕組み、熱収支からフィードフォワードの操作量を決める計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "カスケード制御とフィードフォワード制御", "description": "フィードバック制御だけでは外乱への対応が遅れる理由と、それを補うカスケード制御（制御ループの二重化）とフィードフォワード制御（外乱を測って先回りする）の仕組み、熱収支からフィードフォワードの操作量を決める計算を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/control/cascade-feedforward.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/control/">プロセス制御</a> › <span>カスケード制御とフィードフォワード制御</span></nav>
+    <article class="article">
+<h1>カスケード制御とフィードフォワード制御</h1>
+<p class="lead">フィードバック制御だけでは外乱への対応が遅れる理由と、それを補うカスケード制御（制御ループの二重化）とフィードフォワード制御（外乱を測って先回りする）の仕組み、熱収支からフィードフォワードの操作量を決める計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">フィードバック制御の弱点</a></li><li><a href="#s2">カスケード制御</a></li><li><a href="#s3">フィードフォワード制御</a></li><li><a href="#s4">その他の制御の工夫</a></li></ol></nav>
+
+<h2 id="s1">フィードバック制御の弱点</h2>
+<p><a href="/control/feedback-pid.html">フィードバック制御</a>は、制御量のずれを見てから操作するので、原因のわからない外乱にも対応できます。しかし、プロセスの<a href="/control/first-order-system.html">遅れやむだ時間</a>が大きいと、ずれが現れるまでに時間がかかり、修正も後手に回ります。そこで実際のプラントでは、フィードバック制御に次のような工夫を組み合わせます。</p>
+
+<h2 id="s2">カスケード制御</h2>
+<p><strong>カスケード制御</strong>は、2つの制御ループを入れ子にする方法です。たとえば反応器の温度を、加熱蒸気の弁の開度で制御する場合を考えます。蒸気の元の圧力が変わると、弁の開度が同じでも蒸気の流量が変わり、しばらくしてから反応器の温度がずれます。</p>
+<ul>
+<li><strong>外側のループ（主ループ）</strong>：反応器の温度を測り、目標の温度との差から「蒸気の流量の目標値」を決める</li>
+<li><strong>内側のループ（副ループ）</strong>：蒸気の流量を測り、外側から与えられた目標値になるように弁を操作する</li>
+</ul>
+<p>蒸気の圧力が変わっても、内側の速い流量制御がすぐに修正するので、反応器の温度にはほとんど影響が出ません。内側のループは外側のループより十分に速く（時定数が数分の1以下）なるようにします。調整は、先に内側のループを合わせ、それから外側を合わせるのが基本です。</p>
+<figure class="fig"><a href="/fig/cascade-control.svg" target="_blank" rel="noopener"><img src="/fig/cascade-control.svg" alt="図1　カスケード制御のブロック線図" width="680" height="260" loading="lazy"></a><figcaption>図1　カスケード制御のブロック線図。内側の流量制御が、蒸気側の外乱を温度に影響が出る前に打ち消す</figcaption></figure>
+
+<h2 id="s3">フィードフォワード制御</h2>
+<p><strong>フィードフォワード制御</strong>は、外乱そのものを測り、それが制御量に影響を与える前に、プロセスのモデル（収支の式など）から必要な操作量を計算して先回りして操作する方法です。測れる外乱に対しては、フィードバックよりずっと早く対応できます。</p>
+<p>ただし、モデルが完全ではないので、フィードフォワードだけではずれが残ります。そのため、フィードフォワードで大部分を補い、残ったずれをフィードバックで修正する組み合わせが一般的です。</p>
+
+<div class="example">
+<strong>例題：加熱器のフィードフォワード</strong>
+<p>水を 20 °C から 60 °C に温める連続加熱器で、水の流量が 2.0 kg/s から 2.5 kg/s に急に増えました。加熱には、潜熱 2200 kJ/kg の蒸気を使います。水の比熱を 4.18 kJ/(kg·K) とし、熱損失を無視して、フィードフォワードで蒸気の流量をいくらに変えればよいかを求めてください。</p>
+<div class="answer">
+<p>出口温度を 60 °C に保つのに必要な蒸気の流量は、<a href="/basics/energy-balance.html">熱収支</a>から</p>
+<p>$F_s = \dfrac{F\,c_p\,(T_{\text{目標}} - T_{\text{入口}})}{\lambda}$</p>
+<p>流量 2.0 kg/s のとき：$F_s = \dfrac{2.0 \times 4.18 \times 40}{2200} \approx 0.152\ \text{kg/s}$</p>
+<p>流量 2.5 kg/s のとき：$F_s = \dfrac{2.5 \times 4.18 \times 40}{2200} \approx 0.190\ \text{kg/s}$</p>
+<p>水の流量計の信号から、蒸気の流量の目標値を 0.152 から 0.190 kg/s に変えます。入口温度も測っていれば、同じ式で入口温度の変化にも対応できます。熱損失や比熱の誤差で残ったずれは、出口温度のフィードバック制御で修正します。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/feedforward-response.svg" target="_blank" rel="noopener"><img src="/fig/feedforward-response.svg" alt="図2　流量が増えたときの出口温度の応答" width="580" height="320" loading="lazy"></a><figcaption>図2　例題の加熱器で水の流量が増えたときの出口温度の応答の例（当サイトで計算）。フィードフォワードを加えると、温度のずれがほとんど出ない</figcaption></figure>
+
+<h2 id="s4">その他の制御の工夫</h2>
+<ul>
+<li><strong>比率制御</strong>：2つの流量の比を一定に保つ（燃料と空気の比、原料の混合比）。<a href="/basics/combustion.html">空気比</a>の管理に使われる</li>
+<li><strong>オーバーライド制御</strong>：温度や圧力が限界に近づいたときに、別のコントローラーが操作を引き継いで安全を守る</li>
+<li><strong>モデル予測制御</strong>：プロセスのモデルで将来の動きを予測し、複数の変数をまとめて最適に操作する。石油精製や化学プラントで広く使われている</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/control/pid-design.html">PID 制御の設計</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/control/pid-design.html">← PID 制御の設計</a><a class="next" href="/control/control-valve-sizing.html">調節弁の選び方とCv値 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/control/">プロセス制御の記事</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html" aria-current="page">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html">調節弁の選び方とCv値</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/" aria-current="page">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

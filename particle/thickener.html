@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>沈降濃縮とシックナーの設計｜回分沈降試験から必要な面積を求める｜はじめての化学工学</title>
+<meta name="description" content="スラリーを沈めて濃縮するシックナー（沈降濃縮槽）の仕組み、回分沈降試験で得られる界面の沈降曲線、濃度ごとの沈降速度から必要な断面積を求めるコー・クレベンジャーの方法を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/thickener.html">
+<meta property="og:title" content="沈降濃縮とシックナーの設計｜回分沈降試験から必要な面積を求める｜はじめての化学工学">
+<meta property="og:description" content="スラリーを沈めて濃縮するシックナー（沈降濃縮槽）の仕組み、回分沈降試験で得られる界面の沈降曲線、濃度ごとの沈降速度から必要な断面積を求めるコー・クレベンジャーの方法を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "沈降濃縮とシックナーの設計", "description": "スラリーを沈めて濃縮するシックナー（沈降濃縮槽）の仕組み、回分沈降試験で得られる界面の沈降曲線、濃度ごとの沈降速度から必要な断面積を求めるコー・クレベンジャーの方法を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/thickener.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>沈降濃縮とシックナーの設計</span></nav>
+    <article class="article">
+<h1>沈降濃縮とシックナーの設計</h1>
+<p class="lead">スラリーを沈めて濃縮するシックナー（沈降濃縮槽）の仕組み、回分沈降試験で得られる界面の沈降曲線、濃度ごとの沈降速度から必要な断面積を求めるコー・クレベンジャーの方法を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">シックナーとは</a></li><li><a href="#s2">回分沈降試験</a></li><li><a href="#s3">必要な断面積：コー・クレベンジャーの方法</a></li><li><a href="#s4">沈降をよくする工夫</a></li></ol></nav>
+
+<h2 id="s1">シックナーとは</h2>
+<p>粒子をたくさん含む液（スラリー）を大きな槽にゆっくり流し込み、粒子を沈めて底から濃いスラリー（底流）を抜き出し、上から澄んだ液（溢流）を流し出す装置を<strong>シックナー</strong>（沈降濃縮槽）といいます。鉱石の処理、排水処理の汚泥の濃縮、化学品の製造などで、ろ過の前に液の量を大きく減らすために使われます。</p>
+<p>粒子が少ない液を澄ませる<a href="/particle/stokes-settling.html">沈殿池</a>では、1個1個の粒子の沈降速度で考えましたが、濃いスラリーでは粒子どうしが邪魔し合い、全体がひとかたまりになって沈みます（<strong>干渉沈降</strong>）。そのため、シックナーの設計には、実際のスラリーを使った沈降試験の結果を使います。</p>
+<figure class="fig"><a href="/fig/thickener-zones.svg" target="_blank" rel="noopener"><img src="/fig/thickener-zones.svg" alt="図1　シックナーの構造と内部の層" width="720" height="300" loading="lazy"></a><figcaption>図1　連続式シックナーの構造と内部の層。下に行くほどスラリーが濃くなる</figcaption></figure>
+
+<h2 id="s2">回分沈降試験</h2>
+<p>スラリーをメスシリンダーに入れて静かに置くと、上の澄んだ液と、下の濃いスラリーの境目（界面）が下がっていきます。界面の高さを時間に対して記録したものを<strong>沈降曲線</strong>といいます。初めは界面が一定の速さで下がり（定速沈降）、粒子が底にたまって圧縮され始めると、だんだん遅くなります。</p>
+<p>初めの濃度を変えて試験を行い、それぞれの初めの沈降速度を測ると、濃度ごとの沈降速度 $u(C)$ が得られます。濃いほど沈降速度は遅くなります。</p>
+
+<h2 id="s3">必要な断面積：コー・クレベンジャーの方法</h2>
+<p>シックナーの中では、上から下へ濃度が変わっていく層ができます。ある濃度 $C$ の層で、粒子が沈んで通り抜けられる量には限りがあり、その層が全体の処理量を決めます。固体の供給量を $Q_s$ [kg/h]、目標の底流の濃度を $C_u$ [kg/m³] とすると、濃度 $C$ の層で必要な面積は</p>
+<div class="formula">$$A(C) = \frac{Q_s\left(\dfrac{1}{C} - \dfrac{1}{C_u}\right)}{u(C)}$$</div>
+<p>です。いくつかの濃度について計算し、<strong>最も大きくなる面積</strong>を必要な断面積とします。その濃度の層が、粒子の通り道の「ボトルネック」になるからです。</p>
+
+<div class="example">
+<strong>例題：シックナーの面積</strong>
+<p>固体を 10 t/h 含むスラリーを、底流の固体濃度 400 kg/m³ まで濃縮したいと考えます。回分沈降試験で、次の濃度ごとの沈降速度が得られました。必要なシックナーの断面積を求めてください。</p>
+<table>
+<tr><th>固体の濃度 C [kg/m³]</th><td>50</td><td>100</td><td>200</td><td>300</td></tr>
+<tr><th>沈降速度 u [m/h]</th><td>1.5</td><td>0.6</td><td>0.2</td><td>0.08</td></tr>
+</table>
+<div class="answer">
+<p>$Q_s$ = 10 000 kg/h として、濃度ごとに面積を計算します。</p>
+<p>C = 50：$A = \dfrac{10\,000 \times (1/50 - 1/400)}{1.5} \approx 117\ \text{m}^2$</p>
+<p>C = 100：$A = \dfrac{10\,000 \times (1/100 - 1/400)}{0.6} = 125\ \text{m}^2$</p>
+<p>C = 200：$A = \dfrac{10\,000 \times (1/200 - 1/400)}{0.2} = 125\ \text{m}^2$</p>
+<p>C = 300：$A = \dfrac{10\,000 \times (1/300 - 1/400)}{0.08} \approx 104\ \text{m}^2$</p>
+<p>最大は 125 m² です。余裕を見て 1.2〜1.5 倍の 150〜190 m² 程度とし、直径はおよそ 14〜16 m になります。底流の濃度を上げようとするほど、必要な面積は大きくなります。</p>
+</div>
+</div>
+
+<h2 id="s4">沈降をよくする工夫</h2>
+<ul>
+<li><strong>凝集剤</strong>：高分子の凝集剤を加えて細かい粒子をまとめ、大きなかたまり（フロック）にして速く沈める。最も効果が大きい</li>
+<li><strong>レーキ</strong>：底をゆっくり回る掻き寄せ機で、沈んだ泥を中央に集めながら圧縮し、水を押し出す</li>
+<li><strong>傾斜板</strong>：槽の中に傾けた板を何枚も入れ、沈降に使える面積を増やす（同じ設置面積で処理量を増やせる）</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/environment/coagulation-flocculation.html">凝集とフロック形成</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/particle/powder-storage-and-dust-explosion.html">← 粉体の貯槽と粉じん爆発</a><a class="next" href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html" aria-current="page">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

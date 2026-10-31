@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>調節弁の選び方とCv値｜流量特性と弁の大きさの決め方｜はじめての化学工学</title>
+<meta name="description" content="流量や圧力を制御する調節弁の役割、弁の流れやすさを表すCv値・Kv値の意味と計算、リニア特性とイコールパーセント特性の違い、弁の圧力損失の配分と大きさの選び方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/control/control-valve-sizing.html">
+<meta property="og:title" content="調節弁の選び方とCv値｜流量特性と弁の大きさの決め方｜はじめての化学工学">
+<meta property="og:description" content="流量や圧力を制御する調節弁の役割、弁の流れやすさを表すCv値・Kv値の意味と計算、リニア特性とイコールパーセント特性の違い、弁の圧力損失の配分と大きさの選び方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "調節弁の選び方とCv値", "description": "流量や圧力を制御する調節弁の役割、弁の流れやすさを表すCv値・Kv値の意味と計算、リニア特性とイコールパーセント特性の違い、弁の圧力損失の配分と大きさの選び方を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/control/control-valve-sizing.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/control/">プロセス制御</a> › <span>調節弁の選び方とCv値</span></nav>
+    <article class="article">
+<h1>調節弁の選び方とCv値</h1>
+<p class="lead">流量や圧力を制御する調節弁の役割、弁の流れやすさを表すCv値・Kv値の意味と計算、リニア特性とイコールパーセント特性の違い、弁の圧力損失の配分と大きさの選び方を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">調節弁の役割</a></li><li><a href="#s2">Cv値とKv値</a></li><li><a href="#s3">流量特性</a></li><li><a href="#s4">弁の大きさの選び方</a></li><li><a href="#s5">弁の動作の確認</a></li></ol></nav>
+
+<h2 id="s1">調節弁の役割</h2>
+<p><a href="/control/feedback-pid.html">フィードバック制御</a>で、調節計の出力を実際の流量の変化に変えるのが<strong>調節弁</strong>（コントロールバルブ）です。化学プラントの制御ループの大部分は、最終的に調節弁の開度を変えることで流量、温度、圧力、液面を制御しています。弁の大きさや特性が適切でないと、どれだけ上手にパラメータを調整しても、うまく制御できません。</p>
+
+<h2 id="s2">Cv値とKv値</h2>
+<p>弁の流れやすさは、弁の前後の圧力差と流量の関係で表します。液体では、<a href="/fluid/bernoulli.html">ベルヌーイの式</a>と同じく流量は圧力差の平方根に比例するので</p>
+<div class="formula">$$Q = K_v \sqrt{\frac{\Delta P}{G}}$$</div>
+<p>と書けます。$Q$ は流量 [m³/h]、$\Delta P$ は弁の前後の圧力差 [bar]、$G$ は液の比重（水 = 1）です。比例定数 $K_v$ を <strong>Kv 値</strong>といい、「圧力差 1 bar で水を流したときの流量 [m³/h]」を表します。米国の単位（米ガロン/分、psi）で同じ意味の値を <strong>Cv 値</strong>といい、$C_v \approx 1.156\,K_v$ の関係があります。メーカーのカタログには、弁の大きさごとに全開時の Cv 値（定格 Cv）が載っています。</p>
+
+<h2 id="s3">流量特性</h2>
+<p>弁の開度と Cv 値の関係を<strong>固有流量特性</strong>といい、代表的なものが2つあります。</p>
+<ul>
+<li><strong>リニア特性</strong>：Cv 値が開度に比例する。弁の圧力差がほぼ一定の場合（液面制御など）に向く</li>
+<li><strong>イコールパーセント特性</strong>：開度が一定量増えるごとに、Cv 値がその時点の値の一定の割合ずつ増える。配管の圧力損失が大きく、流量とともに弁の圧力差が小さくなる場合に、実際の流量の変わり方が直線に近くなる。化学プラントで最も広く使われる</li>
+</ul>
+<figure class="fig"><a href="/fig/valve-characteristics.svg" target="_blank" rel="noopener"><img src="/fig/valve-characteristics.svg" alt="図1　調節弁の流量特性" width="580" height="320" loading="lazy"></a><figcaption>図1　調節弁の固有流量特性（レンジアビリティ 50 のイコールパーセント特性の例）</figcaption></figure>
+
+<h2 id="s4">弁の大きさの選び方</h2>
+<ul>
+<li><strong>圧力差の配分</strong>：ポンプの吐出圧力のうち、弁にも十分な圧力差を割り当てる。弁の圧力差が小さすぎると、弁を開いても流量がほとんど変わらず、制御できない。目安として、系全体の動的な圧力損失の 25〜50% 程度を弁に割り当てる</li>
+<li><strong>開度</strong>：通常の流量で開度が 50〜80% 程度、最大流量でも 90% 以下になる大きさを選ぶ。小さすぎると流量が足りず、大きすぎると小さな開度で使うことになり、制御が不安定になる</li>
+<li><strong>キャビテーションとフラッシング</strong>：弁の中で圧力が液の蒸気圧より下がると、気泡ができて振動や損傷の原因になる（<a href="/fluid/pump-power.html">ポンプのキャビテーション</a>と同じ現象）。圧力差が大きい場合は、多段に減圧する構造の弁を選ぶ</li>
+</ul>
+
+<div class="example">
+<strong>例題：水の流量調節弁の大きさ</strong>
+<p>水（比重 1.0）を通常 20 m³/h、最大 26 m³/h 流す配管に調節弁を入れます。通常の流量で弁にかかる圧力差を 0.5 bar とします。(1) 通常の流量での必要な Kv 値と Cv 値を求めてください。(2) 定格 Cv 値が 50 の弁を選んだとき、通常の流量での Cv の割合はどれくらいですか。</p>
+<div class="answer">
+<p>(1) $K_v = Q\sqrt{G/\Delta P} = 20 \times \sqrt{1.0/0.5} \approx 28.3$、$C_v = 1.156 \times 28.3 \approx 32.7$</p>
+<p>(2) 定格の $32.7 / 50 \approx 65\%$ の Cv で使うことになります。イコールパーセント特性の弁では、Cv が定格の65%になる開度はおよそ 90% 近くになるので、実際に使う開度は特性曲線で確かめます。</p>
+<p>最大流量 26 m³/h のときは、配管の損失が増えて弁の圧力差が小さくなることが多いので、そのときの圧力差でも必要な Cv が定格を超えないかを確認します。超える場合は、1つ大きな弁を選ぶか、ポンプの揚程を見直します。</p>
+</div>
+</div>
+
+<h2 id="s5">弁の動作の確認</h2>
+<p>調節弁には、空気圧などで弁を動かす操作部と、調節計の信号どおりの開度に正確に合わせるポジショナーがついています。弁の軸の摩擦が大きいと、開度が段階的にしか動かず（スティクション）、制御量が一定の周期で振動する原因になります。制御がうまくいかないときは、パラメータを変える前に、弁が信号どおりに動いているかを確かめることが大切です。</p>
+
+
+<nav class="pager"><a class="prev" href="/control/cascade-feedforward.html">← カスケード制御とフィードフォワード制御</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/control/">プロセス制御の記事</a></h2><ul><li><a href="/control/feedback-pid.html">フィードバック制御とPID制御の基本をわかりやすく</a></li><li><a href="/control/first-order-system.html">一次遅れ系と時定数</a></li><li><a href="/control/transfer-functions.html">伝達関数とブロック線図</a></li><li><a href="/control/pid-tuning.html">PID制御のパラメータ調整</a></li><li><a href="/control/pid-design.html">PID 制御の設計</a></li><li><a href="/control/cascade-feedforward.html">カスケード制御とフィードフォワード制御</a></li><li><a href="/control/control-valve-sizing.html" aria-current="page">調節弁の選び方とCv値</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/" aria-current="page">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

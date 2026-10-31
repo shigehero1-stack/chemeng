@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>液液抽出の基礎｜分配係数と抽出率、多回抽出と向流多段抽出｜はじめての化学工学</title>
+<meta name="description" content="液液抽出の原理と分配係数、1回抽出での抽出率の求め方、同じ溶剤量で複数回に分けると有利になる理由、向流多段抽出の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/liquid-liquid-extraction.html">
+<meta property="og:title" content="液液抽出の基礎｜分配係数と抽出率、多回抽出と向流多段抽出｜はじめての化学工学">
+<meta property="og:description" content="液液抽出の原理と分配係数、1回抽出での抽出率の求め方、同じ溶剤量で複数回に分けると有利になる理由、向流多段抽出の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "液液抽出の基礎", "description": "液液抽出の原理と分配係数、1回抽出での抽出率の求め方、同じ溶剤量で複数回に分けると有利になる理由、向流多段抽出の計算を例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-09", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/separation/liquid-liquid-extraction.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>液液抽出の基礎</span></nav>
+    <article class="article">
+<h1>液液抽出の基礎</h1>
+<p class="lead">液液抽出の原理と分配係数、1回抽出での抽出率の求め方、同じ溶剤量で複数回に分けると有利になる理由、向流多段抽出の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-09">2026-10-09</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">液液抽出とは</a></li><li><a href="#s2">分配係数</a></li><li><a href="#s3">1回抽出の計算</a></li><li><a href="#s4">多回抽出：分けて使うと有利</a></li><li><a href="#s5">向流多段抽出</a></li><li><a href="#s6">抽出装置</a></li></ol></nav>
+
+<h2 id="s1">液液抽出とは</h2>
+<p><strong>液液抽出</strong>は、混ざり合わない2つの液体を接触させ、一方の液に溶けている成分をもう一方の液（抽出溶剤）に移して分ける操作です。水に溶けている有機物を有機溶剤に移したり、金属イオンを回収したりするのに使われます。</p>
+<p>沸点が近い成分や、熱に弱い成分など、<a href="/separation/flash-and-simple-distillation.html">蒸留</a>では分けにくいものを分けられるのが強みです。抽出後の溶剤からは、蒸留などで成分を取り出し、溶剤を再利用します。</p>
+<ul>
+<li>抽出される成分を<strong>溶質</strong>、元の液を<strong>原料</strong>（原溶媒）、加える液を<strong>抽剤</strong>（抽出溶剤）という</li>
+<li>抽出後、溶質を多く含む抽剤側の液を<strong>抽出液</strong>、溶質が減った原料側の液を<strong>抽残液</strong>という</li>
+</ul>
+
+<h2 id="s2">分配係数</h2>
+<p>十分に混ぜて平衡になったとき、溶質が2つの液にどのように分かれるかを表すのが<strong>分配係数</strong>です。</p>
+<div class="formula">$$K = \frac{y}{x}$$</div>
+<p>$y$ は抽出液中、$x$ は抽残液中の溶質の濃度です（質量比などで表す）。$K$ が大きいほど、溶質は抽剤側に移りやすくなります。抽剤は、$K$ が大きく、原溶媒とよく分離し、回収しやすいものを選びます。</p>
+
+<h2 id="s3">1回抽出の計算</h2>
+<p>原溶媒と抽剤がまったく混ざらず、希薄で $K$ が一定とみなせる場合を考えます。原溶媒の量を $F$、抽剤の量を $S$ とすると、<strong>抽出因子</strong> $E = K S / F$ を使って、抽残液に残る溶質の割合は</p>
+<div class="formula">$$\frac{x_1}{x_0} = \frac{1}{1 + E}$$</div>
+<p>となります。溶質の<a href="/basics/material-balance.html">物質収支</a> $F x_0 = F x_1 + S y_1$ に $y_1 = K x_1$ を代入すると導けます。</p>
+
+<h2 id="s4">多回抽出：分けて使うと有利</h2>
+<p>同じ量の抽剤を何回かに分けて、新しい抽剤で繰り返し抽出する（並流多回抽出）と、1回で全部使うより多くの溶質を取り出せます。$n$ 回に等分した場合の残る割合は</p>
+<div class="formula">$$\frac{x_n}{x_0} = \left(\frac{1}{1 + E/n}\right)^n$$</div>
+
+<h2 id="s5">向流多段抽出</h2>
+<p>工業的には、原料と抽剤を逆向きに流して段ごとに接触させる<strong>向流多段抽出</strong>がよく使われます。少ない抽剤で高い抽出率が得られます。$N$ 段の向流抽出で抽残液に残る割合は、次のクレムサーの式で表されます（$E \neq 1$ のとき）。</p>
+<div class="formula">$$\frac{x_N}{x_0} = \frac{E - 1}{E^{N+1} - 1}$$</div>
+<figure class="fig"><a href="/fig/countercurrent-extraction.svg" target="_blank" rel="noopener"><img src="/fig/countercurrent-extraction.svg" alt="図1　向流多段抽出の流れ（3段の例）" width="640" height="230" loading="lazy"></a><figcaption>図1　向流多段抽出の流れ（3段の例）</figcaption></figure>
+
+<div class="example">
+<strong>例題：抽出のしかたによる違い</strong>
+<p>溶質を含む水 100 kg から、抽剤 100 kg を使って溶質を抽出します。分配係数（質量比基準）は $K = 2$ です。次の方法で、水に残る溶質の割合を比べてください。</p>
+<div class="answer">
+<p>抽出因子は $E = 2 \times 100 / 100 = 2$</p>
+<p>(1) 100 kg で1回抽出：$\dfrac{1}{1 + 2} \approx 33\%$ が残る</p>
+<p>(2) 50 kg ずつ2回：$\left(\dfrac{1}{1 + 1}\right)^2 = 25\%$ が残る</p>
+<p>(3) 25 kg ずつ4回：$\left(\dfrac{1}{1 + 0.5}\right)^4 \approx 20\%$ が残る</p>
+<p>(4) 100 kg で2段の向流抽出：$\dfrac{2 - 1}{2^3 - 1} = \dfrac{1}{7} \approx 14\%$ が残る</p>
+<p>(5) 100 kg で3段の向流抽出：$\dfrac{2 - 1}{2^4 - 1} = \dfrac{1}{15} \approx 7\%$ が残る</p>
+<p>同じ量の抽剤でも、使い方しだいで結果が大きく変わります。向流多段抽出が特に効率的なことがわかります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/extraction-methods-compare.svg" target="_blank" rel="noopener"><img src="/fig/extraction-methods-compare.svg" alt="図2　例題の抽出方法による違い。同じ量の抽剤でも、向流多段抽出では残る溶質が大きく減る" width="600" height="300" loading="lazy"></a><figcaption>図2　例題の抽出方法による違い。同じ量の抽剤でも、向流多段抽出では残る溶質が大きく減る</figcaption></figure>
+
+<h2 id="s6">抽出装置</h2>
+<p>実験室では分液ろうとを振って抽出しますが、工業的には、撹拌槽で混ぜて静置槽で分ける<strong>ミキサーセトラー</strong>や、塔の中で2つの液を向流に接触させる<strong>抽出塔</strong>（多孔板塔、回転円板塔など）、遠心力で素早く分ける遠心抽出機などが使われます。</p>
+
+
+<nav class="pager"><a class="prev" href="/separation/chemical-absorption.html">← 反応を伴うガス吸収</a><a class="next" href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/separation/">分離操作の記事</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html" aria-current="page">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/" aria-current="page">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

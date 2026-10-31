@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>固液抽出と向流洗浄｜浸出の原理と洗浄段数の計算｜はじめての化学工学</title>
+<meta name="description" content="固体から有用な成分を溶媒で溶かし出す固液抽出（浸出）の原理と用途、溶け出す速さに影響する因子、固体に付着した液を洗い流す向流多段洗浄の段数と回収率の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/leaching.html">
+<meta property="og:title" content="固液抽出と向流洗浄｜浸出の原理と洗浄段数の計算｜はじめての化学工学">
+<meta property="og:description" content="固体から有用な成分を溶媒で溶かし出す固液抽出（浸出）の原理と用途、溶け出す速さに影響する因子、固体に付着した液を洗い流す向流多段洗浄の段数と回収率の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "固液抽出と向流洗浄", "description": "固体から有用な成分を溶媒で溶かし出す固液抽出（浸出）の原理と用途、溶け出す速さに影響する因子、固体に付着した液を洗い流す向流多段洗浄の段数と回収率の計算を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/separation/leaching.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>固液抽出と向流洗浄</span></nav>
+    <article class="article">
+<h1>固液抽出と向流洗浄</h1>
+<p class="lead">固体から有用な成分を溶媒で溶かし出す固液抽出（浸出）の原理と用途、溶け出す速さに影響する因子、固体に付着した液を洗い流す向流多段洗浄の段数と回収率の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">固液抽出とは</a></li><li><a href="#s2">溶け出す速さ</a></li><li><a href="#s3">洗浄：固体に残る溶液</a></li><li><a href="#s4">装置</a></li><li><a href="#s5">練習問題</a></li></ol></nav>
+
+<h2 id="s1">固液抽出とは</h2>
+<p><strong>固液抽出</strong>（浸出、リーチング）は、固体の中に含まれる成分を、溶媒に溶かし出して取り出す操作です。コーヒーやお茶の抽出、大豆からの油の抽出（ヘキサンを使う）、てん菜からの砂糖の抽出（温水を使う）、鉱石からの金属の浸出（酸やアルカリを使う）、薬用植物からの有効成分の抽出などに使われます。</p>
+<p>操作は、(1) 固体と溶媒を接触させて成分を溶かし出す、(2) 溶液と固体を分ける、(3) 固体に残った溶液を洗い流して回収する、という段階からなります。</p>
+
+<h2 id="s2">溶け出す速さ</h2>
+<p>成分が溶け出す速さは、固体の内部での<a href="/mass/diffusion.html">拡散</a>で決まることが多く、次の工夫で速くできます。</p>
+<ul>
+<li><strong>固体を細かくする</strong>：拡散する距離が短くなる。ただし細かすぎると、ろ過で液を分けにくくなる。大豆は薄いフレーク状にして使う</li>
+<li><strong>温度を上げる</strong>：溶解度と拡散係数が大きくなる</li>
+<li><strong>よくかき混ぜる・液を流す</strong>：固体の表面の<a href="/mass/mass-transfer-coefficient.html">物質移動</a>がよくなり、表面の濃度が下がる</li>
+</ul>
+
+<h2 id="s3">洗浄：固体に残る溶液</h2>
+<p>溶液と固体を分けても、固体には溶液が付着して残ります（ろ過のケーク、沈降した泥など）。この付着液に含まれる成分を回収するために、固体を新しい溶媒で洗います。洗浄も、<a href="/separation/liquid-liquid-extraction.html">液液抽出</a>と同じく、固体と溶媒を逆向きに流す<strong>向流多段洗浄</strong>が効率的です。</p>
+<p>各段で固体が持ち出す溶液の量 $L$ が一定で、溶媒の流量を $V$ とすると、$R = V/L$（洗浄比）を使って、$N$ 段の向流洗浄で固体とともに失われる成分の割合は</p>
+<div class="formula">$$\frac{\text{失われる量}}{\text{最初に固体についていた量}} = \frac{R - 1}{R^{N+1} - 1}$$</div>
+<p>となります（クレムサーの式と同じ形、<a href="/separation/stripping-kremser.html">放散</a>も参照）。</p>
+<figure class="fig"><a href="/fig/countercurrent-washing.svg" target="_blank" rel="noopener"><img src="/fig/countercurrent-washing.svg" alt="図1　向流多段洗浄の流れ" width="660" height="240" loading="lazy"></a><figcaption>図1　向流多段洗浄の流れ（3段）。洗われてきれいになった固体ほど、新しい溶媒に出会う</figcaption></figure>
+
+<div class="example">
+<strong>例題：洗浄の段数と回収率</strong>
+<p>浸出後の固体が、成分を含む溶液を付着させて洗浄工程に入ります。各段で固体が持ち出す溶液の量の3倍の洗浄水を使う（$R$ = 3）とき、(1) 1段で洗う場合と、(2) 3段の向流洗浄の場合について、付着液中の成分のうち失われる割合を求めてください。(3) 失われる割合を0.5%以下にするには、向流洗浄は何段必要ですか。</p>
+<div class="answer">
+<p>(1) 1段：$\dfrac{3 - 1}{3^2 - 1} = \dfrac{2}{8} = 25\%$ が失われる</p>
+<p>(2) 3段：$\dfrac{3 - 1}{3^4 - 1} = \dfrac{2}{80} = 2.5\%$</p>
+<p>(3) $\dfrac{2}{3^{N+1} - 1} \le 0.005$ より $3^{N+1} \ge 401$、$N + 1 \ge 5.46$ なので、$N$ = 5 段</p>
+<p>同じ量の洗浄水でも、段数を増やすと回収率が大きく上がります。ただし洗浄水を増やすと、回収した溶液が薄くなり、あとで濃縮（<a href="/heat/evaporator.html">蒸発</a>など）するエネルギーが増えるので、洗浄比と段数のバランスで決めます。</p>
+</div>
+</div>
+
+<h2 id="s4">装置</h2>
+<ul>
+<li><strong>浸漬式・パーコレーション式</strong>：固体を層にして溶媒を通す。コーヒーの抽出、鉱石の堆積浸出</li>
+<li><strong>連続式抽出機</strong>：かごやベルトに乗せた固体に、向流に溶媒を散布する。大豆油の抽出</li>
+<li><strong>撹拌槽とシックナーの組み合わせ</strong>：細かい固体を撹拌槽で浸出し、<a href="/particle/thickener.html">シックナー</a>で沈めて分ける。湿式製錬で使われる（向流デカンテーション）</li>
+</ul>
+<h2 id="s5">練習問題</h2>
+<div class="example">
+<strong>練習：洗浄水を減らすと段数はどうなるか</strong>
+<p>上の例題と同じ向流洗浄で、洗浄水を固体が持ち出す溶液の2倍（$R$ = 2）に減らしたとします。失われる割合を 1% 以下にするには何段必要ですか。$R$ = 3 の場合とも比べてください。</p>
+<div class="answer">
+<p>$N$ 段の向流洗浄で失われる割合は $\dfrac{R - 1}{R^{N+1} - 1}$ です。</p>
+<p>$R$ = 2 のとき：$N$ = 5 で $1/63 \approx 1.6\%$、$N$ = 6 で $1/127 \approx 0.79\%$ なので、<strong>6段</strong>必要です。</p>
+<p>$R$ = 3 のとき：$N$ = 3 で $2/80 = 2.5\%$、$N$ = 4 で $2/242 \approx 0.83\%$ なので、<strong>4段</strong>で足ります。</p>
+<p>洗浄水を増やすと段数は減りますが、そのぶん抽出液が薄くなり、あとで濃縮（<a href="/heat/evaporator.html">蒸発</a>など）にかかるエネルギーが増えます。段数による設備費と、濃縮の運転費のつり合いで $R$ を決めます。</p>
+</div>
+</div>
+<div class="note">この式は、各段で固体が持ち出す溶液の量が一定で、各段で付着液と洗浄液が完全に混ざる（理想段）と仮定しています。実際の装置では混ざり方が不完全なので、計算より1〜2段多めに見込むことがあります。</div>
+
+
+<nav class="pager"><a class="prev" href="/separation/stripping-kremser.html">← 放散（ストリッピング）とクレムサーの式</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/separation/">分離操作の記事</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html" aria-current="page">固液抽出と向流洗浄</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/" aria-current="page">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

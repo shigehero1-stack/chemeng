@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>膜分離の種類と逆浸透（RO）｜浸透圧と透過流束の計算｜はじめての化学工学</title>
+<meta name="description" content="精密ろ過・限外ろ過・ナノろ過・逆浸透の違いと選び方、逆浸透の原理と浸透圧の求め方、圧力と透過流束の関係、海水淡水化の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/membrane/reverse-osmosis.html">
+<meta property="og:title" content="膜分離の種類と逆浸透（RO）｜浸透圧と透過流束の計算｜はじめての化学工学">
+<meta property="og:description" content="精密ろ過・限外ろ過・ナノろ過・逆浸透の違いと選び方、逆浸透の原理と浸透圧の求め方、圧力と透過流束の関係、海水淡水化の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "膜分離の種類と逆浸透（RO）", "description": "精密ろ過・限外ろ過・ナノろ過・逆浸透の違いと選び方、逆浸透の原理と浸透圧の求め方、圧力と透過流束の関係、海水淡水化の計算を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/membrane/reverse-osmosis.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/membrane/">膜分離</a> › <span>膜分離の種類と逆浸透（RO）</span></nav>
+    <article class="article">
+<h1>膜分離の種類と逆浸透（RO）</h1>
+<p class="lead">精密ろ過・限外ろ過・ナノろ過・逆浸透の違いと選び方、逆浸透の原理と浸透圧の求め方、圧力と透過流束の関係、海水淡水化の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">膜分離とは</a></li><li><a href="#s2">液体を扱う膜の種類</a></li><li><a href="#s3">浸透と逆浸透</a></li><li><a href="#s4">透過流束と圧力の関係</a></li><li><a href="#s5">膜モジュールと運転の注意</a></li></ol></nav>
+
+<h2 id="s1">膜分離とは</h2>
+<p><strong>膜分離</strong>は、ある成分は通し、別の成分は通しにくい膜を使って、混合物を分ける操作です。蒸留のように液を蒸発させる必要がないので、エネルギーが少なくて済み、熱に弱い成分も扱えます。浄水、海水の淡水化、排水の再利用、食品や医薬品の濃縮、ガスの分離など、用途が広がっています。</p>
+<p>膜を通り抜けた側の流れを<strong>透過液</strong>（パーミエート）、通り抜けずに残った側を<strong>濃縮液</strong>（リテンテート）といいます。膜 1 m² あたり、単位時間に通り抜ける量を<strong>透過流束</strong>といい、L/(m²·h)（LMH と書くこともある）でよく表します。</p>
+
+<h2 id="s2">液体を扱う膜の種類</h2>
+<table>
+<tr><th>膜</th><th>止める物の大きさ</th><th>かける圧力の目安</th><th>おもな用途</th></tr>
+<tr><td>精密ろ過（MF）</td><td>約 0.1〜10 µm（細菌、微粒子）</td><td>0.01〜0.2 MPa</td><td>浄水、除菌、排水の固液分離</td></tr>
+<tr><td>限外ろ過（UF）</td><td>約 2〜100 nm（たんぱく質、ウイルス、コロイド）</td><td>0.05〜0.5 MPa</td><td>浄水、たんぱく質の濃縮、電着塗料の回収</td></tr>
+<tr><td>ナノろ過（NF）</td><td>約 1 nm（2価のイオン、糖、小さな有機物）</td><td>0.3〜1.5 MPa</td><td>軟水化、色の除去</td></tr>
+<tr><td>逆浸透（RO）</td><td>イオン（1価のイオンも止める）</td><td>1〜8 MPa</td><td>海水淡水化、純水製造、排水の再利用</td></tr>
+</table>
+<figure class="fig"><a href="/fig/membrane-size-spectrum.svg" target="_blank" rel="noopener"><img src="/fig/membrane-size-spectrum.svg" alt="図1　液体を扱う膜と、止められる物の大きさ" width="640" height="250" loading="lazy"></a><figcaption>図1　液体を扱う膜と、止められる物の大きさのおおよその範囲（対数目盛）</figcaption></figure>
+<p>MF と UF は、膜の細孔より大きい物をふるいのように止める仕組みが中心です。NF と RO の膜には、はっきりした穴はなく、水が膜の中に溶け込んで拡散し、イオンはほとんど溶け込めないことで分離します。MF・UF については<a href="/membrane/ultrafiltration.html">限外ろ過と濃度分極</a>の記事で扱います。</p>
+
+<h2 id="s3">浸透と逆浸透</h2>
+<p>水だけを通す膜（半透膜）をはさんで、片側に純水、反対側に塩水を置くと、水は塩水の側へ移動します。これが<strong>浸透</strong>で、移動を止めるために塩水側にかける必要がある圧力を<strong>浸透圧</strong> $\pi$ といいます。薄い溶液の浸透圧は、ファントホッフの式で見積もれます。</p>
+<div class="formula">$$\pi = i\,C\,R\,T$$</div>
+<p>$C$ は溶質のモル濃度 [mol/m³]、$R$ は気体定数、$T$ は絶対温度、$i$ は溶質1つが何個の粒子に分かれるか（NaCl なら Na⁺ と Cl⁻ で約2）です。</p>
+<p>塩水側に浸透圧より高い圧力をかけると、水は逆に塩水側から純水側へ押し出されます。これが<strong>逆浸透</strong>で、塩水から真水を取り出せます。</p>
+
+<h2 id="s4">透過流束と圧力の関係</h2>
+<p>逆浸透膜の水の透過流束 $J_w$ は、かけた圧力差から浸透圧差を引いた「有効な圧力」に比例します。</p>
+<div class="formula">$$J_w = A\,(\Delta P - \Delta \pi)$$</div>
+<p>$A$ は膜の<strong>純水透過係数</strong>で、膜の性能を表します。一方、塩はわずかに膜を通り抜けますが、その量は圧力にほとんどよらず、濃度差に比例します。そのため、圧力を上げて水の透過を増やすほど、透過液の塩の濃度は下がります。膜がどれだけ塩を止めるかは<strong>阻止率</strong> $R = 1 - C_p/C_f$（$C_p$：透過液の濃度、$C_f$：供給液の濃度）で表し、海水淡水化用の膜では 99.7% 以上が一般的です。</p>
+
+<div class="example">
+<strong>例題：海水淡水化の浸透圧と透過流束</strong>
+<p>塩分を NaCl 35 g/L とみなした海水（25 °C）を、逆浸透膜で淡水化します。(1) 海水の浸透圧を求めてください。(2) 純水透過係数が 1.0 L/(m²·h·bar) の膜に 5.5 MPa をかけたときの、入口での透過流束を求めてください。(3) 供給した海水の40%を淡水として回収すると、出口の濃縮液の濃度と、出口での透過流束はどうなりますか。透過液の塩分と圧力損失は無視します。</p>
+<div class="answer">
+<p>(1) モル濃度は $35 / 58.44 \approx 0.599\ \text{mol/L} = 599\ \text{mol/m}^3$。</p>
+<p>$\pi = 2 \times 599 \times 8.314 \times 298.15 \approx 2.97 \times 10^6\ \text{Pa} \approx 3.0\ \text{MPa}$</p>
+<p>(2) 有効な圧力は $5.5 - 3.0 = 2.5$ MPa = 25 bar なので、$J_w = 1.0 \times 25 = 25\ \text{L/(m}^2\text{h)}$ です。</p>
+<p>(3) 水の40%が抜けると、塩の量は変わらずに水が60%になるので、濃縮液は $35 / 0.6 \approx 58$ g/L、浸透圧は約 $3.0 / 0.6 \approx 4.9$ MPa に上がります。出口での有効な圧力は $5.5 - 4.9 = 0.6$ MPa しかなく、透過流束は約 6 L/(m²·h) に下がります。</p>
+<p>このように、回収率を上げるほど濃縮液の浸透圧が上がり、出口付近の膜はほとんど働かなくなります。海水淡水化の回収率が40〜50%程度に抑えられているのはこのためです。なお、実際の海水の浸透圧は、イオンどうしの影響で、ファントホッフの式より少し低い約 2.7 MPa です。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/ro-flux-vs-pressure.svg" target="_blank" rel="noopener"><img src="/fig/ro-flux-vs-pressure.svg" alt="図2　逆浸透の透過流束と圧力の関係" width="580" height="320" loading="lazy"></a><figcaption>図2　例題の逆浸透膜の透過流束と圧力の関係。浸透圧を超えた分の圧力だけが水を押し出す</figcaption></figure>
+
+<h2 id="s5">膜モジュールと運転の注意</h2>
+<p>膜は、平らな膜を袋状にして巻いた<strong>スパイラル型</strong>や、細い管状の膜を束ねた<strong>中空糸型</strong>などの<strong>モジュール</strong>に組み込んで使います。運転では次の点に気をつけます。</p>
+<ul>
+<li><strong>ファウリング</strong>：膜の表面に濁りや有機物、微生物が付着して、透過流束が下がる。前処理（ろ過、UF）と定期的な洗浄で防ぐ</li>
+<li><strong>スケール</strong>：濃縮で溶けきれなくなったカルシウム塩などが析出する。回収率を上げすぎない、スケール防止剤を入れる</li>
+<li><strong>濃度分極</strong>：膜の表面で塩が濃くなり、実際の浸透圧が上がる。膜面の流れを速くして抑える</li>
+</ul>
+<p>海水淡水化に必要なエネルギーの大部分は高圧ポンプの動力です。最近の設備では、濃縮液がもっている高い圧力のエネルギーを回収する装置を組み合わせ、淡水 1 m³ あたり 3〜4 kWh 程度まで下がっています。</p>
+
+
+<nav class="pager"><span></span><a class="next" href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/membrane/">膜分離の記事</a></h2><ul><li><a href="/membrane/reverse-osmosis.html" aria-current="page">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html">ガス分離膜の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/" aria-current="page">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

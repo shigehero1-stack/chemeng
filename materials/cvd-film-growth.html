@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CVD の成膜速度｜表面反応律速と物質移動律速、グローブのモデルで考える温度の影響｜はじめての化学工学</title>
+<meta name="description" content="気体の原料を反応させて基板の上に薄膜をつくる CVD（化学気相成長）の成膜速度を、境膜を通る物質移動と表面反応の直列として表すグローブのモデルで解説します。表面反応律速と物質移動律速の見分け方、温度やガスの流れのむらが膜厚のむらに与える影響を例題で計算します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/materials/cvd-film-growth.html">
+<meta property="og:title" content="CVD の成膜速度｜表面反応律速と物質移動律速、グローブのモデルで考える温度の影響｜はじめての化学工学">
+<meta property="og:description" content="気体の原料を反応させて基板の上に薄膜をつくる CVD（化学気相成長）の成膜速度を、境膜を通る物質移動と表面反応の直列として表すグローブのモデルで解説します。表面反応律速と物質移動律速の見分け方、温度やガスの流れのむらが膜厚のむらに与える影響を例題で計算します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "CVD の成膜速度", "description": "気体の原料を反応させて基板の上に薄膜をつくる CVD（化学気相成長）の成膜速度を、境膜を通る物質移動と表面反応の直列として表すグローブのモデルで解説します。表面反応律速と物質移動律速の見分け方、温度やガスの流れのむらが膜厚のむらに与える影響を例題で計算します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/materials/cvd-film-growth.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/materials/">高分子・材料プロセス</a> › <span>CVD の成膜速度</span></nav>
+    <article class="article">
+<h1>CVD の成膜速度</h1>
+<p class="lead">気体の原料を反応させて基板の上に薄膜をつくる CVD（化学気相成長）の成膜速度を、境膜を通る物質移動と表面反応の直列として表すグローブのモデルで解説します。表面反応律速と物質移動律速の見分け方、温度やガスの流れのむらが膜厚のむらに与える影響を例題で計算します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">CVD とは</a></li><li><a href="#s2">グローブのモデル</a></li><li><a href="#s3">膜厚のむらはどこから来るか</a></li><li><a href="#s4">減圧 CVD が使われる理由</a></li><li><a href="#s5">使うときの注意</a></li></ol></nav>
+
+<h2 id="s1">CVD とは</h2>
+<p><strong>CVD</strong>（化学気相成長、Chemical Vapor Deposition）は、原料のガスを加熱した基板の上に流し、表面で化学反応を起こして固体の薄膜をつくる方法です。半導体の製造では、シリコンのウエハの上に、多結晶シリコン、酸化シリコン、窒化シリコンなどの膜を CVD でつけます。工具の表面を硬い膜で覆うコーティングや、太陽電池の製造にも使われています。</p>
+<p>たとえば多結晶シリコンの膜は、モノシラン SiH₄ を熱で分解してつくります。</p>
+<div class="formula">$$\mathrm{SiH_4(g)} \;\longrightarrow\; \mathrm{Si(s)} + 2\,\mathrm{H_2(g)}$$</div>
+<p>膜の厚さは製品の性能に直結するので、<strong>成膜速度</strong>（膜が厚くなる速さ）と、ウエハの面内や枚数のあいだで膜厚をそろえることが、CVD の装置と運転条件を決めるうえでの中心の課題になります。</p>
+
+<h2 id="s2">グローブのモデル</h2>
+<p>原料が膜になるまでには、二つの段階を順に通ります。</p>
+<figure class="fig"><a href="/fig/cvd-grove-model.svg" target="_blank" rel="noopener"><img src="/fig/cvd-grove-model.svg" alt="図1　CVD の成膜のしくみ（グローブのモデル）" width="760" height="300" loading="lazy"></a><figcaption>図1　CVD の成膜のしくみ（グローブのモデル）</figcaption></figure>
+<ol>
+<li><strong>物質移動</strong>：基板の表面近くには、ガスの流れが遅い境膜があります。原料は境膜を拡散して表面に届きます。単位面積あたりの流束は、<a href="/mass/mass-transfer-coefficient.html">物質移動係数</a> $h_G$ を使って $F_1 = h_G\,(C_g - C_s)$ です</li>
+<li><strong>表面反応</strong>：表面に届いた原料は反応して膜になります。1次反応とすると、流束は $F_2 = k_s\,C_s$ です。反応速度定数は<a href="/reaction/reaction-rate.html">アレニウス式</a> $k_s = k_0 \exp(-E/RT)$ に従います</li>
+</ol>
+<p>$C_g$ はガス本体の原料濃度、$C_s$ は表面での濃度です。定常状態では $F_1 = F_2$ なので、$C_s$ を消去すると</p>
+<div class="formula">$$F = \frac{k_s\,h_G}{k_s + h_G}\,C_g, \qquad G = \frac{F}{N} = \frac{k_s\,h_G}{k_s + h_G}\cdot\frac{C_g}{N}$$</div>
+<p>となります。$G$ は成膜速度 [m/s]、$N$ は膜の中の原子のモル密度 [mol/m³] です（シリコンなら 2.329 g/cm³ ÷ 28.09 g/mol で 8.29 × 10⁴ mol/m³）。これを<strong>グローブのモデル</strong>といいます。抵抗が直列につながった形で、<a href="/mass/two-film-theory.html">二重境膜説</a>や<a href="/reaction/gas-solid-reaction.html">気固反応</a>と同じ考え方です。</p>
+<p>この式から、二つの極端な場合が見えてきます。</p>
+<ul>
+<li><strong>表面反応律速</strong>（$k_s \ll h_G$、低温）：$G \approx k_s C_g / N$。成膜速度はアレニウス式に従い、温度に非常に敏感になる</li>
+<li><strong>物質移動律速</strong>（$k_s \gg h_G$、高温）：$G \approx h_G C_g / N$。成膜速度は温度にほとんどよらず、ガスの流れ方で決まる</li>
+</ul>
+
+<div class="example">
+<strong>例題：温度と律速段階</strong>
+<p>大気圧で、モノシランを 0.1%（モル分率）含む水素をウエハの上に流し、多結晶シリコンの膜をつけます。表面反応の速度定数を $k_s = 5.0 \times 10^5 \exp(-150\,000/RT)$ m/s、物質移動係数を $h_G$ = 0.02 m/s（2 cm/s）とします。ウエハの温度が 900 K と 1100 K のときの成膜速度を求め、どちらの段階が律速かを判断してください。また、厚さ 500 nm の膜をつけるのにかかる時間を求めてください。</p>
+<div class="answer">
+<p><strong>900 K</strong></p>
+<p>$k_s = 5.0 \times 10^5 \times \exp\!\left(-\dfrac{150\,000}{8.314 \times 900}\right) = 9.8 \times 10^{-4}$ m/s（0.098 cm/s）</p>
+<p>$C_g = \dfrac{0.001 \times 101\,325}{8.314 \times 900} = 0.0135$ mol/m³、$\dfrac{k_s h_G}{k_s + h_G} = \dfrac{0.098 \times 2}{0.098 + 2}$ cm/s $= 0.0935$ cm/s</p>
+<p>$G = \dfrac{9.35 \times 10^{-4} \times 0.0135}{8.29 \times 10^4} = 1.53 \times 10^{-10}$ m/s ＝ 9.2 nm/min</p>
+<p>$k_s$ は $h_G$ の 1/20 しかないので、<strong>表面反応律速</strong>です。500 nm の膜には $500 / 9.2 = 54$ 分かかります。</p>
+<p><strong>1100 K</strong></p>
+<p>$k_s = 3.77 \times 10^{-2}$ m/s（3.77 cm/s）、$C_g = 0.0111$ mol/m³、$\dfrac{3.77 \times 2}{3.77 + 2} = 1.31$ cm/s</p>
+<p>$G = \dfrac{0.0131 \times 0.0111}{8.29 \times 10^4} = 1.75 \times 10^{-9}$ m/s ＝ 105 nm/min</p>
+<p>$k_s$ が $h_G$ の約2倍で、<strong>物質移動の抵抗が全体の約 2/3 を占めています</strong>。500 nm の膜は 4.8 分でつきます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/cvd-arrhenius.svg" target="_blank" rel="noopener"><img src="/fig/cvd-arrhenius.svg" alt="図2　成膜速度の温度依存性（例題の条件でグローブのモデルから当サイトで計算）" width="660" height="340" loading="lazy"></a><figcaption>図2　成膜速度の温度依存性（例題の条件でグローブのモデルから当サイトで計算）</figcaption></figure>
+<p>成膜速度の対数を $1/T$ に対して描くと（図2）、低温側は傾きの急な直線（表面反応律速）、高温側は平らな線（物質移動律速）になり、その間で折れ曲がります。実験で成膜速度を測ってこの図を描けば、運転条件がどちらの領域にあるかがわかります。</p>
+
+<h2 id="s3">膜厚のむらはどこから来るか</h2>
+<p>成膜速度の式を、温度と物質移動係数のそれぞれについて微分すると、むらの原因がどちらの領域で効くかがわかります。</p>
+<div class="formula">$$\frac{d\ln G}{dT} \approx \frac{E}{RT^2}\cdot\frac{h_G}{k_s + h_G}, \qquad \frac{d\ln G}{d\ln h_G} = \frac{k_s}{k_s + h_G}$$</div>
+<p>例題の条件で成膜速度を計算し直すと、次のようになります（原料濃度が温度で変わる分も含む）。</p>
+<table class="num">
+<tr><th>ウエハの温度</th><th>温度が 5 K ずれたときの成膜速度の変化</th><th>物質移動係数が 10% ずれたときの変化</th></tr>
+<tr><td>900 K（表面反応律速）</td><td>約 ±10%</td><td>約 ±0.5%</td></tr>
+<tr><td>1100 K（物質移動律速に近い）</td><td>約 ±2%</td><td>約 ±6.5%</td></tr>
+</table>
+<ul>
+<li><strong>表面反応律速で運転するとき</strong>は、温度をそろえることが何より大切です。ガスの流れ方の違いはほとんど効きません</li>
+<li><strong>物質移動律速で運転するとき</strong>は、温度のむらには強くなりますが、ウエハの上流側と下流側で原料の濃度や境膜の厚さが変わると、そのまま膜厚のむらになります</li>
+</ul>
+
+<h2 id="s4">減圧 CVD が使われる理由</h2>
+<p>半導体の製造では、炉の中に100枚以上のウエハを数 mm の間隔で立てて並べ、まとめて成膜する<strong>減圧 CVD</strong>（LPCVD）がよく使われます。圧力を数十〜数百 Pa に下げると、ガスの拡散係数は圧力に反比例して大きくなり、物質移動係数が大きくなります。すると、同じ温度でも表面反応律速の領域に入り、ウエハのすき間の奥までガスの流れ方によらずに均一な膜がつきます。電気炉は温度を均一に保ちやすいので、表面反応律速と相性がよいのです。</p>
+<p>反対に、1枚ずつ高温で速く膜をつける装置では、物質移動律速に近い条件で運転し、ガスの流れを均一にする工夫（ガスを面全体から吹き出すシャワーヘッドなど）をします。</p>
+
+<h2 id="s5">使うときの注意</h2>
+<ul>
+<li>例題の速度定数は、計算の手順を示すために置いた値です。実際の反応速度は、原料の種類、圧力、表面の状態で大きく変わり、1次反応に従わないことも多くあります</li>
+<li>反応がガスの中でも起きると、粒子ができてウエハに落ち、欠陥の原因になります。ガス中での粒子のでき方は<a href="/materials/particle-coagulation.html">微粒子の生成と凝集</a>の記事で扱います</li>
+<li>原料が上流で消費されると、下流ほど $C_g$ が下がります。長い炉では、温度を下流ほど少し高くして成膜速度をそろえることがあります</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/materials/particle-coagulation.html">気相での微粒子の生成と凝集</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/mass/mass-transfer-coefficient.html">物質移動係数と境膜説</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/materials/injection-molding-cooling.html">← 射出成形の冷却時間</a><a class="next" href="/materials/particle-coagulation.html">気相での微粒子の生成と凝集 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/materials/">高分子・材料プロセスの記事</a></h2><ul><li><a href="/materials/extruder.html">押出機の押出量の計算</a></li><li><a href="/materials/injection-molding-cooling.html">射出成形の冷却時間</a></li><li><a href="/materials/cvd-film-growth.html" aria-current="page">CVD の成膜速度</a></li><li><a href="/materials/particle-coagulation.html">気相での微粒子の生成と凝集</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/" aria-current="page">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

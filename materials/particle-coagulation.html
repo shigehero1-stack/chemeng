@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>気相での微粒子の生成と凝集｜核生成・成長・ブラウン凝集と粒子の個数が半分になる時間｜はじめての化学工学</title>
+<meta name="description" content="気体の中で微粒子ができるしくみ（核生成、成長、凝集）と、ブラウン運動による凝集で粒子の個数が減り粒子径が大きくなる速さを、凝集係数とカニンガムの補正係数を使って求める方法を解説します。0.1 μm の粒子の例題で、個数が半分になる時間と10分後の粒子径を計算します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/materials/particle-coagulation.html">
+<meta property="og:title" content="気相での微粒子の生成と凝集｜核生成・成長・ブラウン凝集と粒子の個数が半分になる時間｜はじめての化学工学">
+<meta property="og:description" content="気体の中で微粒子ができるしくみ（核生成、成長、凝集）と、ブラウン運動による凝集で粒子の個数が減り粒子径が大きくなる速さを、凝集係数とカニンガムの補正係数を使って求める方法を解説します。0.1 μm の粒子の例題で、個数が半分になる時間と10分後の粒子径を計算します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "気相での微粒子の生成と凝集", "description": "気体の中で微粒子ができるしくみ（核生成、成長、凝集）と、ブラウン運動による凝集で粒子の個数が減り粒子径が大きくなる速さを、凝集係数とカニンガムの補正係数を使って求める方法を解説します。0.1 μm の粒子の例題で、個数が半分になる時間と10分後の粒子径を計算します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/materials/particle-coagulation.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/materials/">高分子・材料プロセス</a> › <span>気相での微粒子の生成と凝集</span></nav>
+    <article class="article">
+<h1>気相での微粒子の生成と凝集</h1>
+<p class="lead">気体の中で微粒子ができるしくみ（核生成、成長、凝集）と、ブラウン運動による凝集で粒子の個数が減り粒子径が大きくなる速さを、凝集係数とカニンガムの補正係数を使って求める方法を解説します。0.1 μm の粒子の例題で、個数が半分になる時間と10分後の粒子径を計算します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">気体の中で粒子をつくる</a></li><li><a href="#s2">ブラウン凝集の速さ</a></li><li><a href="#s3">粒子径を決める操作</a></li><li><a href="#s4">使うときの注意</a></li></ol></nav>
+
+<h2 id="s1">気体の中で粒子をつくる</h2>
+<p>タイヤに使うカーボンブラック、白色顔料の酸化チタン、シリコーンゴムの補強材に使うシリカ（ヒュームドシリカ）などの微粒子は、気体の中の反応でつくられます。原料を高温の炎や反応管の中で反応させ、できた固体の分子を集めて粒子にする方法で、<strong>気相合成</strong>と呼ばれます。液体の中で粒子をつくる<a href="/separation/crystallization.html">晶析</a>と並ぶ、微粒子の代表的なつくり方です。</p>
+<p>気相で粒子ができる過程は、次の三つの段階に分けて考えます。</p>
+<figure class="fig"><a href="/fig/coagulation-steps.svg" target="_blank" rel="noopener"><img src="/fig/coagulation-steps.svg" alt="図1　気相で微粒子ができる過程（模式図）" width="680" height="230" loading="lazy"></a><figcaption>図1　気相で微粒子ができる過程（模式図）</figcaption></figure>
+<ol>
+<li><strong>核生成</strong>：反応でできた分子（たとえば TiO₂）は、蒸気圧が極端に低いため、すぐに過飽和になります。分子がいくつか集まり、安定に存在できる大きさの<strong>核</strong>になります。過飽和の度合いが大きいほど、核は小さく、たくさんできます</li>
+<li><strong>成長</strong>：まだ粒子になっていない分子が、できた核の表面にくっついて粒子が大きくなります</li>
+<li><strong>凝集</strong>：粒子どうしがブラウン運動でぶつかり、くっついて一つになります。粒子の個数が減り、一つひとつは大きくなります</li>
+</ol>
+<p>原料の分子が使い尽くされると核生成と成長は止まり、そのあとは凝集だけが進みます。<strong>最終的な粒子径は、多くの場合、凝集で決まります</strong>。この記事では、凝集の速さを計算する方法を説明します。</p>
+
+<h2 id="s2">ブラウン凝集の速さ</h2>
+<p>同じ大きさの粒子が個数濃度 $N$ [個/m³] で浮かんでいるとき、凝集で個数が減る速さは、粒子どうしの衝突の回数に比例するので $N^2$ に比例します。</p>
+<div class="formula">$$\frac{dN}{dt} = -K\,N^2$$</div>
+<p>比例定数 $K$ [m³/s] を<strong>凝集係数</strong>といいます。粒子が空気の分子より十分大きい場合、ブラウン運動による凝集係数は、拡散の理論から次のように求められます。</p>
+<div class="formula">$$K = \frac{4\,k_B\,T}{3\,\mu}\,C_c$$</div>
+<p>$k_B$ はボルツマン定数（1.381 × 10⁻²³ J/K）、$T$ は絶対温度、$\mu$ は気体の粘度です。$C_c$ は<strong>カニンガムの補正係数</strong>で、粒子が気体分子の平均自由行程 $\lambda$（20 °C、1 気圧の空気で約 0.066 μm）と同じくらいに小さくなると、粒子がすべりやすくなって動きやすくなる効果を表します。</p>
+<div class="formula">$$C_c = 1 + Kn\left[1.142 + 0.558\exp\!\left(-\frac{0.999}{Kn}\right)\right], \qquad Kn = \frac{2\lambda}{d}$$</div>
+<p>$C_c$ は、粒子径 1 μm で 1.15、0.1 μm で 2.85 と、小さな粒子ほど大きくなります。<a href="/particle/stokes-settling.html">ストークスの沈降速度</a>を微粒子に使うときにも、この補正係数を掛けます。</p>
+<p>$K$ を一定とすれば、上の式はすぐに積分でき、粒子の総体積は凝集しても変わらないので、粒子径 $d$ も求まります。</p>
+<div class="formula">$$N = \frac{N_0}{1 + N_0 K t}, \qquad d = d_0\left(\frac{N_0}{N}\right)^{1/3}$$</div>
+<p>個数が初めの半分になる時間は $t_{1/2} = 1/(N_0 K)$ です。<strong>初めの個数濃度が高いほど、凝集は速く進みます</strong>。</p>
+
+<div class="example">
+<strong>例題：0.1 μm の粒子の凝集</strong>
+<p>20 °C、1 気圧の空気の中に、粒子径 0.1 μm の粒子が 1 cm³ あたり 1 億個（$N_0 = 10^{14}$ 個/m³）浮かんでいます。空気の粘度を 1.81 × 10⁻⁵ Pa·s として、(1) 凝集係数と、個数が半分になる時間を求めてください。(2) 10分後の個数濃度と粒子径を求めてください。</p>
+<div class="answer">
+<p><strong>(1)</strong> $Kn = 2 \times 0.066 / 0.1 = 1.32$ なので</p>
+<p>$C_c = 1 + 1.32 \times [1.142 + 0.558 \times \exp(-0.999/1.32)] = 1 + 1.32 \times (1.142 + 0.262) = 2.85$</p>
+<p>$K = \dfrac{4 \times 1.381 \times 10^{-23} \times 293.15}{3 \times 1.81 \times 10^{-5}} \times 2.85 = 2.98 \times 10^{-16} \times 2.85 = 8.5 \times 10^{-16}$ m³/s</p>
+<p>$t_{1/2} = \dfrac{1}{10^{14} \times 8.5 \times 10^{-16}} = 11.8$ s</p>
+<p>わずか 12 秒ほどで、粒子の個数が半分になります。</p>
+<p><strong>(2)</strong> $K$ を一定とすると、$N_0 K t = 600 / 11.8 = 51$ なので</p>
+<p>$N = \dfrac{10^{14}}{1 + 51} = 1.9 \times 10^{12}$ 個/m³、$d = 0.1 \times 52^{1/3} = 0.37$ μm</p>
+<p>実際には、粒子が大きくなるにつれて $C_c$ が小さくなり、凝集は遅くなります。$C_c$ の変化を含めて数値計算すると、10分後は $N = 3.2 \times 10^{12}$ 個/m³、$d$ = 0.32 μm になります（図2）。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/coagulation-time.svg" target="_blank" rel="noopener"><img src="/fig/coagulation-time.svg" alt="図2　凝集による個数濃度と粒子径の変化（例題の条件で、カニンガムの補正係数の変化を含めて当サイトで数値計算）" width="700" height="330" loading="lazy"></a><figcaption>図2　凝集による個数濃度と粒子径の変化（例題の条件で、カニンガムの補正係数の変化を含めて当サイトで数値計算）</figcaption></figure>
+<p>図2のように、個数濃度は初めの十数秒はほとんど変わらず、そのあとは時間にほぼ反比例して減っていきます。粒子径は時間の 1/3 乗に近い形でゆっくり大きくなり、1時間たっても 0.5 μm ほどにしかなりません。<strong>凝集は、個数が多いうちは速く、個数が減ると遅くなる</strong>という性質をもっています。</p>
+
+<h2 id="s3">粒子径を決める操作</h2>
+<p>凝集の式から、気相合成でできる粒子の大きさを調節する方法が見えてきます。</p>
+<ul>
+<li><strong>原料の濃度を下げる</strong>：粒子の個数濃度が下がり、凝集が遅くなるので、小さな粒子が得られる。ただし生産量は減る</li>
+<li><strong>高温にいる時間を短くする</strong>：反応器を出たらすぐに冷たいガスで薄めたり冷やしたりして、凝集を止める。粒子どうしがくっついても、高温でなければ一つの球に融け合わず、ゆるくつながった凝集体になる</li>
+<li><strong>温度を上げる</strong>：ぶつかった粒子が速く融け合って球になる。比表面積の小さい、緻密な粒子ができる</li>
+</ul>
+<p>炎の中でつくる粒子では、個数濃度が $10^{17}$ 個/m³ を超えることもあり、凝集はミリ秒の単位で進みます。このように粒子が数 nm と小さい場合は、粒子が気体分子と同じように飛び回る領域（自由分子領域）の凝集係数を使う必要があります。</p>
+
+<h2 id="s4">使うときの注意</h2>
+<ul>
+<li>ここでの式は、すべての粒子が同じ大きさだと仮定しています。実際の粒子には大きさの分布があり、大きさの違う粒子どうしのほうがぶつかりやすいため、凝集は少し速くなります。分布の扱い方は<a href="/particle/particle-size.html">粒子径の表し方</a>の記事を参考にしてください</li>
+<li>粒子が帯電していたり、乱流で混ぜられていたりすると、凝集の速さは変わります</li>
+<li>空気中の粉じんの捕集では、凝集で粒子が大きくなると<a href="/particle/cyclone.html">サイクロンや集じん装置</a>で捕まえやすくなります。逆に、排ガスの中の微粒子の個数を測るときは、配管の中で凝集が進まないよう、試料をすぐに薄めて測ります</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/environment/coagulation-flocculation.html">凝集とフロック形成</a></li><li><a href="/materials/cvd-film-growth.html">CVD の成膜速度</a></li><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/materials/cvd-film-growth.html">← CVD の成膜速度</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/materials/">高分子・材料プロセスの記事</a></h2><ul><li><a href="/materials/extruder.html">押出機の押出量の計算</a></li><li><a href="/materials/injection-molding-cooling.html">射出成形の冷却時間</a></li><li><a href="/materials/cvd-film-growth.html">CVD の成膜速度</a></li><li><a href="/materials/particle-coagulation.html" aria-current="page">気相での微粒子の生成と凝集</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/" aria-current="page">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

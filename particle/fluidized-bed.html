@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>流動層の基礎｜最小流動化速度と圧力損失、流動化の状態の変化｜はじめての化学工学</title>
+<meta name="description" content="粒子の層に下からガスを流して浮かせる流動層の仕組み、圧力損失が層の重さで決まる理由、最小流動化速度の求め方（Wen-Yu の式）、気泡流動層から循環流動層までの状態の変化を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/fluidized-bed.html">
+<meta property="og:title" content="流動層の基礎｜最小流動化速度と圧力損失、流動化の状態の変化｜はじめての化学工学">
+<meta property="og:description" content="粒子の層に下からガスを流して浮かせる流動層の仕組み、圧力損失が層の重さで決まる理由、最小流動化速度の求め方（Wen-Yu の式）、気泡流動層から循環流動層までの状態の変化を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "流動層の基礎", "description": "粒子の層に下からガスを流して浮かせる流動層の仕組み、圧力損失が層の重さで決まる理由、最小流動化速度の求め方（Wen-Yu の式）、気泡流動層から循環流動層までの状態の変化を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/fluidized-bed.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>流動層の基礎</span></nav>
+    <article class="article">
+<h1>流動層の基礎</h1>
+<p class="lead">粒子の層に下からガスを流して浮かせる流動層の仕組み、圧力損失が層の重さで決まる理由、最小流動化速度の求め方（Wen-Yu の式）、気泡流動層から循環流動層までの状態の変化を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">流動層とは</a></li><li><a href="#s2">流動層の圧力損失</a></li><li><a href="#s3">最小流動化速度</a></li><li><a href="#s4">流動化の状態</a></li></ol></nav>
+
+<h2 id="s1">流動層とは</h2>
+<p>粒子を詰めた層に、下から気体（または液体）を流していくと、流れが速くなったところで粒子が浮き上がり、層全体が沸騰している液体のように動き回るようになります。この状態を<strong>流動化</strong>、流動化した層を<strong>流動層</strong>といいます。</p>
+<p>流動層では粒子が激しく混ざるので、層の中の温度がほぼ均一になり、粒子とガスの間の熱と物質の移動もとても速くなります。この性質を生かして、石炭やごみの燃焼ボイラー、石油の接触分解（FCC）、ポリエチレンの製造、医薬品の造粒・乾燥など、多くの装置に使われています。</p>
+<figure class="fig"><a href="/fig/fluidization-regimes.svg" target="_blank" rel="noopener"><img src="/fig/fluidization-regimes.svg" alt="図1　流速による層の状態の変化" width="660" height="300" loading="lazy"></a><figcaption>図1　ガスの流速を上げたときの層の状態の変化</figcaption></figure>
+
+<h2 id="s2">流動層の圧力損失</h2>
+<p>粒子が止まっている層（固定層）では、流速を上げると圧力損失も増えていきます。流速が上がって、圧力損失による上向きの力が層の重さと等しくなると、粒子が浮き始めます。流動化した後は、粒子を支えるのに必要な分だけ圧力が下がるので、流速を上げても<strong>圧力損失はほぼ一定</strong>になります。</p>
+<div class="formula">$$\Delta P = \frac{W g}{A} \quad \left(= (1 - \varepsilon)(\rho_p - \rho)\,g\,H\right)$$</div>
+<p>$W$ は層の中の粒子の質量、$A$ は層の断面積、$\varepsilon$ は層の空隙率、$H$ は層の高さです。運転中に圧力損失を測ると、層の中の粒子の量（ホールドアップ）がわかります。</p>
+<figure class="fig"><a href="/fig/fluidized-pressure-drop.svg" target="_blank" rel="noopener"><img src="/fig/fluidized-pressure-drop.svg" alt="図2　流速と圧力損失の関係" width="580" height="320" loading="lazy"></a><figcaption>図2　流速と層の圧力損失の関係。流動化した後は、圧力損失が層の重さで決まる一定の値になる</figcaption></figure>
+
+<h2 id="s3">最小流動化速度</h2>
+<p>流動化が始まる空塔速度を<strong>最小流動化速度</strong> $U_{mf}$ といいます。固定層の圧力損失の式（エルガンの式）と層の重さを等しいとおき、経験的な定数を入れて整理した Wen と Yu の式がよく使われます。</p>
+<div class="formula">$$\text{Re}_{mf} = \sqrt{33.7^2 + 0.0408\,\text{Ar}} - 33.7, \qquad U_{mf} = \frac{\mu\,\text{Re}_{mf}}{\rho\,d_p}$$</div>
+<p>ここで $\text{Ar} = \dfrac{d_p^3\,\rho\,(\rho_p - \rho)\,g}{\mu^2}$ はアルキメデス数で、粒子の重さと流体の粘性の比を表す<a href="/basics/dimensionless-numbers.html">無次元数</a>です。$d_p$ は粒子径、$\rho_p$ と $\rho$ は粒子と流体の密度、$\mu$ は流体の粘度です。</p>
+<p>流速を上げていくと、やがて粒子の<a href="/particle/stokes-settling.html">終末速度</a>を超え、粒子が層の上へ吹き飛ばされるようになります。流動層の運転速度は、最小流動化速度と終末速度の間で選びます。</p>
+
+<div class="example">
+<strong>例題：砂の流動層</strong>
+<p>直径 300 µm、密度 2600 kg/m³ の砂 500 kg を、直径 1.0 m の塔に入れ、20 °C の空気（密度 1.204 kg/m³、粘度 1.81 × 10⁻⁵ Pa·s）で流動化させます。最小流動化速度と、流動化しているときの層の圧力損失を求めてください。</p>
+<div class="answer">
+<p>$\text{Ar} = \dfrac{(300 \times 10^{-6})^3 \times 1.204 \times (2600 - 1.2) \times 9.81}{(1.81 \times 10^{-5})^2} \approx 2530$</p>
+<p>$\text{Re}_{mf} = \sqrt{33.7^2 + 0.0408 \times 2530} - 33.7 \approx 1.50$</p>
+<p>$U_{mf} = \dfrac{1.81 \times 10^{-5} \times 1.50}{1.204 \times 300 \times 10^{-6}} \approx 0.075\ \text{m/s}$</p>
+<p>圧力損失：$\Delta P = \dfrac{500 \times 9.81}{\pi \times 1.0^2 / 4} \approx 6.2 \times 10^3\ \text{Pa}$（約 6.2 kPa）</p>
+<p>同じ砂の終末速度は、粒子のレイノルズ数が1を超えるので、ストークスの式ではなく抵抗係数の相関式を使って求めると約 2.3 m/s です。運転速度は、たとえば最小流動化速度の数倍の 0.2〜0.5 m/s 程度に選びます。送風機は、層の圧力損失に、ガス分散板の圧力損失（層の圧力損失の 20〜40% 程度）を加えて選定します。</p>
+</div>
+</div>
+
+<h2 id="s4">流動化の状態</h2>
+<ul>
+<li><strong>気泡流動層</strong>：最小流動化速度を超えた余分なガスが気泡になって層の中を上昇する。気泡が粒子をかき混ぜるが、気泡の中のガスは粒子とあまり接触せずに抜けてしまう</li>
+<li><strong>乱流流動層</strong>：さらに流速を上げると、気泡がこわれて層の上面がはっきりしなくなる</li>
+<li><strong>循環流動層（高速流動層）</strong>：終末速度を超える流速で粒子を塔の上まで運び、サイクロンで捕集して下に戻す。大型の燃焼ボイラーや FCC で使われる</li>
+</ul>
+<p>粒子の大きさと密度によって、流動化のしやすさは大きく変わります（ゲルダートの分類）。細かすぎる粉は粒子どうしがくっついて流動化しにくく、大きく重い粒子は大きな気泡ができやすくなります。流動層からは細かい粒子が吹き出すので、出口に<a href="/particle/cyclone.html">サイクロン</a>を設けて回収します。</p>
+
+
+<nav class="pager"><a class="prev" href="/particle/cyclone.html">← 集じん装置の種類とサイクロンの分離限界粒子径</a><a class="next" href="/particle/size-reduction.html">粉砕の基礎 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html" aria-current="page">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

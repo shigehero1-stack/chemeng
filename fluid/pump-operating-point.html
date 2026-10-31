@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ポンプの運転点と省エネ｜システム曲線、絞りと回転数制御、並列・直列運転｜はじめての化学工学</title>
+<meta name="description" content="ポンプ曲線とシステム曲線から運転点を求め、弁で絞る場合と回転数制御の動力の違い、並列・直列運転での流量の変わり方を解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/pump-operating-point.html">
+<meta property="og:title" content="ポンプの運転点と省エネ｜システム曲線、絞りと回転数制御、並列・直列運転｜はじめての化学工学">
+<meta property="og:description" content="ポンプ曲線とシステム曲線から運転点を求め、弁で絞る場合と回転数制御の動力の違い、並列・直列運転での流量の変わり方を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ポンプの運転点と省エネ", "description": "ポンプ曲線とシステム曲線から運転点を求め、弁で絞る場合と回転数制御の動力の違い、並列・直列運転での流量の変わり方を解説します。", "datePublished": "2026-10-17", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/fluid/pump-operating-point.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>ポンプの運転点と省エネ</span></nav>
+    <article class="article">
+<h1>ポンプの運転点と省エネ</h1>
+<p class="lead">ポンプ曲線とシステム曲線から運転点を求め、弁で絞る場合と回転数制御の動力の違い、並列・直列運転での流量の変わり方を解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-17">2026-10-17</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">現場の課題</a></li><li><a href="#s2">ポンプ曲線</a></li><li><a href="#s3">システム曲線</a></li><li><a href="#s4">運転点</a></li><li><a href="#s5">例題1：絞りと回転数制御の比較</a></li><li><a href="#s6">例題2：並列運転と直列運転</a></li><li><a href="#s7">現場での確認の手順</a></li><li><a href="#s8">検算について</a></li><li><a href="#s9">参考文献</a></li></ol></nav>
+
+<h2 id="s1">現場の課題</h2>
+<p>工場の電力の多くは、ポンプや送風機を回すモーターで使われています。そして、多くのポンプは、必要以上の能力をもったまま、出口の弁を絞って流量を調整されています。「流量を減らしたいが、電気代はあまり下がらない」「ポンプをもう1台並べれば流量が倍になると思ったのに、そうならない」といった現場の疑問は、どれも<strong>ポンプ曲線とシステム曲線</strong>で説明できます。</p>
+<p>この記事では、ポンプの運転点の決まり方と、流量を調整する方法による動力の違い、ポンプを並列・直列につないだときの挙動を、計算で確かめます。</p>
+<h2 id="s2">ポンプ曲線</h2>
+<p>遠心ポンプは、流量が少ないほど高い揚程を出し、流量が増えると揚程が下がります。この関係を<strong>ポンプ曲線</strong>（性能曲線）といい、メーカーのカタログに示されています。この記事では、ポンプ曲線をおおまかに次の2次式で表します。</p>
+<div class="formula">$$H_{\text{ポンプ}} = H_0 - a\,Q^2$$</div>
+<p>$H_0$ は流量ゼロのときの揚程（締切揚程）です。効率もポンプ曲線と一緒に示されていて、ある流量で最高になり、それより少なくても多くても下がります。最高効率の点を<strong>最高効率点（BEP）</strong>といい、その近くで運転するのが理想です。</p>
+<h2 id="s3">システム曲線</h2>
+<p>一方、配管の側から見ると、ある流量を流すのに必要な揚程は、「<a href="/fluid/pump-power.html">ポンプの揚程と所要動力</a>」の記事で見たように</p>
+<div class="formula">$$H_{\text{システム}} = H_s + k\,Q^2$$</div>
+<p>と表せます。$H_s$ は流量によらない部分（液を持ち上げる高さと、吐出し先との圧力差）で<strong>静的揚程</strong>、$k Q^2$ は配管・弁・機器の摩擦損失です。これを<strong>システム曲線</strong>（抵抗曲線）といいます。</p>
+<h2 id="s4">運転点</h2>
+<p>ポンプは、ポンプ曲線とシステム曲線の<strong>交点</strong>で運転されます。ポンプが出す揚程と、配管が必要とする揚程が等しくなる点だからです。流量を変えるには、どちらかの曲線を動かすしかありません。</p>
+<ul><li><strong>弁で絞る</strong>：弁を閉めると配管の抵抗 $k$ が増え、システム曲線が急になって交点が左に移る。ポンプは同じ曲線上で、流量が減り揚程が上がった点で運転される</li><li><strong>回転数を変える</strong>（インバーター）：ポンプ曲線そのものが下に移る。相似則により、回転数を $r$ 倍にすると $H_0$ は $r^2$ 倍になる</li></ul>
+<h2 id="s5">例題1：絞りと回転数制御の比較</h2>
+<p>次のポンプと配管の組み合わせを考えます（説明用の値）。</p>
+<ul><li>ポンプ曲線：$H = 60 - 0.0025\,Q^2$（$Q$ は m³/h、$H$ は m）</li><li>効率：$\eta = 0.015\,Q - 0.000075\,Q^2$（100 m³/h で最高の 0.75）</li><li>システム曲線：$H = 20 + 0.0025\,Q^2$</li></ul>
+<p>(1) 今の運転点、(2) 流量を 70 m³/h に下げるとき、弁で絞る場合と回転数を下げる場合の軸動力 を求めてください。液は水（密度 1000 kg/m³）とします。</p>
+<p><strong>解答</strong></p>
+<p><strong>(1) 今の運転点</strong>：$60 - 0.0025Q^2 = 20 + 0.0025Q^2$ から $Q$ = 89.4 m³/h、$H$ = 40.0 m。効率 0.742 で、軸動力は</p>
+<div class="formula">$$P = \frac{\rho g Q H}{\eta} = \frac{1000 \times 9.81 \times (89.4/3600) \times 40.0}{0.742} \approx 13.2\ \text{kW}$$</div>
+<p><strong>(2-a) 弁で 70 m³/h に絞る</strong></p>
+<ul><li>ポンプはポンプ曲線上の 70 m³/h の点で運転され、揚程は $60 - 0.0025 \times 70^2 = 47.75$ m</li><li>配管が本当に必要とするのは $20 + 0.0025 \times 70^2 = 32.25$ m なので、<strong>15.5 m 分のエネルギーを弁で捨てている</strong></li><li>効率 0.683 で、軸動力は <strong>13.4 kW</strong>。流量を 22% 減らしたのに、動力はむしろわずかに増えています</li></ul>
+<p><strong>(2-b) 回転数を下げて 70 m³/h にする</strong></p>
+<ul><li>ポンプ曲線 $H = 60r^2 - 0.0025Q^2$ が、70 m³/h で 32.25 m を通るような回転比 $r$ を求めると、$r$ = 0.861（86.1%）</li><li>相似則から、このときの効率は元の回転数で 70/0.861 = 81.3 m³/h の点の効率に等しく、0.724</li><li>軸動力は <strong>8.5 kW</strong></li></ul>
+<p>回転数制御は、弁で絞る場合より<strong>動力が 36% 少なく</strong>なりました。年間 8000 時間運転し、モーター効率を 0.9 とすると、電力量の差は年間約 4.3 万 kWh になります。電力単価を 20 円/kWh とすると、1台のポンプで年間約 86 万円の違いです。</p>
+<figure class="fig"><a href="/fig/pump-operating-point.svg" target="_blank" rel="noopener"><img src="/fig/pump-operating-point.svg" alt="図1　例題1のポンプ曲線とシステム曲線。弁で絞ると揚程の一部を弁で捨てることになる（説明用の曲線）" width="720" height="360" loading="lazy"></a><figcaption>図1　例題1のポンプ曲線とシステム曲線。弁で絞ると揚程の一部を弁で捨てることになる（説明用の曲線）</figcaption></figure>
+<div class="note"><strong>ポイント</strong>　遠心ポンプの軸動力は、流量を減らしてもあまり下がりません（例題では 89 → 70 m³/h でもほぼ同じ）。流量が常に定格より少ないポンプは、回転数制御の導入や羽根車の外径を小さくする（インペラカット）ことで、大きな省エネになる可能性があります。</div>
+<h2 id="s6">例題2：並列運転と直列運転</h2>
+<p>例題1と同じポンプをもう1台用意しました。2台を並列、または直列につないだとき、流量はどれだけ増えるでしょうか。</p>
+<p><strong>解答</strong></p>
+<p><strong>並列運転</strong>では、同じ揚程で流量が2倍になるので、2台分のポンプ曲線は $H = 60 - 0.0025\,(Q/2)^2$ です。システム曲線との交点は <strong>113.1 m³/h</strong> で、1台のとき（89.4 m³/h）の <strong>1.26 倍</strong>にしかなりません。流量が増えると配管の摩擦損失が増え、必要な揚程が上がって、各ポンプの流量が減るためです。</p>
+<p><strong>直列運転</strong>では、同じ流量で揚程が2倍になるので、$H = 2(60 - 0.0025\,Q^2)$ です。交点は <strong>115.5 m³/h</strong>（1.29 倍）です。</p>
+<p>どちらが有利かは、システム曲線の形で決まります。</p>
+<figure class="fig"><a href="/fig/pump-parallel-series.svg" target="_blank" rel="noopener"><img src="/fig/pump-parallel-series.svg" alt="図2　例題2の並列運転と直列運転の運転点" width="720" height="360" loading="lazy"></a><figcaption>図2　例題2の並列運転と直列運転の運転点</figcaption></figure>
+<table><tr><th>システムの特徴</th><th>並列2台で増える流量（例）</th><th>向いている運転</th></tr><tr><td>摩擦損失が大きい（例題：静的揚程 20 m）</td><td>1.26 倍</td><td>直列のほうがやや有利</td></tr><tr><td>静的揚程が大きく摩擦損失が小さい（静的揚程 45 m、摩擦の係数 0.0010）</td><td>1.47 倍</td><td>並列が有利</td></tr></table>
+<p>「ポンプを2台にすれば流量が2倍」にはなりません。増設を検討するときは、必ずシステム曲線と組み合わせて運転点を計算してください。</p>
+<div class="note"><strong>並列運転の注意</strong>　性能の違うポンプを並列にすると、締切揚程の低いほうのポンプが、もう一方に押されて流量がほとんど出なくなる（締切運転になる）ことがあります。締切運転が続くと液が加熱され、ポンプが損傷します。並列運転は、同じ性能のポンプで行うのが原則です。</div>
+<h2 id="s7">現場での確認の手順</h2>
+<ol><li>ポンプの銘板とメーカーの資料から、ポンプ曲線と効率曲線を手に入れる</li><li>実際の運転点（流量、吐出し圧力と吸込み圧力の差）を測り、ポンプ曲線上のどこで動いているかを確かめる</li><li>弁の開度と前後の圧力差から、弁で捨てているエネルギーを見積もる</li><li>回転数制御やインペラカットをした場合の動力を相似則で計算し、投資と比べる</li></ol>
+<h2 id="s8">検算について</h2>
+<p>この記事の数値は、検算用に作成したプログラム（Python）で計算しています。運転点は、ポンプ曲線とシステム曲線の差を二分法で0にして求めました。回転数制御の効率は、相似則にもとづいて元の回転数での相似な点の効率を使っています。ポンプ曲線・効率曲線・システム曲線は説明用の式で、実際の検討ではメーカーの性能曲線と実測値を使ってください。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li></ul></aside><!-- /related -->
+<h2 id="s9">参考文献</h2>
+<ul><li>I. J. Karassik ほか, <em>Pump Handbook</em>, McGraw-Hill</li><li>R. K. Sinnott, <em>Coulson &amp; Richardson's Chemical Engineering Vol. 6: Chemical Engineering Design</em>, Butterworth-Heinemann</li></ul>
+<hr>
+<p>※ この記事は学習を目的としたものです。実際の装置の設計や運転には、最新の規格、信頼できる物性データ、専門家の判断にもとづいてください。</p>
+
+
+<nav class="pager"><a class="prev" href="/fluid/pump-power.html">← ポンプの揚程と所要動力の計算方法</a><a class="next" href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/fluid/">流体の記事</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html" aria-current="page">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/" aria-current="page">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

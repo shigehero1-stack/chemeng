@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粉砕の基礎｜粉砕に必要なエネルギー（リッチンガー・キック・ボンドの式）と粉砕機の選び方｜はじめての化学工学</title>
+<meta name="description" content="固体を細かくする粉砕の目的と、粉砕に必要なエネルギーを見積もるリッチンガー、キック、ボンドの法則、ボンドの仕事指数を使った動力の計算、粉砕機の種類と選び方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/size-reduction.html">
+<meta property="og:title" content="粉砕の基礎｜粉砕に必要なエネルギー（リッチンガー・キック・ボンドの式）と粉砕機の選び方｜はじめての化学工学">
+<meta property="og:description" content="固体を細かくする粉砕の目的と、粉砕に必要なエネルギーを見積もるリッチンガー、キック、ボンドの法則、ボンドの仕事指数を使った動力の計算、粉砕機の種類と選び方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "粉砕の基礎", "description": "固体を細かくする粉砕の目的と、粉砕に必要なエネルギーを見積もるリッチンガー、キック、ボンドの法則、ボンドの仕事指数を使った動力の計算、粉砕機の種類と選び方を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/size-reduction.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>粉砕の基礎</span></nav>
+    <article class="article">
+<h1>粉砕の基礎</h1>
+<p class="lead">固体を細かくする粉砕の目的と、粉砕に必要なエネルギーを見積もるリッチンガー、キック、ボンドの法則、ボンドの仕事指数を使った動力の計算、粉砕機の種類と選び方を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">粉砕とは</a></li><li><a href="#s2">粉砕に必要なエネルギーの法則</a></li><li><a href="#s3">ボンドの仕事指数</a></li><li><a href="#s4">粉砕機の種類</a></li></ol></nav>
+
+<h2 id="s1">粉砕とは</h2>
+<p><strong>粉砕</strong>は、固体に力を加えて割り、小さな粒子にする操作です。鉱石やセメント原料、石炭、顔料、医薬品、食品など、粉体を扱うほとんどの工程で使われます。粒子を細かくすると表面積が増え、溶ける速さ、反応の速さ、燃焼のしやすさが上がります（<a href="/particle/particle-size.html">粒子径と比表面積</a>）。</p>
+<p>粉砕はエネルギーをとても多く使う操作で、加えたエネルギーのうち、実際に新しい表面を作るのに使われるのはごく一部（数%以下）です。残りの大部分は熱や音、粉砕機の摩耗になります。そのため、必要な動力の見積もりと、目的に合った粉砕機の選択が重要になります。</p>
+
+<h2 id="s2">粉砕に必要なエネルギーの法則</h2>
+<p>粒子を大きさ $D_F$ から $D_P$ まで小さくするのに必要なエネルギー $W$ について、経験的に次の3つの法則が知られています。</p>
+<table>
+<tr><th>名前</th><th>考え方</th><th>式</th><th>よく合う範囲</th></tr>
+<tr><td>リッチンガーの法則</td><td>エネルギーは新しくできる表面積に比例する</td><td>$W = C_R \left(\dfrac{1}{D_P} - \dfrac{1}{D_F}\right)$</td><td>細かい粉砕（微粉砕）</td></tr>
+<tr><td>キックの法則</td><td>同じ比率で小さくするには同じエネルギーが要る</td><td>$W = C_K \ln \dfrac{D_F}{D_P}$</td><td>粗い粉砕（粗砕）</td></tr>
+<tr><td>ボンドの法則</td><td>両者の中間。粒子径の平方根の逆数で整理する</td><td>$W = C_B \left(\dfrac{1}{\sqrt{D_P}} - \dfrac{1}{\sqrt{D_F}}\right)$</td><td>中くらいの粉砕。実用上もっとも広く使われる</td></tr>
+</table>
+<p>3つの法則は、エネルギーと粒子径の関係 $dW = -C\,dD/D^n$ で、$n$ を 2（リッチンガー）、1（キック）、1.5（ボンド）とおいたものと考えることができます。</p>
+
+<h2 id="s3">ボンドの仕事指数</h2>
+<p>実用では、ボンドの法則を次の形で使います。</p>
+<div class="formula">$$W = 10\,W_i \left(\frac{1}{\sqrt{P_{80}}} - \frac{1}{\sqrt{F_{80}}}\right)$$</div>
+<p>$W$ は原料 1 t あたりに必要なエネルギー [kWh/t]、$F_{80}$ と $P_{80}$ は原料と製品の80%通過粒子径（<a href="/particle/particle-size.html">積算分布</a>で80%になる大きさ）[µm] です。$W_i$ は<strong>仕事指数</strong>（ワークインデックス）といい、「理論上無限に大きい粒子を80%通過径 100 µm まで粉砕するのに必要なエネルギー」を表す材料の値です。標準化された試験（ボンド試験）で測定します。硬い材料ほど大きな値になり、多くの鉱石や岩石で 5〜25 kWh/t 程度です。</p>
+<figure class="fig"><a href="/fig/bond-energy-vs-size.svg" target="_blank" rel="noopener"><img src="/fig/bond-energy-vs-size.svg" alt="図1　ボンドの式による製品粒子径と粉砕エネルギーの関係" width="580" height="320" loading="lazy"></a><figcaption>図1　ボンドの式による製品の大きさと粉砕エネルギーの関係（仕事指数 13 kWh/t、原料 10 mm）。細かくするほど急に増える</figcaption></figure>
+
+<div class="example">
+<strong>例題：ボールミルの動力</strong>
+<p>仕事指数 13 kWh/t の鉱石を、80%通過径 10 mm から 100 µm まで、50 t/h で粉砕します。必要な動力を求めてください。また、製品を 50 µm まで細かくすると、動力は何倍になりますか。</p>
+<div class="answer">
+<p>$W = 10 \times 13 \times \left(\dfrac{1}{\sqrt{100}} - \dfrac{1}{\sqrt{10\,000}}\right) = 130 \times (0.100 - 0.010) = 11.7\ \text{kWh/t}$</p>
+<p>動力は $11.7 \times 50 = 585\ \text{kW}$ です。</p>
+<p>50 µm まで粉砕する場合：$W = 130 \times \left(\dfrac{1}{\sqrt{50}} - 0.010\right) \approx 17.1\ \text{kWh/t}$ で、約1.5倍になります。</p>
+<p>製品の大きさを半分にするだけでエネルギーが5割増しになります。必要以上に細かくしないことが、粉砕の省エネルギーの基本です。実際の粉砕機の動力は、効率や運転条件の補正を加えて決めます。</p>
+</div>
+</div>
+
+<h2 id="s4">粉砕機の種類</h2>
+<table>
+<tr><th>段階</th><th>粉砕機の例</th><th>力のかけ方</th><th>製品の大きさの目安</th></tr>
+<tr><td>粗砕</td><td>ジョークラッシャー、ジャイレトリークラッシャー</td><td>圧縮</td><td>数 cm</td></tr>
+<tr><td>中砕</td><td>コーンクラッシャー、ロールクラッシャー、ハンマーミル</td><td>圧縮、衝撃</td><td>数 mm</td></tr>
+<tr><td>粉砕・微粉砕</td><td>ボールミル、ローラーミル、ピンミル</td><td>衝撃、摩擦、圧縮</td><td>数十〜数百 µm</td></tr>
+<tr><td>超微粉砕</td><td>ジェットミル、ビーズミル</td><td>粒子どうしの衝突、細かい媒体による摩擦</td><td>数 µm 以下</td></tr>
+</table>
+<p>1台の粉砕機で大きく小さくしようとすると効率が悪いので、数段階に分けて粉砕します。また、十分に細かくなった粒子を<a href="/particle/classification.html">分級</a>で取り出し、粗い粒子だけを粉砕機に戻す<strong>閉回路粉砕</strong>にすると、細かくなりすぎ（過粉砕）を防ぎ、エネルギーを節約できます。</p>
+
+
+<nav class="pager"><a class="prev" href="/particle/fluidized-bed.html">← 流動層の基礎</a><a class="next" href="/particle/classification.html">分級の基礎 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html" aria-current="page">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

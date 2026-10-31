@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>真空排気の基礎｜排気時間の計算と配管のコンダクタンス、到達圧力｜はじめての化学工学</title>
+<meta name="description" content="減圧蒸留や真空乾燥で使う真空排気の考え方、真空ポンプの排気速度と容器を減圧するのにかかる時間の計算、配管の抵抗（コンダクタンス）による実効排気速度の低下、漏れによる到達圧力を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/vacuum-pumping.html">
+<meta property="og:title" content="真空排気の基礎｜排気時間の計算と配管のコンダクタンス、到達圧力｜はじめての化学工学">
+<meta property="og:description" content="減圧蒸留や真空乾燥で使う真空排気の考え方、真空ポンプの排気速度と容器を減圧するのにかかる時間の計算、配管の抵抗（コンダクタンス）による実効排気速度の低下、漏れによる到達圧力を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "真空排気の基礎", "description": "減圧蒸留や真空乾燥で使う真空排気の考え方、真空ポンプの排気速度と容器を減圧するのにかかる時間の計算、配管の抵抗（コンダクタンス）による実効排気速度の低下、漏れによる到達圧力を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/fluid/vacuum-pumping.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>真空排気の基礎</span></nav>
+    <article class="article">
+<h1>真空排気の基礎</h1>
+<p class="lead">減圧蒸留や真空乾燥で使う真空排気の考え方、真空ポンプの排気速度と容器を減圧するのにかかる時間の計算、配管の抵抗（コンダクタンス）による実効排気速度の低下、漏れによる到達圧力を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">真空を使う操作</a></li><li><a href="#s2">排気速度と排気時間</a></li><li><a href="#s3">配管のコンダクタンス</a></li><li><a href="#s4">真空ポンプを選ぶときの注意</a></li></ol></nav>
+
+<h2 id="s1">真空を使う操作</h2>
+<p>化学工場では、大気圧より低い圧力（真空）をよく使います。圧力を下げると液体の沸点が下がるので、熱に弱い物質を低い温度で<a href="/thermo/vapor-pressure.html">蒸留</a>したり、<a href="/heat/evaporator.html">蒸発</a>・<a href="/separation/drying.html">乾燥</a>させたりできます。また、液体の脱気、装置への液の吸い込み、ろ過（真空ろ過）にも使われます。</p>
+<table>
+<tr><th>圧力の範囲の目安</th><th>おもな用途</th><th>真空ポンプの例</th></tr>
+<tr><td>低真空（大気圧〜100 Pa）</td><td>減圧蒸留、真空乾燥、真空ろ過</td><td>水封式（液封式）ポンプ、スチームエジェクター、ドライポンプ</td></tr>
+<tr><td>中真空（100〜0.1 Pa）</td><td>分子蒸留、凍結乾燥</td><td>油回転ポンプ、ルーツポンプ</td></tr>
+<tr><td>高真空（0.1 Pa 以下）</td><td>薄膜の製造、半導体</td><td>ターボ分子ポンプ、拡散ポンプ</td></tr>
+</table>
+
+<h2 id="s2">排気速度と排気時間</h2>
+<p>真空ポンプの能力は、吸い込み口での体積流量である<strong>排気速度</strong> $S$ [m³/h] で表します。体積 $V$ の容器を、漏れや気体の発生がない状態で排気すると、容器の中の気体の量の収支から</p>
+<div class="formula">$$-V\,\frac{dp}{dt} = S\,p$$</div>
+<p>となり、圧力 $p_0$ から $p$ まで下げるのにかかる時間は</p>
+<div class="formula">$$t = \frac{V}{S}\ln\frac{p_0}{p}$$</div>
+<p>です。圧力は時間とともに指数関数的に下がり、$V/S$ は<a href="/control/first-order-system.html">一次遅れ系の時定数</a>と同じ意味をもちます。</p>
+
+<h2 id="s3">配管のコンダクタンス</h2>
+<p>ポンプと容器をつなぐ配管にも流れにくさがあり、容器の位置での実際の排気速度（<strong>実効排気速度</strong>）はポンプの排気速度より小さくなります。配管の流れやすさを<strong>コンダクタンス</strong> $C$ [m³/h] で表すと、電気の抵抗の直列と同じように</p>
+<div class="formula">$$\frac{1}{S_{\text{実効}}} = \frac{1}{S} + \frac{1}{C}$$</div>
+<p>となります。コンダクタンスは、配管が太く短いほど大きく、圧力が低い範囲では配管の太さの3乗に比例して効いてきます。高真空ほど、太く短い配管が重要です。</p>
+
+<div class="example">
+<strong>例題：真空乾燥機の排気時間</strong>
+<p>内容積 2.0 m³ の真空乾燥機を、排気速度 100 m³/h の真空ポンプで、大気圧（101.3 kPa）から 1.0 kPa まで排気します。(1) 配管の影響がないときの排気時間を求めてください。(2) 配管のコンダクタンスが 300 m³/h のとき、実効排気速度と排気時間はどうなりますか。(3) 容器への空気の漏れが 0.5 Pa·m³/s のとき、到達できる最低の圧力はどれくらいですか。</p>
+<div class="answer">
+<p>(1) $t = \dfrac{2.0}{100}\ln\dfrac{101.3}{1.0} = 0.020 \times 4.62 \approx 0.092\ \text{h}$（約 5.5 分）</p>
+<p>(2) $\dfrac{1}{S_{\text{実効}}} = \dfrac{1}{100} + \dfrac{1}{300}$ より $S_{\text{実効}} = 75\ \text{m}^3/\text{h}$、排気時間は約 7.4 分</p>
+<p>(3) 漏れ込む気体の量 $Q$ と排気される量 $S_{\text{実効}}\,p$ がつり合う圧力が到達圧力です。$S_{\text{実効}} = 75/3600 \approx 0.0208\ \text{m}^3/\text{s}$ なので、$p = Q / S_{\text{実効}} = 0.5 / 0.0208 \approx 24\ \text{Pa}$</p>
+<p>配管が細いと排気に時間がかかり、漏れや材料から出てくる気体（乾燥中の水分など）があると、それ以下には下がりません。乾燥中は蒸発する水の量が大きいので、凝縮器で先に水を凝縮させてポンプの負担を減らします。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/vacuum-pumpdown.svg" target="_blank" rel="noopener"><img src="/fig/vacuum-pumpdown.svg" alt="図1　排気時間と容器の圧力" width="580" height="320" loading="lazy"></a><figcaption>図1　例題の排気時間と容器の圧力（対数目盛）。圧力は指数関数的に下がり、漏れがあると到達圧力で止まる</figcaption></figure>
+
+<h2 id="s4">真空ポンプを選ぶときの注意</h2>
+<ul>
+<li>吸い込む気体に水蒸気や溶剤が多い場合は、ポンプの前に凝縮器を置くか、水封式やドライポンプなど凝縮性の気体に強いポンプを選ぶ</li>
+<li>排気速度は吸い込み圧力によって変わるので、使う圧力の範囲での性能曲線を確認する</li>
+<li>到達したい圧力が低いほど、漏れの管理（フランジ、継手、のぞき窓）が重要になる</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/fluid/compressor-power.html">← 圧縮機の動力と吐出温度</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/fluid/">流体の記事</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html" aria-current="page">真空排気の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/" aria-current="page">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

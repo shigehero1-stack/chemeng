@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>物質収支の基本と解き方｜例題で覚える手順｜はじめての化学工学</title>
+<meta name="description" content="物質収支は「入った量＝出た量＋たまった量」という考え方です。一般式、定常状態での簡単化、混合と濃縮の例題で解き方の手順を身につけます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/basics/material-balance.html">
+<meta property="og:title" content="物質収支の基本と解き方｜例題で覚える手順｜はじめての化学工学">
+<meta property="og:description" content="物質収支は「入った量＝出た量＋たまった量」という考え方です。一般式、定常状態での簡単化、混合と濃縮の例題で解き方の手順を身につけます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "物質収支の基本と解き方", "description": "物質収支は「入った量＝出た量＋たまった量」という考え方です。一般式、定常状態での簡単化、混合と濃縮の例題で解き方の手順を身につけます。", "datePublished": "2026-09-28", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/basics/material-balance.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/basics/">基礎</a> › <span>物質収支の基本と解き方</span></nav>
+    <article class="article">
+<h1>物質収支の基本と解き方</h1>
+<p class="lead">物質収支は「入った量＝出た量＋たまった量」という考え方です。一般式、定常状態での簡単化、混合と濃縮の例題で解き方の手順を身につけます。</p>
+<p class="byline">公開日 <time datetime="2026-09-28">2026-09-28</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">物質収支とは</a></li><li><a href="#s2">定常状態ならさらに簡単</a></li><li><a href="#s3">解き方の手順</a></li><li><a href="#s4">反応がある場合</a></li><li><a href="#s5">よくある間違い</a></li><li><a href="#s6">練習問題</a></li></ol></nav>
+
+<h2 id="s1">物質収支とは</h2>
+<p><strong>物質収支（マテリアルバランス）</strong>は、ある範囲に出入りする物質の量を帳簿のように突き合わせる計算です。質量は勝手に増えたり消えたりしないので、次の関係がいつも成り立ちます。</p>
+<div class="formula">$$\text{入量} - \text{出量} + \text{生成量} - \text{消費量} = \text{蓄積量}$$</div>
+<figure class="fig"><a href="/fig/balance-control-volume.svg" target="_blank" rel="noopener"><img src="/fig/balance-control-volume.svg" alt="図1　物質収支の考え方。系を線で囲み、出入りする量を突き合わせる" width="600" height="240" loading="lazy"></a><figcaption>図1　物質収支の考え方。系を線で囲み、出入りする量を突き合わせる</figcaption></figure>
+<p>「生成量」「消費量」は化学反応でその成分が作られたり使われたりする量です。反応がなければ0になります。</p>
+
+<h2 id="s2">定常状態ならさらに簡単</h2>
+<p>連続運転している装置で、時間がたっても中身の量や濃度が変わらない状態を<strong>定常状態</strong>といいます。このとき蓄積量は0なので、反応がなければ</p>
+<div class="formula">$$\text{入量} = \text{出量}$$</div>
+<p>という単純な式になります。これを全体の量と、成分ごとの量のそれぞれについて立てるのが基本です。</p>
+
+<h2 id="s3">解き方の手順</h2>
+<ol>
+<li>流れ図（フローシート）を描き、すべての流れに記号をつける</li>
+<li>収支をとる範囲（系）を線で囲む</li>
+<li>計算の基準を決める（例：1時間あたり、原料100 kgあたり）</li>
+<li>全体の収支と成分ごとの収支の式を立てる</li>
+<li>未知数と式の数が合っているか確認して解く</li>
+</ol>
+<div class="note">基準を「原料100 kg」のように切りのよい量にすると、途中の計算がぐっと楽になります。答えは最後に実際の流量の比率で掛け直せば大丈夫です。</div>
+
+<div class="example">
+<strong>例題1：二つの流れを混ぜる</strong>
+<p>エタノール40 wt%の水溶液を100 kg/h、エタノール10 wt%の水溶液を50 kg/hで混ぜます。混ざった液の流量とエタノール濃度を求めてください。</p>
+<div class="answer">
+<p>全体の収支：出口流量は $100 + 50 = 150\ \text{kg/h}$。</p>
+<p>エタノールの収支：$100 \times 0.40 + 50 \times 0.10 = 40 + 5 = 45\ \text{kg/h}$。</p>
+<p>出口の濃度は $45 / 150 = 0.30$、つまり30 wt%です。</p>
+</div>
+</div>
+
+<div class="example">
+<strong>例題2：蒸発で濃縮する</strong>
+<p>食塩5 wt%の水溶液1000 kg/hを蒸発缶に送り、水だけを蒸発させて20 wt%まで濃縮します。濃縮液の流量と、蒸発させる水の量を求めてください。</p>
+<div class="answer">
+<p>食塩は蒸発しないので、食塩の量は入口も出口も同じです：$1000 \times 0.05 = 50\ \text{kg/h}$。</p>
+<p>濃縮液は20 wt%なので、濃縮液の流量は $50 / 0.20 = 250\ \text{kg/h}$。</p>
+<p>全体の収支から、蒸発する水は $1000 - 250 = 750\ \text{kg/h}$ です。</p>
+</div>
+</div>
+<p>例題2のように、<strong>系を素通りする成分（ここでは食塩）</strong>を見つけると、それを手がかりに一気に解けることがよくあります。このような成分を「タイ成分（つなぎの成分）」と呼ぶこともあります。</p>
+<figure class="fig"><a href="/fig/evaporator-balance.svg" target="_blank" rel="noopener"><img src="/fig/evaporator-balance.svg" alt="図2　例題2の蒸発缶の物質収支。素通りする食塩に注目すると一気に解ける" width="620" height="280" loading="lazy"></a><figcaption>図2　例題2の蒸発缶の物質収支。素通りする食塩に注目すると一気に解ける</figcaption></figure>
+
+<h2 id="s4">反応がある場合</h2>
+<p>反応があるときは、質量全体では収支が合いますが、成分ごとには生成と消費の項が入ります。成分ごとの計算はモル単位で行い、反応式の係数（量論係数）で生成量と消費量を結びつけるのが基本です。反応を含む収支は、反応工学の記事で詳しく扱います。</p>
+<h2 id="s5">よくある間違い</h2>
+<ul>
+<li><strong>基準を決めずに始める：</strong>流量が与えられていないときは「原料 100 kg」や「1 時間あたり」などの基準を自分で決めてから式を立てます。</li>
+<li><strong>wt% と mol% の混同：</strong>質量の収支は質量分率で、反応や気液平衡を含むときはモル分率で計算します。途中で切りかえるときはモル質量で換算します。</li>
+<li><strong>未知数と式の数が合っていない：</strong>独立な式の数は「成分の数」だけです。全体の収支と各成分の収支をすべて書くと、一つは他の式から導けるので、独立な式にはなりません。</li>
+<li><strong>反応でモル数が保存すると思いこむ：</strong>反応があっても質量の合計は変わりませんが、モル数の合計は変わることがあります。</li>
+</ul>
+
+<h2 id="s6">練習問題</h2>
+<div class="example">
+<strong>練習：蒸留塔の物質収支</strong>
+<p>メタノール 30 wt% の水溶液 1000 kg/h を蒸留塔に送り、塔頂からメタノール 95 wt% の留出液を、塔底から 2 wt% の缶出液を取り出します。留出液と缶出液の流量、およびメタノールの回収率（原料のメタノールのうち留出液に入る割合）を求めてください。</p>
+<div class="answer">
+<p>留出液を $D$、缶出液を $B$ とすると、全体の収支は $D + B = 1000$。</p>
+<p>メタノールの収支は $0.95D + 0.02B = 0.30 \times 1000 = 300$。</p>
+<p>$B = 1000 - D$ を代入すると $0.95D + 20 - 0.02D = 300$、$0.93D = 280$ より $D \approx 301\ \text{kg/h}$、$B \approx 699\ \text{kg/h}$ です。</p>
+<p>回収率は $0.95 \times 301 / 300 \approx 95\%$。塔の段数や還流比は、<a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法</a>で決めます。</p>
+</div>
+</div>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/basics/units.html">← 単位と単位換算の基本</a><a class="next" href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/basics/">基礎の記事</a></h2><ul><li><a href="/basics/what-is-chemical-engineering.html">化学工学とは？何を学ぶ学問かをやさしく解説</a></li><li><a href="/basics/units.html">単位と単位換算の基本</a></li><li><a href="/basics/material-balance.html" aria-current="page">物質収支の基本と解き方</a></li><li><a href="/basics/recycle-purge.html">リサイクルとパージを含む物質収支</a></li><li><a href="/basics/energy-balance.html">エネルギー収支（熱収支）の基本</a></li><li><a href="/basics/dimensionless-numbers.html">化学工学の無次元数一覧</a></li><li><a href="/basics/combustion.html">燃焼計算の基本</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/" aria-current="page">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

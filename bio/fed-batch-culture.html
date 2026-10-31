@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>流加培養の計算｜基質の供給速度で増殖速度を制御する指数流加と、菌体濃度・液量の変化｜はじめての化学工学</title>
+<meta name="description" content="培養の途中で基質（糖など）を少しずつ加える流加培養（フェドバッチ培養）の考え方と、比増殖速度を一定に保つための指数関数的な供給速度の式、菌体濃度と液量の変化を、モノー式を使った例題と数値計算で解説します。回分培養との違いや、酸素供給による限界も説明します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/bio/fed-batch-culture.html">
+<meta property="og:title" content="流加培養の計算｜基質の供給速度で増殖速度を制御する指数流加と、菌体濃度・液量の変化｜はじめての化学工学">
+<meta property="og:description" content="培養の途中で基質（糖など）を少しずつ加える流加培養（フェドバッチ培養）の考え方と、比増殖速度を一定に保つための指数関数的な供給速度の式、菌体濃度と液量の変化を、モノー式を使った例題と数値計算で解説します。回分培養との違いや、酸素供給による限界も説明します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "流加培養の計算", "description": "培養の途中で基質（糖など）を少しずつ加える流加培養（フェドバッチ培養）の考え方と、比増殖速度を一定に保つための指数関数的な供給速度の式、菌体濃度と液量の変化を、モノー式を使った例題と数値計算で解説します。回分培養との違いや、酸素供給による限界も説明します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/bio/fed-batch-culture.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/bio/">生物工学</a> › <span>流加培養の計算</span></nav>
+    <article class="article">
+<h1>流加培養の計算</h1>
+<p class="lead">培養の途中で基質（糖など）を少しずつ加える流加培養（フェドバッチ培養）の考え方と、比増殖速度を一定に保つための指数関数的な供給速度の式、菌体濃度と液量の変化を、モノー式を使った例題と数値計算で解説します。回分培養との違いや、酸素供給による限界も説明します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">回分培養の弱点</a></li><li><a href="#s2">流加培養の収支式</a></li><li><a href="#s3">指数流加</a></li><li><a href="#s4">酸素が増殖の上限を決める</a></li><li><a href="#s5">流加培養で気をつけること</a></li></ol></nav>
+
+<h2 id="s1">回分培養の弱点</h2>
+<p><a href="/reaction/bioreactor-monod.html">回分培養</a>では、培地に必要な糖などの基質をはじめにすべて入れてから菌を植えます。操作は簡単ですが、高い菌体濃度を得ようとして基質を多く入れると、次のような問題が起きます。</p>
+<ul>
+<li><strong>基質による阻害</strong>：糖の濃度が高すぎると、浸透圧などで菌の増殖がかえって遅くなる</li>
+<li><strong>副生物の蓄積</strong>：糖が余っていると、大腸菌は酢酸を、酵母はエタノールを出しやすくなる（酵母ではクラブトリー効果と呼ばれる）。副生物は増殖を妨げ、収率も下がる</li>
+<li><strong>酸素と除熱が追いつかない</strong>：基質が十分あると菌は最大の速さで増え、終盤には酸素の消費と発熱が急に大きくなって、<a href="/bio/oxygen-transfer-kla.html">通気撹拌</a>や冷却の能力を超えてしまう</li>
+</ul>
+<p>そこで、基質を培養の途中で少しずつ加え、培養液中の基質濃度を低く保ちながら菌を増やす方法が使われます。これを<strong>流加培養</strong>（フェドバッチ培養）といいます。パン酵母の生産や、組換え大腸菌によるタンパク質の生産など、工業的な培養の多くは流加培養です。</p>
+
+<h2 id="s2">流加培養の収支式</h2>
+<p>液量 $V$ の槽に、基質濃度 $S_F$ の原料液を流量 $F$ で加えます。抜き出しはないので、液量は増えていきます。菌体濃度を $X$、基質濃度を $S$、比増殖速度を $\mu$、菌体収率を $Y_{X/S}$ とすると、次の式が成り立ちます。</p>
+<div class="formula">$$\frac{dV}{dt} = F, \qquad \frac{d(XV)}{dt} = \mu\,XV, \qquad \frac{d(SV)}{dt} = F\,S_F - \frac{\mu\,XV}{Y_{X/S}}$$</div>
+<p>比増殖速度は、<a href="/reaction/bioreactor-monod.html">モノー式</a> $\mu = \mu_{max} S/(K_s + S)$ で基質濃度とつながっています。つまり、<strong>基質の供給速度で基質濃度を決め、それによって増殖の速さを自由に決められる</strong>のが流加培養の特徴です。</p>
+
+<h2 id="s3">指数流加</h2>
+<p>比増殖速度を一定の値 $\mu$ に保つには、基質濃度を一定に保てばよく、そのためには菌が消費する分だけ基質を加えればよいことになります。菌体の量 $XV$ は $e^{\mu t}$ で増えるので、供給速度も指数関数的に増やします。</p>
+<div class="formula">$$F(t) = \frac{\mu\,X_0 V_0}{Y_{X/S}\,(S_F - S)}\,e^{\mu t}$$</div>
+<p>$X_0 V_0$ は流加を始めるときの菌体の量です。このとき槽内の基質濃度は、モノー式を逆に解いた $S = K_s\,\mu/(\mu_{max} - \mu)$ で一定になります。</p>
+
+<div class="example">
+<strong>例題：指数流加で 12 時間培養する</strong>
+<p>液量 4.0 m³、菌体濃度 5.0 g/L から流加を始めます。原料液のグルコース濃度は 500 g/L です。菌のモノー式のパラメータは $\mu_{max}$ = 0.5 1/h、$K_s$ = 0.2 g/L、菌体収率は $Y_{X/S}$ = 0.5 g/g です。比増殖速度を 0.15 1/h に保つように指数流加するとき、(1) 槽内のグルコース濃度、(2) 流加開始時と 12 時間後の供給速度、(3) 12 時間後の菌体濃度と液量を求めてください。</p>
+<div class="answer">
+<p><strong>(1)</strong> $S = \dfrac{0.2 \times 0.15}{0.5 - 0.15} = 0.086$ g/L。回分培養のはじめの数十 g/L に比べて、ずっと低い濃度に保たれます。</p>
+<p><strong>(2)</strong> 流加開始時の菌体量 $X_0 V_0 = 5.0 \times 4.0 = 20$ kg なので</p>
+<p>$F(0) = \dfrac{0.15 \times 20}{0.5 \times (500 - 0.09)} = 0.012$ m³/h ＝ 12 L/h</p>
+<p>12 時間後：$F(12) = 12 \times e^{0.15 \times 12} = 12 \times 6.05 = 73$ L/h</p>
+<p><strong>(3)</strong> 菌体量 $= 20 \times 6.05 = 121$ kg。増えた菌体 101 kg に必要なグルコースは 202 kg で、原料液 0.404 m³ に相当します。</p>
+<p>液量 $= 4.0 + 0.40 = 4.40$ m³、菌体濃度 $= 121 / 4.40 = 27.5$ g/L</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/fedbatch-profile.svg" target="_blank" rel="noopener"><img src="/fig/fedbatch-profile.svg" alt="図1　指数流加での菌体濃度と供給速度の変化（例題の条件で、モノー式を使って当サイトで数値計算）" width="700" height="330" loading="lazy"></a><figcaption>図1　指数流加での菌体濃度と供給速度の変化（例題の条件で、モノー式を使って当サイトで数値計算）</figcaption></figure>
+<p>収支式をモノー式と組み合わせて数値計算すると、グルコース濃度は 0.086 g/L で一定に保たれ、12 時間後の菌体濃度と液量は手計算の値と一致しました（図1）。</p>
+
+<h2 id="s4">酸素が増殖の上限を決める</h2>
+<p>指数流加を続けると、菌体の量とともに酸素の消費も指数関数的に増えます。菌体 1 g をつくるのに酸素が 1 g 要るとすると（菌体の酸素収率 $Y_{X/O}$ = 1 g/g、例として置いた値）、12 時間後の酸素消費速度は</p>
+<div class="formula">$$\mathrm{OUR} = \frac{\mu X}{Y_{X/O}} = \frac{0.15 \times 27.5}{1.0} = 4.1\ \text{g/(L·h)} = 129\ \text{mmol/(L·h)}$$</div>
+<p>となり、<a href="/bio/oxygen-transfer-kla.html">通気撹拌</a>の記事の例題（60 mmol/(L·h)）の2倍を超えます。実際の流加培養では、培養槽の酸素供給能力の上限に近づいたところで、供給速度を一定に切り替えます。供給速度を一定にすると、菌体量に対する基質の供給の割合が下がり、比増殖速度はしだいに小さくなるので、OUR は一定の範囲に収まります。</p>
+<p>溶存酸素計の値を見ながら、溶存酸素が下がったら供給を減らし、上がったら増やすという制御もよく使われます。基質が尽きると菌の呼吸が急に止まり、溶存酸素が跳ね上がるので、これを合図に供給を再開する方法（DO スタット）もあります。</p>
+
+<h2 id="s5">流加培養で気をつけること</h2>
+<ul>
+<li><strong>液量の増え方</strong>：原料液の濃度が低いと液量が大きく増え、槽からあふれます。原料液はできるだけ濃くし、はじめの液量に余裕をもたせます</li>
+<li><strong>基質を加える場所</strong>：液面に濃い原料液を落とすと、混ざるまでの間、局所的に基質濃度の高い場所ができます。大きな槽ほど<a href="/fluid/mixing-time.html">混合時間</a>が長くなるので、翼の近くに供給します</li>
+<li><strong>維持代謝</strong>：菌は増殖しなくても、生きているだけで基質を使います（維持代謝）。増殖速度を小さくするほどこの割合が大きくなり、収率が下がります。例題では無視しました</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/bio/centrifuge-sigma.html">遠心分離機の処理量</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/bio/oxygen-transfer-kla.html">通気撹拌培養の酸素供給</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/bio/sterilization.html">← 培地の熱殺菌の計算</a><a class="next" href="/bio/enzyme-kinetics.html">酵素反応の速度 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/bio/">生物工学の記事</a></h2><ul><li><a href="/bio/oxygen-transfer-kla.html">通気撹拌培養の酸素供給</a></li><li><a href="/bio/sterilization.html">培地の熱殺菌の計算</a></li><li><a href="/bio/fed-batch-culture.html" aria-current="page">流加培養の計算</a></li><li><a href="/bio/enzyme-kinetics.html">酵素反応の速度</a></li><li><a href="/bio/centrifuge-sigma.html">遠心分離機の処理量</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/" aria-current="page">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

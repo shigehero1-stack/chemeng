@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>過熱蒸気表｜比体積・比エンタルピー・比エントロピー｜はじめての化学工学</title>
+<meta name="description" content="0.1〜10 MPaの過熱水蒸気について、100〜600 °Cの比体積、比エンタルピー、比エントロピーをまとめた表です。IAPWS-IF97で計算し、CSVでもダウンロードできます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/data/superheated-steam.html">
+<meta property="og:title" content="過熱蒸気表｜比体積・比エンタルピー・比エントロピー｜はじめての化学工学">
+<meta property="og:description" content="0.1〜10 MPaの過熱水蒸気について、100〜600 °Cの比体積、比エンタルピー、比エントロピーをまとめた表です。IAPWS-IF97で計算し、CSVでもダウンロードできます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "過熱蒸気表", "description": "0.1〜10 MPaの過熱水蒸気について、100〜600 °Cの比体積、比エンタルピー、比エントロピーをまとめた表です。IAPWS-IF97で計算し、CSVでもダウンロードできます。", "datePublished": "2026-10-13", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/data/superheated-steam.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/data/">物性データ集</a> › <span>過熱蒸気表</span></nav>
+    <article class="article">
+<h1>過熱蒸気表</h1>
+<p class="lead">0.1〜10 MPaの過熱水蒸気について、100〜600 °Cの比体積、比エンタルピー、比エントロピーをまとめた表です。IAPWS-IF97で計算し、CSVでもダウンロードできます。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+
+
+<p>飽和温度より高い温度まで加熱された水蒸気（<strong>過熱蒸気</strong>）の性質を、代表的な圧力ごとにまとめた表です。タービンや蒸気配管、過熱器の計算で使います。</p>
+<p>数値は、水と水蒸気の性質の国際的な標準式である <strong>IAPWS-IF97</strong> を当サイトでプログラムにし、計算したものです。プログラムが IAPWS の公表している検証用の値と有効数字9桁で一致することを確認しています。比エンタルピーと比エントロピーは、三重点（0.01 °C）の飽和水の内部エネルギーとエントロピーを0とする国際的な基準によります。</p>
+<p>圧力は絶対圧です。それぞれの圧力で、飽和温度より高い温度の行だけを載せています。</p>
+<h2 id="s1">過熱蒸気表</h2>
+<h3>100 kPa（飽和温度 99.6 °C）</h3><table class="num"><tr><th>温度 [°C]</th><th>比体積 [m³/kg]</th><th>比エンタルピー [kJ/kg]</th><th>比エントロピー [kJ/(kg·K)]</th></tr><tr><td>150</td><td>1.937</td><td>2776.6</td><td>7.6147</td></tr><tr><td>200</td><td>2.172</td><td>2875.5</td><td>7.8356</td></tr><tr><td>250</td><td>2.406</td><td>2974.5</td><td>8.0346</td></tr><tr><td>300</td><td>2.639</td><td>3074.5</td><td>8.2171</td></tr><tr><td>350</td><td>2.871</td><td>3175.8</td><td>8.3865</td></tr><tr><td>400</td><td>3.103</td><td>3278.5</td><td>8.5451</td></tr><tr><td>450</td><td>3.334</td><td>3382.8</td><td>8.6945</td></tr><tr><td>500</td><td>3.566</td><td>3488.7</td><td>8.8361</td></tr><tr><td>550</td><td>3.797</td><td>3596.3</td><td>8.9709</td></tr><tr><td>600</td><td>4.028</td><td>3705.6</td><td>9.0998</td></tr></table><h3>200 kPa（飽和温度 120.2 °C）</h3><table class="num"><tr><th>温度 [°C]</th><th>比体積 [m³/kg]</th><th>比エンタルピー [kJ/kg]</th><th>比エントロピー [kJ/(kg·K)]</th></tr><tr><td>150</td><td>0.9599</td><td>2769.1</td><td>7.2809</td></tr><tr><td>200</td><td>1.081</td><td>2870.8</td><td>7.5081</td></tr><tr><td>250</td><td>1.199</td><td>2971.3</td><td>7.7100</td></tr><tr><td>300</td><td>1.316</td><td>3072.1</td><td>7.8940</td></tr><tr><td>350</td><td>1.433</td><td>3173.9</td><td>8.0643</td></tr><tr><td>400</td><td>1.549</td><td>3277.0</td><td>8.2235</td></tr><tr><td>450</td><td>1.665</td><td>3381.5</td><td>8.3733</td></tr><tr><td>500</td><td>1.781</td><td>3487.6</td><td>8.5151</td></tr><tr><td>550</td><td>1.897</td><td>3595.4</td><td>8.6501</td></tr><tr><td>600</td><td>2.013</td><td>3704.8</td><td>8.7792</td></tr></table><h3>500 kPa（飽和温度 151.8 °C）</h3><table class="num"><tr><th>温度 [°C]</th><th>比体積 [m³/kg]</th><th>比エンタルピー [kJ/kg]</th><th>比エントロピー [kJ/(kg·K)]</th></tr><tr><td>200</td><td>0.4250</td><td>2855.9</td><td>7.0611</td></tr><tr><td>250</td><td>0.4744</td><td>2961.1</td><td>7.2726</td></tr><tr><td>300</td><td>0.5226</td><td>3064.6</td><td>7.4614</td></tr><tr><td>350</td><td>0.5701</td><td>3168.1</td><td>7.6345</td></tr><tr><td>400</td><td>0.6173</td><td>3272.3</td><td>7.7954</td></tr><tr><td>450</td><td>0.6642</td><td>3377.7</td><td>7.9464</td></tr><tr><td>500</td><td>0.7109</td><td>3484.4</td><td>8.0891</td></tr><tr><td>550</td><td>0.7576</td><td>3592.6</td><td>8.2247</td></tr><tr><td>600</td><td>0.8041</td><td>3702.5</td><td>8.3543</td></tr></table><h3>1000 kPa（飽和温度 179.9 °C）</h3><table class="num"><tr><th>温度 [°C]</th><th>比体積 [m³/kg]</th><th>比エンタルピー [kJ/kg]</th><th>比エントロピー [kJ/(kg·K)]</th></tr><tr><td>200</td><td>0.2060</td><td>2828.3</td><td>6.6955</td></tr><tr><td>250</td><td>0.2327</td><td>2943.2</td><td>6.9266</td></tr><tr><td>300</td><td>0.2580</td><td>3051.7</td><td>7.1247</td></tr><tr><td>350</td><td>0.2825</td><td>3158.2</td><td>7.3028</td></tr><tr><td>400</td><td>0.3066</td><td>3264.4</td><td>7.4668</td></tr><tr><td>450</td><td>0.3304</td><td>3371.2</td><td>7.6198</td></tr><tr><td>500</td><td>0.3541</td><td>3479.0</td><td>7.7640</td></tr><tr><td>550</td><td>0.3777</td><td>3588.1</td><td>7.9007</td></tr><tr><td>600</td><td>0.4011</td><td>3698.6</td><td>8.0309</td></tr></table><h3>2000 kPa（飽和温度 212.4 °C）</h3><table class="num"><tr><th>温度 [°C]</th><th>比体積 [m³/kg]</th><th>比エンタルピー [kJ/kg]</th><th>比エントロピー [kJ/(kg·K)]</th></tr><tr><td>250</td><td>0.1115</td><td>2903.2</td><td>6.5474</td></tr><tr><td>300</td><td>0.1255</td><td>3024.3</td><td>6.7685</td></tr><tr><td>350</td><td>0.1386</td><td>3137.6</td><td>6.9582</td></tr><tr><td>400</td><td>0.1512</td><td>3248.2</td><td>7.1290</td></tr><tr><td>450</td><td>0.1635</td><td>3358.1</td><td>7.2863</td></tr><tr><td>500</td><td>0.1757</td><td>3468.1</td><td>7.4335</td></tr><tr><td>550</td><td>0.1877</td><td>3578.9</td><td>7.5723</td></tr><tr><td>600</td><td>0.1996</td><td>3690.7</td><td>7.7042</td></tr></table><h3>5000 kPa（飽和温度 263.9 °C）</h3><table class="num"><tr><th>温度 [°C]</th><th>比体積 [m³/kg]</th><th>比エンタルピー [kJ/kg]</th><th>比エントロピー [kJ/(kg·K)]</th></tr><tr><td>300</td><td>0.0453</td><td>2925.6</td><td>6.2109</td></tr><tr><td>350</td><td>0.0520</td><td>3069.3</td><td>6.4515</td></tr><tr><td>400</td><td>0.0578</td><td>3196.6</td><td>6.6481</td></tr><tr><td>450</td><td>0.0633</td><td>3317.0</td><td>6.8208</td></tr><tr><td>500</td><td>0.0686</td><td>3434.5</td><td>6.9778</td></tr><tr><td>550</td><td>0.0737</td><td>3550.8</td><td>7.1235</td></tr><tr><td>600</td><td>0.0787</td><td>3666.8</td><td>7.2604</td></tr></table><h3>10000 kPa（飽和温度 311.0 °C）</h3><table class="num"><tr><th>温度 [°C]</th><th>比体積 [m³/kg]</th><th>比エンタルピー [kJ/kg]</th><th>比エントロピー [kJ/(kg·K)]</th></tr><tr><td>350</td><td>0.0224</td><td>2924.0</td><td>5.9458</td></tr><tr><td>400</td><td>0.0264</td><td>3097.4</td><td>6.2139</td></tr><tr><td>450</td><td>0.0298</td><td>3242.3</td><td>6.4217</td></tr><tr><td>500</td><td>0.0328</td><td>3375.1</td><td>6.5993</td></tr><tr><td>550</td><td>0.0357</td><td>3501.9</td><td>6.7584</td></tr><tr><td>600</td><td>0.0384</td><td>3625.8</td><td>6.9045</td></tr></table>
+<p class="download">CSV ファイル：<a href="/data/superheated-steam.csv" download>過熱蒸気表（superheated-steam.csv）</a>（Excel などで開けます）</p>
+<div class="example">
+<strong>使い方の例：過熱蒸気を飽和蒸気まで冷やすときの熱</strong>
+<p>1 MPa、300 °C の過熱蒸気の比エンタルピーは表から約 3051 kJ/kg、同じ圧力の飽和蒸気（179.9 °C）は<a href="/data/water-saturation-pressure.html">圧力基準の飽和表</a>から約 2777 kJ/kg です。1 kg あたり約 274 kJ が、過熱の分として取り出せる熱です。凝縮で出る潜熱（約 2015 kJ/kg）に比べるとずっと小さく、加熱に蒸気を使うときは主に潜熱を利用していることがわかります。</p>
+</div>
+<div class="example">
+<strong>使い方の例：蒸気配管の太さを決める</strong>
+<p>1 MPa、250 °C の過熱蒸気を 2 t/h 送ります。表から比体積は約 0.2327 m³/kg なので、体積流量は $2000 / 3600 \times 0.2327 \approx 0.129$ m³/s です。蒸気配管の流速を 30 m/s 程度とすると、必要な断面積は $0.129 / 30 = 4.31 \times 10^{-3}$ m²、内径は $\sqrt{4 \times 4.31 \times 10^{-3} / \pi} \approx 0.074$ m です。同じ質量流量でも圧力が低いほど比体積が大きくなり、太い配管が必要になります。</p>
+</div>
+<h2 id="s2">出典</h2>
+<ul><li>IAPWS, "Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam"（IAPWS R7-97(2012)）。<a href="https://www.iapws.org/" rel="nofollow">IAPWS（国際水・蒸気性質協会）</a>が公開している式</li></ul>
+
+
+<nav class="pager"><a class="prev" href="/data/water-saturation-pressure.html">← 水の飽和蒸気表（圧力基準）</a><a class="next" href="/data/air-properties.html">乾き空気の物性値表 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/data/">物性データ集の記事</a></h2><ul><li><a href="/data/water-saturation-temperature.html">水の飽和蒸気表（温度基準）</a></li><li><a href="/data/water-saturation-pressure.html">水の飽和蒸気表（圧力基準）</a></li><li><a href="/data/superheated-steam.html" aria-current="page">過熱蒸気表</a></li><li><a href="/data/air-properties.html">乾き空気の物性値表</a></li><li><a href="/data/compound-constants.html">主な物質の物性定数表</a></li><li><a href="/data/constants-units.html">基本物理定数と単位換算表</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/" aria-current="page">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

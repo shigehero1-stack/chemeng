@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>圧力容器の肉厚計算｜円筒胴と鏡板（半球形・半だ円体形・皿形）の必要な厚さと腐れ代｜はじめての化学工学</title>
+<meta name="description" content="内圧を受ける圧力容器の胴に生じる周方向と軸方向の応力の導き方、圧力容器の規格で使われる円筒胴と鏡板の必要な厚さの式、溶接継手効率と腐れ代の考え方を、内径 1.5 m の容器の例題で解説します。鏡板の形による厚さの違いや外圧（真空）の注意点も説明します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/process/pressure-vessel-thickness.html">
+<meta property="og:title" content="圧力容器の肉厚計算｜円筒胴と鏡板（半球形・半だ円体形・皿形）の必要な厚さと腐れ代｜はじめての化学工学">
+<meta property="og:description" content="内圧を受ける圧力容器の胴に生じる周方向と軸方向の応力の導き方、圧力容器の規格で使われる円筒胴と鏡板の必要な厚さの式、溶接継手効率と腐れ代の考え方を、内径 1.5 m の容器の例題で解説します。鏡板の形による厚さの違いや外圧（真空）の注意点も説明します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "圧力容器の肉厚計算", "description": "内圧を受ける圧力容器の胴に生じる周方向と軸方向の応力の導き方、圧力容器の規格で使われる円筒胴と鏡板の必要な厚さの式、溶接継手効率と腐れ代の考え方を、内径 1.5 m の容器の例題で解説します。鏡板の形による厚さの違いや外圧（真空）の注意点も説明します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/process/pressure-vessel-thickness.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/process/">プロセス設計と安全</a> › <span>圧力容器の肉厚計算</span></nav>
+    <article class="article">
+<h1>圧力容器の肉厚計算</h1>
+<p class="lead">内圧を受ける圧力容器の胴に生じる周方向と軸方向の応力の導き方、圧力容器の規格で使われる円筒胴と鏡板の必要な厚さの式、溶接継手効率と腐れ代の考え方を、内径 1.5 m の容器の例題で解説します。鏡板の形による厚さの違いや外圧（真空）の注意点も説明します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">圧力容器の厚さを決めるもの</a></li><li><a href="#s2">胴に生じる二つの応力</a></li><li><a href="#s3">規格で使われる厚さの式</a></li><li><a href="#s4">耐圧試験</a></li><li><a href="#s5">使うときの注意</a></li></ol></nav>
+
+<h2 id="s1">圧力容器の厚さを決めるもの</h2>
+<p>反応器、蒸留塔、貯槽など、内部に圧力のかかる容器を<strong>圧力容器</strong>といいます。容器の壁が薄すぎれば破裂し、厚すぎれば重く高価になります。必要な厚さは、内部の圧力、容器の大きさ、材料の強さ、溶接の品質、そして使っているうちに減る分（<a href="/process/materials-and-corrosion.html">腐食</a>）から決まります。</p>
+<p>容器は、円筒の<strong>胴</strong>と、両端をふさぐ<strong>鏡板</strong>からできています。まず、胴の壁にどんな力がかかるかを考えます。</p>
+<figure class="fig"><a href="/fig/pressure-vessel-parts.svg" target="_blank" rel="noopener"><img src="/fig/pressure-vessel-parts.svg" alt="図1　圧力容器の胴と鏡板、胴に生じる応力" width="660" height="330" loading="lazy"></a><figcaption>図1　圧力容器の胴と鏡板、胴に生じる応力</figcaption></figure>
+
+<h2 id="s2">胴に生じる二つの応力</h2>
+<p>内径 $D$、厚さ $t$ の円筒に内圧 $P$ がかかっているとします。厚さが直径に比べて十分薄ければ、壁の中の応力は厚さ方向に一様とみなせます。</p>
+<p><strong>周方向の応力</strong>：円筒を長さ $L$ だけ切り出し、縦に半分に割って考えます。内圧が半円筒を押し広げる力は $P \cdot D \cdot L$ で、これを上下2か所の壁の断面 $2 \cdot t \cdot L$ が支えるので</p>
+<div class="formula">$$\sigma_\theta = \frac{P\,D}{2\,t}$$</div>
+<p><strong>軸方向の応力</strong>：容器を輪切りにして考えます。内圧が鏡板を押す力は $P \cdot \pi D^2/4$ で、これを壁の断面 $\pi D t$ が支えるので</p>
+<div class="formula">$$\sigma_z = \frac{P\,D}{4\,t}$$</div>
+<p>周方向の応力は軸方向の<strong>2倍</strong>です。そのため胴の厚さは周方向の応力で決まり、ソーセージを焼きすぎると縦に裂けるのと同じように、圧力容器が破裂するときも軸に沿った向きに裂けます。胴の縦の溶接線（長手継手）が特に重要とされるのはこのためです。</p>
+
+<h2 id="s3">規格で使われる厚さの式</h2>
+<p>周方向の応力が材料の<strong>許容引張応力</strong> $\sigma_a$ を超えないように厚さを決めます。圧力容器の規格（日本の JIS B 8265 や米国の ASME Boiler and Pressure Vessel Code Section VIII Division 1）では、上の式に厚肉の影響の補正を加えた次の式を使います。</p>
+<div class="formula">$$t = \frac{P\,D}{2\,\sigma_a\,\eta - 1.2\,P} + \alpha$$</div>
+<p>$\eta$ は<strong>溶接継手効率</strong>で、溶接部の強さが母材に比べてどれだけかを表します。両側から突合せ溶接した継手では、溶接部を放射線透過試験で全線検査すれば 1.0、検査しなければ 0.7 程度、部分的に検査した場合はその間の値（規格や継手の種類により 0.85〜0.95 程度）を使います。$\alpha$ は<strong>腐れ代</strong>（腐食しろ）で、使用期間中に腐食で減る厚さを見込んで足しておく分です。</p>
+<p>鏡板は形によって式が変わります。内径 $D$ の容器について、代表的な形の式は次のとおりです。</p>
+<ul>
+<li><strong>半球形鏡板</strong>：$t = \dfrac{P\,D}{4\,\sigma_a\,\eta - 0.4\,P}$。球の壁の応力は円筒の半分なので、胴の約半分の厚さで済む</li>
+<li><strong>半だ円体形鏡板</strong>（長径と短径の比が 2:1）：$t = \dfrac{P\,D}{2\,\sigma_a\,\eta - 0.2\,P}$。胴とほぼ同じ厚さになる</li>
+<li><strong>皿形鏡板</strong>（中央の半径 $R$、すみの丸みの半径 $r$）：$t = \dfrac{P\,R\,W}{2\,\sigma_a\,\eta - 0.2\,P}$、$W = \dfrac{1}{4}\left(3 + \sqrt{R/r}\right)$。すみの丸みに応力が集中するぶん厚くなる</li>
+</ul>
+
+<div class="example">
+<strong>例題：内径 1.5 m の容器の胴と鏡板</strong>
+<p>内径 1500 mm、設計圧力 1.0 MPa の容器をつくります。材料の設計温度での許容引張応力を 120 N/mm²（計算のために置いた値）、溶接継手効率を 0.85、腐れ代を 3 mm として、胴と、3種類の鏡板の必要な厚さを求めてください。皿形鏡板は $R = D$、$r = 0.1D$ とします。</p>
+<div class="answer">
+<p>$2\,\sigma_a\,\eta = 2 \times 120 \times 0.85 = 204$ N/mm² です（1 MPa ＝ 1 N/mm²）。</p>
+<p><strong>胴</strong>：$t = \dfrac{1.0 \times 1500}{204 - 1.2 \times 1.0} + 3 = \dfrac{1500}{202.8} + 3 = 7.40 + 3 = 10.4$ mm</p>
+<p><strong>半球形鏡板</strong>：$t = \dfrac{1500}{408 - 0.4} + 3 = 3.68 + 3 = 6.7$ mm</p>
+<p><strong>半だ円体形鏡板</strong>：$t = \dfrac{1500}{204 - 0.2} + 3 = 7.36 + 3 = 10.4$ mm</p>
+<p><strong>皿形鏡板</strong>：$W = (3 + \sqrt{10})/4 = 1.54$、$t = \dfrac{1500 \times 1.54}{203.8} + 3 = 11.34 + 3 = 14.3$ mm</p>
+<p>実際の板は、市販の厚さ（9、12、16 mm など）から選び、圧延や鏡板の成形で薄くなる分も見込みます。胴には 12 mm の板を使うことになります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/pressure-vessel-thickness.svg" target="_blank" rel="noopener"><img src="/fig/pressure-vessel-thickness.svg" alt="図2　設計圧力と計算厚さ（内径 1500 mm、許容応力 120 N/mm²、継手効率 0.85。腐れ代を除いて当サイトで計算）" width="640" height="330" loading="lazy"></a><figcaption>図2　設計圧力と計算厚さ（内径 1500 mm、許容応力 120 N/mm²、継手効率 0.85。腐れ代を除いて当サイトで計算）</figcaption></figure>
+<p>図2のように、必要な厚さは設計圧力と直径にほぼ比例します。同じ圧力なら、<strong>直径を大きくすると厚さも比例して増える</strong>ので、高圧の容器は細長くつくるのが経済的です。鏡板は、半球形が最も薄くて済みますが、成形に手間がかかります。中低圧の容器では半だ円体形、低圧の容器では成形しやすく背の低い皿形がよく使われます。</p>
+
+<h2 id="s4">耐圧試験</h2>
+<p>完成した容器は、水を満たして設計圧力より高い圧力をかける<strong>耐圧試験</strong>（水圧試験）を行い、漏れや変形がないことを確かめます。試験圧力は規格によって決まっており、設計圧力の 1.3〜1.5 倍程度に、試験温度と設計温度での許容応力の比を掛けた値が使われます。空気などの気体で試験すると、万一破裂したときに圧縮されたガスのエネルギーが一気に放出されて危険なので、原則として水で行います。</p>
+
+<h2 id="s5">使うときの注意</h2>
+<ul>
+<li><strong>外圧（真空）</strong>：真空で運転する容器や、ジャケットに加熱蒸気を通す容器の内筒には、外から圧力がかかります。外圧では、応力ではなく<strong>座屈</strong>（つぶれ）で厚さが決まり、内圧の式は使えません。補強リングの間隔と厚さを、規格の座屈の計算で決めます</li>
+<li><strong>ノズルと開口部</strong>：胴や鏡板に穴をあけると、その周りに応力が集中します。開口部は、取り去った断面積に見合う補強が必要です</li>
+<li><strong>許容応力は温度で変わる</strong>：高温では材料が弱くなり、許容引張応力は小さくなります。例題の 120 N/mm² は計算の手順を示すための値で、実際は規格に定められた材料ごと・温度ごとの値を使います</li>
+<li><strong>法規</strong>：一定の圧力と容積を超える容器は、高圧ガス保安法や労働安全衛生法の対象になり、設計の審査や検査を受ける必要があります。過圧から容器を守る装置については<a href="/process/relief-valve-sizing.html">安全弁の吹出し面積</a>の記事を参照してください</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/relief-valve-sizing.html">安全弁の吹出し面積の計算</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/process/materials-and-corrosion.html">← 装置材料と腐食の基礎</a><a class="next" href="/process/batch-scheduling.html">回分プロセスの生産計画 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/process/">プロセス設計と安全の記事</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/relief-valve-sizing.html">安全弁の吹出し面積の計算</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/pressure-vessel-thickness.html" aria-current="page">圧力容器の肉厚計算</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li><li><a href="/process/equipment-reliability.html">設備の信頼性と保全</a></li><li><a href="/process/statistical-process-control.html">管理図と工程能力指数</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/" aria-current="page">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

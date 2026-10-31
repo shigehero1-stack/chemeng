@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>押出機の押出量の計算｜単軸スクリューの引きずり流れ・圧力流れとダイとの作動点｜はじめての化学工学</title>
+<meta name="description" content="プラスチックの成形に使う単軸押出機のしくみと、計量部の押出量を引きずり流れと圧力流れの差として求める式、スクリュー特性とダイ特性の交点から運転点を決める方法を、ストランドダイの例題で解説します。溝の深さや回転数の影響も考えます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/materials/extruder.html">
+<meta property="og:title" content="押出機の押出量の計算｜単軸スクリューの引きずり流れ・圧力流れとダイとの作動点｜はじめての化学工学">
+<meta property="og:description" content="プラスチックの成形に使う単軸押出機のしくみと、計量部の押出量を引きずり流れと圧力流れの差として求める式、スクリュー特性とダイ特性の交点から運転点を決める方法を、ストランドダイの例題で解説します。溝の深さや回転数の影響も考えます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "押出機の押出量の計算", "description": "プラスチックの成形に使う単軸押出機のしくみと、計量部の押出量を引きずり流れと圧力流れの差として求める式、スクリュー特性とダイ特性の交点から運転点を決める方法を、ストランドダイの例題で解説します。溝の深さや回転数の影響も考えます。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/materials/extruder.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/materials/">高分子・材料プロセス</a> › <span>押出機の押出量の計算</span></nav>
+    <article class="article">
+<h1>押出機の押出量の計算</h1>
+<p class="lead">プラスチックの成形に使う単軸押出機のしくみと、計量部の押出量を引きずり流れと圧力流れの差として求める式、スクリュー特性とダイ特性の交点から運転点を決める方法を、ストランドダイの例題で解説します。溝の深さや回転数の影響も考えます。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">押出機とは</a></li><li><a href="#s2">引きずり流れと圧力流れ</a></li><li><a href="#s3">ダイ特性と作動点</a></li><li><a href="#s4">溝の深さを変えると</a></li><li><a href="#s5">実際の押出機で考えること</a></li></ol></nav>
+
+<h2 id="s1">押出機とは</h2>
+<p><strong>押出機</strong>は、プラスチックのペレットを溶かし、一定の量と圧力で口金（<strong>ダイ</strong>）から押し出す装置です。パイプ、フィルム、シート、電線の被覆などの成形のほか、樹脂に添加剤を混ぜ込んでペレットにし直すコンパウンドにも使われます。<a href="/reaction/polymerization-basics.html">重合</a>でつくられた樹脂の多くは、一度は押出機を通って製品になります。</p>
+<p>もっとも基本的な形は、加熱した筒（<strong>バレル</strong>）の中で1本のねじ（<strong>スクリュー</strong>）が回る<strong>単軸押出機</strong>です。スクリューは、根元から先に向かって次の三つの区間に分かれています。</p>
+<figure class="fig"><a href="/fig/extruder-section.svg" target="_blank" rel="noopener"><img src="/fig/extruder-section.svg" alt="図1　単軸押出機のしくみ" width="700" height="300" loading="lazy"></a><figcaption>図1　単軸押出機のしくみ</figcaption></figure>
+<ul>
+<li><strong>供給部</strong>：溝が深く、ホッパーから落ちたペレットを固体のまま前に送る</li>
+<li><strong>圧縮部</strong>：溝がしだいに浅くなり、バレルからの熱とせん断による発熱でペレットを溶かしながら圧縮する</li>
+<li><strong>計量部</strong>：溝が浅く一定で、溶けた樹脂を一定の量で送り出す</li>
+</ul>
+<p>押出機の押出量は、最後の計量部で決まります。この記事では、計量部の流れを単純化したモデルで押出量を求めます。</p>
+
+<h2 id="s2">引きずり流れと圧力流れ</h2>
+<p>スクリューの溝を平らに展開すると、溝の底（スクリュー）は止まっていて、ふた（バレル）が溝に対して斜めに動いている、と考えることができます。溶けた樹脂は、動くバレルの面に引きずられて前へ送られます。これを<strong>引きずり流れ</strong>といいます。</p>
+<p>一方、ダイの手前では圧力が高くなっているので、樹脂は圧力に押し戻される向きにも流れます。これが<strong>圧力流れ</strong>です。押出量 $Q$ は、二つの流れの差になります。</p>
+<div class="formula">$$Q = Q_d - Q_p = \frac{1}{2}\pi^2 D^2 N H \sin\theta\cos\theta \; - \; \frac{\pi D H^3 \sin^2\theta}{12\,\mu\,L}\,\Delta P$$</div>
+<p>$D$ はスクリューの直径、$N$ は回転数 [1/s]、$H$ は計量部の溝の深さ、$\theta$ はねじれ角、$L$ は計量部の長さ、$\mu$ は溶融樹脂の粘度、$\Delta P$ は計量部の出口と入口の圧力差（ほぼダイの前の圧力）です。樹脂をニュートン流体とみなし、温度は一定、溝の幅に比べて深さが十分小さいとしています。スクリューの山とバレルのすき間からの漏れも無視しています。</p>
+<p>この式を $Q$ と $\Delta P$ のグラフに描くと、右下がりの直線になります。これを<strong>スクリュー特性</strong>といいます。$\Delta P = 0$ のときの押出量が引きずり流れ $Q_d$ で、回転数に比例します。</p>
+
+<h2 id="s3">ダイ特性と作動点</h2>
+<p>ダイを通る流量は、ダイの前後の圧力差に比例します。断面が円で半径 $R$、長さ $L_d$ の穴が $n$ 本あるダイ（ストランドダイ）なら、<a href="/fluid/pressure-loss.html">管内の層流</a>のハーゲン・ポアズイユの式から</p>
+<div class="formula">$$Q = \frac{n\,\pi R^4}{8\,\mu\,L_d}\,\Delta P$$</div>
+<p>となります。これを<strong>ダイ特性</strong>といい、グラフでは原点を通る直線です。押出機は、スクリュー特性とダイ特性の<strong>交点</strong>で運転されます。<a href="/fluid/pump-operating-point.html">ポンプの作動点</a>が、ポンプの性能曲線と配管の抵抗曲線の交点で決まるのと同じ考え方です。</p>
+
+<div class="example">
+<strong>例題：ストランドダイをつけた押出機</strong>
+<p>直径 60 mm の単軸押出機の計量部は、溝の深さ 3.0 mm、長さ 600 mm、ねじれ角 17.7°（リードが直径に等しいスクリュー）です。半径 2.0 mm、長さ 20 mm の穴が2本あるダイをつけ、60 rpm で運転します。溶融樹脂の粘度を 1000 Pa·s（一定）、密度を 750 kg/m³ として、ダイの前の圧力と押出量を求めてください。</p>
+<div class="answer">
+<p>$\sin 17.7° = 0.3033$、$\cos 17.7° = 0.9529$、$N$ = 1.0 1/s です。</p>
+<p>引きずり流れ：$Q_d = \tfrac{1}{2} \times \pi^2 \times 0.060^2 \times 1.0 \times 0.0030 \times 0.3033 \times 0.9529 = 1.540 \times 10^{-5}$ m³/s</p>
+<p>圧力流れの係数：$a = \dfrac{\pi \times 0.060 \times 0.0030^3 \times 0.3033^2}{12 \times 1000 \times 0.60} = 6.50 \times 10^{-14}$ m³/(s·Pa)</p>
+<p>ダイの係数：$b = \dfrac{2 \times \pi \times 0.0020^4}{8 \times 1000 \times 0.020} = 6.28 \times 10^{-13}$ m³/(s·Pa)</p>
+<p>作動点では $Q_d - a\,\Delta P = b\,\Delta P$ なので</p>
+<p>$\Delta P = \dfrac{Q_d}{a + b} = \dfrac{1.540 \times 10^{-5}}{6.93 \times 10^{-13}} = 2.22 \times 10^{7}$ Pa ＝ 22.2 MPa</p>
+<p>$Q = b\,\Delta P = 1.396 \times 10^{-5}$ m³/s、質量流量は $1.396 \times 10^{-5} \times 750 \times 3600 = 37.7$ kg/h</p>
+<p>押出量は引きずり流れ（41.6 kg/h）の 91% で、圧力流れによって 9% 減っています。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/extruder-operating-point.svg" target="_blank" rel="noopener"><img src="/fig/extruder-operating-point.svg" alt="図2　スクリュー特性とダイ特性（例題の条件で当サイトで計算）" width="660" height="340" loading="lazy"></a><figcaption>図2　スクリュー特性とダイ特性（例題の条件で当サイトで計算）</figcaption></figure>
+<p>図2から、運転条件を変えたときの動きが読み取れます。</p>
+<ul>
+<li><strong>ダイの穴を4本にする</strong>：ダイ特性の傾きが2倍になり、圧力は 11.7 MPa に下がる。押出量は 39.5 kg/h とわずかに増える</li>
+<li><strong>回転数を 90 rpm に上げる</strong>（穴2本）：引きずり流れが 1.5 倍になり、圧力は 33.3 MPa、押出量は 56.5 kg/h になる</li>
+</ul>
+<p>押出量は回転数でほぼ決まり、ダイを変えても大きくは変わりません。計量部の溝が浅く、圧力流れの係数 $a$ がダイの係数 $b$ より十分小さいからです。</p>
+
+<h2 id="s4">溝の深さを変えると</h2>
+<p>引きずり流れは溝の深さ $H$ に比例しますが、圧力流れは $H^3$ に比例します。例題で溝を 4.0 mm に深くすると、引きずり流れは 55.5 kg/h に増えますが、圧力流れの係数は $(4/3)^3 = 2.37$ 倍になります。穴2本のダイでは、圧力 26.3 MPa、押出量 44.5 kg/h となり、圧力流れによる減少は 20% に広がります。</p>
+<p>溝を深くすると押出量は増えますが、押出量がダイの前の圧力の影響を受けやすくなります。ダイの前に置く異物除去用の金網（スクリーン）が目詰まりして圧力が上がると、押出量が落ちて製品の厚みが変わってしまいます。<strong>計量部の溝を浅くするのは、圧力が変わっても押出量を安定させるため</strong>です。</p>
+
+<h2 id="s5">実際の押出機で考えること</h2>
+<ul>
+<li><strong>樹脂はニュートン流体ではない</strong>：溶融樹脂は<a href="/fluid/non-newtonian.html">せん断速度が大きいほど粘度が下がる</a>性質をもちます。例題では、溝の中のせん断速度は $\pi D N / H \approx 63$ 1/s ですが、ダイの穴の壁では約 1100 1/s と大きく違います。それぞれのせん断速度での粘度を使うと、より実際に近い値になります</li>
+<li><strong>粘性発熱</strong>：樹脂をせん断すると、モーターの動力の多くが熱に変わります。回転数を上げると樹脂の温度が上がり、粘度が下がるので、押出量は回転数に比例するより少し小さくなります。樹脂が熱で劣化しないよう、バレルの温度を調節します</li>
+<li><strong>押出量の変動</strong>：ペレットの供給が不安定だと、押出量が周期的に変わる「サージング」が起きます。供給部と圧縮部の設計や、ホッパーの下の温度管理が大切です</li>
+</ul>
+<p>押し出した樹脂を型に入れて冷やし固める成形の計算は、<a href="/materials/injection-molding-cooling.html">射出成形の冷却時間</a>の記事で扱います。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/materials/injection-molding-cooling.html">射出成形の冷却時間</a></li><li><a href="/reaction/polymerization-basics.html">重合反応の基礎</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><span></span><a class="next" href="/materials/injection-molding-cooling.html">射出成形の冷却時間 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/materials/">高分子・材料プロセスの記事</a></h2><ul><li><a href="/materials/extruder.html" aria-current="page">押出機の押出量の計算</a></li><li><a href="/materials/injection-molding-cooling.html">射出成形の冷却時間</a></li><li><a href="/materials/cvd-film-growth.html">CVD の成膜速度</a></li><li><a href="/materials/particle-coagulation.html">気相での微粒子の生成と凝集</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/" aria-current="page">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

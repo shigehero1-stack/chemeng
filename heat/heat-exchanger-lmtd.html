@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>熱交換器の設計と対数平均温度差（LMTD）の計算｜はじめての化学工学</title>
+<meta name="description" content="熱交換器の伝熱面積を求める基本式と、対数平均温度差（LMTD）の計算方法を解説します。向流と並流の違いを同じ条件の例題で比べます。">
+<link rel="canonical" href="https://chemeng-nyumon.com/heat/heat-exchanger-lmtd.html">
+<meta property="og:title" content="熱交換器の設計と対数平均温度差（LMTD）の計算｜はじめての化学工学">
+<meta property="og:description" content="熱交換器の伝熱面積を求める基本式と、対数平均温度差（LMTD）の計算方法を解説します。向流と並流の違いを同じ条件の例題で比べます。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "熱交換器の設計と対数平均温度差（LMTD）の計算", "description": "熱交換器の伝熱面積を求める基本式と、対数平均温度差（LMTD）の計算方法を解説します。向流と並流の違いを同じ条件の例題で比べます。", "datePublished": "2026-09-29", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/heat/heat-exchanger-lmtd.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/heat/">伝熱</a> › <span>熱交換器の設計と対数平均温度差（LMTD）の計算</span></nav>
+    <article class="article">
+<h1>熱交換器の設計と対数平均温度差（LMTD）の計算</h1>
+<p class="lead">熱交換器の伝熱面積を求める基本式と、対数平均温度差（LMTD）の計算方法を解説します。向流と並流の違いを同じ条件の例題で比べます。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">熱交換器の設計で決めること</a></li><li><a href="#s2">向流と並流</a></li><li><a href="#s3">対数平均温度差（LMTD）</a></li><li><a href="#s4">多管式熱交換器の補正</a></li><li><a href="#s5">温度交差に注意</a></li></ol></nav>
+
+<h2 id="s1">熱交換器の設計で決めること</h2>
+<p>熱交換器は、高温の流体から低温の流体へ熱を移す装置です。設計の中心は「必要な熱量を交換するのに、どれだけの伝熱面積が要るか」を求めることで、次の3つの式を組み合わせます。</p>
+<div class="formula">$$Q = m_h\,c_{p,h}\,(T_{h,\text{入}} - T_{h,\text{出}}) = m_c\,c_{p,c}\,(T_{c,\text{出}} - T_{c,\text{入}})$$</div>
+<div class="formula">$$Q = U\,A\,\Delta T_{\text{lm}}$$</div>
+<p>1つめは高温側と低温側の<a href="/basics/energy-balance.html">熱収支</a>で、高温流体が失った熱と低温流体が得た熱は等しくなります（外への熱損失は無視）。2つめが伝熱速度の式で、$U$ は<a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数</a>、$\Delta T_{\text{lm}}$ が対数平均温度差です。</p>
+
+<h2 id="s2">向流と並流</h2>
+<ul>
+<li><strong>向流</strong>：2つの流体が逆向きに流れる。出口の温度差を小さくでき、効率がよい</li>
+<li><strong>並流</strong>：2つの流体が同じ向きに流れる。入口で急に温度が変わるため、熱に弱い流体を穏やかに加熱したい場合などに使う</li>
+</ul>
+<p>同じ入口・出口温度なら、向流のほうが平均の温度差が大きくなり、必要な伝熱面積は小さくて済みます。</p>
+
+<h2 id="s3">対数平均温度差（LMTD）</h2>
+<p>熱交換器の中では、流体の温度が場所によって変わるので、2つの流体の温度差も一定ではありません。両端の温度差を $\Delta T_1$、$\Delta T_2$ とすると、全体を代表する温度差は次の<strong>対数平均温度差</strong>になります。</p>
+<div class="formula">$$\Delta T_{\text{lm}} = \frac{\Delta T_1 - \Delta T_2}{\ln (\Delta T_1 / \Delta T_2)}$$</div>
+<ul>
+<li>向流：$\Delta T_1 = T_{h,\text{入}} - T_{c,\text{出}}$、$\Delta T_2 = T_{h,\text{出}} - T_{c,\text{入}}$</li>
+<li>並流：$\Delta T_1 = T_{h,\text{入}} - T_{c,\text{入}}$、$\Delta T_2 = T_{h,\text{出}} - T_{c,\text{出}}$</li>
+</ul>
+<div class="note">両端の温度差が近い（比が2倍以内くらい）ときは、単純な算術平均 $(\Delta T_1 + \Delta T_2)/2$ でも誤差は数%程度です。概算にはこれでも十分です。</div>
+
+<div class="example">
+<strong>例題：油を水で冷やす熱交換器</strong>
+<p>油（比熱 2.1 kJ/(kg·K)）2.0 kg/s を 150 °C から 90 °C まで冷やします。冷却水は 25 °C で入り、55 °C で出ます。総括伝熱係数を 300 W/(m²·K) として、向流と並流それぞれの必要伝熱面積と、冷却水の流量を求めてください。水の比熱は 4.18 kJ/(kg·K) とします。</p>
+<div class="answer">
+<p>交換熱量：$Q = 2.0 \times 2.1 \times (150 - 90) = 252\ \text{kW}$</p>
+<p>冷却水の流量：$m_c = \dfrac{252}{4.18 \times (55 - 25)} \approx 2.0\ \text{kg/s}$</p>
+<p><strong>向流</strong>：$\Delta T_1 = 150 - 55 = 95$、$\Delta T_2 = 90 - 25 = 65$</p>
+<p>$\Delta T_{\text{lm}} = \dfrac{95 - 65}{\ln (95/65)} \approx 79.1\ \text{K}$、$A = \dfrac{252\,000}{300 \times 79.1} \approx 10.6\ \text{m}^2$</p>
+<p><strong>並流</strong>：$\Delta T_1 = 150 - 25 = 125$、$\Delta T_2 = 90 - 55 = 35$</p>
+<p>$\Delta T_{\text{lm}} = \dfrac{125 - 35}{\ln (125/35)} \approx 70.7\ \text{K}$、$A = \dfrac{252\,000}{300 \times 70.7} \approx 11.9\ \text{m}^2$</p>
+<p>同じ仕事をするのに、並流は向流より約12%大きな伝熱面積が必要です。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/lmtd-counter-vs-parallel.svg" target="_blank" rel="noopener"><img src="/fig/lmtd-counter-vs-parallel.svg" alt="図1　例題の熱交換器の温度分布（当サイトで計算）。向流は両端の温度差がそろい、平均の温度差が大きくなる" width="660" height="350" loading="lazy"></a><figcaption>図1　例題の熱交換器の温度分布（当サイトで計算）。向流は両端の温度差がそろい、平均の温度差が大きくなる</figcaption></figure>
+
+<h2 id="s4">多管式熱交換器の補正</h2>
+<p>工場でよく使われる多管式（シェル＆チューブ）熱交換器では、管の中の流体が何度も折り返すため、純粋な向流にはなりません。この場合は、向流として求めた対数平均温度差に<strong>温度差補正係数</strong> $F$（1以下）を掛けて使います。$F$ は流路の形式と温度条件から線図や式で求め、一般に 0.8 以上になるように設計します。</p>
+
+<h2 id="s5">温度交差に注意</h2>
+<p>向流では、低温流体の出口温度が高温流体の出口温度より高くなることがあります（例題では水の出口55 °C、油の出口90 °Cなので交差していません）。並流では原理的にそうなりません。低温側をどこまで温められるかを検討するときは、流れ方の違いを意識しましょう。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/heat/overall-heat-transfer-coefficient.html">← 総括伝熱係数の求め方</a><a class="next" href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/heat/">伝熱の記事</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html" aria-current="page">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/" aria-current="page">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

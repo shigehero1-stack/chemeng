@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レイノルズ数とは？層流と乱流の見分け方と計算例｜はじめての化学工学</title>
+<meta name="description" content="レイノルズ数の式と意味、円管内の流れで層流と乱流を見分ける目安、流量から流速とレイノルズ数を求める計算例を解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/reynolds-number.html">
+<meta property="og:title" content="レイノルズ数とは？層流と乱流の見分け方と計算例｜はじめての化学工学">
+<meta property="og:description" content="レイノルズ数の式と意味、円管内の流れで層流と乱流を見分ける目安、流量から流速とレイノルズ数を求める計算例を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "レイノルズ数とは？層流と乱流の見分け方と計算例", "description": "レイノルズ数の式と意味、円管内の流れで層流と乱流を見分ける目安、流量から流速とレイノルズ数を求める計算例を解説します。", "datePublished": "2026-09-28", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/fluid/reynolds-number.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>レイノルズ数とは？層流と乱流の見分け方と計算例</span></nav>
+    <article class="article">
+<h1>レイノルズ数とは？層流と乱流の見分け方と計算例</h1>
+<p class="lead">レイノルズ数の式と意味、円管内の流れで層流と乱流を見分ける目安、流量から流速とレイノルズ数を求める計算例を解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-28">2026-09-28</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">層流と乱流</a></li><li><a href="#s2">レイノルズ数の式</a></li><li><a href="#s3">円管内の流れの判定の目安</a></li><li><a href="#s4">流量から流速を求める</a></li><li><a href="#s5">円管以外の流路では</a></li><li><a href="#s6">よくある間違い</a></li><li><a href="#s7">練習問題</a></li></ol></nav>
+
+<h2 id="s1">層流と乱流</h2>
+<p>管の中をゆっくり流れる液体は、層が重なるように整然と流れます。これを<strong>層流</strong>といいます。流速を上げていくと、あるところで流れが乱れて渦を巻きながら混ざり合うようになります。これが<strong>乱流</strong>です。</p>
+<p>層流か乱流かで、圧力損失や熱・物質の伝わりやすさが大きく変わるため、配管や装置の計算ではまずどちらの流れかを判定します。その判定に使うのが<strong>レイノルズ数</strong>です。</p>
+<figure class="fig"><a href="/fig/velocity-profiles.svg" target="_blank" rel="noopener"><img src="/fig/velocity-profiles.svg" alt="図1　円管内の速度分布。層流は放物線、乱流は中央が平らな分布になる" width="640" height="260" loading="lazy"></a><figcaption>図1　円管内の速度分布。層流は放物線、乱流は中央が平らな分布になる</figcaption></figure>
+
+<h2 id="s2">レイノルズ数の式</h2>
+<div class="formula">$$\text{Re} = \frac{\rho\, u\, D}{\mu} = \frac{u\, D}{\nu}$$</div>
+<ul>
+<li>$\rho$：流体の密度 [kg/m³]</li>
+<li>$u$：平均流速 [m/s]</li>
+<li>$D$：管の内径 [m]</li>
+<li>$\mu$：粘度 [Pa·s]、$\nu = \mu/\rho$：動粘度 [m²/s]</li>
+</ul>
+<p>レイノルズ数は「流れを進ませようとする慣性の力」と「流れを引き止める粘りの力」の比です。値が大きいほど慣性が勝って乱れやすくなります。</p>
+
+<h2 id="s3">円管内の流れの判定の目安</h2>
+<table>
+<tr><th>レイノルズ数</th><th>流れの状態</th></tr>
+<tr><td>約 2100 以下</td><td>層流</td></tr>
+<tr><td>約 2100〜4000</td><td>遷移域（層流と乱流の間で不安定）</td></tr>
+<tr><td>約 4000 以上</td><td>乱流</td></tr>
+</table>
+<div class="note">境目の値は教科書によって2000、2100、2300などと書かれています。管の入口の形や振動などの条件で変わるため、「2000〜4000くらいの範囲で移り変わる」と覚えておけば十分です。</div>
+
+<h2 id="s4">流量から流速を求める</h2>
+<p>実務では流速ではなく流量（m³/h など）が与えられることが多いので、まず断面積で割って平均流速を出します。</p>
+<div class="formula">$$u = \frac{Q}{A}, \qquad A = \frac{\pi D^2}{4}$$</div>
+
+<div class="example">
+<strong>例題：配管を流れる水のレイノルズ数</strong>
+<p>内径 50 mm の配管に、20 °C の水が 6 m³/h で流れています。水の密度を 998 kg/m³、粘度を 1.00 × 10⁻³ Pa·s として、流れが層流か乱流かを判定してください。</p>
+<div class="answer">
+<p>断面積：$A = \pi \times 0.05^2 / 4 = 1.963 \times 10^{-3}\ \text{m}^2$</p>
+<p>流量を秒あたりに直すと $6 / 3600 = 1.667 \times 10^{-3}\ \text{m}^3/\text{s}$。平均流速は $u = 1.667 \times 10^{-3} / 1.963 \times 10^{-3} \approx 0.849\ \text{m/s}$</p>
+<p>$\text{Re} = \dfrac{998 \times 0.849 \times 0.05}{1.00 \times 10^{-3}} \approx 4.2 \times 10^{4}$</p>
+<p>4000 を大きく超えているので乱流です。この配管の圧力損失は<a href="/fluid/pressure-loss.html">管内の圧力損失</a>の記事で計算します。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/reynolds-regimes.svg" target="_blank" rel="noopener"><img src="/fig/reynolds-regimes.svg" alt="図2　円管内の流れの判定の目安と、例題の水のレイノルズ数" width="600" height="150" loading="lazy"></a><figcaption>図2　円管内の流れの判定の目安と、例題の水のレイノルズ数</figcaption></figure>
+
+<h2 id="s5">円管以外の流路では</h2>
+<p>四角いダクトや二重管のすき間のように円管でない流路では、管径 $D$ の代わりに<strong>相当直径</strong>（水力直径）$D_e = 4 \times \text{流路断面積} / \text{ぬれぶち長さ}$ を使います。円管なら $D_e = D$ となり、元の式と一致します。</p>
+<h2 id="s6">よくある間違い</h2>
+<ul>
+<li><strong>流量と流速の取り違え：</strong>Re の式に入れるのは流速（m/s）です。流量（m³/h）が与えられたら、秒あたりに直してから断面積で割ります。</li>
+<li><strong>粘度と動粘度：</strong>動粘度 $\nu = \mu/\rho$（m²/s）を使うときは $\text{Re} = uD/\nu$ で、密度を掛けません。どちらの値が与えられているか、単位で見分けます。</li>
+<li><strong>境界の値を厳密に考えすぎる：</strong>2300 や 4000 は目安です。配管の入口付近や、曲がり・弁の下流では、もっと小さい Re でも乱れが残ります。</li>
+</ul>
+
+<h2 id="s7">練習問題</h2>
+<div class="example">
+<strong>練習1：粘い油の流れ</strong>
+<p>内径 25 mm の配管に、密度 900 kg/m³、粘度 0.10 Pa·s の油が平均流速 1.0 m/s で流れています。層流ですか、乱流ですか。</p>
+<div class="answer"><p>$\text{Re} = \dfrac{900 \times 1.0 \times 0.025}{0.10} = 225$。2300 よりずっと小さいので層流です。水と比べて粘度が100倍あるため、同じような流速でも層流になります。</p></div>
+</div>
+<div class="example">
+<strong>練習2：角ダクトの相当直径</strong>
+<p>断面が 0.2 m × 0.4 m の長方形のダクトに、20 °C の空気（1.20 kg/m³、$1.81 \times 10^{-5}$ Pa·s）が 5 m/s で流れています。相当直径と Re を求めてください。</p>
+<div class="answer">
+<p>$D_e = \dfrac{4 \times (0.2 \times 0.4)}{2 \times (0.2 + 0.4)} = \dfrac{0.32}{1.2} \approx 0.267\ \text{m}$</p>
+<p>$\text{Re} = \dfrac{1.20 \times 5 \times 0.267}{1.81 \times 10^{-5}} \approx 8.8 \times 10^{4}$。乱流です。</p>
+</div>
+</div>
+
+
+<nav class="pager"><span></span><a class="next" href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/fluid/">流体の記事</a></h2><ul><li><a href="/fluid/reynolds-number.html" aria-current="page">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/" aria-current="page">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

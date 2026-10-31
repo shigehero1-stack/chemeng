@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>熱交換器の ε-NTU 法｜出口温度がわからないときの計算｜はじめての化学工学</title>
+<meta name="description" content="出口温度がわからない熱交換器の性能を直接計算できる ε-NTU 法を、向流・並流・多管式の式と、冷却水を減らした場合などの例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/heat/epsilon-ntu.html">
+<meta property="og:title" content="熱交換器の ε-NTU 法｜出口温度がわからないときの計算｜はじめての化学工学">
+<meta property="og:description" content="出口温度がわからない熱交換器の性能を直接計算できる ε-NTU 法を、向流・並流・多管式の式と、冷却水を減らした場合などの例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "熱交換器の ε-NTU 法", "description": "出口温度がわからない熱交換器の性能を直接計算できる ε-NTU 法を、向流・並流・多管式の式と、冷却水を減らした場合などの例題で解説します。", "datePublished": "2026-10-17", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/heat/epsilon-ntu.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/heat/">伝熱</a> › <span>熱交換器の ε-NTU 法</span></nav>
+    <article class="article">
+<h1>熱交換器の ε-NTU 法</h1>
+<p class="lead">出口温度がわからない熱交換器の性能を直接計算できる ε-NTU 法を、向流・並流・多管式の式と、冷却水を減らした場合などの例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">この記事で学ぶこと</a></li><li><a href="#s2">3つの無次元量</a></li><li><a href="#s3">ε と NTU の関係</a></li><li><a href="#s4">計算の手順</a></li><li><a href="#s5">例題1：LMTD 法との一致を確かめる</a></li><li><a href="#s6">例題2：冷却水を半分にしたら</a></li><li><a href="#s7">例題3：流れ方による違い</a></li><li><a href="#s8">例題4：蒸気で水を加熱する</a></li><li><a href="#s9">LMTD の温度差補正係数 F との関係</a></li><li><a href="#s10">検算について</a></li><li><a href="#s11">参考文献</a></li></ol></nav>
+
+<h2 id="s1">この記事で学ぶこと</h2>
+<p>このサイトの<a href="/heat/heat-exchanger-lmtd.html">基本の記事</a>では、対数平均温度差（LMTD）を使って、必要な伝熱面積を求めました。この方法は、両方の流体の入口・出口温度がすべてわかっている<strong>設計の問題</strong>には便利です。</p>
+<p>ところが実務では、次のような<strong>性能評価の問題</strong>のほうがよく出てきます。</p>
+<ul><li>すでにある熱交換器で、冷却水の量を減らしたら出口温度はどうなるか</li><li>夏になって冷却水の温度が上がったら、処理できる熱量はどれだけ減るか</li><li>在庫の熱交換器を別の用途に転用できるか</li></ul>
+<p>この場合、出口温度がわからないので LMTD が計算できず、試行錯誤が必要になります。<strong>ε-NTU 法</strong>を使うと、この種の問題を試行錯誤なしで直接解けます。</p>
+<h2 id="s2">3つの無次元量</h2>
+<h3>熱容量流量</h3>
+<p>各流体の質量流量 $m$ と比熱 $c_p$ の積を<strong>熱容量流量</strong> $C = m\,c_p$ [W/K] といいます。流体が 1 K 変化するときに運ぶ熱量です。2つの流体のうち小さいほうを $C_{\min}$、大きいほうを $C_{\max}$ とし、その比を</p>
+<div class="formula">$$C_r = \frac{C_{\min}}{C_{\max}} \quad (0 \le C_r \le 1)$$</div>
+<p>とします。一方の流体が凝縮や沸騰をしていて温度が変わらない場合は、その流体の熱容量流量は実質的に無限大なので $C_r = 0$ になります。</p>
+<h3>伝熱単位数 NTU</h3>
+<div class="formula">$$\text{NTU} = \frac{U A}{C_{\min}}$$</div>
+<p>熱交換器の「大きさ」を、熱容量流量の小さいほうの流体を基準に無次元で表したものです。NTU が大きいほど、その流体の温度を大きく変えられます。</p>
+<h3>温度効率 ε</h3>
+<div class="formula">$$\varepsilon = \frac{Q}{Q_{\max}}, \qquad Q_{\max} = C_{\min}\,(T_{h,\text{入}} - T_{c,\text{入}})$$</div>
+<p>$Q_{\max}$ は、理論上交換できる最大の熱量です。無限に長い向流熱交換器では、熱容量流量の小さいほうの流体が、もう一方の流体の入口温度まで達します。そのときの熱量が $Q_{\max}$ です。</p>
+<h2 id="s3">ε と NTU の関係</h2>
+<p>ε は、流れ方（向流・並流・多管式など）ごとに、NTU と $C_r$ だけの関数として表せます。この性質のおかげで、出口温度を知らなくても ε が決まり、そこから熱量と出口温度が求まります。</p>
+<p><strong>向流</strong></p>
+<div class="formula">$$\varepsilon = \frac{1 - \exp[-\text{NTU}(1 - C_r)]}{1 - C_r \exp[-\text{NTU}(1 - C_r)]}$$</div>
+<p>$C_r = 1$ のときは $\varepsilon = \dfrac{\text{NTU}}{1 + \text{NTU}}$ です。</p>
+<p><strong>並流</strong></p>
+<div class="formula">$$\varepsilon = \frac{1 - \exp[-\text{NTU}(1 + C_r)]}{1 + C_r}$$</div>
+<p><strong>多管式（胴側1パス、管側2パスまたはその倍数）</strong></p>
+<div class="formula">$$\varepsilon = 2\left\{ 1 + C_r + \sqrt{1 + C_r^2}\;\frac{1 + \exp\left(-\text{NTU}\sqrt{1 + C_r^2}\right)}{1 - \exp\left(-\text{NTU}\sqrt{1 + C_r^2}\right)} \right\}^{-1}$$</div>
+<p><strong>一方が凝縮・沸騰する場合（$C_r = 0$、流れ方によらない）</strong></p>
+<div class="formula">$$\varepsilon = 1 - \exp(-\text{NTU})$$</div>
+<p>これらの式は、熱交換器の長さ方向の微小区間で熱収支と伝熱速度の式を立て、積分して得られるものです。$U$ と比熱が一定であることが前提です。</p>
+<figure class="fig"><a href="/fig/entu-flow-types.svg" target="_blank" rel="noopener"><img src="/fig/entu-flow-types.svg" alt="図1　流れ方による温度効率の違い（Cr = 0.5）" width="600" height="330" loading="lazy"></a><figcaption>図1　流れ方による温度効率の違い（Cr = 0.5）</figcaption></figure>
+<h2 id="s4">計算の手順</h2>
+<ol><li>両流体の熱容量流量 $C_h$、$C_c$ を計算し、$C_{\min}$、$C_{\max}$、$C_r$ を求める</li><li>$\text{NTU} = UA / C_{\min}$ を計算する</li><li>流れ方に合った式で ε を求める</li><li>$Q = \varepsilon\,C_{\min}\,(T_{h,\text{入}} - T_{c,\text{入}})$ を計算する</li><li>出口温度を熱収支から求める：$T_{h,\text{出}} = T_{h,\text{入}} - Q/C_h$、$T_{c,\text{出}} = T_{c,\text{入}} + Q/C_c$</li></ol>
+<h2 id="s5">例題1：LMTD 法との一致を確かめる</h2>
+<p>「<a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差</a>」の例題で設計した向流熱交換器（$U$ = 300 W/(m²·K)、$A$ = 10.63 m²）を、ε-NTU 法で評価し直します。油 2.0 kg/s（比熱 2.1 kJ/(kg·K)）が 150 °C で、冷却水 2.01 kg/s（比熱 4.18 kJ/(kg·K)）が 25 °C で入ります。</p>
+<p><strong>解答</strong></p>
+<ul><li>$C_h = 2.0 \times 2100 = 4200$ W/K、$C_c = 2.01 \times 4180 \approx 8400$ W/K</li><li>$C_{\min} = 4200$ W/K（油）、$C_r = 0.500$</li><li>$\text{NTU} = 300 \times 10.63 / 4200 \approx 0.759$</li><li>向流の式から $\varepsilon \approx 0.480$</li><li>$Q = 0.480 \times 4200 \times (150 - 25) \approx 252$ kW</li><li>油の出口 $150 - 252\,000/4200 \approx 90.0$ °C、水の出口 $25 + 252\,000/8400 \approx 55.0$ °C</li></ul>
+<p>LMTD 法で設計したときの条件（交換熱量 252 kW、油の出口 90 °C、水の出口 55 °C）がそのまま再現されました。2つの方法は同じ関係を別の形で表したもので、結果は一致します。</p>
+<h2 id="s6">例題2：冷却水を半分にしたら</h2>
+<p>同じ熱交換器で、冷却水を半分の 1.005 kg/s に減らしました。油の条件は変わりません。油と水の出口温度はどうなりますか。$U$ は変わらないものとします。</p>
+<p><strong>解答</strong></p>
+<ul><li>$C_c = 4200$ W/K となり、油とほぼ等しくなるので $C_r \approx 1.0$</li><li>$\text{NTU} = 0.759$ は変わらない</li><li>$C_r = 1$ の向流の式から $\varepsilon = 0.759 / 1.759 \approx 0.432$</li><li>$Q = 0.432 \times 4200 \times 125 \approx 227$ kW</li><li>油の出口 $150 - 227\,000/4200 \approx 96.0$ °C、水の出口 $25 + 227\,000/4200 \approx 78.9$ °C</li></ul>
+<p>冷却水を半分にしても、交換熱量は約1割しか減らず、そのかわり冷却水の出口温度が大きく上がることがわかります。LMTD 法でこの問題を解こうとすると、出口温度を仮定して面積が合うまで繰り返し計算する必要があります。求まった出口温度から LMTD を計算して逆算すると、$UA$ が元の値と一致することも確かめられます。</p>
+<div class="note"><strong>現場での注意</strong>　実際には、流量を減らすと管内の流速が下がって熱伝達係数が小さくなり、$U$ も下がります。流量を大きく変える場合は、「<a href="/heat/convection.html">対流伝熱と熱伝達係数</a>」の考え方で $U$ を見直してから ε-NTU 法を使ってください。</div>
+<h2 id="s7">例題3：流れ方による違い</h2>
+<p>例題1と同じ NTU = 0.759、$C_r$ = 0.5 で、流れ方を変えると交換熱量はどう変わるでしょうか。</p>
+<table><tr><th>流れ方</th><th>ε</th><th>交換熱量</th></tr><tr><td>向流</td><td>0.480</td><td>252 kW</td></tr><tr><td>多管式（胴側1パス・管側2パス）</td><td>0.466</td><td>245 kW</td></tr><tr><td>並流</td><td>0.453</td><td>238 kW</td></tr></table>
+<p>NTU が小さいうちは、流れ方による差はあまり大きくありません。しかし NTU を大きくしていくと、差がはっきり表れます（$C_r$ = 0.5）。</p>
+<table><tr><th>NTU</th><th>向流</th><th>多管式 1-2</th><th>並流</th></tr><tr><td>0.5</td><td>0.362</td><td>0.357</td><td>0.352</td></tr><tr><td>1</td><td>0.565</td><td>0.540</td><td>0.518</td></tr><tr><td>2</td><td>0.775</td><td>0.693</td><td>0.633</td></tr><tr><td>3</td><td>0.874</td><td>0.741</td><td>0.659</td></tr><tr><td>5</td><td>0.957</td><td>0.761</td><td>0.666</td></tr></table>
+<p>並流では ε が $1/(1 + C_r)$（この例では 0.667）より大きくなれません。多管式でも頭打ちになります。<strong>高い温度効率が必要なとき、伝熱面積をいくら増やしても流れ方の限界を超えられない</strong>ことが、ε-NTU 法の表から一目でわかります。この場合は向流に近い形式（胴側のパス数を増やす、熱交換器を直列につなぐなど）を検討します。</p>
+<figure class="fig"><a href="/fig/entu-capacity-ratio.svg" target="_blank" rel="noopener"><img src="/fig/entu-capacity-ratio.svg" alt="図2　向流熱交換器の温度効率と熱容量流量比 Cr" width="680" height="330" loading="lazy"></a><figcaption>図2　向流熱交換器の温度効率と熱容量流量比 Cr</figcaption></figure>
+<h2 id="s8">例題4：蒸気で水を加熱する</h2>
+<p>120 °C で凝縮する水蒸気で、水 1.5 kg/s を 20 °C から加熱します。$U$ = 1500 W/(m²·K)、$A$ = 8 m² のとき、水の出口温度と交換熱量を求めてください。</p>
+<p><strong>解答</strong></p>
+<ul><li>蒸気側は凝縮で温度一定なので $C_r = 0$、$C_{\min} = 1.5 \times 4180 = 6270$ W/K</li><li>$\text{NTU} = 1500 \times 8 / 6270 \approx 1.91$</li><li>$\varepsilon = 1 - e^{-1.91} \approx 0.853$</li><li>$Q = 0.853 \times 6270 \times (120 - 20) \approx 535$ kW、水の出口 $20 + 535\,000 / 6270 \approx 105$ °C</li></ul>
+<h2 id="s9">LMTD の温度差補正係数 F との関係</h2>
+<p>多管式の熱交換器を LMTD 法で扱うときに使う温度差補正係数 $F$ は、ε-NTU 法と同じ関係から導かれたものです。どちらの方法でも同じ答えが出ます。使い分けの目安は次のとおりです。</p>
+<table><tr><th>問題の種類</th><th>わかっているもの</th><th>求めたいもの</th><th>向いている方法</th></tr><tr><td>設計</td><td>4つの温度（または3つと熱収支）</td><td>伝熱面積</td><td>LMTD 法</td></tr><tr><td>性能評価</td><td>入口温度2つ、$UA$</td><td>出口温度、熱量</td><td>ε-NTU 法</td></tr></table>
+<h2 id="s10">検算について</h2>
+<p>この記事の例題は、検算用に作成したプログラム（Python）で、ε-NTU の式による計算と、熱交換器を長さ方向に2万分割して熱収支を積み上げる数値計算の両方で解き、交換熱量と出口温度が一致することを確認しています（例題1：252.1 kW と 252.07 kW、例題2：226.6 kW と 226.59 kW）。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li></ul></aside><!-- /related -->
+<h2 id="s11">参考文献</h2>
+<ul><li>W. M. Kays, A. L. London, <em>Compact Heat Exchangers</em>, McGraw-Hill</li><li>F. P. Incropera, D. P. DeWitt ほか, <em>Fundamentals of Heat and Mass Transfer</em>, Wiley</li></ul>
+<hr>
+<p>※ この記事は学習を目的としたものです。実際の装置の設計や運転には、最新の規格、信頼できる物性データ、専門家の判断にもとづいてください。</p>
+
+
+<nav class="pager"><a class="prev" href="/heat/heat-exchanger-lmtd.html">← 熱交換器の設計と対数平均温度差（LMTD）の計算</a><a class="next" href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/heat/">伝熱の記事</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html" aria-current="page">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/" aria-current="page">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

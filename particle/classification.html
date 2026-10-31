@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>分級の基礎｜部分分級効率と分級径、分級の鋭さの計算｜はじめての化学工学</title>
+<meta name="description" content="粒子を大きさで分ける分級の原理と装置、分級の性能を表す部分分級効率曲線、分級径（50%分離径）と分級の鋭さ、粒度分布から製品の割合を求める計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/classification.html">
+<meta property="og:title" content="分級の基礎｜部分分級効率と分級径、分級の鋭さの計算｜はじめての化学工学">
+<meta property="og:description" content="粒子を大きさで分ける分級の原理と装置、分級の性能を表す部分分級効率曲線、分級径（50%分離径）と分級の鋭さ、粒度分布から製品の割合を求める計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "分級の基礎", "description": "粒子を大きさで分ける分級の原理と装置、分級の性能を表す部分分級効率曲線、分級径（50%分離径）と分級の鋭さ、粒度分布から製品の割合を求める計算を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/classification.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>分級の基礎</span></nav>
+    <article class="article">
+<h1>分級の基礎</h1>
+<p class="lead">粒子を大きさで分ける分級の原理と装置、分級の性能を表す部分分級効率曲線、分級径（50%分離径）と分級の鋭さ、粒度分布から製品の割合を求める計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">分級とは</a></li><li><a href="#s2">部分分級効率</a></li><li><a href="#s3">粒度分布から製品の割合を求める</a></li><li><a href="#s4">分級をよくするには</a></li></ol></nav>
+
+<h2 id="s1">分級とは</h2>
+<p><strong>分級</strong>は、粒子の集まりを大きさ（正確には、流体の中での動きやすさ）によって、粗い粒子と細かい粒子に分ける操作です。粉砕した粉から決まった大きさの製品を取り出す、粗い粒子を<a href="/particle/size-reduction.html">粉砕機</a>に戻す、細かい粉だけを集めるなど、粉体を扱う工程のあちこちで使われます。</p>
+<table>
+<tr><th>方法</th><th>装置の例</th><th>分けられる大きさの目安</th></tr>
+<tr><td>ふるい分け</td><td>振動ふるい</td><td>数十 µm 以上</td></tr>
+<tr><td>重力・慣性を使う乾式分級</td><td>風力分級機、ルーバー型分級機</td><td>数 µm〜数百 µm</td></tr>
+<tr><td>遠心力を使う乾式分級</td><td>回転羽根式の分級機、<a href="/particle/cyclone.html">サイクロン</a></td><td>1 µm〜数十 µm</td></tr>
+<tr><td>湿式分級</td><td>液体サイクロン、沈降式分級機</td><td>数 µm〜数百 µm</td></tr>
+</table>
+<p>流体を使う分級では、粒子の<a href="/particle/stokes-settling.html">沈降速度</a>の違いで分けるので、同じ大きさでも密度の大きい粒子は粗い側に行きやすくなります。</p>
+
+<h2 id="s2">部分分級効率</h2>
+<p>実際の分級機では、粒子はきっちり大きさで分かれず、同じ大きさの粒子でも一部は粗い側へ、一部は細かい側へ行きます。そこで、大きさ $d$ の粒子のうち粗粉側に行く割合を<strong>部分分級効率</strong> $\eta(d)$ と定義し、粒子径に対して描いた曲線（部分分級効率曲線）で性能を表します。</p>
+<ul>
+<li><strong>分級径</strong>（50%分離径 $d_{50}$）：部分分級効率が50%になる粒子径。分級機がどこで分けているかを表す</li>
+<li><strong>分級の鋭さ</strong>：曲線の立ち上がりの急さ。たとえば $\kappa = d_{25}/d_{75}$（効率25%と75%になる粒子径の比）で表し、1に近いほど鋭い（理想的な分級は1）</li>
+</ul>
+<figure class="fig"><a href="/fig/partial-classification-efficiency.svg" target="_blank" rel="noopener"><img src="/fig/partial-classification-efficiency.svg" alt="図1　部分分級効率曲線" width="580" height="320" loading="lazy"></a><figcaption>図1　部分分級効率曲線の例。理想的な分級（点線）に対し、実際の分級機はなだらかな S 字になる</figcaption></figure>
+
+<h2 id="s3">粒度分布から製品の割合を求める</h2>
+<p>原料の粒度分布と部分分級効率がわかれば、粒子径の区間ごとに<a href="/basics/material-balance.html">物質収支</a>をとって、粗粉と微粉の量と粒度分布を計算できます。区間 $i$ の原料中の質量割合を $f_i$ とすると、粗粉の割合（収率）は</p>
+<div class="formula">$$Y_{\text{粗}} = \sum_i f_i\,\eta_i$$</div>
+<p>で、粗粉の中の区間 $i$ の割合は $f_i \eta_i / Y_{\text{粗}}$ です。</p>
+
+<div class="example">
+<strong>例題：分級機の粗粉と微粉</strong>
+<p>原料の粒度分布と、分級機の部分分級効率（粗粉側に行く割合）が次の表のとおりです。原料 100 t/h のとき、粗粉と微粉の量、および粗粉に混ざる 20 µm 未満の粒子の割合を求めてください。</p>
+<table>
+<tr><th>粒子径の区間 [µm]</th><th>0〜10</th><th>10〜20</th><th>20〜40</th><th>40〜80</th></tr>
+<tr><td>原料中の質量割合</td><td>20%</td><td>25%</td><td>30%</td><td>25%</td></tr>
+<tr><td>部分分級効率</td><td>0.05</td><td>0.30</td><td>0.75</td><td>0.97</td></tr>
+</table>
+<div class="answer">
+<p>区間ごとに粗粉に行く量（原料 100 t/h あたり）：$20 \times 0.05 = 1.0$、$25 \times 0.30 = 7.5$、$30 \times 0.75 = 22.5$、$25 \times 0.97 = 24.25$ [t/h]</p>
+<p>粗粉は合計 $1.0 + 7.5 + 22.5 + 24.25 = 55.25$ t/h、微粉は $100 - 55.25 = 44.75$ t/h です。</p>
+<p>粗粉に混ざる 20 µm 未満の粒子は $1.0 + 7.5 = 8.5$ t/h なので、その割合は $8.5 / 55.25 \approx 15\%$ です。</p>
+<p>分級が理想的（20 µm できっちり分かれる）なら、粗粉は 55 t/h で細かい粒子を含みません。実際の分級機では、10〜20 µm の粒子の3割が粗粉側に入ってしまうことが、製品の品質に影響します。</p>
+</div>
+</div>
+
+<h2 id="s4">分級をよくするには</h2>
+<ul>
+<li>原料の供給量を増やしすぎない。粒子どうしがぶつかったり凝集したりして、細かい粒子が粗い側に引きずられる</li>
+<li>細かい粉は凝集しやすいので、乾式分級では分散をよくする（分散機をつける、湿気を避ける）</li>
+<li>閉回路粉砕では、分級機の性能が悪いと、細かい粒子まで粉砕機に戻って過粉砕になり、エネルギーが無駄になる</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/particle/size-reduction.html">← 粉砕の基礎</a><a class="next" href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html" aria-current="page">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

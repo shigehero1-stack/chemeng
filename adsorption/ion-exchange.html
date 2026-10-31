@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>イオン交換の基礎｜イオン交換樹脂の交換容量と軟水化・純水製造の計算｜はじめての化学工学</title>
+<meta name="description" content="イオン交換樹脂の種類と選択性、交換容量の表し方、硬水を軟水にする装置の処理量と再生の計算、純水製造の仕組みを例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/adsorption/ion-exchange.html">
+<meta property="og:title" content="イオン交換の基礎｜イオン交換樹脂の交換容量と軟水化・純水製造の計算｜はじめての化学工学">
+<meta property="og:description" content="イオン交換樹脂の種類と選択性、交換容量の表し方、硬水を軟水にする装置の処理量と再生の計算、純水製造の仕組みを例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "イオン交換の基礎", "description": "イオン交換樹脂の種類と選択性、交換容量の表し方、硬水を軟水にする装置の処理量と再生の計算、純水製造の仕組みを例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/adsorption/ion-exchange.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/adsorption/">吸着・イオン交換</a> › <span>イオン交換の基礎</span></nav>
+    <article class="article">
+<h1>イオン交換の基礎</h1>
+<p class="lead">イオン交換樹脂の種類と選択性、交換容量の表し方、硬水を軟水にする装置の処理量と再生の計算、純水製造の仕組みを例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">イオン交換とは</a></li><li><a href="#s2">樹脂の種類</a></li><li><a href="#s3">交換容量</a></li><li><a href="#s4">純水の製造</a></li></ol></nav>
+
+<h2 id="s1">イオン交換とは</h2>
+<p><strong>イオン交換</strong>は、水に溶けているイオンを、固体（イオン交換体）がもっている別のイオンと入れ替える操作です。ボイラーの給水のカルシウムやマグネシウムを取り除く軟水化、半導体工場や発電所で使う純水の製造、排水からの金属の回収などに使われます。</p>
+<p>工業的には、スチレンなどの高分子の粒に、イオンを交換できる基（交換基）を結合させた<strong>イオン交換樹脂</strong>がよく使われます。大きさ 0.3〜1 mm 程度の粒を塔に詰め、<a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着</a>と同じように水を流して使います。</p>
+
+<h2 id="s2">樹脂の種類</h2>
+<table>
+<tr><th>種類</th><th>交換するイオン</th><th>例</th></tr>
+<tr><td>強酸性陽イオン交換樹脂</td><td>陽イオン（Ca²⁺、Mg²⁺、Na⁺ など）</td><td>スルホン酸基 −SO₃H をもつ。Na 形で軟水化、H 形で純水製造に使う</td></tr>
+<tr><td>弱酸性陽イオン交換樹脂</td><td>陽イオン</td><td>カルボキシ基をもつ。再生しやすい</td></tr>
+<tr><td>強塩基性陰イオン交換樹脂</td><td>陰イオン（Cl⁻、SO₄²⁻、炭酸、ケイ酸 など）</td><td>第四級アンモニウム基をもつ。OH 形で純水製造に使う</td></tr>
+<tr><td>弱塩基性陰イオン交換樹脂</td><td>強酸の陰イオン</td><td>再生しやすいが、弱い酸は取れない</td></tr>
+</table>
+<p>樹脂はイオンを電荷の量で交換するので、Ca²⁺ が1つ入ると Na⁺ が2つ出ていきます。同じ条件なら、電荷の大きいイオンや、水和したときの大きさが小さいイオンほど強く取り込まれます（選択性）。強酸性陽イオン交換樹脂では、おおよそ Ca²⁺ ＞ Mg²⁺ ＞ K⁺ ＞ Na⁺ ＞ H⁺ の順です。</p>
+
+<h2 id="s3">交換容量</h2>
+<p>樹脂がどれだけのイオンを交換できるかを<strong>交換容量</strong>といい、樹脂の体積あたりの当量 [eq/L-樹脂] で表します。当量（eq）は「物質量 × イオンの電荷の大きさ」で、Ca²⁺ 1 mol は 2 eq です。</p>
+<ul>
+<li><strong>総交換容量</strong>：樹脂がもっている交換基の総量。強酸性陽イオン交換樹脂で 1.8〜2.2 eq/L 程度</li>
+<li><strong>有効交換容量</strong>：実際の運転で、破過までに利用できる量。再生剤の量や流速によって変わり、総交換容量の5〜7割程度になることが多い</li>
+</ul>
+<p>水の硬度は、炭酸カルシウム CaCO₃ に換算した濃度 [mg/L] で表すことが多く、CaCO₃（式量 100、2価）50 mg が 1 meq（ミリ当量）に当たります。</p>
+
+<div class="example">
+<strong>例題：軟水器の運転日数と再生</strong>
+<p>硬度 100 mg/L（CaCO₃ 換算）の水を、強酸性陽イオン交換樹脂（Na 形）0.50 m³ を詰めた軟水器で、1日 10 m³ 処理します。樹脂の総交換容量は 2.0 eq/L、有効に使えるのはその60%とします。何日ごとに再生が必要ですか。また、再生に必要な食塩の量を求めてください。食塩は理論量の3倍使うとします。</p>
+<div class="answer">
+<p>水の硬度：$100 / 50 = 2.0\ \text{meq/L} = 2.0\ \text{eq/m}^3$</p>
+<p>樹脂の有効交換容量：$2.0\ \text{eq/L} \times 500\ \text{L} \times 0.60 = 600\ \text{eq}$</p>
+<p>処理できる水の量は $600 / 2.0 = 300\ \text{m}^3$、1日 10 m³ なので約 <strong>30日</strong>ごとに再生が必要です。</p>
+<p>再生では、600 eq の Ca²⁺・Mg²⁺ を Na⁺ で追い出します。NaCl（58.4 g/mol、1価）の理論量は $600 \times 58.4 \approx 35\ \text{kg}$、3倍使うと約 <strong>105 kg</strong> です。</p>
+<p>平衡の関係で、交換したイオンを追い出すには理論量より多くの再生剤が必要です。再生剤を多く使うほど有効交換容量は大きくなりますが、再生排水の塩分も増えます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/ion-exchange-softening.svg" target="_blank" rel="noopener"><img src="/fig/ion-exchange-softening.svg" alt="図1　軟水化と再生のイオンの動き" width="650" height="280" loading="lazy"></a><figcaption>図1　軟水化と再生のイオンの動き。運転中は硬度成分を取り込み、再生では濃い食塩水で Na⁺ に戻す</figcaption></figure>
+
+<h2 id="s4">純水の製造</h2>
+<p>H 形の陽イオン交換樹脂と OH 形の陰イオン交換樹脂を組み合わせると、水中の陽イオンは H⁺ に、陰イオンは OH⁻ に置きかわり、両者が反応して水になります。こうして塩類をほとんど含まない<strong>純水</strong>が得られます。2種類の樹脂を別々の塔に詰める方法（2床式）と、混ぜて1つの塔に詰める方法（混床式）があり、混床式のほうが高い純度が得られます。</p>
+<p>大量の純水を作る場合は、先に<a href="/membrane/reverse-osmosis.html">逆浸透膜</a>で大部分の塩類を取り除き、残りをイオン交換で仕上げる組み合わせが一般的です。再生に使う酸やアルカリの量を大きく減らせます。純水の水質は、電気の通しにくさ（比抵抗、または電気伝導率）で管理します。</p>
+
+
+<nav class="pager"><a class="prev" href="/adsorption/psa-and-regeneration.html">← 吸着剤の再生とPSA（圧力スイング吸着）</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/adsorption/">吸着・イオン交換の記事</a></h2><ul><li><a href="/adsorption/adsorption-isotherm.html">吸着平衡と吸着等温線</a></li><li><a href="/adsorption/fixed-bed-breakthrough.html">固定層吸着と破過曲線</a></li><li><a href="/adsorption/psa-and-regeneration.html">吸着剤の再生とPSA（圧力スイング吸着）</a></li><li><a href="/adsorption/ion-exchange.html" aria-current="page">イオン交換の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/" aria-current="page">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

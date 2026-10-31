@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ガス分離膜の基礎｜透過係数と分離係数、圧力比が純度に与える影響｜はじめての化学工学</title>
+<meta name="description" content="高分子膜による気体の分離の仕組み（溶解拡散）、透過係数・パーミアンスと分離係数の意味、空気から酸素富化空気や窒素を作るときの透過側の純度と圧力比の関係を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/membrane/gas-separation-membrane.html">
+<meta property="og:title" content="ガス分離膜の基礎｜透過係数と分離係数、圧力比が純度に与える影響｜はじめての化学工学">
+<meta property="og:description" content="高分子膜による気体の分離の仕組み（溶解拡散）、透過係数・パーミアンスと分離係数の意味、空気から酸素富化空気や窒素を作るときの透過側の純度と圧力比の関係を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ガス分離膜の基礎", "description": "高分子膜による気体の分離の仕組み（溶解拡散）、透過係数・パーミアンスと分離係数の意味、空気から酸素富化空気や窒素を作るときの透過側の純度と圧力比の関係を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/membrane/gas-separation-membrane.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/membrane/">膜分離</a> › <span>ガス分離膜の基礎</span></nav>
+    <article class="article">
+<h1>ガス分離膜の基礎</h1>
+<p class="lead">高分子膜による気体の分離の仕組み（溶解拡散）、透過係数・パーミアンスと分離係数の意味、空気から酸素富化空気や窒素を作るときの透過側の純度と圧力比の関係を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">ガス分離膜とは</a></li><li><a href="#s2">透過係数とパーミアンス</a></li><li><a href="#s3">圧力比が純度を決める</a></li><li><a href="#s4">窒素の製造</a></li><li><a href="#s5">ほかの膜分離との違い</a></li></ol></nav>
+
+<h2 id="s1">ガス分離膜とは</h2>
+<p><strong>ガス分離膜</strong>は、気体の種類によって膜を通り抜ける速さが違うことを利用して、混合気体を分ける膜です。空気から窒素を作る装置、天然ガスやバイオガスから二酸化炭素を除く装置、水素の回収などに使われています。動く部分がなく、圧縮機さえあれば運転できるので、小〜中規模の設備に向いています。</p>
+<p>工業的なガス分離膜の多くは、穴のない高分子の膜です。気体の分子は、高い圧力側で膜に<strong>溶け込み</strong>、膜の中を<strong>拡散</strong>して、低い圧力側で出ていきます（溶解拡散機構）。溶けやすさと拡散しやすさの両方が大きい気体ほど、速く透過します。</p>
+
+<h2 id="s2">透過係数とパーミアンス</h2>
+<p>成分 $i$ の透過流束 $J_i$ [mol/(m²·s)] は、膜の両側での分圧の差に比例します。</p>
+<div class="formula">$$J_i = Q_i\,(p_h x_i - p_l y_i)$$</div>
+<p>$p_h$、$p_l$ は供給側（高圧側）と透過側（低圧側）の全圧、$x_i$、$y_i$ はそれぞれの側のモル分率です。$Q_i$ を<strong>パーミアンス</strong>（透過速度）といい、膜の材料の性質である<strong>透過係数</strong> $P_i$ を膜の厚さで割ったものです。膜を薄くするほどパーミアンスは大きくなるので、実用の膜は、厚さ 0.1 µm 程度の分離層を多孔質の支持体の上に重ねた構造になっています。</p>
+<p>2成分 A、B の分けやすさは、パーミアンスの比である<strong>分離係数</strong>（理想分離係数）で表します。</p>
+<div class="formula">$$\alpha = \frac{Q_A}{Q_B}$$</div>
+<p>酸素と窒素では、一般的な高分子膜で $\alpha$ = 4〜8 程度です。透過しやすい膜ほど分離係数が小さくなる傾向があり（トレードオフ）、両方を高めることが膜開発の課題になっています。</p>
+
+<h2 id="s3">圧力比が純度を決める</h2>
+<p>透過側の組成は、分離係数だけでなく、膜の両側の圧力の比 $\phi = p_h / p_l$ にも左右されます。透過側の気体が膜の近くで混ざらないとすると、A と B の流束の比から、透過側のモル分率 $y$ は次の式を満たします（2成分、$x$ は供給側の A のモル分率）。</p>
+<div class="formula">$$\frac{y}{1 - y} = \alpha\,\frac{x - y/\phi}{(1 - x) - (1 - y)/\phi}$$</div>
+<p>圧力比が無限に大きければ $y = \dfrac{\alpha x}{1 + (\alpha - 1)x}$ となり、<a href="/thermo/vapor-liquid-equilibrium.html">比揮発度</a>を使った気液平衡と同じ形になります。圧力比が小さいと、透過側の分圧が上がって A の推進力が減り、分離係数がいくら大きくても純度は上がりません。</p>
+
+<div class="example">
+<strong>例題：空気から酸素富化空気を作る</strong>
+<p>酸素 21% の空気を、酸素と窒素の分離係数が5の膜で分けます。透過側を大気圧として、供給側の圧力比が (1) 3、(2) 10、(3) 無限大のとき、透過側の酸素濃度を求めてください。供給側の組成は空気のまま変わらない（取り出す量が少ない）とします。</p>
+<div class="answer">
+<p>上の式で $\alpha = 5$、$x = 0.21$ とし、$y$ を求めます。$y$ について2次方程式になるので、<a href="/numerical/nonlinear-equations.html">二分法</a>などで解くと</p>
+<p>(1) $\phi = 3$：$y \approx 0.40$（40%）</p>
+<p>(2) $\phi = 10$：$y \approx 0.52$（52%）</p>
+<p>(3) $\phi = \infty$：$y = \dfrac{5 \times 0.21}{1 + 4 \times 0.21} \approx 0.57$（57%）</p>
+<p>圧力比を3から10に上げると酸素濃度は大きく上がりますが、10を超えると伸びは小さくなります。圧力比を上げるには圧縮機（または透過側の真空ポンプ）の動力が増えるので、実際の装置では必要な純度とエネルギーのバランスで圧力比を決めます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/gas-membrane-pressure-ratio.svg" target="_blank" rel="noopener"><img src="/fig/gas-membrane-pressure-ratio.svg" alt="図1　圧力比と透過側の酸素濃度" width="580" height="320" loading="lazy"></a><figcaption>図1　圧力比と透過側の酸素濃度（供給側は空気）。分離係数が大きくても、圧力比が小さいと純度は上がらない</figcaption></figure>
+
+<h2 id="s4">窒素の製造</h2>
+<p>空気を膜に通すと、酸素が先に透過するので、供給側に残る気体は窒素に富んでいきます。膜の長さ方向に供給側の酸素がどんどん抜けていき、出口では窒素 95〜99.5% 程度の気体が得られます。純度を高くするほど、出口から取り出せる量（回収率）は小さくなります。食品の包装や防爆用の不活性ガスなど、純度がそれほど高くなくてよい用途で広く使われています。</p>
+<h2 id="s5">ほかの膜分離との違い</h2>
+<ul>
+<li>気体は液体に比べて膜の中で拡散しやすく、透過の推進力も分圧差なので、圧縮のエネルギーが運転コストの中心になる</li>
+<li>高い純度や大量処理が必要な場合は、<a href="/adsorption/psa-and-regeneration.html">PSA</a> や深冷分離（低温での蒸留）のほうが有利なことが多い</li>
+<li>膜を何段か組み合わせたり、透過した気体の一部を戻したりして、純度と回収率を高める工夫もされている</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/membrane/ultrafiltration.html">← 限外ろ過・精密ろ過と濃度分極</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/membrane/">膜分離の記事</a></h2><ul><li><a href="/membrane/reverse-osmosis.html">膜分離の種類と逆浸透（RO）</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li><li><a href="/membrane/gas-separation-membrane.html" aria-current="page">ガス分離膜の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/" aria-current="page">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

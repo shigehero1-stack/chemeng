@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粉体の貯槽と粉じん爆発｜ヤンセンの式による壁の圧力と安全対策｜はじめての化学工学</title>
+<meta name="description" content="粉体を貯めるサイロ（貯槽）の中の圧力が液体と違う理由とヤンセンの式による計算、粉体の流れ方（マスフローとファンネルフロー）、粉体の輸送方法、粉じん爆発の条件と防止策を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/powder-storage-and-dust-explosion.html">
+<meta property="og:title" content="粉体の貯槽と粉じん爆発｜ヤンセンの式による壁の圧力と安全対策｜はじめての化学工学">
+<meta property="og:description" content="粉体を貯めるサイロ（貯槽）の中の圧力が液体と違う理由とヤンセンの式による計算、粉体の流れ方（マスフローとファンネルフロー）、粉体の輸送方法、粉じん爆発の条件と防止策を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "粉体の貯槽と粉じん爆発", "description": "粉体を貯めるサイロ（貯槽）の中の圧力が液体と違う理由とヤンセンの式による計算、粉体の流れ方（マスフローとファンネルフロー）、粉体の輸送方法、粉じん爆発の条件と防止策を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/powder-storage-and-dust-explosion.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>粉体の貯槽と粉じん爆発</span></nav>
+    <article class="article">
+<h1>粉体の貯槽と粉じん爆発</h1>
+<p class="lead">粉体を貯めるサイロ（貯槽）の中の圧力が液体と違う理由とヤンセンの式による計算、粉体の流れ方（マスフローとファンネルフロー）、粉体の輸送方法、粉じん爆発の条件と防止策を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">粉体を貯める</a></li><li><a href="#s2">粉体の中の圧力：ヤンセンの式</a></li><li><a href="#s3">粉体の流れ方</a></li><li><a href="#s4">粉体の輸送</a></li><li><a href="#s5">粉じん爆発</a></li></ol></nav>
+
+<h2 id="s1">粉体を貯める</h2>
+<p>粉体や粒体の原料・製品は、<strong>サイロ</strong>（貯槽、ホッパー）に貯めて、下から少しずつ抜き出して使います。粉体は液体のようにも固体のようにもふるまうので、貯め方や抜き出し方には特有の問題があります。</p>
+
+<h2 id="s2">粉体の中の圧力：ヤンセンの式</h2>
+<p>液体を入れた容器の底の圧力は、液面からの深さに比例して大きくなります。ところが粉体では、粒子どうしの摩擦で、重さの一部が容器の壁に支えられます。そのため、深くなっても圧力はある値で頭打ちになります。この関係を表すのが<strong>ヤンセンの式</strong>です。</p>
+<div class="formula">$$p_v = \frac{\rho_b\,g\,D}{4\,\mu_w K}\left[1 - \exp\left(-\frac{4\,\mu_w K\,z}{D}\right)\right]$$</div>
+<p>$p_v$ は深さ $z$ での鉛直方向の圧力、$\rho_b$ は粉体のかさ密度、$D$ はサイロの直径、$\mu_w$ は粉体と壁の摩擦係数、$K$ は水平方向と鉛直方向の圧力の比（側圧係数、0.3〜0.6 程度）です。壁が受ける水平方向の圧力は $K p_v$ です。</p>
+<p>深いところでの最大の圧力は $\rho_b g D / (4\mu_w K)$ で、直径に比例し、高さにはよりません。細長いサイロでは、底の圧力が粉体の高さから計算した値よりずっと小さくなります。</p>
+
+<div class="example">
+<strong>例題：サイロの中の圧力</strong>
+<p>直径 3 m のサイロに、かさ密度 800 kg/m³ の粉体を入れます。壁との摩擦係数は 0.5、側圧係数は 0.4 です。深さ 5 m と 15 m での鉛直方向の圧力を求め、液体のように深さに比例するとした場合と比べてください。</p>
+<div class="answer">
+<p>最大の圧力：$\dfrac{800 \times 9.81 \times 3}{4 \times 0.5 \times 0.4} \approx 29.4\ \text{kPa}$</p>
+<p>深さ 5 m：$29.4 \times \left[1 - \exp\left(-\dfrac{4 \times 0.5 \times 0.4 \times 5}{3}\right)\right] = 29.4 \times (1 - e^{-1.33}) \approx 21.7\ \text{kPa}$（液体なら $800 \times 9.81 \times 5 \approx 39.2$ kPa）</p>
+<p>深さ 15 m：$29.4 \times (1 - e^{-4.0}) \approx 28.9\ \text{kPa}$（液体なら 117.7 kPa）</p>
+<p>15 m の深さでは、液体とした場合の4分の1以下になります。ただし、粉体を抜き出すときには壁の圧力が一時的に大きくなる（スイッチ圧）ことがあるので、構造の設計では割り増しを考えます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/janssen-pressure.svg" target="_blank" rel="noopener"><img src="/fig/janssen-pressure.svg" alt="図1　ヤンセンの式による深さと圧力の関係" width="580" height="320" loading="lazy"></a><figcaption>図1　例題のサイロの深さと圧力の関係。粉体の圧力は深くなると頭打ちになる</figcaption></figure>
+
+<h2 id="s3">粉体の流れ方</h2>
+<ul>
+<li><strong>マスフロー</strong>：サイロの中の粉体全体が一緒に下がる。先に入れたものが先に出て（先入れ先出し）、品質がそろう。ホッパーの傾斜を急にし、壁をなめらかにする必要がある</li>
+<li><strong>ファンネルフロー</strong>：中央だけが流れ、壁ぎわの粉体が残る。後から入れたものが先に出たり、壁ぎわで固まったりする</li>
+</ul>
+<p>粉体が出口の上で橋のように固まって流れなくなる（ブリッジ）、中央に縦穴があいて周りが残る（ラットホール）などのトラブルを防ぐには、粉体の流れやすさを測定し、出口の大きさとホッパーの角度を決めます。</p>
+
+<h2 id="s4">粉体の輸送</h2>
+<table>
+<tr><th>方法</th><th>特徴</th></tr>
+<tr><td>ベルトコンベヤー、バケットエレベーター</td><td>大量の粒体を運ぶ。開放部から粉じんが出やすい</td></tr>
+<tr><td>スクリューコンベヤー</td><td>密閉でき、供給量の調整（定量供給）にも使える</td></tr>
+<tr><td>空気輸送（希薄相）</td><td>速い気流で粒子を浮かせて運ぶ。配管で自由にルートを取れるが、粒子が割れたり配管がすり減ったりする</td></tr>
+<tr><td>空気輸送（濃厚相）</td><td>遅い速度で塊のように押し出す。粒子の破損や摩耗が少ない</td></tr>
+</table>
+
+<h2 id="s5">粉じん爆発</h2>
+<p>小麦粉、砂糖、石炭、樹脂、金属などの燃える粉が空気中に舞い上がった状態で火がつくと、爆発的に燃え広がります。これが<strong>粉じん爆発</strong>です。次の5つの条件がそろうと起こります（爆発の五角形）。</p>
+<ol>
+<li>燃える粉（可燃性の粉じん）</li>
+<li>酸素（空気）</li>
+<li>着火源（静電気の火花、摩擦熱、高温の表面など）</li>
+<li>粉じんが空気中に分散している</li>
+<li>閉じた空間（容器、建屋）</li>
+</ol>
+<p>細かい粉ほど表面積が大きく燃えやすくなります（<a href="/particle/particle-size.html">比表面積</a>）。最初の小さな爆発で、床や梁にたまった粉が舞い上がり、さらに大きな二次爆発になることがあるので、日常の清掃が重要です。</p>
+<ul>
+<li><strong>防止</strong>：粉じんをためない・舞わせない、静電気を逃がす（接地）、異物を除いて火花を防ぐ、窒素で酸素濃度を下げる</li>
+<li><strong>被害の軽減</strong>：爆発放散口（圧力を逃がす板）を設ける、装置の間を遮断する、爆発に耐える構造にする</li>
+</ul>
+<p>可燃性のガスの爆発については<a href="/process/process-safety.html">化学プロセスの安全の基礎</a>で解説しています。</p>
+
+
+<nav class="pager"><a class="prev" href="/particle/classification.html">← 分級の基礎</a><a class="next" href="/particle/thickener.html">沈降濃縮とシックナーの設計 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html" aria-current="page">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

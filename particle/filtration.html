@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ろ過の基礎｜ルースの定圧ろ過式とろ過時間の計算｜はじめての化学工学</title>
+<meta name="description" content="ケークろ過の仕組み、定圧ろ過でろ液量と時間の関係を表すルースの式、ろ過定数の求め方と、ろ液量を2倍にするのに必要な時間を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/filtration.html">
+<meta property="og:title" content="ろ過の基礎｜ルースの定圧ろ過式とろ過時間の計算｜はじめての化学工学">
+<meta property="og:description" content="ケークろ過の仕組み、定圧ろ過でろ液量と時間の関係を表すルースの式、ろ過定数の求め方と、ろ液量を2倍にするのに必要な時間を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ろ過の基礎", "description": "ケークろ過の仕組み、定圧ろ過でろ液量と時間の関係を表すルースの式、ろ過定数の求め方と、ろ液量を2倍にするのに必要な時間を例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-09", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/filtration.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>ろ過の基礎</span></nav>
+    <article class="article">
+<h1>ろ過の基礎</h1>
+<p class="lead">ケークろ過の仕組み、定圧ろ過でろ液量と時間の関係を表すルースの式、ろ過定数の求め方と、ろ液量を2倍にするのに必要な時間を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-09">2026-10-09</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">ろ過とは</a></li><li><a href="#s2">ろ過が遅くなっていく理由</a></li><li><a href="#s3">ルースの定圧ろ過式</a></li><li><a href="#s4">ろ過定数の求め方</a></li><li><a href="#s5">ろ過を速くする工夫</a></li></ol></nav>
+
+<h2 id="s1">ろ過とは</h2>
+<p><strong>ろ過</strong>は、液体中の固体粒子を、ろ布などの多孔質の材料（ろ材）でこし取って分ける操作です。粒子を含む液（スラリー）をろ材に通すと、液体（ろ液）は通り抜け、粒子はろ材の上にたまっていきます。たまった粒子の層を<strong>ケーク</strong>といい、ケークそのものがろ材の役割を果たすろ過を<strong>ケークろ過</strong>といいます。</p>
+<figure class="fig"><a href="/fig/cake-filtration.svg" target="_blank" rel="noopener"><img src="/fig/cake-filtration.svg" alt="図1　ケークろ過の仕組み。たまった粒子の層（ケーク）がろ材の役割を果たす" width="560" height="320" loading="lazy"></a><figcaption>図1　ケークろ過の仕組み。たまった粒子の層（ケーク）がろ材の役割を果たす</figcaption></figure>
+<p>フィルタープレス、真空ろ過機、加圧ろ過機など、化学工業や排水処理で広く使われています。</p>
+
+<h2 id="s2">ろ過が遅くなっていく理由</h2>
+<p>ケークろ過では、ろ過が進むほどケークが厚くなり、液が通りにくくなります。そのため、同じ圧力をかけ続けても、ろ液の出る速さはだんだん遅くなります。ろ過の設計では、この時間とともに遅くなる様子を式で表して、必要な時間や面積を求めます。</p>
+
+<h2 id="s3">ルースの定圧ろ過式</h2>
+<p>一定の圧力でろ過する（定圧ろ過）場合、ろ過面積1 m²あたりのろ液量 $v$ [m³/m²] とろ過時間 $t$ の関係は、次の<strong>ルースの式</strong>で表されます。</p>
+<div class="formula">$$(v + v_0)^2 = K\,(t + t_0)$$</div>
+<ul>
+<li>$K$：ルースの定圧ろ過係数 [m²/s]。圧力が高いほど、ケークが液を通しやすいほど大きい</li>
+<li>$v_0$：ろ材の抵抗を、同じ抵抗をもつケークを作るのに相当するろ液量に置きかえたもの</li>
+<li>$t_0$：そのろ液量 $v_0$ を得るのにかかる仮想の時間（$v_0^2 = K t_0$）</li>
+</ul>
+<p>ろ材の抵抗が無視できるほど小さければ $v^2 = K t$ となり、ろ液量は時間の平方根に比例します。</p>
+
+<h2 id="s4">ろ過定数の求め方</h2>
+<p>ルースの式を変形すると</p>
+<div class="formula">$$\frac{t}{v} = \frac{1}{K}\,v + \frac{2 v_0}{K}$$</div>
+<p>となります。小さな試験機で定圧ろ過を行い、時間とろ液量を記録して $t/v$ を $v$ に対してプロットすると直線になり、傾きから $K$、切片から $v_0$ が求まります。この値を使って実機の大きさを決めます。</p>
+
+<div class="example">
+<strong>例題：ろ液量を2倍にするのに必要な時間</strong>
+<p>ある定圧ろ過で、$K = 1.0 \times 10^{-4}$ m²/s、$v_0 = 0.005$ m³/m² でした。ろ過面積1 m²あたり 0.10 m³ と 0.20 m³ のろ液を得るのに必要な時間を、それぞれ求めてください。</p>
+<div class="answer">
+<p>$t = \dfrac{(v + v_0)^2 - v_0^2}{K}$ より</p>
+<p>0.10 m³：$t = \dfrac{0.105^2 - 0.005^2}{1.0 \times 10^{-4}} = \dfrac{0.011025 - 0.000025}{1.0 \times 10^{-4}} = 110\ \text{s}$</p>
+<p>0.20 m³：$t = \dfrac{0.205^2 - 0.005^2}{1.0 \times 10^{-4}} = 420\ \text{s}$</p>
+<p>ろ液量を2倍にするのに、時間は約4倍かかります。ケークが厚くなるほど効率が落ちるので、実際の運転では適当なところでケークを取り除き、次のサイクルに移ります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/ruth-filtrate-vs-time.svg" target="_blank" rel="noopener"><img src="/fig/ruth-filtrate-vs-time.svg" alt="図2　例題の定圧ろ過のろ液量と時間の関係" width="560" height="310" loading="lazy"></a><figcaption>図2　例題の定圧ろ過のろ液量と時間の関係</figcaption></figure>
+
+<h2 id="s5">ろ過を速くする工夫</h2>
+<ul>
+<li>圧力を上げる（ただし、つぶれやすいケークでは効果が小さい）</li>
+<li>液を温めて粘度を下げる</li>
+<li>けいそう土などの<strong>ろ過助剤</strong>を加えて、ケークを液の通りやすい構造にする</li>
+<li>ケークを薄く保つように、こまめにケークを取り除く</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/particle/stokes-settling.html">← 粒子の沈降速度とストークスの式</a><a class="next" href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html" aria-current="page">ろ過の基礎</a></li><li><a href="/particle/cyclone.html">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

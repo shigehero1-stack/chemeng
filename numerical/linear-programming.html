@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>線形計画法の基本｜生産計画の利益を最大にする図解法｜はじめての化学工学</title>
+<meta name="description" content="限られた原料や設備で利益を最大にする生産量を求める線形計画法の考え方を、2種類の製品の生産計画の例題で、図解法と Python のプログラムを使って解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/numerical/linear-programming.html">
+<meta property="og:title" content="線形計画法の基本｜生産計画の利益を最大にする図解法｜はじめての化学工学">
+<meta property="og:description" content="限られた原料や設備で利益を最大にする生産量を求める線形計画法の考え方を、2種類の製品の生産計画の例題で、図解法と Python のプログラムを使って解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "線形計画法の基本", "description": "限られた原料や設備で利益を最大にする生産量を求める線形計画法の考え方を、2種類の製品の生産計画の例題で、図解法と Python のプログラムを使って解説します。", "datePublished": "2026-09-30", "dateModified": "2026-10-09", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/numerical/linear-programming.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/numerical/">数値計算</a> › <span>線形計画法の基本</span></nav>
+    <article class="article">
+<h1>線形計画法の基本</h1>
+<p class="lead">限られた原料や設備で利益を最大にする生産量を求める線形計画法の考え方を、2種類の製品の生産計画の例題で、図解法と Python のプログラムを使って解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-30">2026-09-30</time>　更新日 <time datetime="2026-10-09">2026-10-09</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">線形計画法とは</a></li><li><a href="#s2">問題の形</a></li><li><a href="#s3">変数が多い問題では</a></li><li><a href="#s4">結果の読み方：どの制約が効いているか</a></li></ol></nav>
+
+<h2 id="s1">線形計画法とは</h2>
+<p>工場では、原料の量、装置の稼働時間、倉庫の容量など、さまざまな制約の中で、利益が最も大きくなる（または費用が最も小さくなる）ように生産量を決める必要があります。目的とする量と制約がすべて一次式で表せる場合、この問題を<strong>線形計画問題</strong>といい、その解き方を<strong>線形計画法</strong>（LP）といいます。</p>
+<p>化学工業では、製油所の原油の配合と製品の生産計画、原料の配合、プラントの運転計画などに広く使われています。</p>
+
+<h2 id="s2">問題の形</h2>
+<ul>
+<li><strong>決定変数</strong>：決めたい量（各製品の生産量など）</li>
+<li><strong>目的関数</strong>：最大化（または最小化）したい量。決定変数の一次式</li>
+<li><strong>制約条件</strong>：決定変数が満たすべき一次の不等式・等式。生産量は負にならない、という条件も含む</li>
+</ul>
+
+<div class="example">
+<strong>例題：2種類の製品の生産計画</strong>
+<p>ある工場で製品 A と製品 B を作っています。1 kg あたりの利益は A が 3 千円、B が 5 千円です。1 kg 作るのに必要な原料と装置の稼働時間、1日に使える量は次のとおりです。利益を最大にするには、それぞれ何 kg 作ればよいでしょうか。</p>
+<table>
+<tr><th></th><th>製品 A</th><th>製品 B</th><th>1日に使える量</th></tr>
+<tr><td>原料 [kg]</td><td>2</td><td>3</td><td>120</td></tr>
+<tr><td>装置の稼働時間 [h]</td><td>1</td><td>2</td><td>70</td></tr>
+<tr><td>利益 [千円/kg]</td><td>3</td><td>5</td><td></td></tr>
+</table>
+<div class="answer">
+<p>生産量を A：$x$ kg、B：$y$ kg とすると、問題は次のようになります。</p>
+<div class="formula">$$\text{最大化}\quad 3x + 5y$$</div>
+<div class="formula">$$\text{制約}\quad 2x + 3y \le 120,\quad x + 2y \le 70,\quad x \ge 0,\quad y \ge 0$$</div>
+<p><strong>図解法</strong>：$x$-$y$ 平面に制約の境界線を描くと、すべての制約を満たす領域（実行可能領域）は多角形になります。目的関数の値が一定の線（$3x + 5y$ = 一定）を平行に動かしていくと、最適解は必ずこの多角形の<strong>頂点</strong>のどれかになります。そこで、頂点での利益を比べます。</p>
+<pre><code>from itertools import combinations
+
+# 制約を a1*x + a2*y &lt;= c の形で並べる（x &gt;= 0, y &gt;= 0 も含める）
+cons = [(2, 3, 120),     # 原料
+        (1, 2, 70),      # 装置の稼働時間
+        (-1, 0, 0),      # x &gt;= 0
+        (0, -1, 0)]      # y &gt;= 0
+profit = lambda x, y: 3 * x + 5 * y
+
+best = None
+for (a1, b1, c1), (a2, b2, c2) in combinations(cons, 2):
+    det = a1 * b2 - a2 * b1
+    if det == 0:
+        continue
+    x = (c1 * b2 - c2 * b1) / det            # 2本の境界線の交点
+    y = (a1 * c2 - a2 * c1) / det
+    if all(p * x + q * y &lt;= c + 1e-9 for p, q, c in cons):   # 実行可能な頂点だけ
+        print(f&quot;頂点 ({x + 0.0:.0f}, {y + 0.0:.0f}): 利益 {profit(x, y):.0f}&quot;)
+        if best is None or profit(x, y) &gt; profit(*best):
+            best = (x, y)
+print(f&quot;最適解: 製品A {best[0]:.0f} kg, 製品B {best[1]:.0f} kg, 利益 {profit(*best):.0f}&quot;)</code></pre>
+<p>実行結果：</p>
+<pre class="output"><code>頂点 (30, 20): 利益 190
+頂点 (60, 0): 利益 180
+頂点 (0, 35): 利益 175
+頂点 (0, 0): 利益 0
+最適解: 製品A 30 kg, 製品B 20 kg, 利益 190</code></pre>
+<p>製品 A を 30 kg、製品 B を 20 kg 作ると、利益が最大の 19 万円になります。このとき原料も装置の稼働時間も使い切っています。利益の高い B だけを作る（35 kg で 17.5 万円）より、A と組み合わせたほうが得になるのは、B が装置の時間を多く使うためです。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/lp-feasible-region.svg" target="_blank" rel="noopener"><img src="/fig/lp-feasible-region.svg" alt="図1　例題の実行可能領域と利益の線。利益の線を右上へ平行に動かすと、最後に頂点 (30, 20) を通る" width="560" height="380" loading="lazy"></a><figcaption>図1　例題の実行可能領域と利益の線。利益の線を右上へ平行に動かすと、最後に頂点 (30, 20) を通る</figcaption></figure>
+
+<h2 id="s3">変数が多い問題では</h2>
+<p>変数が2つなら図で解けますが、実際の問題では変数が数十〜数千になります。その場合は、頂点を効率よくたどって最適解を探す<strong>シンプレックス法</strong>などの方法を使います。表計算ソフトのソルバー機能や、Python の最適化ライブラリ（SciPy の linprog など）で解くことができます。</p>
+
+<h2 id="s4">結果の読み方：どの制約が効いているか</h2>
+<p>最適解で使い切っている制約（この例では原料と装置の稼働時間の両方）を<strong>有効な制約</strong>といいます。有効な制約の量を少し増やすと、利益がどれだけ増えるかを表す値（シャドープライス、双対価格）を調べれば、「原料を買い足すべきか、装置を増強すべきか」を判断する材料になります。線形計画法は、答えを出すだけでなく、こうした経営判断にも役立ちます。</p>
+
+
+<nav class="pager"><a class="prev" href="/numerical/linear-equations.html">← 連立一次方程式で物質収支を解く</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/numerical/">数値計算の記事</a></h2><ul><li><a href="/numerical/least-squares.html">最小二乗法とパラメータ推定</a></li><li><a href="/numerical/nonlinear-equations.html">非線形方程式の解き方</a></li><li><a href="/numerical/ode.html">常微分方程式の数値解法</a></li><li><a href="/numerical/integration.html">数値積分の方法</a></li><li><a href="/numerical/linear-equations.html">連立一次方程式で物質収支を解く</a></li><li><a href="/numerical/linear-programming.html" aria-current="page">線形計画法の基本</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/" aria-current="page">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

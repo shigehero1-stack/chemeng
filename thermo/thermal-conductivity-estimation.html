@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>熱伝導率の推算｜気体のオイケンの式と液体の佐藤・リーデル式｜はじめての化学工学</title>
+<meta name="description" content="伝熱計算に必要な熱伝導率を、気体は粘度と比熱から求めるオイケンの式と修正オイケンの式で、液体は沸点と臨界温度から求める佐藤・リーデル式で推算する方法を、メタンとベンゼンの例題と NIST の値との比較で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/thermo/thermal-conductivity-estimation.html">
+<meta property="og:title" content="熱伝導率の推算｜気体のオイケンの式と液体の佐藤・リーデル式｜はじめての化学工学">
+<meta property="og:description" content="伝熱計算に必要な熱伝導率を、気体は粘度と比熱から求めるオイケンの式と修正オイケンの式で、液体は沸点と臨界温度から求める佐藤・リーデル式で推算する方法を、メタンとベンゼンの例題と NIST の値との比較で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "熱伝導率の推算", "description": "伝熱計算に必要な熱伝導率を、気体は粘度と比熱から求めるオイケンの式と修正オイケンの式で、液体は沸点と臨界温度から求める佐藤・リーデル式で推算する方法を、メタンとベンゼンの例題と NIST の値との比較で解説します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/thermo/thermal-conductivity-estimation.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/thermo/">物性と熱力学</a> › <span>熱伝導率の推算</span></nav>
+    <article class="article">
+<h1>熱伝導率の推算</h1>
+<p class="lead">伝熱計算に必要な熱伝導率を、気体は粘度と比熱から求めるオイケンの式と修正オイケンの式で、液体は沸点と臨界温度から求める佐藤・リーデル式で推算する方法を、メタンとベンゼンの例題と NIST の値との比較で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">熱伝導率はなぜ推算が必要か</a></li><li><a href="#s2">気体：オイケンの式</a></li><li><a href="#s3">液体：佐藤・リーデル式</a></li><li><a href="#s4">気体の値を別の温度に換算する</a></li><li><a href="#s5">推算値の精度</a></li><li><a href="#s6">使うときの注意</a></li></ol></nav>
+
+<h2 id="s1">熱伝導率はなぜ推算が必要か</h2>
+<p><a href="/heat/convection.html">対流伝熱</a>の相関式では、ヌッセルト数やプラントル数を通じて、流体の熱伝導率 $\lambda$ [W/(m·K)] が必ず必要になります。空気や水の値は<a href="/data/air-properties.html">物性表</a>で引けますが、プロセスガスや有機溶媒では、運転温度での値が見つからないことがよくあります。</p>
+<p>熱伝導率は、気体と液体で熱の運ばれ方が違うので、推算の考え方も別になります。</p>
+<ul>
+<li><strong>気体</strong>：分子が飛び回り、ぶつかり合いながらエネルギーを運ぶ。温度が上がると分子が速く動くので、熱伝導率は<strong>大きくなる</strong></li>
+<li><strong>液体</strong>：分子が密に並び、隣の分子に振動を伝えてエネルギーを運ぶ。温度が上がると分子の間隔が広がるので、熱伝導率は<strong>小さくなる</strong></li>
+</ul>
+<p>大気圧付近の気体の熱伝導率は 0.01〜0.05 W/(m·K) 程度、有機液体は 0.1〜0.2 W/(m·K) 程度、水は約 0.6 W/(m·K) です。</p>
+
+<h2 id="s2">気体：オイケンの式</h2>
+<p>気体分子が運ぶ運動量（粘度 $\mu$ に表れる）とエネルギー（熱伝導率に表れる）は、どちらも分子の飛び回りによるので、両者には密接な関係があります。この関係を表したのが<strong>オイケンの式</strong>です。</p>
+<div class="formula">$$\frac{\lambda\,M}{\mu\,C_v} = 1 + \frac{9}{4}\,\frac{R}{C_v}$$</div>
+<p>$M$ はモル質量 [kg/mol]、$C_v$ は定容モル比熱 [J/(mol·K)]、$R$ = 8.314 J/(mol·K) です。右辺の第2項は、分子の並進運動が運ぶエネルギーの分を表しています。分子の回転や振動が運ぶ分の扱いを見直した<strong>修正オイケンの式</strong>もよく使われます。</p>
+<div class="formula">$$\frac{\lambda\,M}{\mu\,C_v} = 1.32 + 1.77\,\frac{R}{C_v}$$</div>
+<p>多原子分子の気体では、オイケンの式は小さめに、修正オイケンの式は大きめに出る傾向があり、測定値はその間に入ることが多くあります。粘度は<a href="/thermo/viscosity.html">サザーランドの式</a>などで、比熱は<a href="/thermo/heat-capacity.html">比熱の温度の式</a>から $C_v = C_p - R$ として求めます。</p>
+<figure class="fig"><a href="/fig/gas-conductivity-eucken.svg" target="_blank" rel="noopener"><img src="/fig/gas-conductivity-eucken.svg" alt="図1　気体の熱伝導率の推算値と NIST の値（300 K、1 気圧。粘度と比熱は NIST の値を使い当サイトで計算）" width="620" height="320" loading="lazy"></a><figcaption>図1　気体の熱伝導率の推算値と NIST の値（300 K、1 気圧。粘度と比熱は NIST の値を使い当サイトで計算）</figcaption></figure>
+
+<h2 id="s3">液体：佐藤・リーデル式</h2>
+<p>液体の熱伝導率は、分子の振動の伝わり方で決まるため、気体のような理論的な式がありません。よく使われる経験式の一つが、次の<strong>佐藤・リーデル式</strong>です。</p>
+<div class="formula">$$\lambda = \frac{1.11}{\sqrt{M}}\cdot\frac{3 + 20\,(1 - T_r)^{2/3}}{3 + 20\,(1 - T_{br})^{2/3}}$$</div>
+<p>ここで $M$ は分子量 [g/mol]、$T_r = T/T_c$、$T_{br} = T_b/T_c$ で、$\lambda$ は W/(m·K) で求まります。分子量が大きいほど熱伝導率は小さく、温度が上がって臨界温度に近づくほど小さくなる、という傾向を表しています。必要なのは分子量、沸点、臨界温度だけなので、<a href="/thermo/group-contribution.html">原子団寄与法</a>と組み合わせれば、構造式だけから値を見積もれます。</p>
+
+<div class="example">
+<strong>例題：メタンとベンゼンの熱伝導率</strong>
+<p>(1) 300 K、1 気圧のメタン（モル質量 0.016043 kg/mol、粘度 11.14 μPa·s、定容モル比熱 27.48 J/(mol·K)）の熱伝導率を、オイケンの式と修正オイケンの式で推算してください。</p>
+<p>(2) 300 K のベンゼン（分子量 78.11、沸点 353.2 K、臨界温度 562.0 K）の熱伝導率を佐藤・リーデル式で推算してください。</p>
+<div class="answer">
+<p><strong>(1) メタン</strong></p>
+<p>共通の部分：$\dfrac{\mu\,C_v}{M} = \dfrac{11.14 \times 10^{-6} \times 27.48}{0.016043} = 0.01908$ W/(m·K)、$\dfrac{R}{C_v} = \dfrac{8.314}{27.48} = 0.3026$</p>
+<p>オイケンの式：$\lambda = 0.01908 \times (1 + 2.25 \times 0.3026) = 0.01908 \times 1.681 = 0.0321$ W/(m·K)</p>
+<p>修正オイケンの式：$\lambda = 0.01908 \times (1.32 + 1.77 \times 0.3026) = 0.01908 \times 1.856 = 0.0354$ W/(m·K)</p>
+<p>NIST の値は 0.0342 W/(m·K) で、誤差はそれぞれ −6% と +3% です。二つの平均をとると 0.0337 W/(m·K)（−1%）になります。</p>
+<p><strong>(2) ベンゼン</strong></p>
+<p>$T_r = 300/562.0 = 0.5338$、$T_{br} = 353.2/562.0 = 0.6285$ なので</p>
+<p>$(1 - T_r)^{2/3} = 0.4662^{2/3} = 0.6013$、$(1 - T_{br})^{2/3} = 0.3715^{2/3} = 0.5167$</p>
+<p>$\lambda = \dfrac{1.11}{\sqrt{78.11}} \times \dfrac{3 + 20 \times 0.6013}{3 + 20 \times 0.5167} = 0.1256 \times \dfrac{15.03}{13.33} = 0.1416$ W/(m·K)</p>
+<p>NIST の値は 0.1407 W/(m·K) で、誤差は +0.6% です。</p>
+</div>
+</div>
+
+<h2 id="s4">気体の値を別の温度に換算する</h2>
+<p>ある温度での気体の熱伝導率がわかっているとき、別の温度の値を手早く見積もりたいことがあります。大気圧付近の空気や窒素では、熱伝導率はおおむね絶対温度の 0.8 乗に比例します。</p>
+<div class="formula">$$\lambda_2 \approx \lambda_1 \left(\frac{T_2}{T_1}\right)^{0.8}$$</div>
+<p>たとえば、20 °C の空気の熱伝導率 25.69 mW/(m·K) から 200 °C の値を求めると、$25.69 \times (473.15/293.15)^{0.8} = 37.7$ mW/(m·K) となり、<a href="/data/air-properties.html">空気の物性表</a>の 38.47 mW/(m·K) と 2% の差で合います。指数は気体によって違い、メタンや二酸化炭素のような多原子分子では 1 を超えることもあります（NIST の値では、二酸化炭素の熱伝導率は 300 K の 16.8 mW/(m·K) から 400 K の 24.7 mW/(m·K) へと約 1.5 倍になり、指数は約 1.35 です）。広い温度範囲で使うときは、オイケンの式で粘度と比熱の温度変化から計算し直すほうが確実です。</p>
+
+<h2 id="s5">推算値の精度</h2>
+<p>図2は、ベンゼンとトルエンについて、佐藤・リーデル式の値と NIST の値を温度に対して比べたものです。ベンゼンはほぼ一致していますが、トルエンでは全体に 5〜7% 大きく出ています。温度による変化の傾きは、どちらもよく表せています。</p>
+<figure class="fig"><a href="/fig/liquid-conductivity.svg" target="_blank" rel="noopener"><img src="/fig/liquid-conductivity.svg" alt="図2　液体の熱伝導率：佐藤・リーデル式と NIST の値の比較（当サイトで計算）" width="640" height="330" loading="lazy"></a><figcaption>図2　液体の熱伝導率：佐藤・リーデル式と NIST の値の比較（当サイトで計算）</figcaption></figure>
+<p>この結果から、推算値の使い方として次のことがいえます。</p>
+<ul>
+<li>ある温度で1点でも測定値があれば、推算式で求めた値との比を補正係数にし、ほかの温度の値はその係数を掛けて求めると精度が上がります</li>
+<li>熱伝導率の 5% の誤差は、熱伝達係数ではおおむね 3〜4% 程度の誤差になります（対流の相関式では熱伝導率がおよそ 0.6〜0.7 乗で効くため）。汚れ係数の不確かさを考えると、多くの熱交換器の設計では許容できる範囲です</li>
+</ul>
+
+<h2 id="s6">使うときの注意</h2>
+<ul>
+<li>水、アルコール、アンモニアのような水素結合する液体では、佐藤・リーデル式の誤差が大きくなります。水は約 0.6 W/(m·K) と有機液体よりかなり大きく、推算式では表せません</li>
+<li>気体の熱伝導率は、大気圧から数 MPa までは圧力にほとんどよりませんが、高圧や臨界点付近では大きくなります。高圧の気体には、密度の影響を考えた補正式が必要です</li>
+<li>混合気体の熱伝導率は、成分の値をモル分率で単純に平均すると誤差が出ます。水素やヘリウムのように軽い成分を含む混合物では特に注意が必要で、ワッサージーナの式などの混合則を使います</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/heat/convection.html">対流伝熱と熱伝達係数</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/group-contribution.html">原子団寄与法による物性推算</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/thermo/latent-heat-estimation.html">← 蒸発潜熱の推算</a><a class="next" href="/thermo/activity-coefficient.html">活量係数と共沸 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/thermo/">物性と熱力学の記事</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/group-contribution.html">原子団寄与法による物性推算</a></li><li><a href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算</a></li><li><a href="/thermo/thermal-conductivity-estimation.html" aria-current="page">熱伝導率の推算</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/" aria-current="page">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

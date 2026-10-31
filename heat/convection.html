@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>対流伝熱と熱伝達係数｜ディッタス・ベルターの式の使い方｜はじめての化学工学</title>
+<meta name="description" content="流体と壁の間の熱の伝わりやすさを表す熱伝達係数の意味と目安、管内の強制対流で使うディッタス・ベルターの式の計算方法を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/heat/convection.html">
+<meta property="og:title" content="対流伝熱と熱伝達係数｜ディッタス・ベルターの式の使い方｜はじめての化学工学">
+<meta property="og:description" content="流体と壁の間の熱の伝わりやすさを表す熱伝達係数の意味と目安、管内の強制対流で使うディッタス・ベルターの式の計算方法を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "対流伝熱と熱伝達係数", "description": "流体と壁の間の熱の伝わりやすさを表す熱伝達係数の意味と目安、管内の強制対流で使うディッタス・ベルターの式の計算方法を例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/heat/convection.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/heat/">伝熱</a> › <span>対流伝熱と熱伝達係数</span></nav>
+    <article class="article">
+<h1>対流伝熱と熱伝達係数</h1>
+<p class="lead">流体と壁の間の熱の伝わりやすさを表す熱伝達係数の意味と目安、管内の強制対流で使うディッタス・ベルターの式の計算方法を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">対流伝熱とは</a></li><li><a href="#s2">ニュートンの冷却則と熱伝達係数</a></li><li><a href="#s3">無次元数で整理する</a></li><li><a href="#s4">管内の乱流：ディッタス・ベルターの式</a></li><li><a href="#s5">管内の層流</a></li></ol></nav>
+
+<h2 id="s1">対流伝熱とは</h2>
+<p>流れている流体と、固体の壁との間で熱が移ることを<strong>対流伝熱</strong>といいます。熱交換器の管の内側と外側、反応器のジャケットなど、化学工場の加熱・冷却のほとんどは対流伝熱が主役です。</p>
+<p>ポンプや撹拌で流体を動かす場合を<strong>強制対流</strong>、温度差による密度差で自然に流れが生じる場合を<strong>自然対流</strong>といいます。</p>
+
+<h2 id="s2">ニュートンの冷却則と熱伝達係数</h2>
+<p>壁から流体へ移る熱量は、壁と流体の温度差と面積に比例するとして、次のように表します。</p>
+<div class="formula">$$Q = h\,A\,(T_{\text{壁}} - T_{\text{流体}})$$</div>
+<p>比例定数 $h$ を<strong>熱伝達係数</strong>（境膜伝熱係数）[W/(m²·K)] といいます。$h$ は物質の性質だけでなく、流速や流路の形によって大きく変わります。</p>
+<table>
+<tr><th>条件</th><th>熱伝達係数の目安 [W/(m²·K)]</th></tr>
+<tr><td>空気の自然対流</td><td>5〜25</td></tr>
+<tr><td>空気の強制対流</td><td>10〜200</td></tr>
+<tr><td>水の強制対流</td><td>500〜10 000</td></tr>
+<tr><td>水の沸騰</td><td>2 500〜100 000</td></tr>
+<tr><td>水蒸気の凝縮</td><td>5 000〜100 000</td></tr>
+</table>
+<figure class="fig"><a href="/fig/thermal-boundary-layer.svg" target="_blank" rel="noopener"><img src="/fig/thermal-boundary-layer.svg" alt="図1　壁の近くの温度分布のイメージ。温度の変化は壁に接した薄い境膜に集中する" width="560" height="280" loading="lazy"></a><figcaption>図1　壁の近くの温度分布のイメージ。温度の変化は壁に接した薄い境膜に集中する</figcaption></figure>
+<p>気体は液体に比べて $h$ がずっと小さく、沸騰や凝縮のように相変化を伴うと非常に大きくなるのが特徴です。</p>
+
+<h2 id="s3">無次元数で整理する</h2>
+<p>$h$ は条件によって変わるので、実験結果を<a href="/basics/dimensionless-numbers.html">無次元数</a>の関係式（相関式）にまとめて使います。伝熱では、ヌッセルト数 $\text{Nu} = hD/k$ を、レイノルズ数 Re とプラントル数 Pr の関数として表すのが基本です。</p>
+
+<h2 id="s4">管内の乱流：ディッタス・ベルターの式</h2>
+<p>円管内を流れる流体が十分に発達した乱流のときは、次の<strong>ディッタス・ベルターの式</strong>がよく使われます。</p>
+<div class="formula">$$\text{Nu} = 0.023\,\text{Re}^{0.8}\,\text{Pr}^{n}$$</div>
+<p>流体を加熱するときは $n = 0.4$、冷却するときは $n = 0.3$ とします。目安として Re が 10 000 以上、Pr が 0.7〜160 程度、管の長さが管径の10倍以上の範囲で使えます。</p>
+<div class="note">$h$ は流速の0.8乗に比例します。流速を2倍にすると $h$ は約1.7倍になりますが、<a href="/fluid/pressure-loss.html">圧力損失</a>は約3.4倍（乱流でブラジウスの式の場合）に増えます。伝熱をよくするために流速を上げるときは、ポンプ動力とのバランスを考えます。</div>
+<figure class="fig"><a href="/fig/velocity-h-vs-dp.svg" target="_blank" rel="noopener"><img src="/fig/velocity-h-vs-dp.svg" alt="図2　管内の乱流で流速を上げたときの熱伝達係数と圧力損失の増え方" width="560" height="310" loading="lazy"></a><figcaption>図2　管内の乱流で流速を上げたときの熱伝達係数と圧力損失の増え方</figcaption></figure>
+
+<h2 id="s5">管内の層流</h2>
+<p>層流で、流れと温度の分布が十分に発達した場合は、Nu が一定の値になります。管壁の温度が一定なら $\text{Nu} = 3.66$、管壁からの熱流束が一定なら $\text{Nu} = 4.36$ です。層流の $h$ は乱流よりかなり小さくなります。</p>
+
+<div class="example">
+<strong>例題：管内を流れる水の熱伝達係数</strong>
+<p>内径 50 mm の管を 20 °C の水が流速 0.849 m/s で流れ（Re ≒ 42 300、<a href="/fluid/reynolds-number.html">レイノルズ数の例題</a>と同じ条件）、管壁から加熱されています。水の比熱を 4182 J/(kg·K)、粘度を 1.00 × 10⁻³ Pa·s、熱伝導率を 0.598 W/(m·K) として、熱伝達係数を求めてください。</p>
+<div class="answer">
+<p>プラントル数：$\text{Pr} = \dfrac{4182 \times 1.00 \times 10^{-3}}{0.598} \approx 7.0$</p>
+<p>加熱なので $n = 0.4$：$\text{Nu} = 0.023 \times 42\,300^{0.8} \times 7.0^{0.4} \approx 252$</p>
+<p>$h = \dfrac{\text{Nu}\,k}{D} = \dfrac{252 \times 0.598}{0.05} \approx 3.0 \times 10^3\ \text{W/(m}^2\text{K)}$</p>
+<p>表の「水の強制対流」の範囲に入っています。物性値は本来、流体の平均温度での値を使います。</p>
+</div>
+</div>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/thermo/thermal-conductivity-estimation.html">熱伝導率の推算</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/heat/conduction.html">← 熱伝導とフーリエの法則</a><a class="next" href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/heat/">伝熱の記事</a></h2><ul><li><a href="/heat/conduction.html">熱伝導とフーリエの法則</a></li><li><a href="/heat/convection.html" aria-current="page">対流伝熱と熱伝達係数</a></li><li><a href="/heat/overall-heat-transfer-coefficient.html">総括伝熱係数の求め方</a></li><li><a href="/heat/heat-exchanger-lmtd.html">熱交換器の設計と対数平均温度差（LMTD）の計算</a></li><li><a href="/heat/epsilon-ntu.html">熱交換器の ε-NTU 法</a></li><li><a href="/heat/shell-and-tube-design.html">多管式熱交換器の設計手順</a></li><li><a href="/heat/boiling-condensation.html">沸騰と凝縮の伝熱</a></li><li><a href="/heat/radiation.html">放射伝熱の基本</a></li><li><a href="/heat/evaporator.html">蒸発缶の計算と多重効用</a></li><li><a href="/heat/unsteady-conduction.html">非定常伝熱の基礎</a></li><li><a href="/heat/fin-efficiency.html">フィンの伝熱とフィン効率</a></li><li><a href="/heat/natural-convection.html">自然対流の熱伝達</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/" aria-current="page">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

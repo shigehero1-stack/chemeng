@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>放散（ストリッピング）とクレムサーの式｜放散係数と必要な理論段数｜はじめての化学工学</title>
+<meta name="description" content="液に溶けた揮発性の成分を気体で追い出す放散（ストリッピング）の原理と用途、放散係数（ストリッピングファクター）の意味、クレムサーの式による理論段数と除去率の計算、最小の気液比を、排水の脱気の例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/stripping-kremser.html">
+<meta property="og:title" content="放散（ストリッピング）とクレムサーの式｜放散係数と必要な理論段数｜はじめての化学工学">
+<meta property="og:description" content="液に溶けた揮発性の成分を気体で追い出す放散（ストリッピング）の原理と用途、放散係数（ストリッピングファクター）の意味、クレムサーの式による理論段数と除去率の計算、最小の気液比を、排水の脱気の例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "放散（ストリッピング）とクレムサーの式", "description": "液に溶けた揮発性の成分を気体で追い出す放散（ストリッピング）の原理と用途、放散係数（ストリッピングファクター）の意味、クレムサーの式による理論段数と除去率の計算、最小の気液比を、排水の脱気の例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/separation/stripping-kremser.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>放散（ストリッピング）とクレムサーの式</span></nav>
+    <article class="article">
+<h1>放散（ストリッピング）とクレムサーの式</h1>
+<p class="lead">液に溶けた揮発性の成分を気体で追い出す放散（ストリッピング）の原理と用途、放散係数（ストリッピングファクター）の意味、クレムサーの式による理論段数と除去率の計算、最小の気液比を、排水の脱気の例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">放散とは</a></li><li><a href="#s2">放散係数</a></li><li><a href="#s3">クレムサーの式</a></li><li><a href="#s4">設計の注意</a></li></ol></nav>
+
+<h2 id="s1">放散とは</h2>
+<p><strong>放散</strong>（ストリッピング）は、液体に溶けている揮発性の成分を、空気や水蒸気などの気体と接触させて気相に追い出す操作です。<a href="/separation/gas-absorption-column.html">ガス吸収</a>のちょうど逆の操作で、装置も同じような充填塔や段塔を使います。</p>
+<ul>
+<li>地下水や排水から、揮発性の有機塩素化合物やアンモニアを空気で追い出す（エアストリッピング）</li>
+<li>ボイラーの給水から、溶けた酸素や二酸化炭素を追い出す（脱気）</li>
+<li>ガス吸収に使った吸収液から、吸収した成分を水蒸気で追い出して液を再生する（放散塔、再生塔）</li>
+</ul>
+<p>溶けている成分の<a href="/mass/henrys-law.html">ヘンリー定数</a>が大きい（溶けにくい）ほど、放散しやすくなります。</p>
+
+<h2 id="s2">放散係数</h2>
+<p>希薄な系で、平衡関係を $y^* = m\,x$（$m$ はヘンリー定数を全圧で割った値）、液の流量を $L$、気体の流量を $G$ [mol/s] とすると、放散のしやすさは次の<strong>放散係数</strong>（ストリッピングファクター）で表されます。</p>
+<div class="formula">$$S = \frac{m\,G}{L}$$</div>
+<p>$S$ は「気体が運び去れる量」と「液が持ち込む量」の比です。$S$ が1より小さいと、段数をいくら増やしても完全には放散できません。実際の設計では $S$ = 1.5〜3 程度に選びます。吸収のときに使う吸収係数 $A = L/(mG)$ とは逆数の関係です。</p>
+
+<h2 id="s3">クレムサーの式</h2>
+<p>向流で $N$ 段の理論段をもつ放散塔に、溶質を含まない気体を入れる場合、液に残る溶質の割合は、次の<strong>クレムサーの式</strong>で表されます。</p>
+<div class="formula">$$\frac{x_N}{x_0} = \frac{S - 1}{S^{N+1} - 1}$$</div>
+<p>$x_0$ は入口の液の濃度、$x_N$ は出口の液の濃度です。<a href="/separation/liquid-liquid-extraction.html">向流多段抽出</a>の式と同じ形です。目標の除去率から、必要な理論段数を逆算できます。</p>
+<div class="formula">$$N = \frac{\ln\left[1 + (S - 1)\,\dfrac{x_0}{x_N}\right]}{\ln S} - 1$$</div>
+<figure class="fig"><a href="/fig/kremser-stripping.svg" target="_blank" rel="noopener"><img src="/fig/kremser-stripping.svg" alt="図1　放散係数と理論段数による残存率" width="580" height="320" loading="lazy"></a><figcaption>図1　放散係数と理論段数による、液に残る溶質の割合（クレムサーの式）。S が1以下では、段数を増やしても残存率が下がりきらない</figcaption></figure>
+
+<div class="example">
+<strong>例題：排水中の揮発性有機物のエアストリッピング</strong>
+<p>揮発性の有機物を含む排水を、空気で放散して99%除去したいと考えます。(1) 放散係数が 2.0 のとき、必要な理論段数を求めてください。(2) 放散係数 1.5 ならどうなりますか。(3) この有機物の平衡定数が $m$ = 200 のとき、放散係数 2.0 にするには、排水 1 mol あたり何 mol の空気が必要ですか。また、排水 10 m³/h に対する空気の体積流量を求めてください（空気は 0 °C、1気圧換算）。</p>
+<div class="answer">
+<p>(1) $N = \dfrac{\ln[1 + (2.0 - 1) \times 100]}{\ln 2.0} - 1 = \dfrac{\ln 101}{0.693} - 1 \approx 5.7$ 段 → 6 段</p>
+<p>(2) $N = \dfrac{\ln[1 + 0.5 \times 100]}{\ln 1.5} - 1 \approx 8.7$ 段 → 9 段</p>
+<p>(3) $G/L = S/m = 2.0/200 = 0.010$ mol/mol。排水 10 m³/h は水として約 $10\,000 / 18.0 \approx 556$ kmol/h なので、空気は $5.56$ kmol/h、体積に直すと $5.56 \times 22.4 \approx 125$ m³N/h です。</p>
+<p>放散係数を上げる（空気を増やす）と段数は減りますが、送風の動力と、出てくる空気の処理（<a href="/adsorption/fixed-bed-breakthrough.html">活性炭吸着</a>など）の負担が増えます。水温を上げると $m$ が大きくなり、同じ空気量でも放散しやすくなります。</p>
+</div>
+</div>
+
+<h2 id="s4">設計の注意</h2>
+<ul>
+<li>理論段数を実際の段数や充填高さに直すには、段効率や HTU を使う（<a href="/separation/minimum-reflux-ratio.html">段効率</a>、<a href="/separation/gas-absorption-column.html">HTU と NTU</a>）</li>
+<li>放散で追い出した成分は大気にそのまま出せないことが多いので、排ガス処理と組み合わせて考える</li>
+<li>水中のカルシウムや鉄が空気で酸化・析出して、充填物を詰まらせることがある</li>
+</ul>
+
+
+<nav class="pager"><a class="prev" href="/separation/crystallization-msmpr.html">← 晶析の設計</a><a class="next" href="/separation/leaching.html">固液抽出と向流洗浄 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/separation/">分離操作の記事</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html" aria-current="page">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/" aria-current="page">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

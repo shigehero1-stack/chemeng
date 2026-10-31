@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>集じん装置の種類とサイクロンの分離限界粒子径｜はじめての化学工学</title>
+<meta name="description" content="ガス中の粉じんを取り除く集じん装置の種類と特徴、遠心力を使うサイクロンの仕組みと、分離限界粒子径（50%分離径）の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/particle/cyclone.html">
+<meta property="og:title" content="集じん装置の種類とサイクロンの分離限界粒子径｜はじめての化学工学">
+<meta property="og:description" content="ガス中の粉じんを取り除く集じん装置の種類と特徴、遠心力を使うサイクロンの仕組みと、分離限界粒子径（50%分離径）の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "集じん装置の種類とサイクロンの分離限界粒子径", "description": "ガス中の粉じんを取り除く集じん装置の種類と特徴、遠心力を使うサイクロンの仕組みと、分離限界粒子径（50%分離径）の計算を例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-09", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/particle/cyclone.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/particle/">粉体と機械的分離</a> › <span>集じん装置の種類とサイクロンの分離限界粒子径</span></nav>
+    <article class="article">
+<h1>集じん装置の種類とサイクロンの分離限界粒子径</h1>
+<p class="lead">ガス中の粉じんを取り除く集じん装置の種類と特徴、遠心力を使うサイクロンの仕組みと、分離限界粒子径（50%分離径）の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-09">2026-10-09</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">集じんとは</a></li><li><a href="#s2">集じん装置の種類</a></li><li><a href="#s3">サイクロンの仕組み</a></li><li><a href="#s4">分離限界粒子径（50%分離径）</a></li></ol></nav>
+
+<h2 id="s1">集じんとは</h2>
+<p>ボイラーや焼却炉の排ガス、粉体を扱う工程の空気には、細かい粒子（粉じん）が含まれています。これをガスから取り除く操作を<strong>集じん</strong>といい、大気汚染の防止や、製品の粉体の回収に欠かせません。</p>
+
+<h2 id="s2">集じん装置の種類</h2>
+<table>
+<tr><th>方式</th><th>原理</th><th>取れる粒子の目安</th><th>特徴</th></tr>
+<tr><td>重力沈降室</td><td>重力で沈める</td><td>数十 µm 以上</td><td>構造が簡単だが大きい</td></tr>
+<tr><td>サイクロン</td><td>遠心力で壁に飛ばす</td><td>数 µm 以上</td><td>安価で丈夫。前処理に多用</td></tr>
+<tr><td>バグフィルター</td><td>ろ布でこし取る</td><td>1 µm 以下も可</td><td>効率が高い。高温や湿ったガスは苦手</td></tr>
+<tr><td>電気集じん機</td><td>帯電させて電極に引き寄せる</td><td>1 µm 以下も可</td><td>大量のガスを低い圧力損失で処理できる</td></tr>
+<tr><td>スクラバー</td><td>液滴で捕らえる</td><td>数 µm 以上</td><td>有害ガスも同時に吸収できる。排水が出る</td></tr>
+</table>
+
+<h2 id="s3">サイクロンの仕組み</h2>
+<p><strong>サイクロン</strong>は、円筒の上部にガスを接線方向から勢いよく吹き込み、中でらせん状に回転させる装置です。粒子は遠心力で外側の壁に飛ばされ、壁を伝って下の円すい部から落ちて回収されます。きれいになったガスは中心の管から上へ抜けていきます。</p>
+<figure class="fig"><a href="/fig/cyclone-structure.svg" target="_blank" rel="noopener"><img src="/fig/cyclone-structure.svg" alt="図1　サイクロンの構造。ガスはらせん状に回転し、粒子は遠心力で壁に集まる" width="560" height="380" loading="lazy"></a><figcaption>図1　サイクロンの構造。ガスはらせん状に回転し、粒子は遠心力で壁に集まる</figcaption></figure>
+<p>可動部がなく、高温のガスにも使えて安価なため、広く使われています。遠心力は重力の数百倍にもなるので、<a href="/particle/stokes-settling.html">重力で沈める</a>よりずっと細かい粒子まで取れます。</p>
+
+<h2 id="s4">分離限界粒子径（50%分離径）</h2>
+<p>サイクロンの性能は、ちょうど半分が捕集される粒子径 $d_{50}$（<strong>50%分離径</strong>、カットサイズ）で表すことが多く、よく知られたラップルの式では次のように見積もります。</p>
+<div class="formula">$$d_{50} = \sqrt{\frac{9\,\mu\,B}{2\pi\,N_e\,v_i\,(\rho_p - \rho_g)}}$$</div>
+<ul>
+<li>$\mu$：ガスの粘度 [Pa·s]、$\rho_g$：ガスの密度</li>
+<li>$B$：ガス入口の幅 [m]</li>
+<li>$N_e$：ガスがサイクロン内で回る実効的な回転数（一般的な形状で5〜6程度）</li>
+<li>$v_i$：入口のガス速度 [m/s]、$\rho_p$：粒子の密度</li>
+</ul>
+<p>入口の幅を狭く、入口速度を速くすると、より細かい粒子まで取れます。ただし速度を上げすぎると圧力損失が大きくなり、一度壁に集まった粒子が再び舞い上がることもあるため、入口速度は15〜25 m/s程度にするのが一般的です。</p>
+
+<div class="example">
+<strong>例題：サイクロンの50%分離径</strong>
+<p>入口の幅 $B$ = 0.05 m、実効回転数 $N_e$ = 6 のサイクロンに、常温の空気（粘度 1.8 × 10⁻⁵ Pa·s）を入口速度 15 m/s で流します。粒子の密度を 2000 kg/m³ として、50%分離径を求めてください。空気の密度は粒子に比べて無視します。</p>
+<div class="answer">
+<p>$d_{50} = \sqrt{\dfrac{9 \times 1.8 \times 10^{-5} \times 0.05}{2\pi \times 6 \times 15 \times 2000}} = \sqrt{\dfrac{8.1 \times 10^{-6}}{1.13 \times 10^{6}}} \approx 2.7 \times 10^{-6}\ \text{m}$</p>
+<p>約 2.7 µm です。これより大きい粒子は半分以上捕集され、10 µm を超える粒子はほとんど捕集されますが、1 µm 程度の細かい粒子はあまり取れません。細かい粒子まで取る必要がある場合は、サイクロンの後にバグフィルターや電気集じん機を組み合わせます。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/cyclone-efficiency.svg" target="_blank" rel="noopener"><img src="/fig/cyclone-efficiency.svg" alt="図2　例題のサイクロンの粒子径と捕集効率の関係（近似式による目安）" width="560" height="300" loading="lazy"></a><figcaption>図2　例題のサイクロンの粒子径と捕集効率の関係（近似式による目安）</figcaption></figure>
+
+
+<nav class="pager"><a class="prev" href="/particle/filtration.html">← ろ過の基礎</a><a class="next" href="/particle/fluidized-bed.html">流動層の基礎 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/particle/">粉体と機械的分離の記事</a></h2><ul><li><a href="/particle/particle-size.html">粒子径と粒度分布の表し方</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/particle/filtration.html">ろ過の基礎</a></li><li><a href="/particle/cyclone.html" aria-current="page">集じん装置の種類とサイクロンの分離限界粒子径</a></li><li><a href="/particle/fluidized-bed.html">流動層の基礎</a></li><li><a href="/particle/size-reduction.html">粉砕の基礎</a></li><li><a href="/particle/classification.html">分級の基礎</a></li><li><a href="/particle/powder-storage-and-dust-explosion.html">粉体の貯槽と粉じん爆発</a></li><li><a href="/particle/thickener.html">沈降濃縮とシックナーの設計</a></li><li><a href="/particle/packed-bed-pressure-drop.html">充填層の圧力損失とエルガンの式</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/" aria-current="page">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

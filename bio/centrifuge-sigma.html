@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>遠心分離機の処理量｜遠心効果とΣ値（シグマ値）、ディスク型遠心分離機で菌体を分ける計算｜はじめての化学工学</title>
+<meta name="description" content="培養液から菌体を分ける遠心分離の原理を、遠心力の場でのストークスの沈降速度と遠心効果（G）から説明し、ディスク型遠心分離機の処理能力を表すΣ値（相当沈降面積）の式、酵母と大腸菌の処理量の違い、Q/Σ を一定にするスケールアップの方法を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/bio/centrifuge-sigma.html">
+<meta property="og:title" content="遠心分離機の処理量｜遠心効果とΣ値（シグマ値）、ディスク型遠心分離機で菌体を分ける計算｜はじめての化学工学">
+<meta property="og:description" content="培養液から菌体を分ける遠心分離の原理を、遠心力の場でのストークスの沈降速度と遠心効果（G）から説明し、ディスク型遠心分離機の処理能力を表すΣ値（相当沈降面積）の式、酵母と大腸菌の処理量の違い、Q/Σ を一定にするスケールアップの方法を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "遠心分離機の処理量", "description": "培養液から菌体を分ける遠心分離の原理を、遠心力の場でのストークスの沈降速度と遠心効果（G）から説明し、ディスク型遠心分離機の処理能力を表すΣ値（相当沈降面積）の式、酵母と大腸菌の処理量の違い、Q/Σ を一定にするスケールアップの方法を例題で解説します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/bio/centrifuge-sigma.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/bio/">生物工学</a> › <span>遠心分離機の処理量</span></nav>
+    <article class="article">
+<h1>遠心分離機の処理量</h1>
+<p class="lead">培養液から菌体を分ける遠心分離の原理を、遠心力の場でのストークスの沈降速度と遠心効果（G）から説明し、ディスク型遠心分離機の処理能力を表すΣ値（相当沈降面積）の式、酵母と大腸菌の処理量の違い、Q/Σ を一定にするスケールアップの方法を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">培養のあとは分離</a></li><li><a href="#s2">遠心力の場での沈降</a></li><li><a href="#s3">ディスク型遠心分離機とΣ値</a></li><li><a href="#s4">Q/Σ を一定にしてスケールアップ</a></li><li><a href="#s5">使うときの注意</a></li></ol></nav>
+
+<h2 id="s1">培養のあとは分離</h2>
+<p>微生物の培養が終わると、培養液から菌体を分けて集めたり（菌体が製品の場合）、菌体を取り除いて液を澄ませたり（菌が外に出した物質が製品の場合）する必要があります。培養のあとの分離・精製の工程をまとめて<strong>ダウンストリーム</strong>といい、製品のコストの半分以上を占めることも珍しくありません。</p>
+<p>菌体は小さく、液との密度差もわずかなので、重力ではほとんど沈みません。そこで、液を高速で回転させて重力の何千倍もの遠心力をかけ、菌体を沈める<strong>遠心分離</strong>が使われます。</p>
+
+<h2 id="s2">遠心力の場での沈降</h2>
+<p>半径 $r$ の位置で角速度 $\omega$ [rad/s] で回転している粒子には、重力加速度 $g$ の代わりに $r\omega^2$ の遠心加速度がかかります。その比を<strong>遠心効果</strong>（何 G か）といいます。</p>
+<div class="formula">$$Z = \frac{r\,\omega^2}{g}$$</div>
+<p>粒子の沈降速度は、<a href="/particle/stokes-settling.html">ストークスの式</a>の $g$ を $r\omega^2$ に置きかえたもので、重力での沈降速度 $v_g$ の $Z$ 倍になります。</p>
+<div class="formula">$$v_g = \frac{d^2\,(\rho_p - \rho)\,g}{18\,\mu}, \qquad v_r = v_g\,\frac{r\,\omega^2}{g}$$</div>
+<p>たとえば、半径 0.12 m、毎分 7000 回転では $\omega = 733$ rad/s で、遠心効果は $0.12 \times 733^2 / 9.81 = 6600$ G になります。重力で1日かかる沈降が、十数秒で済む計算です。</p>
+
+<h2 id="s3">ディスク型遠心分離機とΣ値</h2>
+<p>菌体の分離によく使われるのが<strong>ディスク型遠心分離機</strong>です。回転する容器（ボウル）の中に、円すい形の板（ディスク）を数十〜百枚以上、わずかなすき間をあけて重ねてあります（図1）。液はディスクのすき間を流れ、菌体はすぐ上のディスクの裏面まで沈めば捕まり、そこを滑って外側の壁にたまります。すき間が狭いので沈む距離が短く、効率よく分離できます。</p>
+<figure class="fig"><a href="/fig/centrifuge-disc-stack.svg" target="_blank" rel="noopener"><img src="/fig/centrifuge-disc-stack.svg" alt="図1　ディスク型遠心分離機のしくみ（模式図）" width="640" height="340" loading="lazy"></a><figcaption>図1　ディスク型遠心分離機のしくみ（模式図）</figcaption></figure>
+<p>遠心分離機の性能は、<strong>Σ値</strong>（シグマ値）で表します。Σ値は、その遠心分離機と同じ分離ができる重力の沈殿池の面積 [m²] に当たり、<strong>相当沈降面積</strong>とも呼ばれます。<a href="/particle/stokes-settling.html">沈殿池</a>では、流量 $Q$ を面積 $A$ で割った表面負荷より沈降速度が大きい粒子が捕まるので、遠心分離機でも</p>
+<div class="formula">$$Q = v_g\,\Sigma$$</div>
+<p>のときに、重力での沈降速度が $v_g$ の粒子がちょうど捕まります。ディスク型の Σ値は、ディスクの枚数 $N$、ディスクの外側と内側の半径 $r_2$、$r_1$、円すいの半頂角 $\theta$ から次のように求めます。</p>
+<div class="formula">$$\Sigma = \frac{2\pi\,\omega^2\,(N - 1)\,(r_2^3 - r_1^3)}{3\,g\,\tan\theta}$$</div>
+<p>Σ値は、回転数の2乗、ディスクの枚数、ディスクの大きさの3乗で大きくなります。</p>
+
+<div class="example">
+<strong>例題：酵母と大腸菌の処理量</strong>
+<p>ディスク60枚、外側の半径 0.12 m、内側の半径 0.045 m、半頂角 40° のディスク型遠心分離機を毎分 7000 回転で使います。(1) Σ値を求めてください。(2) 直径 5 μm の酵母と、直径 1 μm の大腸菌（相当径）について、処理できる流量を求めてください。菌体と液の密度差は 75 kg/m³、液の粘度は 1.0 mPa·s とし、実際の分離機の効率を理論値の 40% とします。</p>
+<div class="answer">
+<p><strong>(1)</strong> $\omega = 7000 \times 2\pi / 60 = 733$ rad/s</p>
+<p>$\Sigma = \dfrac{2\pi \times 733^2 \times 59 \times (0.12^3 - 0.045^3)}{3 \times 9.81 \times \tan 40°} = \dfrac{2\pi \times 5.37 \times 10^5 \times 59 \times 1.637 \times 10^{-3}}{24.7} = 13\,200$ m²</p>
+<p>この遠心分離機は、面積 13 200 m²（約 115 m 四方）の沈殿池に相当します。</p>
+<p><strong>(2)</strong> 酵母：$v_g = \dfrac{(5 \times 10^{-6})^2 \times 75 \times 9.81}{18 \times 1.0 \times 10^{-3}} = 1.02 \times 10^{-6}$ m/s</p>
+<p>$Q = 0.40 \times 1.02 \times 10^{-6} \times 13\,200 \times 3600 = 19$ m³/h</p>
+<p>大腸菌：直径が 1/5 なので $v_g$ は 1/25 の $4.1 \times 10^{-8}$ m/s、$Q = 0.8$ m³/h</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/centrifuge-capacity.svg" target="_blank" rel="noopener"><img src="/fig/centrifuge-capacity.svg" alt="図2　細胞の径と処理できる流量（例題の遠心分離機について当サイトで計算）" width="640" height="320" loading="lazy"></a><figcaption>図2　細胞の径と処理できる流量（例題の遠心分離機について当サイトで計算）</figcaption></figure>
+<p>図2のように、処理量は細胞の径の2乗に比例します。同じ遠心分離機でも、大腸菌は酵母の 1/25 しか処理できません。細菌の分離が難しい理由がここにあります。凝集剤で菌体を集めて大きくしたり、膜ろ過（<a href="/membrane/ultrafiltration.html">限外ろ過</a>・精密ろ過）と組み合わせたりする方法もとられます。</p>
+
+<h2 id="s4">Q/Σ を一定にしてスケールアップ</h2>
+<p>Σ値の大きな利点は、大きさや形の違う遠心分離機どうしを比べられることです。小さな試験機でよい分離ができた流量を $Q_1$、その Σ値を $\Sigma_1$ とすると、Σ値 $\Sigma_2$ の実機で同じ分離ができる流量は</p>
+<div class="formula">$$Q_2 = Q_1\,\frac{\Sigma_2}{\Sigma_1}$$</div>
+<p>です。たとえば Σ値 1500 m² の試験機で 2.0 m³/h まで液が十分に澄んだなら、例題の実機（13 200 m²）では $2.0 \times 13\,200 / 1500 = 18$ m³/h が目安になります。試験機と実機の形が似ていれば、効率の補正もほぼ打ち消し合うので、理論値から計算するより確実です。</p>
+
+<h2 id="s5">使うときの注意</h2>
+<ul>
+<li><strong>効率</strong>：ディスクの間の流れの乱れなどで、実際の処理量は理論値の 30〜50% 程度になることが多くあります。試験機の結果からスケールアップするのが基本です</li>
+<li><strong>粘度と温度</strong>：沈降速度は液の粘度に反比例します。培養液が粘い場合や、低温で処理する場合は処理量が下がります</li>
+<li><strong>菌体へのダメージ</strong>：入口で急に加速されるときのせん断で、動物細胞などの壊れやすい細胞が壊れることがあります。細胞の中身が出ると、液の清澄度が下がり、後の精製の負担が増えます</li>
+<li><strong>菌体を壊して中身を取り出す場合</strong>：細胞を壊した破片はさらに小さいので、遠心分離はいっそう難しくなります</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/bio/fed-batch-culture.html">流加培養の計算</a></li><li><a href="/particle/stokes-settling.html">粒子の沈降速度とストークスの式</a></li><li><a href="/membrane/ultrafiltration.html">限外ろ過・精密ろ過と濃度分極</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/bio/enzyme-kinetics.html">← 酵素反応の速度</a><span></span></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/bio/">生物工学の記事</a></h2><ul><li><a href="/bio/oxygen-transfer-kla.html">通気撹拌培養の酸素供給</a></li><li><a href="/bio/sterilization.html">培地の熱殺菌の計算</a></li><li><a href="/bio/fed-batch-culture.html">流加培養の計算</a></li><li><a href="/bio/enzyme-kinetics.html">酵素反応の速度</a></li><li><a href="/bio/centrifuge-sigma.html" aria-current="page">遠心分離機の処理量</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/" aria-current="page">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

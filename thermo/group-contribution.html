@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>原子団寄与法による物性推算｜ジョバック法で沸点・臨界定数を求める｜はじめての化学工学</title>
+<meta name="description" content="測定値のない物質の沸点や臨界温度・臨界圧力・臨界体積を、分子を原子団に分けて寄与を足し合わせるジョバック法で推算する手順と、偏心因子の求め方、推算値の誤差の目安を、酢酸エチルの例題と測定値との比較で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/thermo/group-contribution.html">
+<meta property="og:title" content="原子団寄与法による物性推算｜ジョバック法で沸点・臨界定数を求める｜はじめての化学工学">
+<meta property="og:description" content="測定値のない物質の沸点や臨界温度・臨界圧力・臨界体積を、分子を原子団に分けて寄与を足し合わせるジョバック法で推算する手順と、偏心因子の求め方、推算値の誤差の目安を、酢酸エチルの例題と測定値との比較で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "原子団寄与法による物性推算", "description": "測定値のない物質の沸点や臨界温度・臨界圧力・臨界体積を、分子を原子団に分けて寄与を足し合わせるジョバック法で推算する手順と、偏心因子の求め方、推算値の誤差の目安を、酢酸エチルの例題と測定値との比較で解説します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/thermo/group-contribution.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/thermo/">物性と熱力学</a> › <span>原子団寄与法による物性推算</span></nav>
+    <article class="article">
+<h1>原子団寄与法による物性推算</h1>
+<p class="lead">測定値のない物質の沸点や臨界温度・臨界圧力・臨界体積を、分子を原子団に分けて寄与を足し合わせるジョバック法で推算する手順と、偏心因子の求め方、推算値の誤差の目安を、酢酸エチルの例題と測定値との比較で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">物性値が見つからないとき</a></li><li><a href="#s2">原子団寄与法の考え方</a></li><li><a href="#s3">ジョバック法の式</a></li><li><a href="#s4">原子団の分け方の例</a></li><li><a href="#s5">偏心因子も求める</a></li><li><a href="#s6">推算値はどのくらい信用できるか</a></li><li><a href="#s7">使うときの注意</a></li></ol></nav>
+
+<h2 id="s1">物性値が見つからないとき</h2>
+<p>蒸留や反応の計算には、沸点、臨界温度、臨界圧力などの物性値が欠かせません。水やベンゼンのような代表的な物質なら<a href="/data/compound-constants.html">主な物質の定数表</a>や NIST のデータベースで値が見つかりますが、新しく合成した中間体や、あまり使われない溶媒では、測定値がないことも珍しくありません。</p>
+<p>そのようなときに使うのが<strong>物性推算法</strong>です。中でも、分子をいくつかの部品（原子団）に分け、部品ごとに決められた値を足し合わせて物性を求める方法を<strong>原子団寄与法</strong>（グループ寄与法）といいます。構造式さえわかれば計算でき、手計算でも数分で終わるのが長所です。</p>
+<p>この記事では、原子団寄与法の代表であるジョバック（Joback）法を使って、沸点と臨界定数を推算する手順を説明します。</p>
+
+<h2 id="s2">原子団寄与法の考え方</h2>
+<p>同じ系列の物質、たとえば n-ヘキサン、n-ヘプタン、n-オクタンと炭素が一つ増えるごとに、沸点はおよそ 20〜30 K ずつ上がります。−CH₂− という部品が一つ増えると、分子どうしの引き合う力が一定量ずつ増えるからです。原子団寄与法は、この「部品ごとの効き方はどの分子の中でもほぼ同じ」という性質を使います。</p>
+<figure class="fig"><a href="/fig/joback-groups.svg" target="_blank" rel="noopener"><img src="/fig/joback-groups.svg" alt="図1　酢酸エチルを原子団に分け、沸点の寄与を足し合わせる" width="640" height="250" loading="lazy"></a><figcaption>図1　酢酸エチルを原子団に分け、沸点の寄与を足し合わせる</figcaption></figure>
+<p>分け方にはルールがあります。同じ −CH₂− でも、鎖の中にあるものと環の中にあるものは別の原子団として扱います。−OH も、アルコールの −OH とフェノールの −OH では値が違います。分け方を誤ると結果が大きくずれるので、原子団の定義をよく確かめてから使います。</p>
+
+<h2 id="s3">ジョバック法の式</h2>
+<p>ジョバック法では、次の式で沸点 $T_b$ [K]、臨界温度 $T_c$ [K]、臨界圧力 $P_c$ [bar]、臨界体積 $V_c$ [cm³/mol] を求めます。$\Delta$ の付いた量は原子団ごとの寄与で、$\sum$ は分子に含まれるすべての原子団について（個数を掛けて）足し合わせることを表します。</p>
+<div class="formula">$$T_b = 198 + \sum \Delta_{Tb}$$</div>
+<div class="formula">$$T_c = \frac{T_b}{0.584 + 0.965\sum \Delta_{Tc} - \left(\sum \Delta_{Tc}\right)^2}$$</div>
+<div class="formula">$$P_c = \left(0.113 + 0.0032\,n_A - \sum \Delta_{Pc}\right)^{-2}, \qquad V_c = 17.5 + \sum \Delta_{Vc}$$</div>
+<p>$n_A$ は分子に含まれる原子の数（水素も数える）です。臨界温度の式は沸点を使うので、<strong>沸点の測定値があれば、推算値ではなく測定値を入れる</strong>と精度が大きく上がります。</p>
+<p>例題で使う原子団の寄与は次のとおりです（Joback and Reid, 1987 の値）。</p>
+<table class="num">
+<tr><th>原子団</th><th>$\Delta_{Tc}$</th><th>$\Delta_{Pc}$</th><th>$\Delta_{Vc}$</th><th>$\Delta_{Tb}$</th></tr>
+<tr><td>−CH₃</td><td>0.0141</td><td>−0.0012</td><td>65</td><td>23.58</td></tr>
+<tr><td>−CH₂−（鎖）</td><td>0.0189</td><td>0.0000</td><td>56</td><td>22.88</td></tr>
+<tr><td>−COO−（エステル）</td><td>0.0481</td><td>0.0005</td><td>82</td><td>81.10</td></tr>
+</table>
+
+<div class="example">
+<strong>例題：酢酸エチルの沸点と臨界定数</strong>
+<p>酢酸エチル CH₃COOCH₂CH₃（C₄H₈O₂）の沸点、臨界温度、臨界圧力、臨界体積をジョバック法で推算し、測定値と比べてください。臨界温度は、推算した沸点を使う場合と、沸点の測定値 350.2 K を使う場合の両方で求めます。</p>
+<div class="answer">
+<p>原子団は −CH₃ が2個、−CH₂− が1個、−COO− が1個です。原子の数は $n_A = 4 + 8 + 2 = 14$ です。寄与の合計は</p>
+<p>$\sum\Delta_{Tb} = 2 \times 23.58 + 22.88 + 81.10 = 151.14$、$\sum\Delta_{Tc} = 2 \times 0.0141 + 0.0189 + 0.0481 = 0.0952$</p>
+<p>$\sum\Delta_{Pc} = 2 \times (-0.0012) + 0 + 0.0005 = -0.0019$、$\sum\Delta_{Vc} = 2 \times 65 + 56 + 82 = 268$</p>
+<p><strong>沸点</strong>：$T_b = 198 + 151.14 = 349.1$ K（測定値 350.2 K、誤差 −0.3%）</p>
+<p><strong>臨界温度</strong>：分母は $0.584 + 0.965 \times 0.0952 - 0.0952^2 = 0.6668$ なので</p>
+<p>推算した沸点を使うと $T_c = 349.1 / 0.6668 = 523.6$ K、測定値の沸点を使うと $T_c = 350.2 / 0.6668 = 525.2$ K</p>
+<p><strong>臨界圧力</strong>：$P_c = (0.113 + 0.0032 \times 14 + 0.0019)^{-2} = 0.1597^{-2} = 39.2$ bar</p>
+<p><strong>臨界体積</strong>：$V_c = 17.5 + 268 = 285.5$ cm³/mol</p>
+<p>測定値は、臨界温度が約 523 K、臨界圧力が 38.8 bar、臨界体積が約 286 cm³/mol（臨界密度 3.50 mol/L から換算）です。どの値も 1% 前後の誤差で推算できています。</p>
+</div>
+</div>
+
+<h2 id="s4">原子団の分け方の例</h2>
+<p>分け方に慣れるために、いくつかの物質を分けてみます。</p>
+<ul>
+<li><strong>トルエン</strong> C₆H₅CH₃：ベンゼン環の水素の付いた炭素（環の =CH−）が5個、メチル基の付いた環の炭素（環の =C&lt;）が1個、−CH₃ が1個</li>
+<li><strong>1-プロパノール</strong> CH₃CH₂CH₂OH：−CH₃ が1個、鎖の −CH₂− が2個、アルコールの −OH が1個</li>
+<li><strong>シクロヘキサン</strong> C₆H₁₂：環の −CH₂− が6個。鎖の −CH₂− とは寄与の値が違う</li>
+<li><strong>アセトン</strong> CH₃COCH₃：−CH₃ が2個、鎖のケトン基 &gt;C=O が1個</li>
+</ul>
+<p>同じ分子でも分け方が二通り考えられる場合は、原子団の数が少なくなる分け方、つまり大きな原子団を優先して使うのが基本です。酢酸エチルを「−CH₃、&gt;C=O、−O−、−CH₂−、−CH₃」のように細かく分けることもできますが、ジョバック法にはエステル基 −COO− という原子団が用意されているので、そちらを使います。</p>
+<p>推算した値は、物質の性質の傾向と合っているかを確かめる習慣をつけましょう。たとえば、同じ分子量なら、アルコールは炭化水素より沸点が高いはずです。1-プロパノール（分子量 60、推算沸点 360 K）と n-ブタン（分子量 58、測定沸点 273 K）を比べると、推算値は傾向をきちんと表しています。</p>
+
+<h2 id="s5">偏心因子も求める</h2>
+<p><a href="/thermo/compressibility.html">ピッツァーの相関</a>や多くの状態方程式は、臨界定数のほかに<strong>偏心因子</strong> $\omega$ を必要とします。沸点と臨界定数がわかれば、次のエドミスターの式で偏心因子を見積もれます（$P_c$ は atm 単位、$\theta = T_b/T_c$）。</p>
+<div class="formula">$$\omega = \frac{3}{7}\,\frac{\theta}{1-\theta}\,\log_{10} P_c - 1$$</div>
+<p>例題の値（$T_b$ = 350.2 K、$T_c$ = 525.2 K、$P_c$ = 39.2 bar = 38.7 atm）を入れると、$\theta = 0.6668$、$\theta/(1-\theta) = 2.001$ で</p>
+<div class="formula">$$\omega = \frac{3}{7} \times 2.001 \times \log_{10} 38.7 - 1 = 0.361$$</div>
+<p>となり、文献値の 0.36〜0.37 とよく合います。これで、測定値のない物質でも、圧縮係数や<a href="/thermo/vapor-pressure.html">蒸気圧</a>の推算に進むことができます。</p>
+
+<h2 id="s6">推算値はどのくらい信用できるか</h2>
+<p>図2は、いくつかの物質について、ジョバック法の推算値と測定値（NIST Chemistry WebBook）の差を当サイトで計算したものです。</p>
+<figure class="fig"><a href="/fig/joback-error.svg" target="_blank" rel="noopener"><img src="/fig/joback-error.svg" alt="図2　ジョバック法の推算値の誤差（当サイトで計算。測定値は NIST Chemistry WebBook、酢酸エチルの臨界温度は Ambrose ら 1981）" width="680" height="340" loading="lazy"></a><figcaption>図2　ジョバック法の推算値の誤差（当サイトで計算。測定値は NIST Chemistry WebBook、酢酸エチルの臨界温度は Ambrose ら 1981）</figcaption></figure>
+<p>図から、次のことがわかります。</p>
+<ul>
+<li>沸点の推算誤差は ±3% 程度で、350 K の物質なら ±10 K に当たります。蒸留の設計にそのまま使うには大きすぎる誤差です</li>
+<li>臨界温度は、沸点も推算すると沸点の誤差をそのまま引き継ぎます。沸点の測定値を使うと、誤差は ±1% 以下まで小さくなります</li>
+<li>アルコールのように水素結合する物質や、極性の強い物質では誤差が大きくなりやすい傾向があります</li>
+</ul>
+<p>ジョバック法は、ここで扱わなかった原子団（ハロゲン、窒素を含む基など）や、生成エンタルピー、熱容量の推算式も含んでいます。より精度の高い方法として、原子団の組み合わせまで考えるコンスタンチノウ・ガニの方法なども知られています。</p>
+
+<h2 id="s7">使うときの注意</h2>
+<ul>
+<li>推算値は、測定値が手に入らないときの代わりです。<strong>測定値があれば、必ず測定値を使います</strong>。特に沸点は、少量の試料でも測れるので、測ってしまうのが確実です</li>
+<li>分子量の大きい物質（炭素数が十数個を超えるもの）では、ジョバック法の沸点は高く出すぎる傾向があります</li>
+<li>推算値を使って設計したときは、どの値が推算値かを記録しておき、測定値が得られたら計算をやり直します</li>
+</ul>
+<p>蒸発潜熱や熱伝導率のように、ここで求めた臨界定数を使って推算する物性もあります。<a href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算</a>と<a href="/thermo/thermal-conductivity-estimation.html">熱伝導率の推算</a>の記事もあわせて読んでください。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算</a></li><li><a href="/thermo/thermal-conductivity-estimation.html">熱伝導率の推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/thermo/compressibility.html">← 実在気体と圧縮係数</a><a class="next" href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/thermo/">物性と熱力学の記事</a></h2><ul><li><a href="/thermo/ideal-gas.html">理想気体の状態方程式と気体の密度の求め方</a></li><li><a href="/thermo/vapor-pressure.html">蒸気圧とアントワン式</a></li><li><a href="/thermo/vapor-liquid-equilibrium.html">気液平衡とラウールの法則</a></li><li><a href="/thermo/xy-diagram.html">x-y線図とT-x-y線図の読み方</a></li><li><a href="/thermo/heat-capacity.html">熱容量と比熱の温度依存性</a></li><li><a href="/thermo/viscosity.html">粘度の温度依存性と推算</a></li><li><a href="/thermo/compressibility.html">実在気体と圧縮係数</a></li><li><a href="/thermo/group-contribution.html" aria-current="page">原子団寄与法による物性推算</a></li><li><a href="/thermo/latent-heat-estimation.html">蒸発潜熱の推算</a></li><li><a href="/thermo/thermal-conductivity-estimation.html">熱伝導率の推算</a></li><li><a href="/thermo/activity-coefficient.html">活量係数と共沸</a></li><li><a href="/thermo/multicomponent-vle.html">多成分系の気液平衡</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/" aria-current="page">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

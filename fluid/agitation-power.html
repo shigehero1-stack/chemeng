@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>撹拌所要動力の計算｜動力数とスケールアップの考え方｜はじめての化学工学</title>
+<meta name="description" content="撹拌槽の翼が必要とする動力を動力数とレイノルズ数で求める方法、邪魔板の役割、撹拌槽を大きくするときのスケールアップの基準を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/agitation-power.html">
+<meta property="og:title" content="撹拌所要動力の計算｜動力数とスケールアップの考え方｜はじめての化学工学">
+<meta property="og:description" content="撹拌槽の翼が必要とする動力を動力数とレイノルズ数で求める方法、邪魔板の役割、撹拌槽を大きくするときのスケールアップの基準を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "撹拌所要動力の計算", "description": "撹拌槽の翼が必要とする動力を動力数とレイノルズ数で求める方法、邪魔板の役割、撹拌槽を大きくするときのスケールアップの基準を例題で解説します。", "datePublished": "2026-09-29", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/fluid/agitation-power.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>撹拌所要動力の計算</span></nav>
+    <article class="article">
+<h1>撹拌所要動力の計算</h1>
+<p class="lead">撹拌槽の翼が必要とする動力を動力数とレイノルズ数で求める方法、邪魔板の役割、撹拌槽を大きくするときのスケールアップの基準を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-29">2026-09-29</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">撹拌の目的</a></li><li><a href="#s2">撹拌レイノルズ数</a></li><li><a href="#s3">動力数</a></li><li><a href="#s4">邪魔板の役割</a></li><li><a href="#s5">スケールアップ</a></li></ol></nav>
+
+<h2 id="s1">撹拌の目的</h2>
+<p>撹拌槽は、液を混ぜる、固体を溶かす・浮かせる、気体を液に分散させる、熱を伝えやすくするなど、さまざまな目的で使われます。反応器や晶析槽の多くも撹拌槽です。撹拌翼を回すモーターの大きさを決めるには、<strong>撹拌所要動力</strong>を見積もる必要があります。</p>
+<figure class="fig"><a href="/fig/stirred-tank-baffles.svg" target="_blank" rel="noopener"><img src="/fig/stirred-tank-baffles.svg" alt="図1　邪魔板つき撹拌槽の構造。翼から吐き出された液が壁に当たり、上下に循環する" width="600" height="340" loading="lazy"></a><figcaption>図1　邪魔板つき撹拌槽の構造。翼から吐き出された液が壁に当たり、上下に循環する</figcaption></figure>
+
+<h2 id="s2">撹拌レイノルズ数</h2>
+<p>撹拌槽の流れの状態は、翼の回転を使った<strong>撹拌レイノルズ数</strong>で表します。</p>
+<div class="formula">$$\text{Re} = \frac{\rho\,N\,d^2}{\mu}$$</div>
+<p>$N$ は回転数 [1/s]、$d$ は翼の直径 [m] です。配管の<a href="/fluid/reynolds-number.html">レイノルズ数</a>と同じく、慣性力と粘性力の比を表します。およそ10以下が層流、10⁴程度以上が乱流で、その間が遷移域です。</p>
+
+<h2 id="s3">動力数</h2>
+<p>撹拌動力 $P$ [W] は、<strong>動力数</strong> $N_p$ を使って次のように表します。</p>
+<div class="formula">$$P = N_p\,\rho\,N^3\,d^5$$</div>
+<p>動力数は翼の形、邪魔板の有無、レイノルズ数によって決まります。</p>
+<ul>
+<li><strong>層流域</strong>：$N_p$ は Re に反比例し、動力は粘度に比例する</li>
+<li><strong>乱流域（邪魔板あり）</strong>：$N_p$ はほぼ一定になる。代表的な値は、6枚平羽根ディスクタービンで約5、45°傾斜パドルで1〜2程度、プロペラ翼で0.3〜0.5程度</li>
+</ul>
+<p>動力は回転数の<strong>3乗</strong>、翼径の<strong>5乗</strong>に比例します。翼を少し大きくしただけで、必要な動力は大きく増えます。</p>
+<figure class="fig"><a href="/fig/power-number-curve.svg" target="_blank" rel="noopener"><img src="/fig/power-number-curve.svg" alt="図2　動力数とレイノルズ数の関係のおおよその形。邪魔板があると乱流域で動力数が一定になる" width="580" height="330" loading="lazy"></a><figcaption>図2　動力数とレイノルズ数の関係のおおよその形。邪魔板があると乱流域で動力数が一定になる</figcaption></figure>
+
+<h2 id="s4">邪魔板の役割</h2>
+<p>邪魔板のない円筒槽で低粘度の液を撹拌すると、液全体が翼と一緒に回転するだけで、上下の混合があまり起こりません。液面の中心がへこむ渦もできます。槽の壁に縦長の板（<strong>邪魔板</strong>、ふつう4枚）を取り付けると、回転の流れが上下の流れに変わり、よく混ざるようになります。そのぶん動力数は大きくなります。</p>
+
+<div class="example">
+<strong>例題：撹拌動力の計算</strong>
+<p>邪魔板つきの槽で、直径 0.5 m の6枚平羽根ディスクタービン（乱流域の $N_p$ = 5）を、毎分120回転で回して水（密度 1000 kg/m³、粘度 1.0 × 10⁻³ Pa·s）を撹拌します。所要動力を求めてください。</p>
+<div class="answer">
+<p>$N = 120 / 60 = 2.0\ \text{s}^{-1}$</p>
+<p>$\text{Re} = \dfrac{1000 \times 2.0 \times 0.5^2}{1.0 \times 10^{-3}} = 5 \times 10^5$ で乱流域なので、$N_p = 5$ が使えます。</p>
+<p>$P = 5 \times 1000 \times 2.0^3 \times 0.5^5 = 5 \times 1000 \times 8 \times 0.03125 = 1250\ \text{W}$</p>
+<p>液に伝わる動力は約1.25 kWです。モーターは、減速機などの損失や起動時の負荷を見込んで、これより大きいものを選びます。</p>
+</div>
+</div>
+
+<h2 id="s5">スケールアップ</h2>
+<p>小さな試験槽でうまくいった撹拌を大きな槽で再現するには、何を同じにするか（スケールアップの基準）を決める必要があります。形を相似に保ったまま大きくする場合の代表的な基準は次のとおりです。</p>
+<table>
+<tr><th>基準</th><th>回転数の変え方</th><th>向いている目的</th></tr>
+<tr><td>単位体積あたりの動力 $P/V$ 一定</td><td>$N \propto d^{-2/3}$</td><td>液液分散、気液分散、一般的な混合</td></tr>
+<tr><td>翼の先端速度 $\pi N d$ 一定</td><td>$N \propto d^{-1}$</td><td>せん断に弱い物質（結晶、微生物など）</td></tr>
+<tr><td>混合時間一定</td><td>$N$ 一定</td><td>速い反応（大きな槽では動力が非常に大きくなり現実的でないことが多い）</td></tr>
+</table>
+<p>たとえば例題の槽を体積10倍（寸法は $10^{1/3} \approx 2.15$ 倍）にするとき、$P/V$ 一定なら回転数は $2.0 \times 2.15^{-2/3} \approx 1.2\ \text{s}^{-1}$（毎分約72回転）となり、動力は体積と同じく10倍の約12.5 kWになります。</p>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/bio/oxygen-transfer-kla.html">通気撹拌培養の酸素供給</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/fluid/flow-measurement.html">← 流量の測り方</a><a class="next" href="/fluid/mixing-time.html">撹拌槽の混合時間 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/fluid/">流体の記事</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html" aria-current="page">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/" aria-current="page">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

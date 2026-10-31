@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>酵素反応の速度｜ミカエリス・メンテン式とラインウィーバー・バークプロット、阻害と回分反応の時間｜はじめての化学工学</title>
+<meta name="description" content="酵素反応の速度を表すミカエリス・メンテン式の導き方と意味、実験データから最大反応速度 Vmax とミカエリス定数 Km を求めるラインウィーバー・バークプロット、競争阻害による速度の低下、回分反応器で目標の転化率に達する時間の計算を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/bio/enzyme-kinetics.html">
+<meta property="og:title" content="酵素反応の速度｜ミカエリス・メンテン式とラインウィーバー・バークプロット、阻害と回分反応の時間｜はじめての化学工学">
+<meta property="og:description" content="酵素反応の速度を表すミカエリス・メンテン式の導き方と意味、実験データから最大反応速度 Vmax とミカエリス定数 Km を求めるラインウィーバー・バークプロット、競争阻害による速度の低下、回分反応器で目標の転化率に達する時間の計算を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "酵素反応の速度", "description": "酵素反応の速度を表すミカエリス・メンテン式の導き方と意味、実験データから最大反応速度 Vmax とミカエリス定数 Km を求めるラインウィーバー・バークプロット、競争阻害による速度の低下、回分反応器で目標の転化率に達する時間の計算を例題で解説します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/bio/enzyme-kinetics.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/bio/">生物工学</a> › <span>酵素反応の速度</span></nav>
+    <article class="article">
+<h1>酵素反応の速度</h1>
+<p class="lead">酵素反応の速度を表すミカエリス・メンテン式の導き方と意味、実験データから最大反応速度 Vmax とミカエリス定数 Km を求めるラインウィーバー・バークプロット、競争阻害による速度の低下、回分反応器で目標の転化率に達する時間の計算を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">酵素は生体の触媒</a></li><li><a href="#s2">ミカエリス・メンテン式</a></li><li><a href="#s3">パラメータの求め方：ラインウィーバー・バークプロット</a></li><li><a href="#s4">阻害剤があると</a></li><li><a href="#s5">回分反応器での反応時間</a></li><li><a href="#s6">工業的に使うときの工夫</a></li></ol></nav>
+
+<h2 id="s1">酵素は生体の触媒</h2>
+<p><strong>酵素</strong>は、生物がつくるタンパク質の触媒です。常温・常圧の穏やかな条件で、特定の物質（<strong>基質</strong>）だけを選んで反応させる性質（基質特異性）をもっています。洗剤に入っているプロテアーゼ、でんぷんを糖に分解するアミラーゼ、果糖ぶどう糖液糖をつくるグルコースイソメラーゼなど、工業的にも広く使われています。</p>
+<p>酵素反応の速さは、ふつうの化学反応とは違う形の式で表されます。それがミカエリス・メンテン式です。</p>
+
+<h2 id="s2">ミカエリス・メンテン式</h2>
+<p>酵素 E は、まず基質 S と結合して複合体 ES をつくり、ES が生成物 P を放出して元の酵素に戻ります。</p>
+<div class="formula">$$\mathrm{E} + \mathrm{S} \;\rightleftharpoons\; \mathrm{ES} \;\longrightarrow\; \mathrm{E} + \mathrm{P}$$</div>
+<p>複合体 ES の濃度がすぐに一定になる（定常状態近似）と考え、酵素の全濃度が一定であることを使うと、反応速度 $v$ は次のようになります。</p>
+<div class="formula">$$v = \frac{V_{max}\,S}{K_m + S}$$</div>
+<p>$V_{max}$ は<strong>最大反応速度</strong>で、すべての酵素が基質と結合しているときの速さです。酵素の量に比例します。$K_m$ は<strong>ミカエリス定数</strong>で、反応速度が $V_{max}$ の半分になる基質濃度を表し、小さいほど低い濃度の基質ともよく結合することを意味します。</p>
+<ul>
+<li>$S \ll K_m$ のとき：$v \approx (V_{max}/K_m)\,S$。基質濃度に比例する1次反応</li>
+<li>$S \gg K_m$ のとき：$v \approx V_{max}$。基質濃度によらない0次反応（酵素が手いっぱいの状態）</li>
+</ul>
+<p>この形は、微生物の増殖を表す<a href="/reaction/bioreactor-monod.html">モノー式</a>や、固体触媒の表面反応を表すラングミュア型の速度式と同じです。</p>
+<figure class="fig"><a href="/fig/enzyme-mm.svg" target="_blank" rel="noopener"><img src="/fig/enzyme-mm.svg" alt="図1　ミカエリス・メンテン式と競争阻害（Vmax = 2.0 mmol/(L·min)、Km = 5 mmol/L として当サイトで計算）" width="660" height="320" loading="lazy"></a><figcaption>図1　ミカエリス・メンテン式と競争阻害（Vmax = 2.0 mmol/(L·min)、Km = 5 mmol/L として当サイトで計算）</figcaption></figure>
+
+<h2 id="s3">パラメータの求め方：ラインウィーバー・バークプロット</h2>
+<p>基質濃度を変えて反応の初速度を測り、$V_{max}$ と $K_m$ を求めます。ミカエリス・メンテン式の両辺の逆数をとると、直線の式になります。</p>
+<div class="formula">$$\frac{1}{v} = \frac{K_m}{V_{max}}\cdot\frac{1}{S} + \frac{1}{V_{max}}$$</div>
+<p>$1/v$ を $1/S$ に対してプロット（<strong>ラインウィーバー・バークプロット</strong>）すると、切片が $1/V_{max}$、傾きが $K_m/V_{max}$ の直線になります。</p>
+
+<div class="example">
+<strong>例題1：初速度のデータからパラメータを求める</strong>
+<p>ある酵素について、基質濃度 $S$ [mmol/L] と初速度 $v$ [mmol/(L·min)] を測り、次の結果を得ました（当サイトで作成した例のデータ）。$V_{max}$ と $K_m$ を求めてください。</p>
+<table class="num">
+<tr><th>S</th><td>1</td><td>2</td><td>5</td><td>10</td><td>20</td><td>50</td></tr>
+<tr><th>v</th><td>0.34</td><td>0.57</td><td>1.00</td><td>1.31</td><td>1.62</td><td>1.83</td></tr>
+</table>
+<div class="answer">
+<p>$1/S$ と $1/v$ を計算して<a href="/numerical/least-squares.html">最小二乗法</a>で直線をあてはめると、切片 0.508、傾き 2.45 が得られます（図2）。</p>
+<p>$V_{max} = 1/0.508 = 1.97$ mmol/(L·min)、$K_m = 2.45 \times 1.97 = 4.81$ mmol/L</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/enzyme-lineweaver.svg" target="_blank" rel="noopener"><img src="/fig/enzyme-lineweaver.svg" alt="図2　例題1のデータのラインウィーバー・バークプロット（当サイトで計算）" width="620" height="320" loading="lazy"></a><figcaption>図2　例題1のデータのラインウィーバー・バークプロット（当サイトで計算）</figcaption></figure>
+<p>ラインウィーバー・バークプロットは直感的でわかりやすい反面、基質濃度の低い点（$1/S$ が大きい点）の誤差が逆数で拡大され、直線の傾きに強く効くという欠点があります。精度が必要なときは、ミカエリス・メンテン式を直接データにあてはめる非線形の最小二乗法を使います。</p>
+
+<h2 id="s4">阻害剤があると</h2>
+<p>酵素の働きを妨げる物質を<strong>阻害剤</strong>といいます。基質とよく似た形をしていて、酵素の同じ場所を奪い合う<strong>競争阻害</strong>では、阻害剤の濃度 $I$ と阻害定数 $K_i$ を使って</p>
+<div class="formula">$$v = \frac{V_{max}\,S}{K_m\left(1 + \dfrac{I}{K_i}\right) + S}$$</div>
+<p>となります。$V_{max}$ は変わりませんが、見かけの $K_m$ が $(1 + I/K_i)$ 倍に大きくなります。基質濃度を十分高くすれば、阻害の影響は小さくなります。図1は、$K_i$ = 5 mmol/L の阻害剤が 10 mmol/L あると、見かけの $K_m$ が 3 倍の 15 mmol/L になる様子です。反応でできた生成物そのものが阻害剤として働く<strong>生成物阻害</strong>もよく見られます。</p>
+
+<h2 id="s5">回分反応器での反応時間</h2>
+<p>回分反応器で基質濃度が $S_0$ から $S$ まで下がる時間は、ミカエリス・メンテン式を<a href="/reaction/batch-reactor.html">回分反応器の式</a> $-dS/dt = v$ で積分して求められます。</p>
+<div class="formula">$$V_{max}\,t = K_m \ln\frac{S_0}{S} + (S_0 - S)$$</div>
+
+<div class="example">
+<strong>例題2：転化率 95% までの時間</strong>
+<p>$V_{max}$ = 2.0 mmol/(L·min)、$K_m$ = 5.0 mmol/L の酵素で、基質濃度 50 mmol/L の液を転化率 95% まで反応させる時間を求めてください。また、$K_i$ = 5.0 mmol/L の競争阻害剤が 10 mmol/L 含まれている場合の時間も求めてください。</p>
+<div class="answer">
+<p>$S = 50 \times 0.05 = 2.5$ mmol/L、$\ln(50/2.5) = \ln 20 = 3.00$</p>
+<p>阻害剤なし：$t = \dfrac{5.0 \times 3.00 + (50 - 2.5)}{2.0} = \dfrac{15.0 + 47.5}{2.0} = 31$ 分</p>
+<p>阻害剤あり：見かけの $K_m = 5.0 \times (1 + 10/5.0) = 15$ mmol/L なので</p>
+<p>$t = \dfrac{15 \times 3.00 + 47.5}{2.0} = \dfrac{45.0 + 47.5}{2.0} = 46$ 分</p>
+<p>阻害剤によって、反応時間は 1.5 倍に延びます。基質濃度の高い前半（0次反応に近い）ではあまり遅くならず、基質が減った後半で大きく遅くなります。</p>
+</div>
+</div>
+
+<h2 id="s6">工業的に使うときの工夫</h2>
+<ul>
+<li><strong>固定化酵素</strong>：酵素を樹脂や担体の粒に結合させると、反応後に分離して何度も使え、充填層で連続的に反応させることもできます。ただし、粒の中への基質の拡散が遅いと、<a href="/reaction/catalyst-effectiveness.html">触媒有効係数</a>と同じ考え方で見かけの速度が下がります</li>
+<li><strong>温度と pH</strong>：酵素は温度を上げると反応が速くなりますが、高すぎるとタンパク質の構造が壊れて失活します。失活も1次反応で表せることが多く、反応の速さと寿命の兼ね合いで運転温度を決めます</li>
+<li><strong>酵素の値段</strong>：酵素は高価なので、反応時間を短くするために酵素を増やすか、反応器を大きくするかは、<a href="/process/process-economics.html">経済性</a>の比較で決めます</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/bio/fed-batch-culture.html">← 流加培養の計算</a><a class="next" href="/bio/centrifuge-sigma.html">遠心分離機の処理量 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/bio/">生物工学の記事</a></h2><ul><li><a href="/bio/oxygen-transfer-kla.html">通気撹拌培養の酸素供給</a></li><li><a href="/bio/sterilization.html">培地の熱殺菌の計算</a></li><li><a href="/bio/fed-batch-culture.html">流加培養の計算</a></li><li><a href="/bio/enzyme-kinetics.html" aria-current="page">酵素反応の速度</a></li><li><a href="/bio/centrifuge-sigma.html">遠心分離機の処理量</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/" aria-current="page">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

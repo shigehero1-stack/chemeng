@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ベルヌーイの式をわかりやすく｜ヘッドの考え方と使い方｜はじめての化学工学</title>
+<meta name="description" content="ベルヌーイの式を「圧力・速度・高さ」のエネルギーのやりとりとして説明し、ヘッド（水頭）の考え方、損失とポンプを含む形、タンクからの流出速度の例題を解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/fluid/bernoulli.html">
+<meta property="og:title" content="ベルヌーイの式をわかりやすく｜ヘッドの考え方と使い方｜はじめての化学工学">
+<meta property="og:description" content="ベルヌーイの式を「圧力・速度・高さ」のエネルギーのやりとりとして説明し、ヘッド（水頭）の考え方、損失とポンプを含む形、タンクからの流出速度の例題を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ベルヌーイの式をわかりやすく", "description": "ベルヌーイの式を「圧力・速度・高さ」のエネルギーのやりとりとして説明し、ヘッド（水頭）の考え方、損失とポンプを含む形、タンクからの流出速度の例題を解説します。", "datePublished": "2026-09-28", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/fluid/bernoulli.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/fluid/">流体</a> › <span>ベルヌーイの式をわかりやすく</span></nav>
+    <article class="article">
+<h1>ベルヌーイの式をわかりやすく</h1>
+<p class="lead">ベルヌーイの式を「圧力・速度・高さ」のエネルギーのやりとりとして説明し、ヘッド（水頭）の考え方、損失とポンプを含む形、タンクからの流出速度の例題を解説します。</p>
+<p class="byline">公開日 <time datetime="2026-09-28">2026-09-28</time>　更新日 <time datetime="2026-10-31">2026-10-31</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">ベルヌーイの式とは</a></li><li><a href="#s2">ヘッド（水頭）で考える</a></li><li><a href="#s3">実際の配管で使う形</a></li><li><a href="#s4">使うときの注意</a></li><li><a href="#s5">練習問題</a></li></ol></nav>
+
+<h2 id="s1">ベルヌーイの式とは</h2>
+<p>流体が持っているエネルギーには、<strong>圧力によるもの</strong>、<strong>速度によるもの（運動エネルギー）</strong>、<strong>高さによるもの（位置エネルギー）</strong>の三つがあります。摩擦がなく、外から仕事もされない理想的な流れでは、この三つの合計が流れに沿って一定に保たれます。これを式にしたのがベルヌーイの式です。</p>
+<div class="formula">$$\frac{p}{\rho} + \frac{u^2}{2} + g z = \text{一定}$$</div>
+<p>各項は流体1 kgあたりのエネルギー [J/kg] です。$p$ は圧力、$u$ は流速、$z$ は基準面からの高さ、$g$ は重力加速度（9.81 m/s²）です。</p>
+<figure class="fig"><a href="/fig/bernoulli-heads.svg" target="_blank" rel="noopener"><img src="/fig/bernoulli-heads.svg" alt="図1　ベルヌーイの式のイメージ。細く高い所では位置・速度ヘッドが増えたぶん、圧力ヘッドが減る" width="640" height="330" loading="lazy"></a><figcaption>図1　ベルヌーイの式のイメージ。細く高い所では位置・速度ヘッドが増えたぶん、圧力ヘッドが減る</figcaption></figure>
+
+<h2 id="s2">ヘッド（水頭）で考える</h2>
+<p>両辺を $g$ で割ると、すべての項が長さ [m] の単位になります。</p>
+<div class="formula">$$\frac{p}{\rho g} + \frac{u^2}{2g} + z = \text{一定}$$</div>
+<p>それぞれ<strong>圧力ヘッド</strong>、<strong>速度ヘッド</strong>、<strong>位置ヘッド</strong>と呼びます。「このエネルギーは流体を何メートル持ち上げる分に相当するか」と考えられるので直感的に扱いやすく、ポンプの性能もヘッド（揚程）で表されます。</p>
+
+<h2 id="s3">実際の配管で使う形</h2>
+<p>実際の流れでは、摩擦によってエネルギーの一部が熱になって失われます。また途中にポンプがあれば、外からエネルギーが加わります。点1から点2までの流れについて、これらを含めると次のようになります。</p>
+<div class="formula">$$\frac{p_1}{\rho g} + \frac{u_1^2}{2g} + z_1 + H_p = \frac{p_2}{\rho g} + \frac{u_2^2}{2g} + z_2 + h_L$$</div>
+<ul>
+<li>$H_p$：ポンプが流体に与えるヘッド（全揚程）[m]</li>
+<li>$h_L$：摩擦などによる損失ヘッド [m]</li>
+</ul>
+<p>この形は<a href="/fluid/pump-power.html">ポンプの動力計算</a>でそのまま使います。損失ヘッドの求め方は<a href="/fluid/pressure-loss.html">管内の圧力損失</a>で解説しています。</p>
+
+<div class="example">
+<strong>例題：タンクの底の穴から流れ出る速さ</strong>
+<p>大気に開放された大きなタンクがあり、水面から 2 m 下に小さな穴が開いています。穴から出る水の速さを求めてください。損失は無視します。</p>
+<div class="answer">
+<p>点1を水面、点2を穴の出口にとります。どちらも大気圧なので圧力の項は消えます。タンクが大きいので水面の速さ $u_1$ はほぼ0とみなせます。</p>
+<p>$z_1 = z_2 + \dfrac{u_2^2}{2g}$ より $u_2 = \sqrt{2 g (z_1 - z_2)} = \sqrt{2 \times 9.81 \times 2} \approx 6.3\ \text{m/s}$</p>
+<p>この結果は物体を2 m落としたときの速さと同じで、トリチェリの定理と呼ばれます。実際の穴では流れが縮むため、流量はこの値から求めた量より小さくなります。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/torricelli-tank.svg" target="_blank" rel="noopener"><img src="/fig/torricelli-tank.svg" alt="図2　例題のタンク。水面（点1）と穴の出口（点2）の間でベルヌーイの式を立てる" width="600" height="270" loading="lazy"></a><figcaption>図2　例題のタンク。水面（点1）と穴の出口（点2）の間でベルヌーイの式を立てる</figcaption></figure>
+
+<h2 id="s4">使うときの注意</h2>
+<ul>
+<li>点1と点2は同じ流れの上にとる</li>
+<li>圧力はどちらもゲージ圧、またはどちらも絶対圧にそろえる</li>
+<li>気体で圧力が大きく変わる場合は密度一定とみなせないので、そのままでは使えない</li>
+</ul>
+<h2 id="s5">練習問題</h2>
+<div class="example">
+<strong>練習1：管が細くなると圧力はどれだけ下がるか</strong>
+<p>水平な配管が内径 100 mm から 50 mm に細くなっています。太い側の流速は 1.0 m/s です。水の密度を 998 kg/m³ とし、損失を無視して、細い側で圧力がどれだけ下がるかを求めてください。</p>
+<div class="answer">
+<p>流量は同じなので、流速は断面積に反比例します。内径が半分なら断面積は 1/4 なので、細い側の流速は $u_2 = 4.0$ m/s です。</p>
+<p>高さが同じなので、ベルヌーイの式から $p_1 - p_2 = \dfrac{\rho}{2}(u_2^2 - u_1^2) = \dfrac{998}{2} \times (16 - 1) \approx 7.5 \times 10^{3}\ \text{Pa}$、つまり約 7.5 kPa 下がります。この圧力差を測って流量を求めるのが、<a href="/fluid/flow-measurement.html">ベンチュリ管やオリフィス</a>です。</p>
+</div>
+</div>
+<div class="example">
+<strong>練習2：圧力をヘッドに直す</strong>
+<p>ポンプの入口と出口の圧力差が 200 kPa でした。水のヘッド（m）ではいくらですか。</p>
+<div class="answer"><p>$H = \dfrac{\Delta p}{\rho g} = \dfrac{200 \times 10^3}{998 \times 9.81} \approx 20.4\ \text{m}$ です。「水を約 20 m 持ち上げられる圧力」と読めるので、<a href="/fluid/pump-power.html">ポンプの揚程</a>の見当がつけやすくなります。</p></div>
+</div>
+<div class="note">実際の配管では、摩擦や弁・曲がりで必ずエネルギーが失われます。損失を無視した答えは「最大でもこのくらい」という目安と考え、設計では<a href="/fluid/pressure-loss.html">圧力損失</a>の項を加えます。</div>
+
+
+<nav class="pager"><a class="prev" href="/fluid/reynolds-number.html">← レイノルズ数とは？層流と乱流の見分け方と計算例</a><a class="next" href="/fluid/pressure-loss.html">管内の圧力損失の計算 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/fluid/">流体の記事</a></h2><ul><li><a href="/fluid/reynolds-number.html">レイノルズ数とは？層流と乱流の見分け方と計算例</a></li><li><a href="/fluid/bernoulli.html" aria-current="page">ベルヌーイの式をわかりやすく</a></li><li><a href="/fluid/pressure-loss.html">管内の圧力損失の計算</a></li><li><a href="/fluid/pump-power.html">ポンプの揚程と所要動力の計算方法</a></li><li><a href="/fluid/pump-operating-point.html">ポンプの運転点と省エネ</a></li><li><a href="/fluid/economic-pipe-diameter.html">経済的な配管径の選び方</a></li><li><a href="/fluid/flow-measurement.html">流量の測り方</a></li><li><a href="/fluid/agitation-power.html">撹拌所要動力の計算</a></li><li><a href="/fluid/mixing-time.html">撹拌槽の混合時間</a></li><li><a href="/fluid/stirred-tank-scale-up.html">撹拌槽のスケールアップ</a></li><li><a href="/fluid/non-newtonian.html">非ニュートン流体とレオロジー</a></li><li><a href="/fluid/two-phase-flow.html">気液二相流の基礎</a></li><li><a href="/fluid/water-hammer.html">ウォーターハンマー（水撃）の計算</a></li><li><a href="/fluid/compressor-power.html">圧縮機の動力と吐出温度</a></li><li><a href="/fluid/vacuum-pumping.html">真空排気の基礎</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/" aria-current="page">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

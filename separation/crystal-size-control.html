@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>結晶の大きさの制御と種晶｜準安定域、核発生と成長、種晶の量と製品の粒径｜はじめての化学工学</title>
+<meta name="description" content="晶析で結晶の大きさを決める核発生と結晶成長の関係、準安定域の意味、種晶を入れる理由と製品の結晶の大きさの見積もり、冷却速度の決め方を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/separation/crystal-size-control.html">
+<meta property="og:title" content="結晶の大きさの制御と種晶｜準安定域、核発生と成長、種晶の量と製品の粒径｜はじめての化学工学">
+<meta property="og:description" content="晶析で結晶の大きさを決める核発生と結晶成長の関係、準安定域の意味、種晶を入れる理由と製品の結晶の大きさの見積もり、冷却速度の決め方を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "結晶の大きさの制御と種晶", "description": "晶析で結晶の大きさを決める核発生と結晶成長の関係、準安定域の意味、種晶を入れる理由と製品の結晶の大きさの見積もり、冷却速度の決め方を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-17", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/separation/crystal-size-control.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/separation/">分離操作</a> › <span>結晶の大きさの制御と種晶</span></nav>
+    <article class="article">
+<h1>結晶の大きさの制御と種晶</h1>
+<p class="lead">晶析で結晶の大きさを決める核発生と結晶成長の関係、準安定域の意味、種晶を入れる理由と製品の結晶の大きさの見積もり、冷却速度の決め方を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-17">2026-10-17</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">結晶の大きさが大切な理由</a></li><li><a href="#s2">核発生と結晶成長</a></li><li><a href="#s3">準安定域</a></li><li><a href="#s4">種晶を入れる</a></li><li><a href="#s5">冷却の速さの決め方</a></li></ol></nav>
+
+<h2 id="s1">結晶の大きさが大切な理由</h2>
+<p><a href="/separation/crystallization.html">晶析</a>で同じ量の結晶が得られても、細かい結晶がたくさんできるか、大きな結晶が少しできるかで、その後の工程は大きく変わります。細かすぎる結晶は、ろ過に時間がかかり、母液を多く含んで純度が下がり、乾燥後に固まったり舞い上がったりします。そのため晶析では、収量だけでなく<strong>結晶の大きさ（粒径）とそのそろい方</strong>を制御することが重要です。</p>
+
+<h2 id="s2">核発生と結晶成長</h2>
+<p>過飽和の溶液の中では、次の2つが同時に起こっています。</p>
+<ul>
+<li><strong>核発生</strong>：新しい結晶の「種」（核）が生まれる。溶液だけから生まれる一次核発生と、すでにある結晶がこすれたり割れたりして生まれる二次核発生がある</li>
+<li><strong>結晶成長</strong>：すでにある結晶の表面に溶質が積み重なり、結晶が大きくなる</li>
+</ul>
+<p>溶質の量は決まっているので、核がたくさん生まれると1個あたりに使える溶質が減り、結晶は小さくなります。大きな結晶を得るには、核発生を抑えて、成長に溶質を回す必要があります。</p>
+<p>核発生の速さは過飽和度に対して急激に増え、成長の速さは過飽和度にほぼ比例して増えます。そのため、<strong>過飽和度を低く保つほど成長が優勢になり、大きな結晶が得られます</strong>。</p>
+
+<h2 id="s3">準安定域</h2>
+<p>溶解度をわずかに超えた溶液では、結晶がなければしばらく核が生まれません。溶解度曲線と、核が自然に生まれ始める線（過溶解度曲線）の間の領域を<strong>準安定域</strong>といいます。準安定域の中では、すでにある結晶は成長しますが、新しい核はほとんど生まれません。</p>
+<p>準安定域の幅は、物質の種類のほか、冷却速度、撹拌、不純物によって変わるので、実験で確かめます。晶析の運転では、溶液の状態がこの準安定域の中に収まるようにするのが基本です。</p>
+<figure class="fig"><a href="/fig/metastable-zone.svg" target="_blank" rel="noopener"><img src="/fig/metastable-zone.svg" alt="図1　準安定域と冷却の道筋" width="580" height="330" loading="lazy"></a><figcaption>図1　準安定域と冷却の道筋。種晶を入れて準安定域の中で冷やすと、新しい核が生まれにくく大きな結晶が育つ</figcaption></figure>
+
+<h2 id="s4">種晶を入れる</h2>
+<p>準安定域の中で運転するには、最初の結晶を外から入れてやる必要があります。これを<strong>種晶</strong>といいます。種晶を入れると、自然に核が生まれるのを待たずに成長が始まり、製品の結晶の数をほぼ種晶の数で決められます。</p>
+<p>種晶だけが成長し、新しい核が生まれない理想的な場合、結晶の数は変わらないので、結晶の質量は大きさの3乗に比例します。種晶の質量を $W_s$、大きさを $L_s$、晶析で析出する量を $W_c$ とすると、製品の結晶の大きさ $L_p$ は</p>
+<div class="formula">$$L_p = L_s \left(1 + \frac{W_c}{W_s}\right)^{1/3}$$</div>
+<p>となります。種晶を減らすほど製品は大きくなりますが、少なすぎると種晶の表面積が足りず、過飽和度が上がって新しい核が生まれてしまいます。</p>
+
+<div class="example">
+<strong>例題：種晶の量と製品の大きさ</strong>
+<p><a href="/separation/crystallization.html">晶析の基礎</a>の例題と同じく、冷却で 350 kg の結晶が析出する回分晶析に、大きさ 100 µm の種晶を入れます。(1) 種晶を 5 kg 入れたとき、製品の結晶の大きさはどれくらいになりますか。(2) 製品を 600 µm にするには、種晶を何 kg 入れればよいですか。新しい核は生まれないとします。</p>
+<div class="answer">
+<p>(1) $L_p = 100 \times \left(1 + \dfrac{350}{5}\right)^{1/3} = 100 \times 71^{1/3} \approx 414\ \mu\text{m}$</p>
+<p>(2) $\left(\dfrac{600}{100}\right)^3 = 216 = 1 + \dfrac{350}{W_s}$ より、$W_s = 350 / 215 \approx 1.6\ \text{kg}$</p>
+<p>種晶の量を約3分の1にすると、製品の大きさは約1.5倍になります。ただし実際には、種晶が少ないと冷却の初めに過飽和度が上がりやすいので、冷却の速さも合わせて調整します。</p>
+</div>
+</div>
+
+<h2 id="s5">冷却の速さの決め方</h2>
+<p>回分の冷却晶析で、一定の速さで冷やすと、結晶がまだ小さく表面積が少ない初めのうちに過飽和度が急に上がり、核が多く生まれてしまいます。そこで、初めはゆっくり、結晶が大きくなるにつれて速く冷やす<strong>プログラム冷却</strong>がよく使われます。結晶の表面積に見合った速さで溶質を析出させ、過飽和度をほぼ一定に保つ考え方です。</p>
+<ul>
+<li>撹拌は、結晶を均一に浮かせるのに必要な強さにとどめる。強すぎると結晶が壊れ、二次核発生が増える</li>
+<li>冷却面の温度が低すぎると、その近くで過飽和度が高くなり、面に結晶がつく（スケーリング）</li>
+<li>連続晶析では、細かい結晶だけを抜き出して溶かして戻す方法（微結晶の溶解）で、粒径を大きくすることもある</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/separation/crystallization.html">← 晶析の基礎</a><a class="next" href="/separation/crystallization-msmpr.html">晶析の設計 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/separation/">分離操作の記事</a></h2><ul><li><a href="/separation/flash-and-simple-distillation.html">蒸留の基礎</a></li><li><a href="/separation/mccabe-thiele.html">マッケーブ・シーレ法の手順</a></li><li><a href="/separation/minimum-reflux-ratio.html">最小還流比と最小理論段数</a></li><li><a href="/separation/tray-column-design.html">蒸留塔の段の構造と塔径の決め方</a></li><li><a href="/separation/shortcut-distillation.html">多成分蒸留の近道法</a></li><li><a href="/separation/gas-absorption-column.html">ガス吸収塔の設計</a></li><li><a href="/separation/packed-column.html">充填塔の設計</a></li><li><a href="/separation/chemical-absorption.html">反応を伴うガス吸収</a></li><li><a href="/separation/liquid-liquid-extraction.html">液液抽出の基礎</a></li><li><a href="/separation/humidity.html">絶対湿度・相対湿度・露点の計算</a></li><li><a href="/separation/cooling-tower.html">冷却塔の設計と運転</a></li><li><a href="/separation/drying.html">乾燥の基礎</a></li><li><a href="/separation/dryer-design.html">乾燥装置の設計</a></li><li><a href="/separation/crystallization.html">晶析の基礎</a></li><li><a href="/separation/crystal-size-control.html" aria-current="page">結晶の大きさの制御と種晶</a></li><li><a href="/separation/crystallization-msmpr.html">晶析の設計</a></li><li><a href="/separation/stripping-kremser.html">放散（ストリッピング）とクレムサーの式</a></li><li><a href="/separation/leaching.html">固液抽出と向流洗浄</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/" aria-current="page">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

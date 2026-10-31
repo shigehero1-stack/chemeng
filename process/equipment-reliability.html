@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>設備の信頼性と保全｜故障率・MTBF・アベイラビリティと、ワイブル分布で決める予防保全の周期｜はじめての化学工学</title>
+<meta name="description" content="プラントの設備管理で使う故障率、MTBF、MTTR、アベイラビリティの意味と計算方法、故障の起こり方を表すバスタブ曲線とワイブル分布、予備機による信頼性の向上、費用が最小になる予防交換の周期の決め方を、ポンプのメカニカルシールの例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/process/equipment-reliability.html">
+<meta property="og:title" content="設備の信頼性と保全｜故障率・MTBF・アベイラビリティと、ワイブル分布で決める予防保全の周期｜はじめての化学工学">
+<meta property="og:description" content="プラントの設備管理で使う故障率、MTBF、MTTR、アベイラビリティの意味と計算方法、故障の起こり方を表すバスタブ曲線とワイブル分布、予備機による信頼性の向上、費用が最小になる予防交換の周期の決め方を、ポンプのメカニカルシールの例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "設備の信頼性と保全", "description": "プラントの設備管理で使う故障率、MTBF、MTTR、アベイラビリティの意味と計算方法、故障の起こり方を表すバスタブ曲線とワイブル分布、予備機による信頼性の向上、費用が最小になる予防交換の周期の決め方を、ポンプのメカニカルシールの例題で解説します。", "datePublished": "2026-10-27", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/process/equipment-reliability.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/process/">プロセス設計と安全</a> › <span>設備の信頼性と保全</span></nav>
+    <article class="article">
+<h1>設備の信頼性と保全</h1>
+<p class="lead">プラントの設備管理で使う故障率、MTBF、MTTR、アベイラビリティの意味と計算方法、故障の起こり方を表すバスタブ曲線とワイブル分布、予備機による信頼性の向上、費用が最小になる予防交換の周期の決め方を、ポンプのメカニカルシールの例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">プラントを止めないための考え方</a></li><li><a href="#s2">故障率、MTBF、アベイラビリティ</a></li><li><a href="#s3">バスタブ曲線とワイブル分布</a></li><li><a href="#s4">予備機でアベイラビリティを上げる</a></li><li><a href="#s5">保全の計画で考えること</a></li></ol></nav>
+
+<h2 id="s1">プラントを止めないための考え方</h2>
+<p>化学プラントは、多くの場合 24 時間連続で運転されます。ポンプが1台止まっただけでプラント全体が止まれば、生産できなかった分の損失は、ポンプの修理費よりはるかに大きくなります。設備をいつ点検し、部品をいつ取り替えるかを計画する仕事を<strong>保全</strong>（メンテナンス）といい、運転管理の大きな柱になっています。</p>
+<p>保全のやり方は、大きく次の三つに分けられます。</p>
+<ul>
+<li><strong>事後保全</strong>：壊れてから直す。費用は安いが、いつ止まるかわからない</li>
+<li><strong>時間基準保全</strong>（予防保全）：決めた期間ごとに部品を交換する。止まる時期を計画できるが、まだ使える部品も取り替える</li>
+<li><strong>状態基準保全</strong>（予知保全）：振動、温度、油の分析などで設備の状態を監視し、劣化の兆しが出たら直す</li>
+</ul>
+<p>どのやり方がよいかは、設備の壊れ方によって決まります。それを数字で考えるのが<strong>信頼性工学</strong>です。</p>
+
+<h2 id="s2">故障率、MTBF、アベイラビリティ</h2>
+<p>まず基本の量を整理します。</p>
+<ul>
+<li><strong>信頼度</strong> $R(t)$：時刻 $t$ まで故障せずに動いている確率</li>
+<li><strong>故障率</strong> $\lambda(t)$：時刻 $t$ まで動いていたものが、次の単位時間に故障する割合 [1/h]</li>
+<li><strong>MTBF</strong>（平均故障間隔）：修理しながら使う設備の、故障から次の故障までの平均の運転時間。修理しない部品では MTTF（平均故障寿命）という</li>
+<li><strong>MTTR</strong>（平均修復時間）：故障してから運転に戻るまでの平均の時間</li>
+</ul>
+<p>故障率が時間によらず一定 $\lambda$ なら、信頼度は指数関数になり、MTBF は故障率の逆数です。</p>
+<div class="formula">$$R(t) = e^{-\lambda t}, \qquad \mathrm{MTBF} = \frac{1}{\lambda}$$</div>
+<p>設備が使える状態にある時間の割合を<strong>アベイラビリティ</strong>（稼働率）といいます。</p>
+<div class="formula">$$A = \frac{\mathrm{MTBF}}{\mathrm{MTBF} + \mathrm{MTTR}}$$</div>
+<p>アベイラビリティを上げるには、故障を減らす（MTBF を延ばす）だけでなく、予備品をそろえて修理を早くする（MTTR を縮める）ことも同じくらい効きます。</p>
+
+<h2 id="s3">バスタブ曲線とワイブル分布</h2>
+<p>多くの設備の故障率は、使い始めからの時間に対して、図1のような<strong>バスタブ曲線</strong>を描きます。</p>
+<figure class="fig"><a href="/fig/bathtub-curve.svg" target="_blank" rel="noopener"><img src="/fig/bathtub-curve.svg" alt="図1　故障率のバスタブ曲線（模式図）" width="640" height="300" loading="lazy"></a><figcaption>図1　故障率のバスタブ曲線（模式図）</figcaption></figure>
+<p>この三つの時期をまとめて表せるのが<strong>ワイブル分布</strong>です。</p>
+<div class="formula">$$R(t) = \exp\!\left[-\left(\frac{t}{\eta}\right)^{\beta}\right], \qquad \lambda(t) = \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta - 1}$$</div>
+<p>$\eta$ は尺度パラメータ（約 63% が故障するまでの時間）、$\beta$ は形状パラメータです。$\beta$ < 1 なら故障率が時間とともに下がる初期故障型、$\beta$ = 1 なら一定の偶発故障型（指数分布と同じ）、$\beta$ > 1 なら故障率が上がる摩耗故障型を表します。平均寿命は $\mathrm{MTTF} = \eta\,\Gamma(1 + 1/\beta)$ です（$\Gamma$ はガンマ関数）。</p>
+<p>過去の故障の記録から $\beta$ と $\eta$ を求めるには、故障までの時間を小さい順に並べ、累積の故障割合 $F$ に対して $\ln[-\ln(1 - F)]$ と $\ln t$ を<a href="/numerical/least-squares.html">最小二乗法</a>で直線にあてはめます。傾きが $\beta$ になります。</p>
+
+<div class="example">
+<strong>例題：メカニカルシールの交換周期</strong>
+<p>あるポンプのメカニカルシール（軸の封止部品）の寿命は、過去の記録から $\beta$ = 2.5、$\eta$ = 12 000 h のワイブル分布に従うことがわかっています。計画的に交換すると費用は 30 万円ですが、運転中に漏れて故障すると、修理と生産の損失で 200 万円かかります。</p>
+<p>(1) 平均寿命と、5000 h 使ったときに故障している確率を求めてください。</p>
+<p>(2) 一定の使用時間 $T$ ごとに予防交換するとき、1年あたりの平均費用が最小になる $T$ を求め、故障するまで使い続ける場合と比べてください。</p>
+<div class="answer">
+<p><strong>(1)</strong> $\mathrm{MTTF} = 12\,000 \times \Gamma(1.4) = 12\,000 \times 0.8873 = 10\,650$ h（約 1.2 年）</p>
+<p>$F(5000) = 1 - \exp[-(5000/12\,000)^{2.5}] = 1 - \exp(-0.112) = 0.106$、つまり 5000 h までに約 11% が故障します。</p>
+<p><strong>(2)</strong> 使用時間 $T$ で交換する方式では、1サイクルの平均費用は「$T$ まで持てば 30 万円、途中で壊れれば 200 万円」の期待値、1サイクルの平均の長さは $\int_0^T R(t)\,dt$ なので</p>
+<div class="formula">$$C(T) = \frac{C_p\,R(T) + C_f\,[1 - R(T)]}{\displaystyle\int_0^T R(t)\,dt}$$</div>
+<p>これを数値計算すると、図2のように $T$ ≈ 5200 h（約7か月）で最小になり、年 87 万円です。故障するまで使い続けると、$C_f / \mathrm{MTTF} = 200 / 10\,650 \times 8760 = 165$ 万円/年なので、<strong>予防交換によって費用はほぼ半分になります</strong>。</p>
+</div>
+</div>
+<figure class="fig"><a href="/fig/pm-cost-rate.svg" target="_blank" rel="noopener"><img src="/fig/pm-cost-rate.svg" alt="図2　予防交換の周期と1年あたりの平均費用（例題の条件で当サイトで計算）" width="660" height="330" loading="lazy"></a><figcaption>図2　予防交換の周期と1年あたりの平均費用（例題の条件で当サイトで計算）</figcaption></figure>
+<p>図2の点線は、平均寿命が同じで $\beta$ = 1（偶発故障）の場合です。この場合は、交換を早めるほど費用が増え、予防交換をする意味がありません。<strong>故障率が一定の部品は、古くなっても壊れやすくならないので、新品に替えても故障は減らない</strong>からです。偶発故障が中心の設備（電子部品など）には、予備機を置く、状態を監視するといった別の対策をとります。</p>
+
+<h2 id="s4">予備機でアベイラビリティを上げる</h2>
+<p>例題のポンプの MTBF を 10 650 h、MTTR を 24 h とすると、1台のアベイラビリティは</p>
+<div class="formula">$$A = \frac{10\,650}{10\,650 + 24} = 0.9978$$</div>
+<p>で、1年に平均約 20 時間止まる計算です。同じポンプを2台並べ、1台が止まったらもう1台にすぐ切り替えられるなら、2台とも同時に止まる確率は $(1 - A)^2 = 5 \times 10^{-6}$ となり、止まる時間は1年に約 3 分まで減ります（2台の故障が互いに無関係で、切り替えに失敗しないと仮定した場合）。</p>
+<p>化学プラントで重要なポンプに予備機（スペア）を並べておくのはこのためです。ただし、予備機は長く止めたままにすると、いざというときに動かないことがあります。予備機も定期的に切り替えて運転し、動くことを確かめておく必要があります。安全装置の作動の確かさを数字で扱う方法は、<a href="/process/lopa.html">LOPA</a>の記事で説明しています。</p>
+
+<h2 id="s5">保全の計画で考えること</h2>
+<ul>
+<li><strong>故障の記録を残す</strong>：$\beta$ や $\eta$ は、故障した日時、運転時間、壊れた部品と原因の記録がなければ求められません。保全の改善は、記録の整備から始まります</li>
+<li><strong>定期修理（シャットダウン）</strong>：多くのプラントは、1〜4年ごとに全体を止めて、塔や槽の内部の点検、熱交換器の清掃などをまとめて行います。予防交換の周期は、この定期修理の間隔に合わせて決めることも多くあります</li>
+<li><strong>腐食と寿命</strong>：配管や容器の肉厚の減り方は、<a href="/process/materials-and-corrosion.html">腐食速度</a>の測定から余寿命を見積もり、次の点検の時期を決めます</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/process/statistical-process-control.html">管理図と工程能力指数</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/process/batch-scheduling.html">← 回分プロセスの生産計画</a><a class="next" href="/process/statistical-process-control.html">管理図と工程能力指数 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/process/">プロセス設計と安全の記事</a></h2><ul><li><a href="/process/process-design-basics.html">プロセス設計の進め方と設備費の見積もり</a></li><li><a href="/process/process-economics.html">プロセスの経済性</a></li><li><a href="/process/process-safety.html">化学プロセスの安全の基礎</a></li><li><a href="/process/relief-valve-sizing.html">安全弁の吹出し面積の計算</a></li><li><a href="/process/lopa.html">プロセス安全の定量評価</a></li><li><a href="/process/materials-and-corrosion.html">装置材料と腐食の基礎</a></li><li><a href="/process/pressure-vessel-thickness.html">圧力容器の肉厚計算</a></li><li><a href="/process/batch-scheduling.html">回分プロセスの生産計画</a></li><li><a href="/process/equipment-reliability.html" aria-current="page">設備の信頼性と保全</a></li><li><a href="/process/statistical-process-control.html">管理図と工程能力指数</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/" aria-current="page">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>

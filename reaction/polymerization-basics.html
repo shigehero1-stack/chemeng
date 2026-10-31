@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重合反応の基礎｜逐次重合と連鎖重合、重合度と分子量分布｜はじめての化学工学</title>
+<meta name="description" content="高分子を作る重合反応の2つの型（逐次重合と連鎖重合）の違い、カロザースの式による反応率と重合度の関係、数平均分子量と重量平均分子量・分散度の計算、重合反応器の熱の除去を例題で解説します。">
+<link rel="canonical" href="https://chemeng-nyumon.com/reaction/polymerization-basics.html">
+<meta property="og:title" content="重合反応の基礎｜逐次重合と連鎖重合、重合度と分子量分布｜はじめての化学工学">
+<meta property="og:description" content="高分子を作る重合反応の2つの型（逐次重合と連鎖重合）の違い、カロザースの式による反応率と重合度の関係、数平均分子量と重量平均分子量・分散度の計算、重合反応器の熱の除去を例題で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="はじめての化学工学">
+<meta name="robots" content="noai, noimageai">
+<link rel="stylesheet" href="/assets/style.css?v=715ad9ba">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script defer src="/assets/main.js?v=715ad9ba"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1188139720121435" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV3DKQM30Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LV3DKQM30Z');</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "重合反応の基礎", "description": "高分子を作る重合反応の2つの型（逐次重合と連鎖重合）の違い、カロザースの式による反応率と重合度の関係、数平均分子量と重量平均分子量・分散度の計算、重合反応器の熱の除去を例題で解説します。", "datePublished": "2026-10-13", "dateModified": "2026-10-27", "author": {"@type": "Organization", "name": "はじめての化学工学 編集部", "url": "https://chemeng-nyumon.com/pages/about.html"}, "publisher": {"@type": "Organization", "name": "はじめての化学工学", "url": "https://chemeng-nyumon.com"}, "mainEntityOfPage": "https://chemeng-nyumon.com/reaction/polymerization-basics.html"}</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">はじめての化学工学</a>
+    <nav class="global-nav" aria-label="カテゴリ"><a href="/basics/">基礎</a><a href="/thermo/">物性と熱力学</a><a href="/fluid/">流体</a><a href="/heat/">伝熱</a><a href="/mass/">物質移動</a><a href="/particle/">粉体と機械的分離</a><a href="/separation/">分離操作</a><a href="/adsorption/">吸着・イオン交換</a><a href="/membrane/">膜分離</a><a href="/reaction/">反応工学</a><a href="/materials/">高分子・材料プロセス</a><a href="/bio/">生物工学</a><a href="/environment/">環境保全</a><a href="/energy/">エネルギー有効利用</a><a href="/process/">プロセス設計と安全</a><a href="/numerical/">数値計算</a><a href="/control/">プロセス制御</a><a href="/data/">物性データ集</a><a href="/exam/">資格試験対策</a></nav>
+  </div>
+</header>
+<div class="wrap page">
+  <main>
+    <nav class="crumbs" aria-label="パンくずリスト"><a href="/">ホーム</a> › <a href="/reaction/">反応工学</a> › <span>重合反応の基礎</span></nav>
+    <article class="article">
+<h1>重合反応の基礎</h1>
+<p class="lead">高分子を作る重合反応の2つの型（逐次重合と連鎖重合）の違い、カロザースの式による反応率と重合度の関係、数平均分子量と重量平均分子量・分散度の計算、重合反応器の熱の除去を例題で解説します。</p>
+<p class="byline">公開日 <time datetime="2026-10-13">2026-10-13</time>　更新日 <time datetime="2026-10-27">2026-10-27</time>　執筆・図の作成：<a href="/pages/about.html">はじめての化学工学 編集部</a></p>
+<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol><li><a href="#s1">重合とは</a></li><li><a href="#s2">2つの重合の型</a></li><li><a href="#s3">逐次重合とカロザースの式</a></li><li><a href="#s4">分子量の平均と分布</a></li><li><a href="#s5">重合反応器で気をつけること</a></li></ol></nav>
+
+<h2 id="s1">重合とは</h2>
+<p><strong>重合</strong>は、小さな分子（モノマー）が次々につながって、非常に大きな分子（ポリマー、高分子）を作る反応です。ポリエチレン、ポリプロピレン、ポリエステル、ナイロンなどのプラスチックや合成繊維、合成ゴムは、すべて重合で作られています。</p>
+<p>高分子の性質（強さ、溶けたときの粘さ、加工のしやすさ）は、分子の大きさとそのばらつきで大きく変わります。そのため重合反応の工学では、反応の速さだけでなく、<strong>どれだけ長い分子をどれだけそろえて作るか</strong>を制御することが中心になります。</p>
+
+<h2 id="s2">2つの重合の型</h2>
+<table>
+<tr><th></th><th>逐次重合（重縮合・重付加）</th><th>連鎖重合（付加重合）</th></tr>
+<tr><td>進み方</td><td>どの分子どうしも反応して、少しずつ長くなる</td><td>活性な末端（ラジカルなど）にモノマーが次々に高速で付加する</td></tr>
+<tr><td>分子の大きさ</td><td>反応の終わり近くになって急に大きくなる</td><td>反応の初めから長い分子ができる</td></tr>
+<tr><td>例</td><td>ポリエステル（PET）、ナイロン、ポリウレタン</td><td>ポリエチレン、ポリスチレン、塩化ビニル樹脂</td></tr>
+</table>
+
+<h2 id="s3">逐次重合とカロザースの式</h2>
+<p>2つの官能基をもつモノマー（たとえばジカルボン酸とジオール）が等しい量で反応する逐次重合では、官能基の反応率 $p$ と、できた分子1本あたりのモノマー単位の平均の数（数平均重合度 $\bar{X}_n$）の間に、次の関係があります。</p>
+<div class="formula">$$\bar{X}_n = \frac{1}{1 - p}$$</div>
+<p>これを<strong>カロザースの式</strong>といいます。反応率が 90% でも重合度は 10 にしかならず、実用的な高分子（重合度100以上）を得るには、反応率を 99% 以上にする必要があります。そのため、生成する水などの副生物を減圧で取り除いて平衡を進め（<a href="/reaction/chemical-equilibrium.html">化学平衡</a>）、原料の量の比を厳密にそろえることが重要です。</p>
+<figure class="fig"><a href="/fig/carothers-equation.svg" target="_blank" rel="noopener"><img src="/fig/carothers-equation.svg" alt="図1　カロザースの式による反応率と重合度" width="580" height="320" loading="lazy"></a><figcaption>図1　カロザースの式による反応率と数平均重合度の関係。反応の終わり近くで急に重合度が上がる</figcaption></figure>
+
+<h2 id="s4">分子量の平均と分布</h2>
+<p>高分子には、長さの違う分子が混ざっています。そのため分子量は平均値で表し、平均のとり方によって2種類がよく使われます。分子量 $M_i$ の分子が $N_i$ 個あるとき</p>
+<div class="formula">$$\bar{M}_n = \frac{\sum N_i M_i}{\sum N_i}, \qquad \bar{M}_w = \frac{\sum N_i M_i^2}{\sum N_i M_i}$$</div>
+<p>$\bar{M}_n$ を<strong>数平均分子量</strong>、$\bar{M}_w$ を<strong>重量平均分子量</strong>といいます。重量平均は大きな分子の影響を強く受け、必ず数平均以上になります。その比 $\bar{M}_w / \bar{M}_n$ を<strong>分散度</strong>（多分散度）といい、分子の大きさのばらつきを表します。理想的な逐次重合では、反応が十分進むと分散度は約2になります。<a href="/particle/particle-size.html">粒子径の個数平均とザウター平均</a>と同じ考え方です。</p>
+
+<div class="example">
+<strong>例題：反応率と分子量</strong>
+<p>繰り返し単位の分子量が 192 のポリエステルを逐次重合で作ります（繰り返し単位1つが、モノマー2つ分に当たるとします）。(1) 官能基の反応率が 99.0% と 99.5% のときの数平均重合度を求めてください。(2) それぞれの数平均分子量を見積もってください。(3) 分子量 1 万、2 万、4 万の分子が、個数で 5:3:2 の割合で混ざっている試料の数平均分子量、重量平均分子量、分散度を求めてください。</p>
+<div class="answer">
+<p>(1) $p = 0.990$：$\bar{X}_n = 1/0.010 = 100$。$p = 0.995$：$\bar{X}_n = 1/0.005 = 200$</p>
+<p>(2) 重合度はモノマー単位の数なので、繰り返し単位の数はその半分です。$\bar{M}_n \approx 100/2 \times 192 = 9600$、$200/2 \times 192 = 19\,200$。反応率がわずか 0.5% 上がるだけで、分子量は2倍になります。</p>
+<p>(3) $\bar{M}_n = \dfrac{5 \times 1 + 3 \times 2 + 2 \times 4}{5 + 3 + 2} = 1.9$ 万</p>
+<p>$\bar{M}_w = \dfrac{5 \times 1^2 + 3 \times 2^2 + 2 \times 4^2}{5 \times 1 + 3 \times 2 + 2 \times 4} = \dfrac{49}{19} \approx 2.58$ 万、分散度は $2.58 / 1.9 \approx 1.36$</p>
+</div>
+</div>
+
+<h2 id="s5">重合反応器で気をつけること</h2>
+<ul>
+<li><strong>熱の除去</strong>：重合は大きな発熱反応で、熱を取り損ねると温度が上がって反応が加速する暴走反応につながる。ジャケットや冷却コイル、還流冷却、反応熱を吸収する溶媒や水（懸濁重合・乳化重合）を使って除熱する</li>
+<li><strong>粘度の上昇</strong>：反応が進むと液の粘度が何桁も上がり、撹拌と伝熱が難しくなる（<a href="/fluid/agitation-power.html">撹拌動力</a>の層流域）。高粘度に対応した撹拌翼や、押出機型の反応器を使う</li>
+<li><strong>分子量の制御</strong>：温度、開始剤や触媒の量、連鎖移動剤の添加などで分子量を調整する</li>
+</ul>
+<!-- related --><aside class="related"><p class="related-title">あわせて読みたい</p><ul><li><a href="/materials/extruder.html">押出機の押出量の計算</a></li><li><a href="/materials/injection-molding-cooling.html">射出成形の冷却時間</a></li></ul></aside><!-- /related -->
+
+
+<nav class="pager"><a class="prev" href="/reaction/gas-solid-reaction.html">← 気固反応と未反応核モデル</a><a class="next" href="/reaction/semi-batch-reactor.html">半回分反応器の考え方 →</a></nav>
+</article>
+  </main>
+  <div class="sidebar">
+    
+    <nav class="toc" aria-label="記事一覧"><h2><a href="/reaction/">反応工学の記事</a></h2><ul><li><a href="/reaction/reaction-rate.html">反応速度と反応次数、アレニウスの式をわかりやすく</a></li><li><a href="/reaction/batch-reactor.html">回分反応器の設計式</a></li><li><a href="/reaction/rate-data-analysis.html">反応速度の解析法</a></li><li><a href="/reaction/cstr-vs-pfr.html">連続槽型反応器（CSTR）と管型反応器（PFR）の違いと設計式</a></li><li><a href="/reaction/complex-reactions.html">複合反応と選択率</a></li><li><a href="/reaction/reactor-heat-balance.html">反応器の熱収支</a></li><li><a href="/reaction/residence-time-distribution.html">滞留時間分布と非理想流れ</a></li><li><a href="/reaction/catalyst-effectiveness.html">固体触媒反応と触媒有効係数</a></li><li><a href="/reaction/chemical-equilibrium.html">化学平衡と反応熱</a></li><li><a href="/reaction/bioreactor-monod.html">微生物反応とバイオリアクター</a></li><li><a href="/reaction/gas-solid-reaction.html">気固反応と未反応核モデル</a></li><li><a href="/reaction/polymerization-basics.html" aria-current="page">重合反応の基礎</a></li><li><a href="/reaction/semi-batch-reactor.html">半回分反応器の考え方</a></li><li><a href="/reaction/thermal-runaway.html">熱暴走と安全設計</a></li></ul><h2>カテゴリ</h2><ul><li><a href="/basics/">基礎（7）</a></li><li><a href="/thermo/">物性と熱力学（12）</a></li><li><a href="/fluid/">流体（15）</a></li><li><a href="/heat/">伝熱（12）</a></li><li><a href="/mass/">物質移動（5）</a></li><li><a href="/particle/">粉体と機械的分離（10）</a></li><li><a href="/separation/">分離操作（18）</a></li><li><a href="/adsorption/">吸着・イオン交換（4）</a></li><li><a href="/membrane/">膜分離（3）</a></li><li><a href="/reaction/" aria-current="page">反応工学（14）</a></li><li><a href="/materials/">高分子・材料プロセス（4）</a></li><li><a href="/bio/">生物工学（5）</a></li><li><a href="/environment/">環境保全（6）</a></li><li><a href="/energy/">エネルギー有効利用（4）</a></li><li><a href="/process/">プロセス設計と安全（10）</a></li><li><a href="/numerical/">数値計算（6）</a></li><li><a href="/control/">プロセス制御（7）</a></li><li><a href="/data/">物性データ集（6）</a></li><li><a href="/exam/">資格試験対策（2）</a></li></ul></nav>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/pages/about.html">運営者情報・免責事項</a><a href="/pages/privacy.html">プライバシーポリシー</a><a href="/pages/contact.html">お問い合わせ</a></nav>
+    <p>© 2026 はじめての化学工学</p>
+  </div>
+</footer>
+</body>
+</html>
