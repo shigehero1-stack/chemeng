@@ -124,6 +124,10 @@ def water_saturation_p():
 <strong>使い方の例：ゲージ圧 0.5 MPa の蒸気</strong>
 <p>絶対圧は約 600 kPa なので、表の 600 kPa の行から、飽和温度は約 158.8 °C、蒸発潜熱は約 2086 kJ/kg です。この蒸気で加熱できるのは、158 °C より低い温度までということになります。</p>
 </div>
+<div class="example">
+<strong>使い方の例：高圧のドレンから出るフラッシュ蒸気</strong>
+<p>1 MPa（絶対圧）の飽和水（ドレン）を大気圧のタンクに流すと、一部がその場で蒸発します。表から、1000 kPa の飽和水の比エンタルピーは約 762.7 kJ/kg、101.325 kPa の飽和水は約 419.0 kJ/kg、101.325 kPa の蒸発潜熱は約 2256.5 kJ/kg です。エネルギー収支から、蒸発する割合は $(762.7 - 419.0) / 2256.5 \\approx 0.152$、つまりドレンの約 15% が蒸気になります。この蒸気を回収する方法は<a href="/energy/flash-steam-recovery.html">フラッシュ蒸気の回収</a>で解説しています。</p>
+</div>
 <h2>出典</h2>
 <ul>{IF97_SRC}</ul>
 """
@@ -157,6 +161,10 @@ def superheated():
 <div class="example">
 <strong>使い方の例：過熱蒸気を飽和蒸気まで冷やすときの熱</strong>
 <p>1 MPa、300 °C の過熱蒸気の比エンタルピーは表から約 3051 kJ/kg、同じ圧力の飽和蒸気（179.9 °C）は<a href="/data/water-saturation-pressure.html">圧力基準の飽和表</a>から約 2777 kJ/kg です。1 kg あたり約 274 kJ が、過熱の分として取り出せる熱です。凝縮で出る潜熱（約 2015 kJ/kg）に比べるとずっと小さく、加熱に蒸気を使うときは主に潜熱を利用していることがわかります。</p>
+</div>
+<div class="example">
+<strong>使い方の例：蒸気配管の太さを決める</strong>
+<p>1 MPa、250 °C の過熱蒸気を 2 t/h 送ります。表から比体積は約 0.2327 m³/kg なので、体積流量は $2000 / 3600 \\times 0.2327 \\approx 0.129$ m³/s です。蒸気配管の流速を 30 m/s 程度とすると、必要な断面積は $0.129 / 30 = 4.31 \\times 10^{{-3}}$ m²、内径は $\\sqrt{{4 \\times 4.31 \\times 10^{{-3}} / \\pi}} \\approx 0.074$ m です。同じ質量流量でも圧力が低いほど比体積が大きくなり、太い配管が必要になります。</p>
 </div>
 <h2>出典</h2>
 <ul>{IF97_SRC}</ul>
@@ -394,6 +402,10 @@ def constants():
 {html_table(["量", "単位", "SI単位での値", "備考"], rows2, cls="")}
 {csv_link("unit-conversions", "単位換算表")}
 <p>「定義」の換算は誤差のない値です。「定義から計算」は定義の組み合わせから計算した値を、表示の桁で丸めています。単位の考え方とゲージ圧・絶対圧の違いは<a href="/basics/units.html">単位と単位換算の基本</a>で解説しています。</p>
+<div class="example">
+<strong>使い方の例：海外の機器の仕様を SI 単位に直す</strong>
+<p>海外製のポンプの仕様書に「100 gpm（US gal/min）、吐出圧力 150 psig」と書かれています。流量は $100 \\times 3.785 = 378.5$ L/min、1時間あたりに直すと $378.5 \\times 60 / 1000 \\approx 22.7$ m³/h です。圧力の psig は psi 単位のゲージ圧なので、$150 \\times 6.895 \\approx 1034$ kPa（ゲージ圧）、絶対圧では大気圧を足して約 1135 kPa になります。</p>
+</div>
 <h2>出典</h2>
 <ul>
 <li>E. Tiesinga et al., "CODATA Recommended Values of the Fundamental Physical Constants: 2018", <a href="https://physics.nist.gov/cuu/Constants/" rel="nofollow">NIST Physical Measurement Laboratory</a></li>

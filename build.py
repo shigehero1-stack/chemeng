@@ -288,12 +288,25 @@ def article_page(m, sec, sections):
         "publisher": {"@type": "Organization", "name": SITE_NAME, "url": SITE_URL},
         "mainEntityOfPage": f"{SITE_URL}{m['url']}",
     }, ensure_ascii=False) + "</script>"
+    # 見出し（h2）が3つ以上ある記事には、冒頭に目次を出す
+    heads = []
+
+    def add_id(mt):
+        heads.append(re.sub(r"<[^>]+>", "", mt.group(1)))
+        return f'<h2 id="s{len(heads)}">{mt.group(1)}</h2>'
+
+    body_with_ids = re.sub(r"<h2>(.*?)</h2>", add_id, m["body"])
+    toc = ""
+    if len([h for h in heads if h not in ("出典", "参考文献")]) >= 3:
+        items = "".join(f'<li><a href="#s{i}">{h}</a></li>' for i, h in enumerate(heads, 1))
+        toc = f'<nav class="article-toc" aria-label="この記事の目次"><p>目次</p><ol>{items}</ol></nav>'
     # 図はタップ（クリック）で拡大して見られるように、画像そのものへのリンクで包む
-    body = re.sub(r'(<img src="(/fig/[^"]+)"[^>]*>)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', m["body"])
+    body = re.sub(r'(<img src="(/fig/[^"]+)"[^>]*>)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', body_with_ids)
     main = f"""<article class="article">
 <h1>{html.escape(m["title"].split("｜")[0])}</h1>
 <p class="lead">{html.escape(m["description"])}</p>
 <p class="byline">公開日 <time datetime="{m["published"]}">{m["published"]}</time>{updated}　執筆・図の作成：<a href="/pages/about.html">{html.escape(AUTHOR_NAME)}</a></p>
+{toc}
 {ad_slot("広告（記事上）")}
 {body}
 {ad_slot("広告（記事下）")}
