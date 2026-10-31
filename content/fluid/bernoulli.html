@@ -39,3 +39,18 @@ order: 2
 <li>圧力はどちらもゲージ圧、またはどちらも絶対圧にそろえる</li>
 <li>気体で圧力が大きく変わる場合は密度一定とみなせないので、そのままでは使えない</li>
 </ul>
+<h2>練習問題</h2>
+<div class="example">
+<strong>練習1：管が細くなると圧力はどれだけ下がるか</strong>
+<p>水平な配管が内径 100 mm から 50 mm に細くなっています。太い側の流速は 1.0 m/s です。水の密度を 998 kg/m³ とし、損失を無視して、細い側で圧力がどれだけ下がるかを求めてください。</p>
+<div class="answer">
+<p>流量は同じなので、流速は断面積に反比例します。内径が半分なら断面積は 1/4 なので、細い側の流速は $u_2 = 4.0$ m/s です。</p>
+<p>高さが同じなので、ベルヌーイの式から $p_1 - p_2 = \dfrac{\rho}{2}(u_2^2 - u_1^2) = \dfrac{998}{2} \times (16 - 1) \approx 7.5 \times 10^{3}\ \text{Pa}$、つまり約 7.5 kPa 下がります。この圧力差を測って流量を求めるのが、<a href="/fluid/flow-measurement.html">ベンチュリ管やオリフィス</a>です。</p>
+</div>
+</div>
+<div class="example">
+<strong>練習2：圧力をヘッドに直す</strong>
+<p>ポンプの入口と出口の圧力差が 200 kPa でした。水のヘッド（m）ではいくらですか。</p>
+<div class="answer"><p>$H = \dfrac{\Delta p}{\rho g} = \dfrac{200 \times 10^3}{998 \times 9.81} \approx 20.4\ \text{m}$ です。「水を約 20 m 持ち上げられる圧力」と読めるので、<a href="/fluid/pump-power.html">ポンプの揚程</a>の見当がつけやすくなります。</p></div>
+</div>
+<div class="note">実際の配管では、摩擦や弁・曲がりで必ずエネルギーが失われます。損失を無視した答えは「最大でもこのくらい」という目安と考え、設計では<a href="/fluid/pressure-loss.html">圧力損失</a>の項を加えます。</div>

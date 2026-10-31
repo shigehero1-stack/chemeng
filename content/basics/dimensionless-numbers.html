@@ -31,3 +31,21 @@ order: 4
 </div>
 </div>
 <figure class="fig"><img src="/fig/prandtl-number-compare.svg" alt="図2　流体によるプラントル数の違い（対数目盛）。油は水よりも数百倍大きい" width="560" height="220" loading="lazy"><figcaption>図2　流体によるプラントル数の違い（対数目盛）。油は水よりも数百倍大きい</figcaption></figure>
+<h2>使うときの注意</h2>
+<ul>
+<li><strong>代表長さの取り方：</strong>同じ Re でも、円管なら管径、撹拌槽なら翼の直径、平板なら先端からの距離を使います。相関式の出典がどの長さを使っているかを必ず確かめます。</li>
+<li><strong>単位をそろえる：</strong>無次元数は単位が打ち消しあうことが前提です。粘度を cP のまま、管径を mm のまま入れると、桁が大きくずれます。</li>
+<li><strong>物性値の温度：</strong>流体の温度が入口と出口で大きく違うときは、平均温度（膜温度）での物性値を使うなど、相関式が決めている条件に合わせます。</li>
+</ul>
+
+<h2>練習問題</h2>
+<div class="example">
+<strong>練習1：ダクトを流れる空気のレイノルズ数</strong>
+<p>内径 0.3 m の円形ダクトに、20 °C の空気が 10 m/s で流れています。密度 1.20 kg/m³、粘度 $1.81 \times 10^{-5}$ Pa·s として、Re を求めてください。</p>
+<div class="answer"><p>$\text{Re} = \dfrac{1.20 \times 10 \times 0.3}{1.81 \times 10^{-5}} \approx 2.0 \times 10^{5}$。十分に乱流です。</p></div>
+</div>
+<div class="example">
+<strong>練習2：空気中の水蒸気のシュミット数</strong>
+<p>上の空気に含まれる水蒸気の拡散係数を $D_{AB} = 2.5 \times 10^{-5}$ m²/s とします。シュミット数 $\text{Sc} = \mu / (\rho D_{AB})$ を求めてください。</p>
+<div class="answer"><p>動粘度は $\nu = \mu/\rho = 1.81 \times 10^{-5} / 1.20 = 1.51 \times 10^{-5}$ m²/s なので、$\text{Sc} = 1.51 \times 10^{-5} / 2.5 \times 10^{-5} \approx 0.60$ です。気体の Sc は 1 前後で、空気の Pr（約 0.7）と近い値になります。このため気体では、熱と物質の移動がほぼ同じように進みます（<a href="/mass/boundary-layer-analogy.html">境界層とアナロジー</a>）。</p></div>
+</div>

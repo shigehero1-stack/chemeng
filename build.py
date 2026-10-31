@@ -7,8 +7,10 @@
 """
 import hashlib
 import html
+import json
 import re
 import shutil
+import subprocess
 from datetime import date
 from pathlib import Path
 
@@ -28,6 +30,10 @@ SITE_URL = "https://chemeng-nyumon.com"
 BASE_PATH = ""
 # AdSense の審査に通ったら、発行されたクライアントID（ca-pub-...）を入れる
 ADSENSE_CLIENT = "ca-pub-1188139720121435"
+# 記事の執筆者として表示する名前（運営者情報のページと合わせる）
+AUTHOR_NAME = "はじめての化学工学 編集部"
+# トップページで各カテゴリに表示する記事の数（残りはカテゴリのページで一覧）
+INDEX_ITEMS_PER_SECTION = 4
 # Google アナリティクス（GA4）の測定ID（G-...）。空ならアクセス解析のタグを入れない
 GA_MEASUREMENT_ID = "G-LV3DKQM30Z"
 
@@ -96,6 +102,30 @@ AI_CRAWLERS = [
 FIXED_PAGES = ["about", "privacy", "contact"]
 
 
+def git_dates():
+    """content/ の各ファイルの、最初に公開した日と最後に更新した日（git の履歴から）"""
+    out = subprocess.run(
+        ["git", "log", "--format=@%ad", "--date=short", "--name-only", "--", "content"],
+        cwd=ROOT, capture_output=True, text=True,
+    ).stdout
+    dates, d = {}, None
+    for line in out.splitlines():
+        if line.startswith("@"):
+            d = line[1:]
+        elif line.strip():
+            first, last = dates.get(line.strip(), (d, d))
+            dates[line.strip()] = (d, last)  # 新しい順に並ぶので、最後に見た日付が公開日
+    return dates
+
+
+DATES = git_dates()
+
+
+def page_dates(path):
+    today = date.today().isoformat()
+    return DATES.get(str(path.relative_to(ROOT)), (today, today))
+
+
 def write_page(path, text):
     # サイト内リンク（/ で始まる href・src）に BASE_PATH を付けて書き出す
     if BASE_PATH:
@@ -126,6 +156,7 @@ def load_articles():
             m["slug"] = p.stem
             m["section"] = key
             m["url"] = f"/{key}/{p.stem}.html"
+            m["published"], m["updated"] = page_dates(p)
             items.append(m)
         items.sort(key=lambda m: m["order"])
         sections.append({"key": key, "name": name, "desc": desc, "items": items})
@@ -138,20 +169,29 @@ def ad_slot(label):
     return ""
 
 
-def layout(title, description, path, main, sections, breadcrumbs=None, article=False):
+def layout(title, description, path, main, sections, breadcrumbs=None, article=False, current_section=None, jsonld=""):
     full_title = f"{title}｜{SITE_NAME}" if title != SITE_NAME else f"{SITE_NAME}｜{SITE_TAGLINE}"
     nav = "".join(
         f'<a href="/{s["key"]}/">{html.escape(s["name"])}</a>' for s in sections
     )
     current = ' aria-current="page"'
+    # サイドバーには、いま見ているカテゴリの記事と、カテゴリの一覧だけを出す（全記事を毎ページに並べない）
     side = []
     for s in sections:
+        if s["key"] != current_section:
+            continue
         links = "".join(
             f'<li><a href="{m["url"]}"{current if m["url"] == path else ""}>'
             f'{html.escape(m["title"].split("｜")[0])}</a></li>'
             for m in s["items"]
         )
-        side.append(f'<h2><a href="/{s["key"]}/">{html.escape(s["name"])}</a></h2><ul>{links}</ul>')
+        side.append(f'<h2><a href="/{s["key"]}/">{html.escape(s["name"])}の記事</a></h2><ul>{links}</ul>')
+    cats = "".join(
+        f'<li><a href="/{s["key"]}/"{current if s["key"] == current_section else ""}>'
+        f'{html.escape(s["name"])}（{len(s["items"])}）</a></li>'
+        for s in sections
+    )
+    side.append(f"<h2>カテゴリ</h2><ul>{cats}</ul>")
     crumbs = ""
     if breadcrumbs:
         parts = ['<a href="/">ホーム</a>'] + [
@@ -196,6 +236,7 @@ def layout(title, description, path, main, sections, breadcrumbs=None, article=F
 {katex}
 {adsense}
 {analytics}
+{jsonld}
 </head>
 <body>
 <header class="site-header">
@@ -236,11 +277,23 @@ def article_page(m, sec, sections):
         f'<a class="next" href="{items[i+1]["url"]}">{html.escape(items[i+1]["title"].split("｜")[0])} →</a>'
         if i < len(items) - 1 else "<span></span>"
     )
+    updated = (
+        f'　更新日 <time datetime="{m["updated"]}">{m["updated"]}</time>' if m["updated"] != m["published"] else ""
+    )
+    jsonld = "<script type=\"application/ld+json\">" + json.dumps({
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": m["title"].split("｜")[0], "description": m["description"],
+        "datePublished": m["published"], "dateModified": m["updated"],
+        "author": {"@type": "Organization", "name": AUTHOR_NAME, "url": f"{SITE_URL}/pages/about.html"},
+        "publisher": {"@type": "Organization", "name": SITE_NAME, "url": SITE_URL},
+        "mainEntityOfPage": f"{SITE_URL}{m['url']}",
+    }, ensure_ascii=False) + "</script>"
     # 図はタップ（クリック）で拡大して見られるように、画像そのものへのリンクで包む
     body = re.sub(r'(<img src="(/fig/[^"]+)"[^>]*>)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', m["body"])
     main = f"""<article class="article">
 <h1>{html.escape(m["title"].split("｜")[0])}</h1>
 <p class="lead">{html.escape(m["description"])}</p>
+<p class="byline">公開日 <time datetime="{m["published"]}">{m["published"]}</time>{updated}　執筆・図の作成：<a href="/pages/about.html">{html.escape(AUTHOR_NAME)}</a></p>
 {ad_slot("広告（記事上）")}
 {body}
 {ad_slot("広告（記事下）")}
@@ -248,7 +301,8 @@ def article_page(m, sec, sections):
 </article>"""
     return layout(
         m["title"], m["description"], m["url"], main, sections,
-        breadcrumbs=[(sec["name"], f'/{sec["key"]}/'), (m["title"], None)], article=True,
+        breadcrumbs=[(sec["name"], f'/{sec["key"]}/'), (m["title"].split("｜")[0], None)], article=True,
+        current_section=sec["key"], jsonld=jsonld,
     )
 
 
@@ -261,7 +315,7 @@ def section_page(sec, sections):
     main = f'<h1>{html.escape(sec["name"])}</h1><p class="lead">{html.escape(sec["desc"])}</p><ul class="cards">{cards}</ul>'
     return layout(
         sec["name"], sec["desc"], f'/{sec["key"]}/', main, sections,
-        breadcrumbs=[(sec["name"], None)],
+        breadcrumbs=[(sec["name"], None)], current_section=sec["key"],
     )
 
 
@@ -271,11 +325,15 @@ def index_page(sections, intro):
         cards = "".join(
             f'<li><a href="{m["url"]}"><strong>{html.escape(m["title"].split("｜")[0])}</strong>'
             f'<span>{html.escape(m["description"])}</span></a></li>'
-            for m in s["items"]
+            for m in s["items"][:INDEX_ITEMS_PER_SECTION]
+        )
+        more = (
+            f'<p class="more"><a href="/{s["key"]}/">{html.escape(s["name"])}の記事をすべて見る（{len(s["items"])}本）→</a></p>'
+            if len(s["items"]) > INDEX_ITEMS_PER_SECTION else ""
         )
         blocks.append(
             f'<section><h2><a href="/{s["key"]}/">{html.escape(s["name"])}</a></h2>'
-            f'<p>{html.escape(s["desc"])}</p><ul class="cards">{cards}</ul></section>'
+            f'<p>{html.escape(s["desc"])}</p><ul class="cards">{cards}</ul>{more}</section>'
         )
     main = f'<div class="hero"><h1>{SITE_NAME}</h1><p>{SITE_TAGLINE}</p></div>{intro["body"]}{"".join(blocks)}'
     return layout(SITE_NAME, intro["description"], "/", main, sections)
@@ -303,15 +361,17 @@ def main():
         shutil.copytree(ROOT / "files", OUT / "files")
 
     sections = load_articles()
-    urls = ["/"]
+    # サイトマップに載せる URL と最終更新日
+    latest = max(m["updated"] for s in sections for m in s["items"])
+    urls = [("/", latest)]
     for sec in sections:
         d = OUT / sec["key"]
         d.mkdir(exist_ok=True)
         write_page(d / "index.html", section_page(sec, sections))
-        urls.append(f'/{sec["key"]}/')
+        urls.append((f'/{sec["key"]}/', max(m["updated"] for m in sec["items"])))
         for m in sec["items"]:
             write_page(d / f'{m["slug"]}.html', article_page(m, sec, sections))
-            urls.append(m["url"])
+            urls.append((m["url"], m["updated"]))
 
     (OUT / "pages").mkdir()
     for slug in FIXED_PAGES:
@@ -322,7 +382,16 @@ def main():
             OUT / "pages" / f"{slug}.html",
             layout(m["title"], m["description"], url, body, sections, breadcrumbs=[(m["title"], None)]),
         )
-        urls.append(url)
+        urls.append((url, page_dates(CONTENT / "pages" / f"{slug}.html")[1]))
+
+    # 見つからない URL のページ（GitHub Pages は 404.html を使う）
+    notfound = (
+        '<article class="article"><h1>ページが見つかりません</h1>'
+        "<p>お探しのページは移動したか、削除された可能性があります。</p>"
+        '<p><a href="/">トップページ</a>から、またはサイドバーのカテゴリから記事をお探しください。</p></article>'
+    )
+    write_page(OUT / "404.html", layout("ページが見つかりません", "お探しのページは見つかりませんでした。", "/404.html", notfound, sections)
+               .replace('content="noai, noimageai"', 'content="noindex, noai, noimageai"'))
 
     for old, new in REDIRECTS.items():
         dest = OUT / (old.lstrip("/") + ("index.html" if old.endswith("/") else ""))
@@ -337,8 +406,7 @@ def main():
     intro = parse(CONTENT / "index.html")
     write_page(OUT / "index.html", index_page(sections, intro))
 
-    today = date.today().isoformat()
-    entries = "".join(f"<url><loc>{SITE_URL}{u}</loc><lastmod>{today}</lastmod></url>" for u in urls)
+    entries = "".join(f"<url><loc>{SITE_URL}{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
     (OUT / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>\n',
         encoding="utf-8",

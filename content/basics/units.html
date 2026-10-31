@@ -58,3 +58,28 @@ order: 1
 <p>ある油の粘度が 25 cP と書かれています。SI単位 Pa·s で表してください。</p>
 <div class="answer"><p>1 cP = 10⁻³ Pa·s なので、$25\ \text{cP} = 0.025\ \text{Pa·s}$ です。</p></div>
 </div>
+<h2>よくある間違い</h2>
+<ul>
+<li><strong>ゲージ圧と絶対圧の混同：</strong>図面や計器の「kPaG」はゲージ圧、「kPaA」は絶対圧です。単位の後ろの G・A を見落とさないようにします。</li>
+<li><strong>mol と kmol：</strong>工業の計算では kmol/h をよく使います。1 kmol は 1000 mol で、1 kmol の質量は「モル質量（g/mol）の数値」kg です。窒素 1 kmol は 28.01 kg です。</li>
+<li><strong>wt% と mol%：</strong>濃度がどちらで書かれているかを必ず確かめます。蒸留や気液平衡の計算はモル分率で行います。</li>
+<li><strong>時間の単位：</strong>流量が m³/h、物性値が秒を含む単位（W = J/s など）のとき、3600 で割るのを忘れがちです。</li>
+<li><strong>温度の絶対値：</strong>温度差は °C のままでよいですが、気体の状態方程式や放射の計算のように温度そのものを使う式では、必ず K に直します。</li>
+</ul>
+
+<h2>練習問題</h2>
+<div class="example">
+<strong>練習1：流量の換算</strong>
+<p>5 m³/h は何 L/min ですか。</p>
+<div class="answer"><p>1 m³ = 1000 L、1 h = 60 min なので、$5 \times 1000 / 60 \approx 83.3\ \text{L/min}$ です。</p></div>
+</div>
+<div class="example">
+<strong>練習2：古い熱量の単位</strong>
+<p>古いカタログにヒーターの能力が 150 kcal/h と書かれています。1 kcal = 4.186 kJ として、W で表してください。</p>
+<div class="answer"><p>$150 \times 4.186 = 627.9\ \text{kJ/h}$。これを 3600 s で割ると $0.174\ \text{kJ/s} = 174\ \text{W}$ です。</p></div>
+</div>
+<div class="example">
+<strong>練習3：真空の圧力</strong>
+<p>真空ポンプにつないだ容器の圧力計が −80 kPa（ゲージ圧）を示しています。大気圧を 101.3 kPa として、絶対圧を求めてください。</p>
+<div class="answer"><p>$p_{\text{絶対}} = -80 + 101.3 = 21.3\ \text{kPa}$ です。真空の度合いは絶対圧で考えるほうが間違えにくく、<a href="/fluid/vacuum-pumping.html">真空排気</a>の計算でも絶対圧を使います。</p></div>
+</div>
